@@ -1,0 +1,46 @@
+@(assetsFinder: AssetsFinder)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>HighScore</title>
+        <link href="@assetsFinder.path("stylesheets/bootstrap.min.css")" rel="stylesheet" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="@assetsFinder.path("javascripts/bootstrap.min.js")"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
+    </head>
+    <body onload="createScoreArray()">
+            <!--menu-->
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container-fluid">
+                <a class="navbar-brand text-uppercase" href="/home"><img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav text-uppercase">
+                        <a class="nav-link" aria-current="page" href="/home">Home</a>
+                        <a class="nav-link active" href="/highscore">Highscores</a>
+                        <a class="nav-link" href="/profile">Profile</a>
+                        <a class="nav-link disabled">Dictionary</a>
+                        <a class="nav-link disabled">Chat</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+            <!--content-->
+
+        <div class="d-flex justify-content-center m-4 p-4">
+            <div class="scorebox col-md-6">
+                <h1 class="highscoreHeader">High Scores</h1>
+                <div class="list"></div>
+            </div>
+        </div>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/functions.js")"></script>
+    </body>
+</html>

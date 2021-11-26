@@ -25,12 +25,32 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() {
+
+
+    public Result login(){
         return ok(
-            index.render(
-                "Your new application is ready.",
-                assetsFinder
-            ));
+                login.render(assetsFinder)
+        );
     }
+
+    public Result home(){
+        return ok(
+                home.render(assetsFinder)
+        );
+    }
+
+    public Result highscore(){
+        return ok(
+                highscore.render(assetsFinder)
+        );
+    }
+
+    public Result profile(){
+        return ok(
+                profile.render(assetsFinder)
+        );
+    }
+
+
 
 }
