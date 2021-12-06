@@ -51,6 +51,23 @@ public class HomeController extends Controller {
         );
     }
 
+    public Result defaultGame(){
+        return ok(
+                defaultGame.render(assetsFinder)
+        );
+    }
+
+    public Result gameLevelTwo(){
+        return ok(
+                gameLevelTwo.render(assetsFinder)
+        );
+    }
+
+    public Result store(){
+        return ok(
+                store.render("Store",assetsFinder)
+        );
+    }
 
 
 }

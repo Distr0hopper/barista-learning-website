@@ -3,18 +3,26 @@
     margin: 0;
     box-sizing: border-box;
     font-family: "Trebuchet MS";
-}body{
-    /*background-color: rgba(197,156,129,0.45);*/
-    background-color: rgba(71,34,16,255)
- ;
- }
- /*menu*/
+}
+/*Farbvariablen*/
+:root{
+    --backround-color: rgba(71,34,16,255);
+    --light-brown-color: rgba(147,101,68,0.7);
+    --card-color: rgba(96,47,32,255);
+    --dark-brown-navbar: rgba(50,30,21,255);
+    --dropshadow-color: rgba(147,101,68,255);
+
+}
+body{
+    background-color: var(--backround-color);
+}
+/*menu*/
 .icon-menu{
     filter: invert(100%);
 }
 .navbar-custom {
     /*background-color: rgba(76,34,18,255);*/
-    background-color: rgba(50,30,21,255);
+    background-color: var(--dark-brown-navbar);
 ;
 }
 /* change the brand and text color */
@@ -33,69 +41,69 @@
 }
 .mainbackround{
     /*background-image: url("https://www.vecteezy.com/free-vector/cafe");*/
-    /* background-image: url("images/Industrial-01.jpg"); */
+    background-image: url("images/Industrial-01.jpg");
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     /*z-index: -1;*/
 }
- /*login*/
- .row-login{
-     /*background-color: rgba(255, 255, 255, 0.3);*/
-     background-color: rgba(147,101,68,0.7);
-     border-radius: 30px;
-     box-shadow: 6px 6px 11px rgba(147,101,68,255);
-     color: white;
- }
- .login_btn{
-     border: none;
-     outline: none;
-     width: 100%;
-     background-color: rgba(71,34,16,255);
-     color: white;
-     font-weight: bold;
-     border-radius: 20px;
- }
- .login_btn:hover{
-     background-color:  rgba(147,101,68,255);
-     border: transparent;
-     color: white;
- }
- a{
-     color: rgba(71,34,16,255);
- }
- a:hover{
-     color: rgba(147,101,68,260);
-     filter: brightness(120%);
- }
- #password{
-     border-radius: 15px;
- }
- #username{
-     border-radius: 15px;
- }
+/*login*/
+.row-login{
+    /*background-color: rgba(255, 255, 255, 0.3);*/
+    background-color: var(--light-brown-color);
+    border-radius: 30px;
+    box-shadow: 6px 6px 11px var(--dropshadow-color);
+    color: white;
+}
+.login_btn{
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: var(--backround-color);
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+}
+.login_btn:hover{
+    background-color: var(--dropshadow-color);
+    border: transparent;
+    color: white;
+}
+a{
+    color: var(--backround-color);
+}
+a:hover{
+    color: var(--light-brown-color);
+    filter: brightness(120%);
+}
+#password{
+    border-radius: 15px;
+}
+#username{
+    border-radius: 15px;
+}
 /*profile card*/
 .card {
     width: 700px;
     height: 700px;
     /*background-color: #efefef;*/
-    background-color: rgba(96,47,32,255);
+    background-color:var(--card-color);
     filter: brightness(110%);
     border-radius: 10px;
     border: none;
-    box-shadow: 6px 6px 11px rgba(147,101,68,255);
+    box-shadow: 6px 6px 11px var(--dropshadow-color);
     cursor: pointer;
     transition: all 0.5s
 }
 .btn-backround{
-    background-color: rgba(147,101,68,255);
+    background-color: var(--dropshadow-color);
     height: 170px;
     width: 170px;
     border-radius: 50%;
 }
 .btn-backround:hover{
-    background-color: rgba(50,30,21,255);
+    background-color: var(--dark-brown-navbar);
     border-color: transparent;
 }
 
@@ -116,15 +124,15 @@
 
 
 .btn {
-/*    height: 140px;
-    width: 140px;
-    border-radius: 50%*/
+    /*    height: 140px;
+        width: 140px;
+        border-radius: 50%*/
 }
 
 .name {
     font-size: 30px;
     font-weight: bold;
-    color: rgba(147,101,68,255);
+    color: var(--dropshadow-color);
 }
 
 .profilename {
@@ -139,7 +147,7 @@
 
 .level {
     font-size: 18px;
-    color: rgba(147,101,68,255);
+    color: var(--dropshadow-color);
 }
 
 .points {
@@ -151,7 +159,7 @@
 .highscore {
     font-size: 18px;
     font-weight: 500;
-    color: rgba(147,101,68,255);
+    color: var(--dropshadow-color);
 }
 
 .edit_button {
@@ -159,19 +167,19 @@
     width: 155px;
     border-radius: 10px;
     border-color: transparent;
-    background-color: rgba(147,101,68,255);
+    background-color: var(--dropshadow-color);
     color: white;
     font-size: 17px
 }
 
 .edit_button:hover{
-    background-color: rgba(71,34,16,255);
+    background-color: var(--backround-color);
     border-color: transparent;
 }
 
 .text span {
     font-size: 18px;
-    color: rgba(147,101,68,255);
+    color: var(--backround-color);
     font-weight: 500
 }
 
@@ -190,7 +198,7 @@ hr .new1 {
 }
 
 .date {
-    background-color:  rgba(71,34,16,255);
+    background-color: var(--backround-color);
 }
 
 .icons i:hover .hr .new1:hover .join:hover .date:hover .text span:hover{
@@ -201,11 +209,11 @@ hr .new1 {
 .scorebox{
     width: 1200px;
     /*background-color: rgba(147,101,68,0.7);*/
-    background-color: rgba(96,47,32,255);
+    background-color: var(--card-color);
     filter: brightness(110%);
     border-radius: 10px;
     border: none;
-    box-shadow: 6px 6px 11px rgba(147,101,68,255);
+    box-shadow: 6px 6px 11px var(--dropshadow-color);
     cursor: pointer;
     transition: all 0.5s
 }
@@ -213,7 +221,7 @@ hr .new1 {
 .pointSpan{
     float: right;
     margin-right: 60px;
-    color: rgba(147,101,68,255);
+    color: var(--dropshadow-color);
     /*color: rgba(71,34,16,255);*/
     font-weight: bold;
     filter: brightness(140%);
@@ -222,7 +230,7 @@ hr .new1 {
 .nameSpan{
     /*float: left;*/
     margin-left: 60px;
-    color: rgba(147,101,68,255);
+    color: var(--dropshadow-color);
     filter: brightness(140%);
 }
 
@@ -230,7 +238,7 @@ hr .new1 {
     width: 100%;
 }
 .listrow {
-    border-top: 1px solid rgba(71,34,16,255);
+    border-top: 1px solid var(--backround-color);
 }
 
 .highscoreHeader{
@@ -239,7 +247,7 @@ hr .new1 {
     padding-bottom: 10px;
     font-weight: bold;
     /*color: rgba(147,101,68,255);*/
-    color: rgba(147,101,68,255);
+    color: var(--dropshadow-color);
     filter: brightness(140%);
 }
 
@@ -256,7 +264,7 @@ hr .new1 {
 }
 /*Checked Styles*/
 [type=radio]:checked + img{
-    outline: 2px solid rgba(147,101,68,255);
+    outline: 2px solid var(--dropshadow-color);
 }
 .avatar-images{
     border-radius: 50%;
@@ -264,32 +272,36 @@ hr .new1 {
 
 /*modal*/
 .modal-content{
-    background-color: rgba(96,47,32,255);
+    background-color: var(--card-color);
     color: white;
 }
 .modal-header{
-    border-bottom-color: rgba(147,101,68,255);
+    /*border-bottom-color: rgba(147,101,68,255);*/
+    border-bottom-color: var(--light-brown-color);
 }
 .modal-footer{
-    border-top-color: rgba(147,101,68,255);
+    /*border-top-color: rgba(147,101,68,255);*/
+    border-bottom-color: var(--light-brown-color);
 }
 .savebutton{
-    background-color: rgba(147,101,68,255);
+    /*background-color: rgba(147,101,68,255);*/
+    background-color: var(--light-brown-color);
+    filter: brightness(110%);
     color: white;
 }
 .savebutton:hover{
-    background-color: rgba(50,30,21,255);
+    background-color: var(--dark-brown-navbar);
     color: white;
     border-color: transparent;
 }
 .savebutton:focus{
-    background-color: rgba(50,30,21,255);
+    background-color: var(--dark-brown-navbar);
     color: white;
     border-color: transparent;
 }
 .closebutton-bottom{
     color: white;
-    background-color: rgba(50,30,21,255);
+    background-color: var(--dark-brown-navbar);
 }
 .closebutton-bottom:hover{
     background-color: saddlebrown;
@@ -301,3 +313,105 @@ hr .new1 {
 }
 
 /*main layover*/
+
+/*Game*/
+
+#level1-game-body{
+    width: 100%;
+    height: 100vh;
+}
+
+.font-game{
+    color: white;
+    background-color: var(--card-color);
+    border-radius: 10px;
+}
+
+
+#ingredients{
+    max-width: 100%;
+}
+.ingredient-box{
+    height: 100vh;
+}
+
+.row-game {
+    background-color: var(--card-color);
+    border-radius: 10px;
+    border: none;
+    box-shadow: 6px 6px 11px px var(--dropshadow-color);
+    color: white;
+}
+
+.backround-ingredients{
+    background-color: var(--card-color);
+    filter: brightness(110%);
+    border-radius: 20px;
+}
+
+
+#ingredients img {
+    width: 90%;
+    height: 90%;
+    margin: 10px;
+    border: transparent;
+    transition: transform .2s;
+
+}
+
+#ingredients img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+#submit_btn{
+    background-color: var(--dark-brown-navbar);
+    border: 0.5px solid var(--dark-brown-navbar);
+    width: 200px;
+    color: wheat;
+}
+#coffee-mug{
+    width: 100%;
+    height: 100%;
+}
+
+/*
+.dropzone {
+    border: dashed 4px transparent;
+    border-radius: 4px;
+    margin: 10px auto 30px;
+    padding: 10px;
+
+    transition: background-color 0.3s;
+}
+
+.drop-active {
+    border-color: #aaa;
+}
+
+.drop-target{
+    background-color: #29e;
+    border-color: #fff;
+    border-style: solid;
+}
+
+.drag-drop {
+    color: #fff;
+    border: solid 2px #fff;
+    transform: translate(0px,0px);
+    transition: background-color 0.3s;
+}
+*/
+
+/*progressbar*/
+.progress-game{
+    background-color: var(--backround-color);
+    /*color: */
+}
+.progress-shown{
+    background-color: var(--card-color);
+}
+/*draggable img*/
+
+
+/*memory game*/
