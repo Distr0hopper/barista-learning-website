@@ -204,7 +204,7 @@ $(window).on('load', async function () {
             const coffeeAPI = 'https://api.sampleapis.com/coffee/hot';
             const res = await fetch(coffeeAPI);
             const data = await res.json(); //array kommt raus aus Kaffees
-            // //is nur da um spezielle Einträge der Coffees zu kriegen und restliches JSON objekt wegzuwerfen
+            // is nur da um spezielle Einträge der Coffees zu kriegen und restliches JSON objekt wegzuwerfen
             // const allCoffees = data.map((entry, index) => {
             //     return {
             //         title: entry.title,
@@ -246,23 +246,14 @@ $(window).on('load', async function () {
             const CustomerArray = []
             const sixCustomers = []
 
-            //TODO: Change path images
-            CustomerArray[0] = new Image();
-            CustomerArray[0].src = 'public/images/Customers/black-woman.png'
-            CustomerArray[1] = new Image();
-            CustomerArray[1].src = 'images/Customers/karen.png';
-            CustomerArray[2] = new Image();
-            CustomerArray[2].src = 'images/Customers/old-woman.png';
-            CustomerArray[3] = new Image();
-            CustomerArray[3].src = 'images/Customers/young-man.png';
-            CustomerArray[4] = new Image();
-            CustomerArray[4].src = 'images/Customers/samurai-man.png';
-            CustomerArray[5] = new Image();
-            CustomerArray[5].src = 'images/Customers/red-head-man.png';
-            CustomerArray[6] = new Image();
-            CustomerArray[6].src = 'images/Customers/old-black-man.png';
-            CustomerArray[7] = new Image();
-            CustomerArray[7].src = 'assets/Customers/indian-woman.png';
+            CustomerArray[0] = '/assets/images/Customers/black-woman.png'
+            CustomerArray[1] = '/assets/images/Customers/karen.png';
+            CustomerArray[2] = '/assets/images/Customers/old-woman.png';
+            CustomerArray[3] = '/assets/images/Customers/young-man.png';
+            CustomerArray[4] = '/assets/images/Customers/samurai-man.png';
+            CustomerArray[5] = '/assets/images/Customers/red-head-man.png';
+            CustomerArray[6] = 'assets/images/Customers/old-black-man.png';
+            CustomerArray[7] = 'assets/images/Customers/indian-woman.png';
 
 
             // console.log(CustomerArray);
@@ -379,6 +370,57 @@ function submitGame() {
 
     }
 }
+
+
+/*  Store Code to show description */
+function openModal() {
+    $('#myModal').modal('show');
+}
+
+function closeModal() {
+    $('#myModal').modal('hide');
+}
+
+function openManFilModal(){
+    $('#manual-filter-modal').modal('show');
+}
+
+function closeManFilModal(){
+    $('#manual-filter-modal').modal('hide');
+}
+
+function openAutFilModal(){
+    $('#automatic-filter-modal').modal('show');
+}
+
+function closeAutFilModal(){
+    $('#automatic-filter-modal').modal('hide');
+}
+
+function openItalianModal(){
+    $('#italian-modal').modal('show');
+}
+
+function closeItalianModal(){
+    $('#italian-modal').modal('hide');
+}
+
+function openSiebModal(){
+    $('#sieb-modal').modal('show');
+}
+
+function closeSiebModal(){
+    $('#sieb-modal').modal('hide');
+}
+
+function openAutModal(){
+    $('#automatic-modal').modal('show');
+}
+
+function closeAutModal(){
+    $('#automatic-modal').modal('hide');
+}
+
 
 
 /* Interact JS Code

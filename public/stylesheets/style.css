@@ -415,3 +415,47 @@ hr .new1 {
 
 
 /*memory game*/
+
+/*modal*/
+.modal-content{
+    background-color: rgba(96,47,32,255);
+    color: white;
+}
+.modal-header{
+    border-bottom-color: rgba(147,101,68,255);
+}
+.modal-footer{
+    border-top-color: rgba(147,101,68,255);
+}
+.savebutton{
+    background-color: rgba(147,101,68,255);
+    color: white;
+}
+.savebutton:hover{
+    background-color: rgba(50,30,21,255);
+    color: white;
+    border-color: transparent;
+}
+.savebutton:focus{
+    background-color: rgba(50,30,21,255);
+    color: white;
+    border-color: transparent;
+}
+.closebutton-bottom{
+    color: white;
+    background-color: rgba(50,30,21,255);
+}
+.closebutton-bottom:hover{
+    background-color: saddlebrown;
+    color: white;
+    border-color: transparent;
+}
+.closebutton-bottom:focus{
+
+}
+
+.coffeemachine:hover{
+    transform: scale(1.25)
+}
+
+
