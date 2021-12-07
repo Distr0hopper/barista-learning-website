@@ -35,25 +35,32 @@ public class HomeController extends Controller {
 
     public Result home(){
         return ok(
-                home.render(assetsFinder)
+                home.render("home",assetsFinder)
         );
     }
 
     public Result highscore(){
         return ok(
-                highscore.render(assetsFinder)
+                highscore.render("highscore",assetsFinder)
         );
     }
 
     public Result profile(){
         return ok(
-                profile.render(assetsFinder)
+                profile.render("profile",assetsFinder)
         );
     }
 
     public Result defaultGame(){
         return ok(
-                defaultGame.render(assetsFinder)
+                defaultGame.render("gameOne",assetsFinder)
+        );
+    }
+
+
+    public Result gameLevelTwo(){
+        return ok(
+                gameLevelTwo.render("gameTwo",assetsFinder)
         );
     }
 
@@ -62,12 +69,5 @@ public class HomeController extends Controller {
                 store.render("Store",assetsFinder)
         );
     }
-
-    public Result gameLevelTwo(){
-        return ok(
-                gameLevelTwo.render(assetsFinder)
-        );
-    }
-
 
 }

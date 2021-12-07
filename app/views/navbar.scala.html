@@ -1,0 +1,51 @@
+@(page: String)(content: Html)(implicit assetsFinder: AssetsFinder)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>@page (play-bootstrap-template)</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
+    </head>
+    <body>
+            <!--menu bar-->
+            <!--navbar dark sets text light bc of dark backround-->
+        @* @activeLink(currentPath: String) = @{*@
+        @* if(request.path.equals(currentPath)) "active"*@
+        @* }*@
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <div class="container-fluid">
+                <a class="navbar-brand text-uppercase" href="/main"><img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav text-uppercase">
+
+                        <a class="nav-link @("active".when(page == "Home"))" href="@routes.HomeController.home">
+                            Home</a>
+                        <a class="nav-link @("active".when(page == "HighScore"))" href="@routes.HomeController.highscore">
+                            Highscore</a>
+                        <a class="nav-link  @("active".when(page == "Profile"))" href="@routes.HomeController.profile">
+                            Profile</a>
+                        <a class="nav-link  @("active".when(page == "GameOne"))" href="@routes.HomeController.defaultGame">
+                            Game</a>
+                        <a class="nav-link  @("active".when(page == "GameTwo"))" href="@routes.HomeController.gameLevelTwo">
+                            Game-Level-2</a>
+                        <a class="nav-link  @("active".when(page == "Store"))" href="@routes.HomeController.store">
+                            Store</a>
+                        @* hier noch Dictionary irgendwann
+                        <li class=""><a class="nav-link @("active".when(page == "Socials"))" href="@routes.HomeController.socials">
+                        Socials</a></li>
+                        @* <li> <a class="@activeLink("/main")" href="/main">Main</a></li>*@
+                    </div>
+                </div>
+            </div>
+        </nav>
+        @content
+    </body>
+</html>
