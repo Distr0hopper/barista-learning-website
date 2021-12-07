@@ -22,6 +22,6 @@ GET /profile                        controllers.HomeController.profile
 
 GET /defaultGame                    controllers.HomeController.defaultGame
 
-GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
-
 GET /store                          controllers.HomeController.store
+
+GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo

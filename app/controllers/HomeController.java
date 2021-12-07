@@ -57,15 +57,15 @@ public class HomeController extends Controller {
         );
     }
 
-    public Result gameLevelTwo(){
-        return ok(
-                gameLevelTwo.render(assetsFinder)
-        );
-    }
-
     public Result store(){
         return ok(
                 store.render("Store",assetsFinder)
+        );
+    }
+
+    public Result gameLevelTwo(){
+        return ok(
+                gameLevelTwo.render(assetsFinder)
         );
     }
 
