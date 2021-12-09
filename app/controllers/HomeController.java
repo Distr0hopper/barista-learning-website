@@ -1,5 +1,8 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import play.libs.Json;
 import play.mvc.*;
 
 import views.html.*;
@@ -33,9 +36,9 @@ public class HomeController extends Controller {
         );
     }
 
-    public Result main(){
+    public Result home(){
         return ok(
-                main.render("main",assetsFinder)
+                home.render("home",assetsFinder)
         );
     }
 
@@ -69,5 +72,17 @@ public class HomeController extends Controller {
                 store.render("Store",assetsFinder)
         );
     }
+    public Result checklogin(Http.Request request){
+        JsonNode json = request.body().asJson();
+        String username = json.get("username").textValue();
+        String password = json.get("password").textValue();
 
+        if (username.equals("admin") && password.equals("admin")){
+            return redirect(routes.HomeController.home().url()).addingToSession(request, "connected",username);
+        } else {
+            ObjectNode response = Json.newObject();
+            response.put("message","Incorrect password. \nPlease try again.");
+            return unauthorized(response);
+        }
+    }
 }

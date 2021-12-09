@@ -14,7 +14,7 @@ GET     /assets/*file               controllers.Assets.versioned(file)
 
 GET  /                              controllers.HomeController.login
 
-GET /main                           controllers.HomeController.main
+GET /home                           controllers.HomeController.home
 
 GET /highscore                      controllers.HomeController.highscore
 
@@ -25,3 +25,5 @@ GET /defaultGame                    controllers.HomeController.defaultGame
 GET /store                          controllers.HomeController.store
 
 GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
+
+POST        /auth                controllers.HomeController.checklogin(request : Request)

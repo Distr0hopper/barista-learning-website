@@ -19,14 +19,14 @@
         @* }*@
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
             <div class="container-fluid">
-                <a class="navbar-brand text-uppercase" href="/main"><img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu"></a>
+                <a class="navbar-brand text-uppercase" href="/home"><img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav text-uppercase">
 
-                        <a class="nav-link @("active".when(page == "Home"))" href="@routes.HomeController.main">
+                        <a class="nav-link @("active".when(page == "Home"))" href="@routes.HomeController.home">
                             Home</a>
                         <a class="nav-link @("active".when(page == "HighScore"))" href="@routes.HomeController.highscore">
                             Highscore</a>
@@ -41,7 +41,7 @@
                         @* hier noch Dictionary irgendwann
                         <li class=""><a class="nav-link @("active".when(page == "Socials"))" href="@routes.HomeController.socials">
                         Socials</a></li>
-                        @* <li> <a class="@activeLink("/main")" href="/main">Main</a></li>*@
+                        @* <li> <a class="@activeLink("/home")" href="/home">Main</a></li>*@
                     </div>
                 </div>
             </div>
