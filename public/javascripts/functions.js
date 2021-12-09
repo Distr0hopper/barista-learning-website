@@ -38,7 +38,7 @@ function checklogin() {
         document.getElementById("password").value === "admin") {
         name = true;
         password = true;
-        location.href = '/home';
+        location.href = '/main';
     } else {
         document.getElementById("fehler").innerHTML = "Falsches Password";
     }

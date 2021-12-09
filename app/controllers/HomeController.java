@@ -33,9 +33,9 @@ public class HomeController extends Controller {
         );
     }
 
-    public Result home(){
+    public Result main(){
         return ok(
-                home.render("home",assetsFinder)
+                main.render("main",assetsFinder)
         );
     }
 
