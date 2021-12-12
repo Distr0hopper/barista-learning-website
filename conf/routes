@@ -29,3 +29,5 @@ GET /defaultGame                    controllers.HomeController.defaultGame
 GET /store                          controllers.HomeController.store
 
 GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
+
+POST        /auth                controllers.HomeController.checklogin(request : Request)
