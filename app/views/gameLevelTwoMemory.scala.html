@@ -1,0 +1,29 @@
+@(page : String)(implicit assetsFinder: AssetsFinder)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>gameLevelTwoMemory</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        @navbar("GameTwoMemory"){
+            <div class="flex d-flex align-items-center justify-content-center">
+                <div class="col-lg-5 col-md-10 col-sm-12 mt-5 align-items-center justify-content-center">
+                    <h3 class="result mb-4 px-4">Score: <span id="result"></span></h3>
+                    <div class="grid image-fluid"></div>
+                </div>
+            </div>
+        }
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g_memory.js")"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+    </body>
+</html>

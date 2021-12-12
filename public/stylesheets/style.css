@@ -457,5 +457,15 @@ hr .new1 {
 .coffeemachine:hover{
     transform: scale(1.25)
 }
-
+/*Memory Game*/
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    height: 600px;
+    width: 800px;
+}
+.result{
+    align-items: center;
+    color: white;
+}
 

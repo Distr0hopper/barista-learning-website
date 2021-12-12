@@ -66,6 +66,11 @@ public class HomeController extends Controller {
                 gameLevelTwo.render("gameTwo",assetsFinder)
         );
     }
+    public Result gameLevelTwoMemory(){
+        return ok(
+                gameLevelTwoMemory.render("gameTwoMemory", assetsFinder)
+        );
+    }
 
     public Result store(){
         return ok(
