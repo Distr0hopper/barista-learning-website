@@ -6,50 +6,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardArray = [
         {
             name: 'indian-woman',
-            img: '../images/Customers/indian-woman.png'
+            img: 'assets/images/Customers/indian-woman.png'
         },
         {
-            name: 'indian-woman1',
+            name: 'indian-woman',
             img: 'https://cdn-icons-png.flaticon.com/512/1778/1778134.png'
         },
         {
             name: 'karen',
-            img: '../images/Customers/karen.png'
+            img: 'assets/images/Customers/karen.png'
         },
         {
-            name: 'karen1',
+            name: 'karen',
             img: 'https://cdn-icons-png.flaticon.com/512/3790/3790742.png'
         },
         {
             name: 'old-black-man',
-            img: '../images/Customers/old-black-man.png'
+            img: 'assets/images/Customers/old-black-man.png'
         },
         {
-            name: 'old-black-man1',
+            name: 'old-black-man',
             img: 'https://cdn-icons-png.flaticon.com/512/5158/5158490.png'
         },
         {
             name: 'red-head-man',
-            img: '../images/Customers/red-head-man.png'
+            img: 'assets/images/Customers/red-head-man.png'
         },
         {
-            name: 'red-head-man1',
+            name: 'red-head-man',
             img: 'https://cdn-icons.flaticon.com/png/512/3010/premium/3010061.png?token=exp=1639307162~hmac=5e97df7095089bc1122c1ab0b08632a7'
         },
         {
             name: 'samurai-man',
-            img: '../images/Customers/samurai-man.png'
+            img: 'assets/images/Customers/samurai-man.png'
         },
         {
-            name: 'samurai-man1',
+            name: 'samurai-man',
             img: 'https://cdn-icons-png.flaticon.com/512/1448/1448432.png'
         },
         {
             name: 'black-woman',
-            img: '../images/Customers/black-woman.png'
+            img: 'assets/images/Customers/black-woman.png'
         },
         {
-            name: 'black-woman1',
+            name: 'black-woman',
             img: 'https://cdn-icons.flaticon.com/png/512/1079/premium/1079087.png?token=exp=1639307228~hmac=c2dfb64ef512d350e352313a122e3b04'
         }
     ]
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
             var card = document.createElement('img')
-            card.setAttribute('src', "@routes.Assets.versioned('images/Memory-Backdrop.png')")
+            card.setAttribute('src', "assets/images/Memory-Backdrop.png")
             card.setAttribute('data-id', i)
             card.setAttribute('height', '200px')
             card.setAttribute('width', '200px')
@@ -83,8 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const optionOneId = cardsChosenID[0]
         console.log(optionOneId)
         const optionTwoId = cardsChosenID[1]
-        console.log(optionTwoId)
-        if (cardsChosen[0] === cardsChosen[1]+1) {
+        if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
             alert('You found a match');
             // cards[optionOneId].setAttribute('src', '../../../../assets/tackyBackroundColor.png')
             // console.log(cards[optionOneId])
@@ -92,17 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.log(cards[optionTwoId])
             cardsWon.push(cardsChosen)
             console.log(cardsWon)
-        } else if(cardsChosen[0] === cardsChosen[1]){
-            cards[optionOneId].setAttribute('src', '../images/Memory-Backdrop.png')
-            cards[optionTwoId].setAttribute('src', '../images/Memory-Backdrop.png')
+        } else if(cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId){
+            cards[optionOneId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
+            cards[optionTwoId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
             alert('You need to pick two different cards!')
-
         }
-
         else {
-            cards[optionOneId].setAttribute('src', '../images/Memory-Backdrop.png')
+            cards[optionOneId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
             console.log(cards[optionOneId])
-            cards[optionTwoId].setAttribute('src', '../images/Memory-Backdrop.png')
+            cards[optionTwoId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
             console.log(cards[optionTwoId])
             alert('Sorry try again')
 
