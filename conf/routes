@@ -14,6 +14,10 @@ GET     /assets/*file               controllers.Assets.versioned(file)
 
 GET  /                              controllers.HomeController.login
 
+GET /createAccount                  controllers.HomeController.createAccount
+
+GET /forgotPassword                 controllers.HomeController.forgotPassword
+
 GET /home                           controllers.HomeController.home
 
 GET /highscore                      controllers.HomeController.highscore

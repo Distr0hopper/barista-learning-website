@@ -83,6 +83,12 @@ a:hover{
 #username{
     border-radius: 15px;
 }
+#email{
+    border-radius: 15px;
+}
+#password2{
+    border-radius: 15px;
+}
 /*profile card*/
 .card {
     width: 700px;

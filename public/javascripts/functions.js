@@ -44,6 +44,49 @@ function checklogin() {
     }
 }
 
+function createAccount(){
+    let name = false;
+    let email = false;
+    let password = false;
+    if (document.getElementById("email").value.length !== 0 &&
+        document.getElementById("username").value.length !== 0 &&
+        document.getElementById("password").value.length !== 0 &&
+        document.getElementById("password2").value.length !== 0){
+        name = true;
+        email = true;
+        if(document.getElementById("password").value === document.getElementById("password2").value){
+            password = true;
+            location.href = '/home';
+        }
+        else{
+            document.getElementById("fehler").innerHTML = "Passwörter stimmen nicht überein";
+        }
+    }
+    else{
+        document.getElementById("fehler").innerHTML = "Bitte fülle alle Felder aus";
+    }
+}
+
+function openPasswordModal(){
+    if(document.getElementById("email").value.length !== 0 &&
+        document.getElementById("password").value.length !== 0 &&
+        document.getElementById("password2").value.length !== 0){
+        if(document.getElementById("password").value === document.getElementById("password2").value){
+            $('#passwordModal').modal('show');
+        }
+        else{
+            document.getElementById("fehler").innerHTML = "Passwörter stimmen nicht überein";
+        }
+    }
+    else{
+        document.getElementById("fehler").innerHTML = "Bitte fülle alle Felder aus";
+    }
+}
+
+function closePasswordModal(){
+    $('#passwordModal').modal('hide');
+}
+
 let canEdit = false;
 
 function editUsername() {

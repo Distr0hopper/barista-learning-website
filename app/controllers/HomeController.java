@@ -33,6 +33,18 @@ public class HomeController extends Controller {
         );
     }
 
+    public Result createAccount(){
+        return ok(
+                createAccount.render("createAccount",assetsFinder)
+        );
+    }
+
+    public Result forgotPassword(){
+        return ok(
+                forgotPassword.render("forgotPassword",assetsFinder)
+        );
+    }
+
     public Result home(){
         return ok(
                 home.render("home",assetsFinder)
