@@ -16,7 +16,7 @@ function checklogin() {
         },
     }).then(response => {
         if(response.ok) {
-            return window.location = response.url;
+            window.location = response.url;
         } else {
             return response.json()
         }}).then(userData => {
