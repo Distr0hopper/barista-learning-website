@@ -2,12 +2,15 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import data.HighScoreFetcher;
 import play.libs.Json;
 import play.mvc.*;
 
 import views.html.*;
 
 import javax.inject.Inject;
+import java.sql.Array;
+import java.util.*;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -30,64 +33,79 @@ public class HomeController extends Controller {
      */
 
 
-    public Result login(){
+    public Result login() {
         return ok(
                 login.render(assetsFinder)
         );
     }
 
-    public Result home(){
+    public Result home() {
         return ok(
-                home.render("home",assetsFinder)
+                home.render("home", assetsFinder)
         );
     }
 
-    public Result highscore(){
+    public Result highscore() {
         return ok(
-                highscore.render("highscore",assetsFinder)
+                highscore.render("highscore", HighScoreFetcher.getScoreEntryArray(), assetsFinder));
+    }
+
+    public Result profile() {
+        return ok(
+                profile.render("profile", assetsFinder)
         );
     }
 
-    public Result profile(){
+    public Result defaultGame() {
         return ok(
-                profile.render("profile",assetsFinder)
-        );
-    }
-
-    public Result defaultGame(){
-        return ok(
-                defaultGame.render("gameOne",assetsFinder)
+                defaultGame.render("gameOne", assetsFinder)
         );
     }
 
 
-    public Result gameLevelTwo(){
+    public Result gameLevelTwo() {
         return ok(
-                gameLevelTwo.render("gameTwo",assetsFinder)
+                gameLevelTwo.render("gameTwo", assetsFinder)
         );
     }
-    public Result gameLevelTwoMemory(){
+
+    public Result gameLevelTwoMemory() {
         return ok(
                 gameLevelTwoMemory.render("gameTwoMemory", assetsFinder)
         );
     }
 
-    public Result store(){
+    public Result store() {
         return ok(
-                store.render("Store",assetsFinder)
+                store.render("Store", assetsFinder)
         );
     }
-    public Result checklogin(Http.Request request){
+
+    public Result checklogin(Http.Request request) {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
         String password = json.get("password").textValue();
 
-        if (username.equals("admin") && password.equals("admin")){
-            return redirect(routes.HomeController.home().url()).addingToSession(request, "connected",username);
+        if (username.equals("admin") && password.equals("admin")) {
+            return redirect(routes.HomeController.home().url()).addingToSession(request, "connected", username);
         } else {
             ObjectNode response = Json.newObject();
-            response.put("message","Incorrect password. \nPlease try again.");
+            response.put("message", "Incorrect password. \nPlease try again.");
             return unauthorized(response);
         }
     }
+//    public Result createHighScores(Http.Request request){
+//        JsonNode json = request.body().asJson();
+//        String username = json.get("name").textValue();
+//        String points = json.get("score").textValue();
+//
+//        return request
+//                .session()
+//                .get("connected")
+//                .map(Results::ok)
+//                .orElseGet(()->unauthorized("No one is connected"));
+//
+//
+
 }
+
