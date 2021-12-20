@@ -14,7 +14,7 @@ GET     /assets/*file               controllers.Assets.versioned(file)
 
 GET  /                              controllers.HomeController.login
 
-GET /home                           controllers.HomeController.home
+GET /main                           controllers.HomeController.main
 
 GET /highscore                      controllers.HomeController.highscore
 

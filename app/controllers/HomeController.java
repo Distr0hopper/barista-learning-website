@@ -9,8 +9,6 @@ import play.mvc.*;
 import views.html.*;
 
 import javax.inject.Inject;
-import java.sql.Array;
-import java.util.*;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -39,9 +37,9 @@ public class HomeController extends Controller {
         );
     }
 
-    public Result home() {
+    public Result main() {
         return ok(
-                home.render("home", assetsFinder)
+                main.render("main", assetsFinder)
         );
     }
 
@@ -87,7 +85,7 @@ public class HomeController extends Controller {
         String password = json.get("password").textValue();
 
         if (username.equals("admin") && password.equals("admin")) {
-            return redirect(routes.HomeController.home().url()).addingToSession(request, "connected", username);
+            return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username);
         } else {
             ObjectNode response = Json.newObject();
             response.put("message", "Incorrect password. \nPlease try again.");
