@@ -3,8 +3,17 @@ var arrayDraggedImages = [];
 // Array which contains only the id's of the images
 var arrayImagesID = [];
 var drinks = new Array();
-drinks["americano"] = new Array("espresso", "hotWater");
-drinks["latte"] = new Array("espresso", "milk", "milkfoam");
+// Counts how many correct drinks someone make in a row
+var correctDrinksCounter = 0;
+drinks["americano"] = new Array("espresso", "hotWater");    //Americano
+drinks["latte"] = new Array("espresso", "milk", "milkfoam");    //Latte
+drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam"); //Mocha
+drinks["cappuccino"] = new Array("espresso", "milk","milkfoam");  //cappucini
+drinks["breve"] = new Array("espresso","milk");  //Breve
+drinks["macchiato"] = new Array("espresso","milkfoam");  //Machhiato
+//drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
+drinks["caffe au lait"] = new Array("brewedCoffee","milk");  //Caffe au lait
+drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");    //Mocha breve
 var activeDrink = 'americano';
 
 
@@ -61,10 +70,8 @@ function submitGame(){
             //console.log(arrayImagedID);
 
 
-            // translate the element
+            // reset the position to start position
             currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
-
-            // update the position attributes
             currentImage.setAttribute('data-x', 0)
             currentImage.setAttribute('data-y', 0)
 
@@ -84,10 +91,17 @@ function submitGame(){
 
 
         if (correctIngredients.sort().join() == arrayImagesID.sort().join()) {
-            $('#order').text("You got it right!");
+            // Get the Money element and change it to a number, than add the score on it
+            var money = Number($('#money').text()) + 15;
+            // Check the counter, because the showed answer depends on how many drinks you made right
+            counterChecker(correctDrinksCounter);
+            // Change the coffee beans. If 3 coffees are right in a row - money += 30
+            $('#money').text(money)
+            correctDrinksCounter++;
         } else {
             $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));
-
+            correctDrinksCounter = 0;
+            $('#money-counter').text("0")
         }
         /*  Another method to check if ingredient is already inside. It just checks both arrays and look if any ingredient matches
         var checker = (arr, target) => target.every(v => arr.includes(v));
@@ -106,6 +120,21 @@ function submitGame(){
         arrayDraggedImages = [];
     }
 
+}
+
+function counterChecker(correctDrinksCounter) {
+    if (correctDrinksCounter === 0) {
+        $('#order').text("You made " + (correctDrinksCounter + 1 )+ " coffee right! +15 beans!");
+    }
+    if (correctDrinksCounter < 3 && correctDrinksCounter > 0) {
+        $('#order').text("You made " + (correctDrinksCounter + 1 )+ " coffees right! +15 beans!");
+    }
+    $('#money-counter').text("15")
+    if (correctDrinksCounter >= 3){
+        money += 15;
+        $('#money-counter').text("30")
+        $('#order').text("You are on a " + correctDrinksCounter + " streak! +30 beans!")
+    }
 }
 
 
