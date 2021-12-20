@@ -15,6 +15,12 @@ drinks["macchiato"] = new Array("espresso","milkfoam");  //Machhiato
 drinks["caffe au lait"] = new Array("brewedCoffee","milk");  //Caffe au lait
 drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");    //Mocha breve
 var activeDrink = 'americano';
+var points = 0;
+const progress = { points: points.value }
+const correctIngredientsForActiveDrink = { activeDrink: activeDrink.valueOf() }
+
+
+
 
 
 function submitGame(){
@@ -110,6 +116,7 @@ function submitGame(){
 
         if (ingredientsCheck){
             $('#order').text("You got it right!");
+          //  $('#order').text("congrats you just earned a new coffebean") just checking if it would work
         } else {
             $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));
         }
@@ -136,6 +143,7 @@ function counterChecker(correctDrinksCounter) {
         $('#order').text("You are on a " + correctDrinksCounter + " streak! +30 beans!")
     }
 }
+
 
 
 // Interact JS

@@ -33,8 +33,7 @@ public class HomeController extends Controller {
 
     public Result login() {
         return ok(
-                login.render(assetsFinder)
-        );
+               login.render(assetsFinder));
     }
 
     public Result main() {
@@ -42,6 +41,7 @@ public class HomeController extends Controller {
                 main.render("main", assetsFinder)
         );
     }
+
 
     public Result highscore() {
         return ok(

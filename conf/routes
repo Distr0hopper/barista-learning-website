@@ -14,7 +14,7 @@ GET     /assets/*file               controllers.Assets.versioned(file)
 
 GET  /                              controllers.HomeController.login
 
-GET /main                           controllers.HomeController.main
+GET /main                          controllers.HomeController.main
 
 GET /highscore                      controllers.HomeController.highscore
 
@@ -29,6 +29,7 @@ GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
 GET /gameLevelTwoMemory             controllers.HomeController.gameLevelTwoMemory
 
 POST /auth                          controllers.HomeController.checklogin(request : Request)
+
 #POST für Daten rumschicken, Daten werden nicht in URL reingeschrieben, schlecht bei passwort z.B.
 
 #POST /create                        controllers.HomeController.createHighScores(request : Request)
