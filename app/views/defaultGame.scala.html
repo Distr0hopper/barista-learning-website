@@ -1,204 +1,181 @@
-@(page : String)(implicit assetsFinder: AssetsFinder)
+@(page: String)(implicit assetsFinder: AssetsFinder)
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>HighScore</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js)"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
-            <!-- interact js -->
-        <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-@*        <script type="text/javascript">*@
-@*                // make an array of drinks*@
-@*                // each drink has a list of ingredients*@
-@*                var drinks = [];*@
-@*                drinks["americano"] = ["espresso", "hotWater"];*@
-@*                drinks["latte"] = ["espresso", "milk", "milkfoam"];*@
-
-
-@*                // list of ingredients that the user can drag into the coffee mug*@
-@*                var ingredients = ['milkfoam', 'steamedMilk', 'chocolateSyrup', 'espresso', 'iceCream', 'brownSugar', 'whiteSugar', 'hotWater', 'milk', 'brewedCoffee']*@
-
-
-@*                // this is an array that stores the ingredients the user has dragged into the coffee mug*@
-@*                var droppedIngredients = [];*@
-
-@*                // this is the current drink they are trying to make*@
-@*                var activeDrink = 'americano';*@
-
-@*                var wrongAnswers = 1;*@
-@*                $(init);*@
-
-@*                function init() {*@
-
-
-@*                    // go through the list of ingredients*@
-@*                    // this is so I don't have to write the same code a bunch of times for each ingredient*@
-@*                    // for example, this was the old way: $('#water').draggable();  $('#milk').draggable(); etc.*@
-@*                    for (i = 0; i < ingredients.length; i++) {*@
-
-@*                        // get the HTML id of each ingredient*@
-@*                        ingredient_id = '#' + ingredients[i];*@
-
-@*                        // make each ingredient draggable*@
-@*                        $(ingredient_id).draggable();*@
-
-@*                        // store the CSS location of each ingredient, so we can reset to it later*@
-@*                        $(ingredient_id).data({*@
-@*                            'originalLeft': $(ingredient_id).css('left'),*@
-@*                            'originalTop': $(ingredient_id).css('top')*@
-@*                        });*@
-
-@*                    }*@
-
-@*                    // make the cup a droppable area*@
-@*                    $('#cup').droppable({*@
-
-@*                        drop: function (event, ui) {*@
-@*                            // run this code when they drop an ingredient into the cup*@
-
-@*                            // first get the HTML id of the dropped ingredient*@
-@*                            var draggableId = ui.draggable.attr("id");*@
-
-@*                            // next I want to make sure they don't add the same ingredient many times*@
-@*                            // when I originally added an ingredient, if i moved that ingredient around within the cup*@
-@*                            // it would count it multiple times, so the ingredients would be something like:  water, water, water, espresso*@
-@*                            // this code checks to see if an ingredient has already been added, and if it has it doesn't add it again*@
-@*                            // I do this by checking to see if draggableId is already in the array droppedIngredients*@
-@*                            // I am using a jQuery function called inArray, that checks to see if a particular value is in an array*@
-@*                            // if the array returns a -1, the ingredient is NOT in the array*@
-@*                            // if the array returns anything 0 or greater, the ingredient is IN the array*@
-@*                            if (jQuery.inArray(draggableId, droppedIngredients) < 0) {*@
-@*                                // ingredient is not in the array, so add it (using the push() function)*@
-@*                                // push just adds an item to an array*@
-@*                                droppedIngredients.push(draggableId);*@
-@*                            }*@
-
-@*                            // uncomment this to display in the error log the ingredients that have been dropped*@
-@*                            //				console.log(droppedIngredients.join());*@
-
-@*                        },*@
-@*                        out: function (event, ui) {*@
-@*                            // run this code when they drag an ingredient OUT of the cup*@
-@*                            // we need to remove the ingredient from the droppedIngredients array*@
-@*                            for (i = 0; i < droppedIngredients.length; i++) {*@
-@*                                // go through each dropped ingredient and figure out which item to delete from droppedIngredients*@
-@*                                if (droppedIngredients[i] == ui.draggable.attr("id")) {*@
-@*                                    // compare each ingredient that they've dropped previously with the one they're dragging out now*@
-
-@*                                    // delete the item they are dragging out from the array*@
-@*                                    // i use splice because when I tried to use the remove function, it left an undefined value*@
-@*                                    droppedIngredients.splice(i, 1);*@
-@*                                }*@
-@*                            }*@
-@*                        }*@
-@*                    });*@
-@*                }*@
-
-
-@*        </script>*@
-
-    </head>
-    <body>
-            <!-- Navbar -->
-       @navbar("GameOne"){
-           <!--Game-->
-        <div class="flex align-items-center">
-            <section class="my-4 mx-5">
-                <div class="container-fluid">
-                    <span><h1 class="font-weight-bold py-3 font-game text-center"
-                    id="order">Please make an "AMERICANO"!</h1></span>
-                    <div class="row row-game no-gutters px-3 py-4 align-items-center">
-                        <div class="col-lg-7 backround-ingredients">
-                            <div>
-                                <div class="ingredient-div text-center w-100 h-100">
-                                    <div id="ingredients" class="align-items-center justify-content-center p-2 h-75 ">
-                                        <div class="row justify-content-center align-items-center ingredient-box h-100 w-100">
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Milk_Foam.png")"
-                                                alt="milkfoam" height="220" width="446" class="drag-drop" id="milkfoam">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Steamed_Milk.png")"
-                                                alt="steamedMilk" height="220" width="421" class="drag-drop"
-                                                id="steamedMilk">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Choclate_Syrup.png")"
-                                                alt="chocolateSyrup" height="220" width="446" class="drag-drop"
-                                                id="chocolateSyrup">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Espresso.png")"
-                                                alt="espresso" height="220" width="424" class="drag-drop" id="espresso">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/IceCream.png")"
-                                                alt="iceCream" height="220" width="410" class=" drag-drop" id="iceCream">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Brown_Sugar.png")"
-                                                alt="brownSugar" height="220" width="458" class="drag-drop"
-                                                id="brownSugar">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/White_Sugar.png")"
-                                                alt="whiteSugar" height="220" width="456" class="drag-drop"
-                                                id="whiteSugar">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Hot_Water.png")"
-                                                alt="hotWater" height="220" width="458" class="drag-drop" id="hotWater">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Milk.png")"
-                                                alt="milk" height="220" width="428" class="drag-drop" id="milk">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center">
-                                                <img src="@assetsFinder.path("images/Ingredients/Brewed_Coffee.png")"
-                                                alt="brewedCoffee" height="220" width="435" class="drag-drop"
-                                                id="brewedCoffee">
-                                            </div>
+@navbar("GameOne") {
+    <!--Game-->
+    <div class="flex align-items-center">
+        <section class="my-4 mx-5">
+            <div class="container-fluid">
+                <h1 class="font-weight-bold py-3 font-game text-center"
+                id="order">Please make an "AMERICANO"!</h1>
+                <div class="row row-game no-gutters px-3 py-4 align-items-center">
+                    <div class="col-lg-7 backround-ingredients">
+                        <div>
+                            <div class="ingredient-div text-center w-100 h-100">
+                                <div id="ingredients" class="align-items-center justify-content-center p-2 h-75 ">
+                                    <div class="row justify-content-center align-items-center ingredient-box h-100 w-100">
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/Milk_Foam.png")"
+                                            alt="milkfoam" height="220" width="446" class="drag-drop" id="milkfoam">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/Steamed_Milk.png")"
+                                            alt="steamedMilk" height="220" width="421" class="drag-drop"
+                                            id="steamedMilk">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/Choclate_Syrup.png")"
+                                            alt="chocolateSyrup" height="220" width="446" class="drag-drop"
+                                            id="chocolateSyrup">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/Espresso.png")"
+                                            alt="espresso" height="220" width="424" class="drag-drop" id="espresso">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/IceCream.png")"
+                                            alt="iceCream" height="220" width="410" class=" drag-drop" id="iceCream">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/Brown_Sugar.png")"
+                                            alt="brownSugar" height="220" width="458" class="drag-drop"
+                                            id="brownSugar">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/White_Sugar.png")"
+                                            alt="whiteSugar" height="220" width="456" class="drag-drop"
+                                            id="whiteSugar">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/Hot_Water.png")"
+                                            alt="hotWater" height="220" width="458" class="drag-drop" id="hotWater">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/Milk.png")"
+                                            alt="milk" height="220" width="428" class="drag-drop" id="milk">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center">
+                                            <img src="@assetsFinder.path("images/Ingredients/Brewed_Coffee.png")"
+                                            alt="brewedCoffee" height="220" width="435" class="drag-drop"
+                                            id="brewedCoffee">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5 px-5 text-center">
-                            <div class="dropzone" id="cup"><img
-                            src="@assetsFinder.path("images/Ingredients/cofee_mug_left_and_right_same_space.png")"
-                            class="img-fluid pt-5 pb-5" alt="coffe-mug" id="coffee-mug"></div>
-                            <div class="">
-                                <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()">
-                                    submit
-                                </button>
-                            </div>
+                    </div>
+                    <div class="col-lg-5 px-5 text-center">
+                        <div class="dropzone" id="cup"><img
+                        src="@assetsFinder.path("images/Ingredients/cofee_mug_left_and_right_same_space.png")"
+                        class="img-fluid pt-5 pb-5" alt="coffe-mug" id="coffee-mug"></div>
+                        <div class="">
+                            <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()">
+                                submit
+                            </button>
                         </div>
-
                     </div>
-                </div>
-            </section>
-        </div>
-       }
 
-                    <!-- Progressbar
-                <div class="progress me-5 progress-striped active progress-game" style="height:40px; width: 300px">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-shown" role="progressbar"
-                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
-                        <span class="sr-only">80% Complete</span>
-                    </div>
                 </div>
             </div>
-        </nav>
-        -->
+        </section>
+    </div>
+
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/game_mechanic.js")"></script>
+        <!--
+    <script type="text/javascript">
+        // make an array of drinks
+        // each drink has a list of ingredients
+        var drinks = [];
+        drinks["americano"] = ["espresso", "hotWater"];
+        drinks["latte"] = ["espresso", "milk", "milkfoam"];
+
+        // list of ingredients that the user can drag into the coffee mug
+        var ingredients = ['milkfoam', 'steamedMilk', 'chocolateSyrup', 'espresso', 'iceCream', 'brownSugar', 'whiteSugar', 'hotWater', 'milk', 'brewedCoffee']
+
+        // this is an array that stores the ingredients the user has dragged into the coffee mug
+        var droppedIngredients = [];
+
+        // this is the current drink they are trying to make
+        var activeDrink = 'americano';
+
+        var wrongAnswers = 1;
+        $(init);
+
+        function init() {
+
+            // go through the list of ingredients
+            // this is so I don't have to write the same code a bunch of times for each ingredient
+            // for example, this was the old way: $('#water').draggable(); $('#milk').draggable(); etc.
+            for (i = 0; i < ingredients.length; i++) {
+
+                // get the HTML id of each ingredient
+                ingredient_id = '#' + ingredients[i];
+
+                // make each ingredient draggable
+                $(ingredient_id).draggable();
+
+                // store the CSS location of each ingredient, so we can reset to it later
+                $(ingredient_id).data({
+                    'originalLeft': $(ingredient_id).css('left'),
+                    'originalTop': $(ingredient_id).css('top')
+                });
+
+            }
+
+            // make the cup a droppable area
+            $('#cup').droppable({
+
+                drop: function (event, ui) {
+                    // run this code when they drop an ingredient into the cup
+
+                    // first get the HTML id of the dropped ingredient
+                    var draggableId = ui.draggable.attr("id");
+
+                    // next I want to make sure they don't add the same ingredient many times
+                    // when I originally added an ingredient, if i moved that ingredient around within the cup
+                    // it would count it multiple times, so the ingredients would be something like: water, water, water, espresso
+                    // this code checks to see if an ingredient has already been added, and if it has it doesn't add it again
+                    // I do this by checking to see if draggableId is already in the array droppedIngredients
+                    // I am using a jQuery function called inArray, that checks to see if a particular value is in an array
+                    // if the array returns a -1, the ingredient is NOT in the array
+                    // if the array returns anything 0 or greater, the ingredient is IN the array
+                    if (jQuery.inArray(draggableId, droppedIngredients) < 0) {
+                        // ingredient is not in the array, so add it (using the push() function)
+                        // push just adds an item to an array
+                        droppedIngredients.push(draggableId);
+                    }
+
+                    // uncomment this to display in the error log the ingredients that have been dropped
+                    // console.log(droppedIngredients.join());
+
+                },
+                out: function (event, ui) {
+                    // run this code when they drag an ingredient OUT of the cup
+                    // we need to remove the ingredient from the droppedIngredients array
+                    for (i = 0; i < droppedIngredients.length; i++) {
+                        // go through each dropped ingredient and figure out which item to delete from droppedIngredients
+                        if (droppedIngredients[i] == ui.draggable.attr("id")) {
+                            // compare each ingredient that they've dropped previously with the one they're dragging out now
+
+                            // delete the item they are dragging out from the array
+                            // i use splice because when I tried to use the remove function, it left an undefined value
+                            droppedIngredients.splice(i, 1);
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    -->
+    }
+    <!-- Progressbar
+            <div class="progress me-5 progress-striped active progress-game" style="height:40px; width: 300px">
+                <div class="progress-bar progress-bar-striped progress-bar-animated progress-shown" role="progressbar"
+                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+                    <span class="sr-only">80% Complete</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    -->
 
 
-        <script type="text/javascript" src="@assetsFinder.path("javascripts/game_mechanic.js")"></script>
-    </body>
-</html>
