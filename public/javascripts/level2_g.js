@@ -1,5 +1,3 @@
-// import {dragMoveListener, submitGame} from "../../../../../html-bootstrap/src/JS_Seiten/Game/game_mechanic.mjs";
-
 async function loadModal() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
@@ -56,6 +54,7 @@ async function loadModal() {
             }
             console.log("Hallo wir sind GottCoffees");
             this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
+            window.sessionStorage.setItem("coffees", JSON.stringify(this.sixCoffees))
         }
 
         getCoffeeTitles() {
@@ -98,6 +97,7 @@ async function loadModal() {
             }
             console.log(sixCustomers)
             this.sixCustomers = sixCustomers;
+            window.sessionStorage.setItem("customers", JSON.stringify(this.sixCustomers))
         }
 
         getCustomerImages() {
