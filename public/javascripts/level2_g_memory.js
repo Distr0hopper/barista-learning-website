@@ -1,86 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
-//    card options
-//    TODO: How to change CoffeeID to be matching to customer id (=name) so that they match
-//    TODO: current matching: checks if name = name1 then match, so something similar should happen from the database names
-
-    const cardArray = [
-        /*   {
-               name: 'indian-woman',
-               img: 'assets/images/Customers/indian-woman.png'
-           },
-           {
-               name: 'indian-woman',
-               img: 'https://cdn-icons-png.flaticon.com/512/1778/1778134.png'
-           },
-           {
-               name: 'karen',
-               img: 'assets/images/Customers/karen.png'
-           },
-           {
-               name: 'karen',
-               img: 'https://cdn-icons-png.flaticon.com/512/3790/3790742.png'
-           },
-           {
-               name: 'old-black-man',
-               img: 'assets/images/Customers/old-black-man.png'
-           },
-           {
-               name: 'old-black-man',
-               img: 'https://cdn-icons-png.flaticon.com/512/5158/5158490.png'
-           },
-           {
-               name: 'red-head-man',
-               img: 'assets/images/Customers/red-head-man.png'
-           },
-           {
-               name: 'red-head-man',
-               img: 'https://cdn-icons.flaticon.com/png/512/3010/premium/3010061.png?token=exp=1639307162~hmac=5e97df7095089bc1122c1ab0b08632a7'
-           },
-           {
-               name: 'samurai-man',
-               img: 'assets/images/Customers/samurai-man.png'
-           },
-           {
-               name: 'samurai-man',
-               img: 'https://cdn-icons-png.flaticon.com/512/1448/1448432.png'
-           },
-           {
-               name: 'black-woman',
-               img: 'assets/images/Customers/black-woman.png'
-           },
-           {
-               name: 'black-woman',
-               img: 'https://cdn-icons.flaticon.com/png/512/1079/premium/1079087.png?token=exp=1639307228~hmac=c2dfb64ef512d350e352313a122e3b04'
-           }*/
-    ]
-    const coffeeImages = [{
+    const cardArray = []
+    const coffeeImages = [
+        {
         name: "Café au Lait",
-        img: "assets/images/Ingredients/Brown_Sugar.png"
+        img: "assets/images/Ingredients/CafeAuLaitText.png"
     },
         {
-            name: "Irish",
-            img: "assets/images/Ingredients/Brewed_Coffee.png"
-        },
-        {
             name: "Galão",
-            img: "assets/images/Ingredients/Coffee_Cup.png"
+            img: "assets/images/Ingredients/GalaoText.png"
         },
         {
             name: "Irish",
-            img: "assets/images/Ingredients/heisser-kaffee.png"
-        },
-        {
-            name: "Guayoyo",
-            img: "assets/images/Ingredients/Milk.png"
+            img: "assets/images/CoffeeTexts/IrishText.png"
         },
         {
             name: "Americano",
-            img: "assets/images/Ingredients/Hot_Water.png"
+            img: "assets/images/Ingredients/AmericanoText.png"
         },
         {
+            name: "Black",
+            img: "assets/images/CoffeeTexts/BlackText.png"
+        },{
             name: "Latte",
-            img: "assets/images/Ingredients/Espresso.png"
+            img: "assets/images/CoffeeTexts/LatteText.png"
+        },
+        {
+            name: "Cappuccino",
+            img: "assets/images/CoffeeTexts/CappuccinoText.png"
+        },{
+            name: "Doppio",
+            img: "assets/images/CoffeeTexts/DoppioText.png"
         }
+        ,{
+            name: "Espresso",
+            img: "assets/images/CoffeeTexts/EspressoText.png"
+        }
+        ,{
+            name: "Guayoyo",
+            img: "assets/images/CoffeeTexts/GuayoyoText.png"
+        }
+        ,{
+            name: "Lungo",
+            img: "assets/images/CoffeeTexts/LungoText.png"
+        }
+        ,{
+            name: "Macchiato",
+            img: "assets/images/CoffeeTexts/MacchiatoText.png"
+        }
+        ,{
+            name: "Cortado",
+            img: "assets/images/CoffeeTexts/CortadoText.png"
+        }
+        ,{
+            name: "Red Eye",
+            img: "assets/images/CoffeeTexts/RedEyeText.png"
+        }
+        ,{
+            name: "Mocha",
+            img: "assets/images/CoffeeTexts/MochaText.png"
+        },{
+            name: "Ristretto",
+            img: "assets/images/CoffeeTexts/RistrettoText.png"
+        }
+        ,{
+            name: "Flat White",
+            img: "assets/images/CoffeeTexts/FlatWhiteText.png"
+        }
+        ,{
+            name: "Affogato",
+            img: "assets/images/CoffeeTexts/AffogatoText.png"
+        }
+        ,{
+            name: "Cortadito",
+            img: "assets/images/CoffeeTexts/CortaditoText.png"
+        }
+        ,{
+            name: "Aquapanela Coffee",
+            img: "assets/images/CoffeeTexts/AquapanelaCoffeeText.png"
+        }
+
     ]
 
     const grid = document.querySelector('.grid')
@@ -95,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var customerArray = []
     //convert storage to arrays
     console.log(storedCoffeeNames)
+    //Create Array only Containing CoffeeNames and Images
     storedCoffeeNames.forEach((coffee, j) => {
         coffeeNameArray[j] =
             // coffee.title
@@ -110,25 +109,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })
     console.log(coffeeNameArray)
+    //createArray of Customers
     storedCustomers.forEach((customer, k) => {
         customerArray[k] = customer
     })
     console.log(storedCustomers)
     console.log(customerArray)
-    var nameOrder = "coffeeOrder";
     //match CoffeeNames to images and create new array for matched images
+    //nameorder is there to match the coffeeCustomers with the same name as the Drinks they ordered
+    var nameOrder = "coffeeOrder";
     let coffeeImageName = []
-    var hochzaehlen = 0;
-    console.log(coffeeNameArray)
-    console.log(coffeeImageName)
-    //create Array with id to match later and img
+    //console.log(coffeeNameArray)
+    //console.log(coffeeImageName)
     for (let i = 0; i < coffeeNameArray.length * 2; i++) {
+        //check if index is even, then add customer
         if (i % 2 === 0) {
+            //depending on index, need to still get next item in array of customer
             if (i === 0){
                 var index = i
             } else {
                 var index = i-(i/2)
             }
+            //create memorycard with customer name and img src
             var memorycard = {
                 name: nameOrder,
                 img: customerArray[index]
@@ -137,35 +139,35 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(memorycard.name)
             console.log(memorycard.img)
         } else {
+            //check if index is odd, then add drink
+            //depending on index, need to still get next item in array of customer
             if (i === 1){
                 var index = i-i
             } else {
                 var index = i-(i/2 +0.5)
             }
-            console.log(index)
+            //create memorycard with customer name and img src
             var memorycard = {
                 name: nameOrder,
                 img: coffeeNameArray[index].img
             }
             cardArray[i] = memorycard
-            console.log(memorycard.name)
-            console.log(memorycard.img)
+           // console.log(memorycard.name)
+           // console.log(memorycard.img)
+
+            //add something to distinguish the names of the orders (tacky I know)
             nameOrder += "1"
-            console.log(nameOrder)
+           // console.log(nameOrder)
         }
         console.log(memorycard)
     }
-
     console.log(cardArray);
+    //Randomize orders and customers in array
     cardArray.sort(() => 0.5 - Math.random())
 
-    // for (let j = 0; j < cardArray.length; j++) {
-    //     const randomNumber = Math.floor(Math.random() * cardArray.length)
-    //     randomCardArray.push(cardArray.splice(randomNumber, 1)[0]);
-    // }
-
-
     function createBoard() {
+        //creates array of images, with src set to coffeemug and set height, width and id
+        //as soon as clicked, call flipcard
         for (let i = 0; i < cardArray.length; i++) {
             var card = document.createElement('img')
             card.setAttribute('src', "assets/images/Memory-Backdrop.png")
@@ -182,35 +184,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //check for matches
     function checkForMatch() {
+        //gets the clicked cards and compares their names to see if they are even
         const cards = document.querySelectorAll('#memory-img')
-        console.log(cards)
+        //console.log(cards)
         const optionOneId = cardsChosenID[0]
-        console.log(optionOneId)
+        //console.log(optionOneId)
         const optionTwoId = cardsChosenID[1]
+        //checks if same name and if they are different cards
         if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
             alert('You found a match');
-            // cards[optionOneId].setAttribute('src', '../../../../assets/tackyBackroundColor.png')
-            // console.log(cards[optionOneId])
-            // cards[optionTwoId].setAttribute('src', '../../../../assets/tackyBackroundColor.png')
-            // console.log(cards[optionTwoId])
             cardsWon.push(cardsChosen)
-            console.log(cardsWon)
-        } else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
+            //console.log(cardsWon)
+        } //checks if card was clicked twice
+        else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
             cards[optionOneId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
             cards[optionTwoId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
             alert('You need to pick two different cards!')
         } else {
             cards[optionOneId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
-            console.log(cards[optionOneId])
+            //console.log(cards[optionOneId])
             cards[optionTwoId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
-            console.log(cards[optionTwoId])
+            //console.log(cards[optionTwoId])
             alert('Sorry try again')
 
         }
         cardsChosen = []
         cardsChosenID = []
+        //puts amount of cards won into score
         resultDisplay.textContent = cardsWon.length;
-        // if (cardsWon.length === cardArray.length / 2) {
+        //if no cards left display you won
         if (cardsWon.length === cardArray.length / 2) {
             resultDisplay.textContent = 'Congratulations you won!'
         }
@@ -218,10 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //flip card
     function flipcard() {
+        //gets id of clicked card and puts id and name into cardsChosen/cardsChosenID, sets img to new src and calls checkformatch
         var cardID = this.getAttribute('data-id')
         cardsChosen.push(cardArray[cardID].name)
         cardsChosenID.push(cardID)
-        // this.setAttribute('src', cardArray[cardID].img)
         console.log(cardArray[cardID])
         this.setAttribute('src', cardArray[cardID].img)
         if (cardsChosen.length === 2) {
