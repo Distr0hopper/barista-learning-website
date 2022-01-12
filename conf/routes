@@ -28,6 +28,12 @@ GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo(requ
 
 GET /gameLevelTwoMemory             controllers.HomeController.gameLevelTwoMemory(request : Request)
 
+GET /forgotPassword                 controllers.HomeController.forgotPassword
+
+GET /createAccount                  controllers.HomeController.createAccount
+
+POST /checkCreateAccount            controllers.HomeController.checkCreateAccount(request : Request)
+
 POST /auth                          controllers.HomeController.checklogin(request : Request)
 
 POST /getMoney                      controllers.HomeController.requestMoney(request : Request)
