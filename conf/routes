@@ -14,22 +14,23 @@ GET     /assets/*file               controllers.Assets.versioned(file)
 
 GET  /                              controllers.HomeController.login
 
-GET /createAccount                  controllers.HomeController.createAccount
+GET /main                          controllers.HomeController.main(request : Request)
 
-GET /forgotPassword                 controllers.HomeController.forgotPassword
+GET /highscore                      controllers.HomeController.highscore(request : Request)
 
-GET /home                           controllers.HomeController.home
+GET /profile                        controllers.HomeController.profile(request : Request)
 
-GET /highscore                      controllers.HomeController.highscore
+GET /defaultGame                    controllers.HomeController.defaultGame(request : Request)
 
-GET /profile                        controllers.HomeController.profile
+GET /store                          controllers.HomeController.store(request : Request)
 
-GET /defaultGame                    controllers.HomeController.defaultGame
+GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo(request : Request)
 
-GET /store                          controllers.HomeController.store
+GET /gameLevelTwoMemory             controllers.HomeController.gameLevelTwoMemory(request : Request)
 
-GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
+POST /auth                          controllers.HomeController.checklogin(request : Request)
 
-POST        /auth                controllers.HomeController.checklogin(request : Request)
+POST /getMoney                      controllers.HomeController.requestMoney(request : Request)
+#POST für Daten rumschicken, Daten werden nicht in URL reingeschrieben, schlecht bei passwort z.B.
 
-POST        /auth1                  controllers.HomeController.checkCreateAccount(request : Request)
+#POST /create                        controllers.HomeController.createHighScores(request : Request)

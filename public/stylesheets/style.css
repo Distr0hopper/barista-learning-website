@@ -41,7 +41,7 @@ body{
 }
 .mainbackround{
     /*background-image: url("https://www.vecteezy.com/free-vector/cafe");*/
-    background-image: url("images/Industrial-01.jpg");
+    background-image: url("../images/Industrial-01.jpg")!important;
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -463,5 +463,37 @@ hr .new1 {
 .coffeemachine:hover{
     transform: scale(1.25)
 }
+/*Memory Game*/
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    height: 600px;
+    width: 800px;
+}
+.result{
+    align-items: center;
+    color: white;
+}
 
+/* Money/Coffee-Beans in Menu Bar*/
+#coffee-bean-money-icon{
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+#money{
+    margin-right: 30px;
+    font-size: 1.5rem;
+    margin-top: 16px;
+}
+
+#plusForMoneyCounter{
+    margin-top: 10px;
+    margin-left: -20px;
+    margin-right: 10px;
+}
+
+#money-counter{
+    margin-left: -3px;
+}
 

@@ -1,0 +1,11 @@
+@(page: String, money : String)(implicit assetsFinder: AssetsFinder)
+
+@navbar("GameTwoMemory",money) {
+    <div class="flex d-flex align-items-center justify-content-center">
+        <div class="col-lg-5 col-md-10 col-sm-12 mt-5 align-items-center justify-content-center">
+            <h3 class="result mb-4 px-4">Score: <span id="result"></span></h3>
+            <div class="grid image-fluid"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g_memory.js")"></script>
+}

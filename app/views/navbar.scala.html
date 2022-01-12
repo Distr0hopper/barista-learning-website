@@ -1,32 +1,34 @@
-@(page: String)(content: Html)(implicit assetsFinder: AssetsFinder)
-
+@(page: String, money : String)(content: Html)(implicit assetsFinder: AssetsFinder)
+@import java.math.BigInteger; var scalaMoney = money;
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>@page (play-bootstrap-template)</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <title>@page </title>
+        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/bootstrap.min.css")">
         <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/jquery.min.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/bootstrap.bundle.min.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/functions.js")"></script>
+            <!-- Interact js for drag and drop -->
+        <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     </head>
     <body>
-            <!--menu bar-->
-            <!--navbar dark sets text light bc of dark backround-->
-        @* @activeLink(currentPath: String) = @{*@
-        @* if(request.path.equals(currentPath)) "active"*@
-        @* }*@
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
             <div class="container-fluid">
-                <a class="navbar-brand text-uppercase" href="/home"><img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu"></a>
+                <a class="navbar-brand text-uppercase" href="@routes.HomeController.main"><img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav position-absolute end-0 d-flex justify-content-center ">
+                        <img src="@assetsFinder.path("/images/coffee-bean-icon.png")" alt="coffee beans funds" width="40" height="40" id="coffee-bean-money-icon">
+                        <p style="color: white" id="money"> @scalaMoney </p>
+                        <p style="color: white; display: none;" id="plusForMoneyCounter"> + <span id="money-counter" style="display: none;"> 0 </span> </p>
+                    </div>
                     <div class="navbar-nav text-uppercase">
 
-                        <a class="nav-link @("active".when(page == "Home"))" href="@routes.HomeController.home">
+                        <a class="nav-link @("active".when(page == "Home"))" href="@routes.HomeController.main">
                             Home</a>
                         <a class="nav-link @("active".when(page == "HighScore"))" href="@routes.HomeController.highscore">
                             Highscore</a>
@@ -36,12 +38,13 @@
                             Game</a>
                         <a class="nav-link  @("active".when(page == "GameTwo"))" href="@routes.HomeController.gameLevelTwo">
                             Game-Level-2</a>
+                        <a class="nav-link  @("active".when(page == "GameTwoMemory"))" href="@routes.HomeController.gameLevelTwoMemory">
+                            Game-Level-2-Memory</a>
                         <a class="nav-link  @("active".when(page == "Store"))" href="@routes.HomeController.store">
                             Store</a>
                         @* hier noch Dictionary irgendwann
                         <li class=""><a class="nav-link @("active".when(page == "Socials"))" href="@routes.HomeController.socials">
-                        Socials</a></li>
-                        @* <li> <a class="@activeLink("/home")" href="/home">Main</a></li>*@
+                        Socials</a></li>*@
                     </div>
                 </div>
             </div>

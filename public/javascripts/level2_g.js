@@ -1,5 +1,3 @@
-// import {dragMoveListener, submitGame} from "../../../../../html-bootstrap/src/JS_Seiten/Game/game_mechanic.mjs";
-
 async function loadModal() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
@@ -56,6 +54,7 @@ async function loadModal() {
             }
             console.log("Hallo wir sind GottCoffees");
             this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
+            window.sessionStorage.setItem("coffees", JSON.stringify(this.sixCoffees))
         }
 
         getCoffeeTitles() {
@@ -83,14 +82,14 @@ async function loadModal() {
             const CustomerArray = []
             const sixCustomers = []
             //TODO: Change path images
-            CustomerArray[0] = '../assets/Customers/black-woman.png'
-            CustomerArray[1] = '../assets/Customers/karen.png';
-            CustomerArray[2] = '../assets/Customers/old-woman.png';
-            CustomerArray[3] = '../assets/Customers/young-man.png';
-            CustomerArray[4] = '../assets/Customers/samurai-man.png';
-            CustomerArray[5] = '../assets/Customers/red-head-man.png';
-            CustomerArray[6] = '../assets/Customers/old-black-man.png';
-            CustomerArray[7] = '../assets/Customers/indian-woman.png';
+            CustomerArray[0] = 'assets/images/Customers/black-woman.png'
+            CustomerArray[1] = 'assets/images/Customers/karen.png';
+            CustomerArray[2] = 'assets/images/Customers/old-woman.png';
+            CustomerArray[3] = 'assets/images/Customers/young-man.png';
+            CustomerArray[4] = 'assets/images/Customers/samurai-man.png';
+            CustomerArray[5] = 'assets/images/Customers/red-head-man.png';
+            CustomerArray[6] = 'assets/images/Customers/old-black-man.png';
+            CustomerArray[7] = 'assets/images/Customers/indian-woman.png';
             // console.log(CustomerArray);
             for (let i = 0; i < 6; i++) {
                 const randomNumber = this.getRandomNumber(CustomerArray.length);
@@ -98,6 +97,7 @@ async function loadModal() {
             }
             console.log(sixCustomers)
             this.sixCustomers = sixCustomers;
+            window.sessionStorage.setItem("customers", JSON.stringify(this.sixCustomers))
         }
 
         getCustomerImages() {
