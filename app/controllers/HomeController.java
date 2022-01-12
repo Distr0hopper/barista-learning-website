@@ -97,4 +97,27 @@ public class HomeController extends Controller {
             return unauthorized(response);
         }
     }
+
+    public Result checkCreateAccount(Http.Request request){
+        JsonNode json = request.body().asJson();
+        String email = json.get("email").textValue();
+        String username = json.get("username").textValue();
+        String password1 = json.get("password").textValue();
+        String password2 = json.get("password2").textValue();
+
+        if(email.length() != 0 && username.length() != 0 && password1.length() != 0 && password2.length() != 0){
+            if(password1.equals(password2)){
+                return redirect(routes.HomeController.home().url()).addingToSession(request, "connected", username);
+            }else{
+                ObjectNode response = Json.newObject();
+                response.put("message", "Your passwords do not match, please try again");
+                return unauthorized(response);
+            }
+
+        }else{
+            ObjectNode response = Json.newObject();
+            response.put("message", "Please fill in all of the required fields");
+            return unauthorized(response);
+        }
+    }
 }

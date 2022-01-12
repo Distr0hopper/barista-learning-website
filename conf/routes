@@ -31,3 +31,5 @@ GET /store                          controllers.HomeController.store
 GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
 
 POST        /auth                controllers.HomeController.checklogin(request : Request)
+
+POST        /auth1                  controllers.HomeController.checkCreateAccount(request : Request)
