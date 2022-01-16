@@ -24,6 +24,8 @@ const correctIngredientsForActiveDrink = { activeDrink: activeDrink.valueOf() }
 
 
 function submitGame(){
+    $('#plusForMoneyCounter').show();
+    $('#money-counter').show();
 
     var submitButtonText = $('#submitGame').text();
 
@@ -102,6 +104,7 @@ function submitGame(){
             // Check the counter, because the showed answer depends on how many drinks you made right
             counterChecker(correctDrinksCounter);
             // Change the coffee beans. If 3 coffees are right in a row - money += 30
+            window.sessionStorage.setItem("money", JSON.stringify(money))
             $('#money').text(money)
             correctDrinksCounter++;
         } else {
