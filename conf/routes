@@ -28,6 +28,9 @@ GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
 
 GET /gameLevelTwoMemory             controllers.HomeController.gameLevelTwoMemory
 
+GET /dictionary                     controllers.HomeController.dictionary
+
+
 POST /auth                          controllers.HomeController.checklogin(request : Request)
 
 #POST für Daten rumschicken, Daten werden nicht in URL reingeschrieben, schlecht bei passwort z.B.

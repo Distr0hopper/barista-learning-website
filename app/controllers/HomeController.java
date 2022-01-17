@@ -79,6 +79,12 @@ public class HomeController extends Controller {
         );
     }
 
+    public Result dictionary() {
+        return ok(
+                dictionary.render("Dictionary", assetsFinder)
+        );
+    }
+
     public Result checklogin(Http.Request request) {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
