@@ -14,25 +14,32 @@ GET     /assets/*file               controllers.Assets.versioned(file)
 
 GET  /                              controllers.HomeController.login
 
-GET /main                          controllers.HomeController.main
+GET /main                          controllers.HomeController.main(request : Request)
 
-GET /highscore                      controllers.HomeController.highscore
+GET /highscore                      controllers.HomeController.highscore(request : Request)
 
-GET /profile                        controllers.HomeController.profile
+GET /profile                        controllers.HomeController.profile(request : Request)
 
-GET /defaultGame                    controllers.HomeController.defaultGame
+GET /defaultGame                    controllers.HomeController.defaultGame(request : Request)
 
-GET /store                          controllers.HomeController.store
+GET /store                          controllers.HomeController.store(request : Request)
 
-GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo
+GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo(request : Request)
 
-GET /gameLevelTwoMemory             controllers.HomeController.gameLevelTwoMemory
+GET /gameLevelTwoMemory             controllers.HomeController.gameLevelTwoMemory(request : Request)
+
+GET /forgotPassword                 controllers.HomeController.forgotPassword
+
+GET /createAccount                  controllers.HomeController.createAccount
+
+POST /checkCreateAccount            controllers.HomeController.checkCreateAccount(request : Request)
 
 GET /dictionary                     controllers.HomeController.dictionary
 
 
 POST /auth                          controllers.HomeController.checklogin(request : Request)
 
+POST /getMoney                      controllers.HomeController.requestMoney(request : Request)
 #POST für Daten rumschicken, Daten werden nicht in URL reingeschrieben, schlecht bei passwort z.B.
 
 #POST /create                        controllers.HomeController.createHighScores(request : Request)

@@ -1,8 +1,8 @@
-@(page: String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money : String)(implicit assetsFinder: AssetsFinder)
 
 
 <!--template: https://freefrontend.com/bootstrap-profiles/-->
-@navbar("Profile") {
+@navbar("Profile",money) {
     <div class="container mt-4 mb-4 p-5 d-flex justify-content-center">
         <div class="card p-1">
             <div class="image d-flex flex-column justify-content-center align-items-center m-4">

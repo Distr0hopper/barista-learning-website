@@ -20,7 +20,7 @@ const progress = { points: points.value }
 const correctIngredientsForActiveDrink = { activeDrink: activeDrink.valueOf() }
 
 
-
+var money = Number($('#money').text());
 
 
 function submitGame(){
@@ -98,14 +98,28 @@ function submitGame(){
 
 
 
-        if (correctIngredients.sort().join() == arrayImagesID.sort().join()) {
+        if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
             // Get the Money element and change it to a number, than add the score on it
-            var money = Number($('#money').text()) + 15;
+            money += 15;
             // Check the counter, because the showed answer depends on how many drinks you made right
             counterChecker(correctDrinksCounter);
             // Change the coffee beans. If 3 coffees are right in a row - money += 30
             window.sessionStorage.setItem("money", JSON.stringify(money))
             $('#money').text(money)
+
+            const moneyObjekt = {
+                "moneyKey" : money,
+            }
+            console.log(JSON.stringify(moneyObjekt));
+             fetch("/getMoney",{
+                 method: 'POST',
+                 body: JSON.stringify(moneyObjekt),
+                 headers: {
+                     'Content-Type' : 'application/json'
+                 },
+             })
+
+
             correctDrinksCounter++;
         } else {
             $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));

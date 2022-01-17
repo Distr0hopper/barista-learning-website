@@ -36,46 +36,59 @@ public class HomeController extends Controller {
                login.render(assetsFinder));
     }
 
-    public Result main() {
+    public Result main(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                main.render("main", assetsFinder)
+                main.render("main", money, assetsFinder)
         );
     }
 
 
-    public Result highscore() {
+    public Result highscore(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                highscore.render("highscore", HighScoreFetcher.getScoreEntryArray(), assetsFinder));
+                highscore.render("highscore", money, HighScoreFetcher.getScoreEntryArray(), assetsFinder));
     }
 
-    public Result profile() {
+    public Result profile(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                profile.render("profile", assetsFinder)
+                profile.render("profile", money, assetsFinder)
         );
     }
 
-    public Result defaultGame() {
+    public Result defaultGame(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                defaultGame.render("gameOne", assetsFinder)
+                defaultGame.render("gameOne", money, assetsFinder)
         );
     }
 
 
-    public Result gameLevelTwo() {
+    public Result requestMoney(Http.Request request){
+        JsonNode json = request.body().asJson();
+        int money = json.get("moneyKey").intValue();
+        return redirect(routes.HomeController.defaultGame().url()).addingToSession(request,"money", String.valueOf(money));
+    }
+
+    public Result gameLevelTwo(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                gameLevelTwo.render("gameTwo", assetsFinder)
+                gameLevelTwo.render("gameTwo",money, assetsFinder)
         );
     }
 
-    public Result gameLevelTwoMemory() {
+    public Result gameLevelTwoMemory(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                gameLevelTwoMemory.render("gameTwoMemory", assetsFinder)
+                gameLevelTwoMemory.render("gameTwoMemory",money, assetsFinder)
         );
     }
 
-    public Result store() {
+    public Result store(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                store.render("Store", assetsFinder)
+                store.render("Store", money, assetsFinder)
         );
     }
 
@@ -89,14 +102,49 @@ public class HomeController extends Controller {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
         String password = json.get("password").textValue();
-
+        int money = 0;
         if (username.equals("admin") && password.equals("admin")) {
-            return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username);
+            return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
         } else {
             ObjectNode response = Json.newObject();
             response.put("message", "Incorrect password. \nPlease try again.");
             return unauthorized(response);
         }
+    }
+
+    public Result checkCreateAccount(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        String email = json.get("email").textValue();
+        String username = json.get("username").textValue();
+        String password = json.get("password").textValue();
+        String password2 = json.get("password2").textValue();
+        int money = 0;
+        if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !password2.isEmpty()) {
+            if(password.equals(password2)){
+                return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
+            }
+            else{
+                ObjectNode response = Json.newObject();
+                response.put("message", "Your passwords do not match, please try again");
+                return unauthorized(response);
+            }
+        } else {
+            ObjectNode response = Json.newObject();
+            response.put("message", "Please fill out every field");
+            return unauthorized(response);
+        }
+    }
+
+    public Result forgotPassword() {
+        return ok(
+                forgotPassword.render("forgotPassword", assetsFinder)
+        );
+    }
+
+    public Result createAccount(){
+        return ok(
+                createAccount.render("createAccount", assetsFinder)
+        );
     }
 //    public Result createHighScores(Http.Request request){
 //        JsonNode json = request.body().asJson();
