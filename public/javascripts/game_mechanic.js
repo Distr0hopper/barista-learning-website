@@ -35,6 +35,8 @@ var money = Number($('#money').text());
  * @param moneyObject: JSON object containing the key moneyKey and the Value
  */
 function submitGame(){
+    $('#plusForMoneyCounter').show();
+    $('#money-counter').show();
 
     var submitButtonText = $('#submitGame').text();
 

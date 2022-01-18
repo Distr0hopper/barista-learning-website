@@ -92,6 +92,13 @@ public class HomeController extends Controller {
         );
     }
 
+    public Result dictionary(Http.Request request) {
+        String money = request.session().get("money").get();
+        return ok(
+                dictionary.render("Dictionary", money, assetsFinder)
+        );
+    }
+
     public Result checklogin(Http.Request request) {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
@@ -104,6 +111,41 @@ public class HomeController extends Controller {
             response.put("message", "Incorrect password. \nPlease try again.");
             return unauthorized(response);
         }
+    }
+
+    public Result checkCreateAccount(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        String email = json.get("email").textValue();
+        String username = json.get("username").textValue();
+        String password = json.get("password").textValue();
+        String password2 = json.get("password2").textValue();
+        int money = 0;
+        if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !password2.isEmpty()) {
+            if(password.equals(password2)){
+                return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
+            }
+            else{
+                ObjectNode response = Json.newObject();
+                response.put("message", "Your passwords do not match, please try again");
+                return unauthorized(response);
+            }
+        } else {
+            ObjectNode response = Json.newObject();
+            response.put("message", "Please fill out every field");
+            return unauthorized(response);
+        }
+    }
+
+    public Result forgotPassword() {
+        return ok(
+                forgotPassword.render("forgotPassword", assetsFinder)
+        );
+    }
+
+    public Result createAccount(){
+        return ok(
+                createAccount.render("createAccount", assetsFinder)
+        );
     }
 //    public Result createHighScores(Http.Request request){
 //        JsonNode json = request.body().asJson();
