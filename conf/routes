@@ -34,7 +34,7 @@ GET /createAccount                  controllers.HomeController.createAccount
 
 POST /checkCreateAccount            controllers.HomeController.checkCreateAccount(request : Request)
 
-GET /dictionary                     controllers.HomeController.dictionary
+GET /dictionary                     controllers.HomeController.dictionary(request: Request)
 
 
 POST /auth                          controllers.HomeController.checklogin(request : Request)

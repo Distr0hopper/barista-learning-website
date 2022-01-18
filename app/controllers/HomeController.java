@@ -92,9 +92,10 @@ public class HomeController extends Controller {
         );
     }
 
-    public Result dictionary() {
+    public Result dictionary(Http.Request request) {
+        String money = request.session().get("money").get();
         return ok(
-                dictionary.render("Dictionary", assetsFinder)
+                dictionary.render("Dictionary", money, assetsFinder)
         );
     }
 
