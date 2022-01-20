@@ -112,6 +112,7 @@ public class HomeController extends Controller {
         String password = json.get("password").textValue();
         int money = 0;
         if (username.equals("admin") && password.equals("admin")) {
+            //Das hier funktioniert leider nicht
             System.out.println(userFactory.getUserById(1));
             return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
         } else {
