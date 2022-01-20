@@ -2,11 +2,14 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import data.DatabaseTest;
 import data.HighScoreFetcher;
+import model.UserFactory;
+import play.db.Database;
 import play.libs.Json;
 import play.mvc.*;
-
 import views.html.*;
+
 
 import javax.inject.Inject;
 
@@ -15,12 +18,13 @@ import javax.inject.Inject;
  * to the application's home page.
  */
 public class HomeController extends Controller {
-
     private final AssetsFinder assetsFinder;
+    private final UserFactory userFactory;
 
     @Inject
-    public HomeController(AssetsFinder assetsFinder) {
+    public HomeController(AssetsFinder assetsFinder, UserFactory userFactory) {
         this.assetsFinder = assetsFinder;
+        this.userFactory = userFactory;
     }
 
     /**
@@ -32,11 +36,13 @@ public class HomeController extends Controller {
 
 
     public Result login() {
+
         return ok(
                login.render(assetsFinder));
     }
 
     public Result main(Http.Request request) {
+
         String money = request.session().get("money").get();
         return ok(
                 main.render("main", money, assetsFinder)
@@ -68,6 +74,7 @@ public class HomeController extends Controller {
     public Result requestMoney(Http.Request request){
         JsonNode json = request.body().asJson();
         int money = json.get("moneyKey").intValue();
+
         return redirect(routes.HomeController.defaultGame().url()).addingToSession(request,"money", String.valueOf(money));
     }
 
@@ -105,6 +112,7 @@ public class HomeController extends Controller {
         String password = json.get("password").textValue();
         int money = 0;
         if (username.equals("admin") && password.equals("admin")) {
+            System.out.println(userFactory.getUserById(1));
             return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
         } else {
             ObjectNode response = Json.newObject();
@@ -114,6 +122,8 @@ public class HomeController extends Controller {
     }
 
     public Result checkCreateAccount(Http.Request request) {
+
+
         JsonNode json = request.body().asJson();
         String email = json.get("email").textValue();
         String username = json.get("username").textValue();

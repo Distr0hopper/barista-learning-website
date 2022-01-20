@@ -11,12 +11,13 @@ import java.util.List;
 @Singleton
 public class UserFactory {
 
-    private Database db;
+    private static Database db;
 
     @Inject
-    UserFactory(Database db) {
+    public UserFactory(Database db) {
         this.db = db;
     }
+
 
     /**
      * Authenticates a user with the given credentials
@@ -25,6 +26,7 @@ public class UserFactory {
      * @param password password from user input
      * @return Found user or null if user not found
      */
+
     public User authenticate(String username, String password) {
         return db.withConnection(conn -> {
             User user = null;
@@ -66,6 +68,7 @@ public class UserFactory {
      * @param id id of user to find
      * @return User if found, else null
      */
+
     public User getUserById(int id) {
         return db.withConnection(conn -> {
             User user = null;
@@ -118,10 +121,10 @@ public class UserFactory {
         }
 
         private User(ResultSet rs) throws SQLException {
-            this.id = rs.getInt("UserId");
-            this.username = rs.getString("Username");
-            this.mail = rs.getString("Email");
-            this.points = rs.getInt("Points");
+            this.id = rs.getInt("IdUsers");
+            this.username = rs.getString("username");
+            this.mail = rs.getString("mail");
+            this.points = rs.getInt("points");
         }
 
         /**
