@@ -134,11 +134,11 @@ public class UserFactory {
          */
         public void save() {
             db.withConnection(conn -> {
-                String sql = "UPDATE User SET Username = ?, Points = ?, Email = ? WHERE UserId = ?";
+                String sql = "UPDATE User SET username = ?, mail = ?, points = ? WHERE UserId = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.username);
-                stmt.setInt(2, this.points);
-                stmt.setString(3, this.mail);
+                stmt.setString(2, this.mail);
+                stmt.setInt(3, this.points);
                 stmt.setInt(4, this.id);
                 stmt.executeUpdate();
                 stmt.close();
@@ -150,7 +150,7 @@ public class UserFactory {
          */
         public void delete() {
             db.withConnection(conn -> {
-                String sql = "DELETE FROM User WHERE UserId = ?";
+                String sql = "DELETE FROM User WHERE idUsers = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, this.id);
                 stmt.executeUpdate();
