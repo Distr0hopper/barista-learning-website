@@ -36,13 +36,11 @@ public class HomeController extends Controller {
 
 
     public Result login() {
-        System.out.println(userFactory.getUserById(1).getUsername());
         return ok(
                login.render(assetsFinder));
     }
 
     public Result main(Http.Request request) {
-
         String money = request.session().get("money").get();
         return ok(
                 main.render("main", money, assetsFinder)
@@ -111,7 +109,9 @@ public class HomeController extends Controller {
         String username = json.get("username").textValue();
         String password = json.get("password").textValue();
         int money = 0;
-        if (username.equals("admin") && password.equals("admin")) {
+        UserFactory.User user = userFactory.authenticate(username,password);
+        //if (username.equals("admin") && password.equals("admin")) {
+        if (userFactory.authenticate(username,password ) != null){
             return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
         } else {
             ObjectNode response = Json.newObject();
@@ -121,8 +121,6 @@ public class HomeController extends Controller {
     }
 
     public Result checkCreateAccount(Http.Request request) {
-
-
         JsonNode json = request.body().asJson();
         String email = json.get("email").textValue();
         String username = json.get("username").textValue();
@@ -131,7 +129,9 @@ public class HomeController extends Controller {
         int money = 0;
         if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !password2.isEmpty()) {
             if(password.equals(password2)){
-                return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
+                userFactory.create(username,email,password);
+                return redirect(routes.HomeController.login().url());
+                //return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
             }
             else{
                 ObjectNode response = Json.newObject();

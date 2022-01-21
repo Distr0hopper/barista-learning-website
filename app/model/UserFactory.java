@@ -48,9 +48,9 @@ public class UserFactory {
             String sql = "INSERT INTO User (username, mail, password, points) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, username);
-            stmt.setInt(2, 0);
-            stmt.setString(3, email);
-            stmt.setString(4, password);
+            stmt.setString(2, email);
+            stmt.setString(3, password);
+            stmt.setInt(4, 0);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
