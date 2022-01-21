@@ -36,7 +36,8 @@ public class HomeController extends Controller {
 
 
     public Result login() {
-
+        UserFactory.User user = userFactory.getUserById(1);
+        System.out.println(user.getUsername());
         return ok(
                login.render(assetsFinder));
     }

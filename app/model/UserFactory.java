@@ -72,7 +72,7 @@ public class UserFactory {
     public User getUserById(int id) {
         return db.withConnection(conn -> {
             User user = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE UserId = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE idUsers = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
