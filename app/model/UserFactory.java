@@ -30,7 +30,7 @@ public class UserFactory {
     public User authenticate(String username, String password) {
         return db.withConnection(conn -> {
             User user = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE Username = ? AND Password = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ? AND password = ?");
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
@@ -42,12 +42,12 @@ public class UserFactory {
         });
     }
 
-    public User create(String email, String name, String password) {
+    public User create(String username, String email, String password) {
         return db.withConnection(conn -> {
             User user = null;
-            String sql = "INSERT INTO User (Username, Points, Email, Password) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO User (username, mail, password, points) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, name);
+            stmt.setString(1, username);
             stmt.setInt(2, 0);
             stmt.setString(3, email);
             stmt.setString(4, password);
@@ -55,7 +55,7 @@ public class UserFactory {
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
-                user = new User(id, name, email, 0);
+                user = new User(id, username, email, 0);
             }
             stmt.close();
             return user;
@@ -111,6 +111,7 @@ public class UserFactory {
         private int id;
         private String username;
         private String mail;
+        //private String password;
         private int points;
 
         private User(int id, String username, String mail, int points) {
@@ -160,7 +161,7 @@ public class UserFactory {
         public List<User> getFriends() {
             return db.withConnection(conn -> {
                 List<User> result = new ArrayList<>();
-                String sql = "SELECT * FROM Friendship, User WHERE User1Id = ? AND Friendship.User2Id = UserId";
+                String sql = "SELECT * FROM Friend, User WHERE User1Id = ? AND Friendship.User2Id = UserId";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, this.id);
                 ResultSet rs = stmt.executeQuery();
