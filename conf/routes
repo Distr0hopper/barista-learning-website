@@ -40,6 +40,8 @@ POST /auth                          controllers.HomeController.checklogin(reques
 
 POST /getMoney                      controllers.HomeController.requestMoney(request : Request)
 
+GET /api/coffees                    controllers.APIController.getCoffees
+
 
 
 #POST für Daten rumschicken, Daten werden nicht in URL reingeschrieben, schlecht bei passwort z.B.
