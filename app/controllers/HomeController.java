@@ -12,6 +12,7 @@ import views.html.*;
 
 
 import javax.inject.Inject;
+import java.util.NoSuchElementException;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -34,6 +35,9 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
 
+    public boolean isLogedIn(Http.Request request) {
+        return request.session().get("connected").isPresent();
+    }
 
     public Result login() {
         return ok(
@@ -42,10 +46,19 @@ public class HomeController extends Controller {
 
     public Result main(Http.Request request) {
         String money = request.session().get("money").get();
-        return ok(
-                main.render("main", money, assetsFinder)
-        );
+        if (isLogedIn(request)) {
+            return ok(
+                    main.render("main", money, assetsFinder)
+            );
+        } else {
+            return redirect(routes.HomeController.login().url());
+
+        }
     }
+    //        return ok(
+//                main.render("main", money, assetsFinder)
+//        );
+
 
 
     public Result highscore(Http.Request request) {
