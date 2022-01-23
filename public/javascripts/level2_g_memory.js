@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const coffeeImages = [
         {
         name: "Café au Lait",
-        img: "assets/images/Ingredients/CafeAuLaitText.png"
-    },
+        img: "assets/images/CoffeeTexts/CafeAuLaitText.png"
+        },
         {
             name: "Galão",
-            img: "assets/images/Ingredients/GalaoText.png"
+            img: "assets/images/CoffeeTexts/GalaoText.png"
         },
         {
             name: "Irish",
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             name: "Americano",
-            img: "assets/images/Ingredients/AmericanoText.png"
+            img: "assets/images/CoffeeTexts/AmericanoText.png"
         },
         {
             name: "Black",
@@ -86,17 +86,19 @@ document.addEventListener('DOMContentLoaded', () => {
     var cardsChosen = []
     var cardsChosenID = []
     var cardsWon = []
-    //fetch Sessionstorage
+    /**
+     * fetch Sessionstorage*/
     var storedCustomers = JSON.parse(sessionStorage.getItem("customers"))
     var storedCoffeeNames = JSON.parse(sessionStorage.getItem("coffees"));
     var coffeeNameArray = []
     var customerArray = []
     //convert storage to arrays
     console.log(storedCoffeeNames)
-    //Create Array only Containing CoffeeNames and Images
+    /**
+     * Goal here: convert fetched storage to arrays
+     * Firs we Create Array only Containing CoffeeNames and Images*/
     storedCoffeeNames.forEach((coffee, j) => {
         coffeeNameArray[j] =
-            // coffee.title
             {
                 title: coffee.title,
                 img: ''
@@ -109,22 +111,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })
     console.log(coffeeNameArray)
-    //createArray of Customers
+    /**
+     * Then an Array called createArray of Customers*/
     storedCustomers.forEach((customer, k) => {
         customerArray[k] = customer
     })
     console.log(storedCustomers)
     console.log(customerArray)
-    //match CoffeeNames to images and create new array for matched images
-    //nameorder is there to match the coffeeCustomers with the same name as the Drinks they ordered
+    /**
+     * Goal here: match CoffeeNames to images and create new array for matched images
+     * nameorder is there to match the coffeeCustomers with the same name as the Drinks they ordered*/
     var nameOrder = "coffeeOrder";
     let coffeeImageName = []
     //console.log(coffeeNameArray)
     //console.log(coffeeImageName)
+    /**This loop
+     * First: checks if Index is even, if so add a customer
+     * Second: if index is odd, add a drink
+     * Third: Adda a 1 to distinguish the names of the orders (a little bit of a tacky solution) */
     for (let i = 0; i < coffeeNameArray.length * 2; i++) {
         //check if index is even, then add customer
         if (i % 2 === 0) {
-            //depending on index, need to still get next item in array of customer
+            /**depending on index, need to still get next item in array of customer*/
             if (i === 0){
                 var index = i
             } else {
@@ -140,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(memorycard.img)
         } else {
             //check if index is odd, then add drink
-            //depending on index, need to still get next item in array of customer
+            /**depending on index, need to still get next item in array of customer*/
             if (i === 1){
                 var index = i-i
             } else {
@@ -162,12 +170,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(memorycard)
     }
     console.log(cardArray);
-    //Randomize orders and customers in array
+    /**Randomize orders and customers in array*/
     cardArray.sort(() => 0.5 - Math.random())
 
+    /**
+     * createBoard() creates an array of images, with src set to coffeemug and set height, width and id
+     * calls flipcard on click*/
     function createBoard() {
-        //creates array of images, with src set to coffeemug and set height, width and id
-        //as soon as clicked, call flipcard
         for (let i = 0; i < cardArray.length; i++) {
             var card = document.createElement('img')
             card.setAttribute('src', "assets/images/Memory-Backdrop.png")
@@ -182,7 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    //check for matches
+    /**
+     * checkForMatch() checks for matches
+     * 1. gets the clicked cards and compares their names to see if they are even
+     * 2. checks if cards match and if cards clicked are not the same card, alerts if match and pushes cards to cardsWon
+     * 3. if no match, checks if if cards clicked were the same card, and alerts if true
+     * 4. else cards don't match and alert
+     * Puts won cards into score after each round and checks if still cards left or game is over*/
     function checkForMatch() {
         //gets the clicked cards and compares their names to see if they are even
         const cards = document.querySelectorAll('#memory-img')
@@ -218,7 +233,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    //flip card
+    /**
+     * flipcard() flips card
+     * gets id of clicked card and puts id and name into cardsChosen
+     * sets img to new src and calls checkformatch as soon as to cards were flipped*/
     function flipcard() {
         //gets id of clicked card and puts id and name into cardsChosen/cardsChosenID, sets img to new src and calls checkformatch
         var cardID = this.getAttribute('data-id')

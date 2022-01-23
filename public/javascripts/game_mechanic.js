@@ -1,29 +1,42 @@
-// Array which contains the real images of the ingredients
+/**
+ * @param arrayDraggedImages: Contains the images of the ingredient
+ * @param arrayImagesID: Contains the ID's of the images
+ * @param drinks: Stores drinks and their ingredients
+ * @param correctDrinksCounter: Counts how many drinks are made in a row
+ * @param money: Get the money from the Menuebar and display it as text
+ */
+
 var arrayDraggedImages = [];
-// Array which contains only the id's of the images
 var arrayImagesID = [];
 var drinks = new Array();
-// Counts how many correct drinks someone make in a row
 var correctDrinksCounter = 0;
-drinks["americano"] = new Array("espresso", "hotWater");    //Americano
-drinks["latte"] = new Array("espresso", "milk", "milkfoam");    //Latte
-drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam"); //Mocha
-drinks["cappuccino"] = new Array("espresso", "milk","milkfoam");  //cappucini
-drinks["breve"] = new Array("espresso","milk");  //Breve
-drinks["macchiato"] = new Array("espresso","milkfoam");  //Machhiato
+
+drinks["americano"] = new Array("espresso", "hotWater");
+drinks["latte"] = new Array("espresso", "milk", "milkfoam");
+drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam");
+drinks["cappuccino"] = new Array("espresso", "milk","milkfoam") ;
+drinks["breve"] = new Array("espresso","milk");
+drinks["macchiato"] = new Array("espresso","milkfoam");
 //drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
-drinks["caffe au lait"] = new Array("brewedCoffee","milk");  //Caffe au lait
-drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");    //Mocha breve
+drinks["caffe au lait"] = new Array("brewedCoffee","milk");
+drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
 var activeDrink = 'americano';
-var points = 0;
-const progress = { points: points.value }
-const correctIngredientsForActiveDrink = { activeDrink: activeDrink.valueOf() }
-
-
 var money = Number($('#money').text());
 
-
+/**
+ * Function is called when submit button is pressed.
+ * If the button is next, display the next drink to make.
+ * If the button is submit, check if the dropped ingredients are the same as the correct ingredients and snap them to it's original position.
+ * When they are correct, receive rewards and fetch them to the server.
+ * When they are wrong, display the correct ingredients.
+ * Empty arrays.
+ *
+ * @param submitButtonText:  get the current text of the submit button. Can be "Next" or "Submit".
+ * @param moneyObject: JSON object containing the key moneyKey and the Value
+ */
 function submitGame(){
+    $('#plusForMoneyCounter').show();
+    $('#money-counter').show();
 
     var submitButtonText = $('#submitGame').text();
 
@@ -73,41 +86,20 @@ function submitGame(){
         for (i = 0; i < arrayDraggedImages.length; i++){
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
-            //console.log(arrayImagedID);
 
-
-            // reset the position to start position
             currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
             currentImage.setAttribute('data-x', 0)
             currentImage.setAttribute('data-y', 0)
-
-
         }
-
-        // get an array of correct ingredients using the activeDrink name
-        // so for example, if activeDrink was americano this would return an array of ['espresso','water']
         correctIngredients = drinks[activeDrink];
-        // this code takes two arrays: correctIngredients and droppedIngredients
-        // it first sorts them alphabetically, so the user doesn't have to match then order of ingredients
-        // then, it collapses the arrays into strings
-        // so an array with a value of ['water','espresso'] turns into a string 'espressowater'
-        // then, i use the comparison operator to see if the values are the same
-        // if they are, then they inputted the ingredients correctly
-
-
-
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
-            // Get the Money element and change it to a number, than add the score on it
             money += 15;
-            // Check the counter, because the showed answer depends on how many drinks you made right
             counterChecker(correctDrinksCounter);
-            // Change the coffee beans. If 3 coffees are right in a row - money += 30
             $('#money').text(money)
 
             const moneyObjekt = {
                 "moneyKey" : money,
             }
-            console.log(JSON.stringify(moneyObjekt));
              fetch("/getMoney",{
                  method: 'POST',
                  body: JSON.stringify(moneyObjekt),
@@ -116,33 +108,22 @@ function submitGame(){
                  },
              })
 
-
             correctDrinksCounter++;
         } else {
             $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));
             correctDrinksCounter = 0;
             $('#money-counter').text("0")
         }
-        /*  Another method to check if ingredient is already inside. It just checks both arrays and look if any ingredient matches
-        var checker = (arr, target) => target.every(v => arr.includes(v));
-        var ingredientsCheck = checker(correctIngredients, draggedIngredientsArray);
-        console.log(ingredientsCheck);
-
-        if (ingredientsCheck){
-            $('#order').text("You got it right!");
-          //  $('#order').text("congrats you just earned a new coffebean") just checking if it would work
-        } else {
-            $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));
-        }
-*/
-        // Reset both arrays, so for the next exercises they are empty
-
         arrayImagesID = [];
         arrayDraggedImages = [];
     }
 
 }
 
+/**
+ * Checks how much coffees are made correct, then print information how many coffees you made correctly.
+ * @param correctDrinksCounter the amount of correct coffees made in a row
+ */
 function counterChecker(correctDrinksCounter) {
     if (correctDrinksCounter === 0) {
         $('#order').text("You made " + (correctDrinksCounter + 1 )+ " coffee right! +15 beans!");
@@ -158,12 +139,16 @@ function counterChecker(correctDrinksCounter) {
     }
 }
 
+/* ********** DRAGGING CODE *********** */
 
+/**
+ * Make objects from drag-drop class draggable.
+ * Move: If object is moved
+ * End: At the end of the drag
+ * @type {number} -1 checks if ingredient is already inside
+ */
 
-// Interact JS
-// Dragging Code
 const alreadyInside = -1;
-// target elements with the "drag-drop" class
 interact('.drag-drop')
     .draggable({
         listeners: {
@@ -172,54 +157,53 @@ interact('.drag-drop')
         }
     })
 
-
+/**
+ * Get the coordinates from the target (drag object) and translate them.
+ * Then update the position attributes from the object.
+ *
+ * @param event The drag event
+ */
 function dragMoveListener(event) {
-    var target = event.target
+    var currentImage = event.target
 
-    // keep the dragged position in the data-x/ data-y attributes
-    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+    var x = (parseFloat(currentImage.getAttribute('data-x')) || 0) + event.dx
+    var y = (parseFloat(currentImage.getAttribute('data-y')) || 0) + event.dy
 
-
-    // translate the element
-    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-
-    // update the position attributes
-    target.setAttribute('data-x', x)
-    target.setAttribute('data-y', y)
+    currentImage.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+    currentImage.setAttribute('data-x', x)
+    currentImage.setAttribute('data-y', y)
 }
 
+/**
+ * Checks if on the dragend the ingredient is inside the array (the coffee mug).
+ * If not, the position will snap back to the initial position.
+ *
+ * @param event The drag event
+ */
 function checkIngredientArray(event){
     var currentImage = event.target;
-    //console.log(currentImage);
 
-    // if on the end of the drag the ingredient is not inside the array, you havent dragged into the coffee mug, so
-    // the position will snap back to the start. Same will happen if you drag an ingredient out.
     if(arrayDraggedImages.indexOf(currentImage) === alreadyInside){
-        // snap the ingredients back to it's original position
         currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
-
-
         currentImage.setAttribute('data-x', 0)
         currentImage.setAttribute('data-y', 0)
-
     }
-
-
-
 }
 
-// Dropping Code
+/* ********** DROPPING CODE *********** */
 
-// enable draggables to be dropped into this
+/**
+ * Make an object the dropzone.
+ * Ondropactive: Listen for drop related events.
+ * Ondragenter: If object is dragged inside the dropzone, add it into the array, but only if it is not inside.
+ * Ondragleave: If object is dragged out of the dropzone, remove the object from the array.
+ * Ondropdeactivate: Remove drop related events.
+ */
+
 interact('.dropzone').dropzone({
-
-    // Require a 100% element overlap for a drop to be possible
     overlap: 1,
 
-    // listen for drop related events:
     ondropactivate: function (event) {
-        // add active dropzone feedback
         event.target.classList.add('drop-active')
     },
     ondragenter: function (event) {
@@ -227,28 +211,22 @@ interact('.dropzone').dropzone({
         var droppedIngredient = event.relatedTarget;
         var dropzoneElement = event.target;
 
-
         dropzoneElement.classList.add('drop-target')
         droppedIngredient.classList.add('can-drop')
-        // Put dropped ingredient in the array, but only if it's not insde. If returns -1 if the ingredient is not found.
+
         if (arrayDraggedImages.indexOf(droppedIngredient) === alreadyInside){
             arrayDraggedImages.push(droppedIngredient);
-            //console.log(arrayDraggedImages);
-            // console.log(arrayImages_ID);
         } else {
             console.log("Ingredient already inside!");
         }
     },
     ondragleave: function (event) {
 
-        let droppedIngredient = event.relatedTarget;  //The same from above, but cannot use the same element
+        let droppedIngredient = event.relatedTarget;
         event.target.classList.remove('drop-target');
         event.relatedTarget.classList.remove('can-drop');
         const index =arrayDraggedImages.indexOf(droppedIngredient);
 
-        // Get index of the ingredient and remove ingredient which is dragged out from the array.
-
-        // Check if ingredient is still inside
         if (index > -1 ) {
             arrayDraggedImages.splice(index, 1);
         }

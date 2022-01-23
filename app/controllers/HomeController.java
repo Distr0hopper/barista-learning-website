@@ -92,6 +92,13 @@ public class HomeController extends Controller {
         );
     }
 
+    public Result dictionary(Http.Request request) {
+        String money = request.session().get("money").get();
+        return ok(
+                dictionary.render("Dictionary", money, assetsFinder)
+        );
+    }
+
     public Result checklogin(Http.Request request) {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
