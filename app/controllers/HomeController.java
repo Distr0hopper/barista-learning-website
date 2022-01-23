@@ -140,6 +140,15 @@ public class HomeController extends Controller {
                 createAccount.render("createAccount", assetsFinder)
         );
     }
+
+    public Result socials(Http.Request request){
+        String money = request.session().get("money").get();
+        return ok(
+                socials.render("socials", money, assetsFinder)
+        );
+    }
+
+
 //    public Result createHighScores(Http.Request request){
 //        JsonNode json = request.body().asJson();
 //        String username = json.get("name").textValue();

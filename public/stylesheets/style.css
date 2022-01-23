@@ -497,3 +497,144 @@ hr .new1 {
     margin-left: -3px;
 }
 
+
+/* Socials Page */
+.form-control{
+    margin-top: 5px;
+    margin-left: 5px;
+    border-color: var(--dropshadow-color);
+    background-color: var(--dropshadow-color);
+    color: white;
+}
+
+.form-control:focus{
+    border-color: white;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 255, 255, 0.6);
+    background-color: var(--dropshadow-color);
+    color:white;
+}
+
+.form-control:focus::placeholder{
+    color:rgba(255, 255, 255, 0.5);
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 1; /* Firefox */
+}
+
+.btn-search{
+    margin-top: 5px;
+    background-color: var(--card-color);
+    color: white;
+    border-color: var(--dark-brown-navbar);
+}
+
+.btn-search:hover{
+    background-color: var(--dropshadow-color);
+    color:white;
+}
+
+.btn-friend{
+    width: 100%;
+    text-align: left;
+}
+
+.btn-friend:hover{
+    background-color: var(--card-color);
+}
+
+.btn-friend:focus{
+    background-color: var(--dropshadow-color);
+    border-color: white;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.socialsName{
+    font-size: 30px;
+}
+
+.socialsAvatar{
+    height: 45px;
+    width: 45px;
+    margin-left: -5px;
+    float: left;
+}
+
+.avatar-background{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: var(--dropshadow-color);
+    margin-right: 10px;
+    float: left;
+}
+
+.socialsName{
+    color: white;
+    font-size: 20px;
+    alignment: left;
+}
+
+.friendsUsername{
+    color: rgba(255, 255, 255, 0.5);
+    alignment:left;
+}
+
+
+
+.chat-content{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: relative;
+}
+
+.select-friend{
+    text-align: center;
+}
+
+.chat-history{
+    display:none;
+}
+
+.chat-header{
+    background-color: var(--card-color);
+    width: 100%;
+    height: 80px;
+    alignment: top;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+.btn-show-profile{
+    background-color: var(--dropshadow-color);
+    color: white;
+    float: right;
+    margin-top: -20px;
+    margin-right: 10px;
+}
+
+.btn-show-profile:hover{
+    color: white;
+    border-color: white;
+}
+
+.chat-input{
+    background-color: var(--card-color);
+    width: 100%;
+    height: 80px;
+    margin-bottom: 0px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.btn-message{
+    background-color: var(--backround-color);
+    color:white;
+}
+
+.btn-message:hover{
+    color:white;
+    border-color:white;
+}

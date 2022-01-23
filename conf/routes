@@ -32,6 +32,8 @@ GET /forgotPassword                 controllers.HomeController.forgotPassword
 
 GET /createAccount                  controllers.HomeController.createAccount
 
+GET /socials                        controllers.HomeController.socials(request : Request)
+
 POST /checkCreateAccount            controllers.HomeController.checkCreateAccount(request : Request)
 
 POST /auth                          controllers.HomeController.checklogin(request : Request)

@@ -1,0 +1,121 @@
+@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+
+
+@navbar("Socials", money) {
+    <div class="row no-gutters">
+        <div class="col-lg-4">
+            <div class="input-group">
+                <input type="search" class="form-control rounded" placeholder="Search for new friends" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-search">search</button>
+            </div>
+            <ul class="list-unstyled chat-list mt-2 mb-0">
+                <li class="clearfix">
+                    <button type="button" class="btn btn-friend" onclick="openChat('Cristina', 'christinastizzle', '@assetsFinder.path("images/avatar.png")')">
+                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/avatar.png")" class="socialsAvatar"/>
+                        </span>
+                        <span class="socialsName">Cristina</span><br>
+                        <span class="friendsUsername">christinastizzle</span>
+                    </button>
+                </li>
+                <li class="clearfix">
+                    <button type="button" class="btn btn-friend" onclick="openChat('Ronja', 'ronjastizzle', '@assetsFinder.path("images/waitress.png")')">
+                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/waitress.png")" class="socialsAvatar"/>
+                        </span>
+                        <span class="socialsName">Ronja</span><br>
+                        <span class="friendsUsername">ronjastizzle</span>
+                    </button>
+                </li>
+                <li class="clearfix">
+                    <button type="button" class="btn btn-friend" onclick="openChat('Katrin', 'katrinstizzle', '@assetsFinder.path("images/waitress.png")')">
+                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/waitress.png")" class="socialsAvatar"/>
+                        </span>
+                        <span class="socialsName">Katrin</span><br>
+                        <span class="friendsUsername">katrinstizzle</span>
+                    </button>
+                </li>
+                <li class="clearfix">
+                    <button type="button" class="btn btn-friend" onclick="openChat('Julius', 'juliusstizzle', '@assetsFinder.path("images/waiter.png")')">
+                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/waiter.png")" class="socialsAvatar"/>
+                        </span>
+                        <span class="socialsName">Julius</span><br>
+                        <span class="friendsUsername">juliusstizzle</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-8">
+            <div class="mainbackround">
+                <div class="chat-content" id="chat-content">
+                    <div class="select-friend" id="select-friend">
+                        <h3>Select a friend to start chatting!</h3>
+                    </div>
+                    <div class="chat-history" id="chat-history">
+                        <div class="chat-header">
+                            <span class="btn avatar-background"><img src="" class="socialsAvatar" id="header-avatar"/>
+                            </span>
+                            <span class="socialsName" id="header-name"></span><br>
+                            <span class="friendsUsername" id="header-username"></span>
+                            <button type="button" class="btn btn-show-profile" onclick="openModal()">Show profile</button>
+                        </div>
+                        <div class="chat-messages">
+                            Here will be the chat
+                        </div>
+                        <div class="chat-input">
+                        <div class="input-group">
+                            <input type="text" class="form-control rounded" placeholder="Write a message to your friend" aria-label="Message" />
+                            <button type="button" class="btn btn-message">send</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="friendModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Friends Profile</h5>
+                    <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close"
+                    onclick="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row modal-body justify-content-center align-items-center">
+                    <div class="container mt-4 mb-4 p-5 d-flex justify-content-center">
+                        <div class="card p-1">
+                            <div class="image d-flex flex-column justify-content-center align-items-center m-4">
+                                    <!--            trigger modal with button behind image-->
+                                <button type="button" class="btn btn-backround" ><img
+                                src="@assetsFinder.path("images/avatar.png")"
+                                alt="avatar" height="130" width="130" id="friendsAvatar"/></button>
+                                <span class="name mt-3" id="friendsName"></span>
+
+                                    <!--            <div type="button" onclick="editUsername()">-->
+                                <input class="profilename text-center" type="text" value="katrinstizzle" id="profilename" readonly>
+                                    <!--            </div>-->
+                                <div class="d-flex flex-row justify-content-center align-items-center gap-2 mb-3">
+                                    <div id="level" class="level">Baristagod</div>
+                                    <span><i class="fa fa-copy"></i></span></div>
+                                <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                                    <div id="points" class="points">1069</div>
+                                </div>
+                                <div class="d-flex flex-row justify-content-center align-items-center mb-4">
+                                    <div id="highscore" class="highscore">Highscore</div>
+                                </div>
+                                <div class="text m-3"><span>
+                                    Current Occupation: Student.</span>
+                                </div>
+                                    <!--            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter">hi</i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>-->
+                                <div class=" px-2 rounded date"><span class="join">Joined May,2021</span></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/socials.js")"></script>
+}
