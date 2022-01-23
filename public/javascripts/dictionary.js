@@ -159,3 +159,4 @@ async function createDictionary(){
         document.querySelector(".card-group").appendChild(cardCoffee);
     })
 }
+

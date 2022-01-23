@@ -543,5 +543,11 @@ cardText{
 .collapse{
     box-sizing: border-box;
     cursor: pointer;
-
+}
+.card-group{
+    box-sizing: content-box;
+}
+/*sehr tacky aber müsste sonst Daten server seitig preloaden, weil das ein Bug in Bootstrap ist*/
+.cardCoffee{
+    max-width: 33%;
 }
