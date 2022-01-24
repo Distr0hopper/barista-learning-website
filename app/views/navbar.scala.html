@@ -23,7 +23,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav position-absolute end-0 d-flex justify-content-center ">
+                    <div class="navbar-nav position-absolute end-0 d-flex justify-content-center " style="position: absolute; margin-right: 80px">
                         <img src="@assetsFinder.path("/images/coffee-bean-icon.png")" alt="coffee beans funds" width="40" height="40" id="coffee-bean-money-icon">
                         <p style="color: white" id="money" class="">@scalaMoney</p>
                         <p style="color: white; display: none;" id="plusForMoneyCounter"> + <span id="money-counter" style="display: none;"> 0 </span> </p>
@@ -46,6 +46,9 @@
                             Store</a>
                         <a class="nav-link  @("active".when(page == "Dictionary"))" href="@routes.HomeController.dictionary">
                             Dictionary</a>
+                        <a class="nav-link " href="\logout" style="position: absolute; margin-left: 92%">
+                            Logout </a>
+
                         @* hier noch Dictionary irgendwann
                         <li class=""><a class="nav-link @("active".when(page == "Socials"))" href="@routes.HomeController.socials">
                         Socials</a></li>*@

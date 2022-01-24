@@ -81,6 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ]
 
+
+
     const grid = document.querySelector('.grid')
     const resultDisplay = document.querySelector('#result')
     var cardsChosen = []
