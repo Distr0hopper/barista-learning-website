@@ -8,7 +8,6 @@ import play.db.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,16 +39,19 @@ public class CoffeeFetcher {
         return getCoffeeById(Integer.parseInt(id));
     }
 
-
+/**
+ * getallCoffees() retrieves all Coffees and sets Values for ingredientList by calling getIngredientsByID with title as id Value
+ * Coffee has two parameters now therefore, one being the ResultSet and one being ingredientlist
+ * Ingredientlist is added like this into the Coffee Class and the entire new Coffee is built and returned*/
     public List<Coffee> getAllCoffees() {
         return db.withConnection(conn -> {
             List<Coffee> coffees = new ArrayList<>();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                System.out.println(rs.getString("title"));
+//                System.out.println(rs.getString("title"));
                 List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
-                System.out.println(ingredientList);
+//                System.out.println(ingredientList);
                 Coffee coffee = new Coffee(rs, ingredientList);
                 coffees.add(coffee);
             }
@@ -57,6 +59,9 @@ public class CoffeeFetcher {
             return coffees;
         });
     }
+    /**
+     * getIngredients() returns a list of Ingredients by fetching the matching ingredients to title (coffeeID) by JOINing the tables
+     */
 
     public List <Ingredient> getIngredientsByID(String coffeeID){
         return db.withConnection(conn -> {
