@@ -133,7 +133,7 @@ async function createDictionary(){
         divFooter.classList.add("card-footer");
         //Ingredients
         let ingredientText = document.createElement("medium");
-        ingredientText.innerText = coffee.ingredientList;
+        ingredientText.innerText = "Ingredients: "+ coffee.ingredientList;
         ingredientText.classList.add("ingredient-text");
 
         //Collapse

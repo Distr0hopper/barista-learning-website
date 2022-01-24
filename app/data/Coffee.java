@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Coffee now includes not only the Database values but also a List calles IngredientList
+ * that ist filled by getIngredientsById depending on which coffee you are trying to get the Ingredientnames for*/
 public class Coffee {
         private int id;
         private String title;
