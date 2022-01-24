@@ -11,6 +11,7 @@ import views.html.*;
 
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -65,9 +66,10 @@ public class HomeController extends Controller {
 
     public Result highscore(Http.Request request) {
         if(isLoggedIn(request)) {
+            List<UserFactory.User> users = userFactory.getAllUsers();
             String money = request.session().get("money").get();
             return ok(
-                    highscore.render("highscore", money, HighScoreFetcher.getScoreEntryArray(), assetsFinder));
+                    highscore.render("highscore", money, users, assetsFinder));
         } else {
             return redirect(routes.HomeController.login().url());
         }

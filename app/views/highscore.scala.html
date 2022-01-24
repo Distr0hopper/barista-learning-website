@@ -1,6 +1,4 @@
-@import data.ScoreEntry
-@import java.util
-@(page: String, money : String)(highScoreList: util.List[ScoreEntry])(implicit assetsFinder: AssetsFinder)
+@(page: String, money : String, users: List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
 
 @navbar("HighScore",money) {
     <div class="d-flex justify-content-center m-4 p-4">
@@ -8,10 +6,10 @@
             <h1 class="highscoreHeader">High Scores</h1>
             <div class="list">
                 @* hier generieren wir mit Scala HighscoreListe*@
-                @for(entry <- highScoreList) {
+                @for(user <- users) {
                     <div class="listrow">
-                        <span class="nameSpan">@entry.getUsername</span>
-                        <span class="pointSpan">@entry.getScore</span>
+                        <span class="nameSpan">@user.getUsername()</span>
+                        <span class="pointSpan">@user.getPoints()</span>
                     </div>
                 }
             </div>
