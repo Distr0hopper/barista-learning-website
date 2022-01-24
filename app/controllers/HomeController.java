@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import data.HighScoreFetcher;
+import model.CoffeeFetcher;
 import model.UserFactory;
 import play.libs.Json;
 import play.mvc.*;
@@ -18,11 +19,13 @@ import javax.inject.Inject;
 public class HomeController extends Controller {
     private final AssetsFinder assetsFinder;
     private final UserFactory userFactory;
+    private final CoffeeFetcher coffeeFetcher;
 
     @Inject
-    public HomeController(AssetsFinder assetsFinder, UserFactory userFactory) {
+    public HomeController(AssetsFinder assetsFinder, UserFactory userFactory, CoffeeFetcher coffeeFetcher) {
         this.assetsFinder = assetsFinder;
         this.userFactory = userFactory;
+        this.coffeeFetcher = coffeeFetcher;
     }
 
     /**
@@ -193,6 +196,7 @@ public class HomeController extends Controller {
             return unauthorized(response);
         }
     }
+
 
     public Result forgotPassword() {
         return ok(

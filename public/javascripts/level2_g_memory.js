@@ -1,88 +1,93 @@
-document.addEventListener('DOMContentLoaded', () => {
+async function loadMemory(){
     const cardArray = []
-    const coffeeImages = [
-        {
-        name: "Café au Lait",
-        img: "assets/images/CoffeeTexts/CafeAuLaitText.png"
-        },
-        {
-            name: "Galão",
-            img: "assets/images/CoffeeTexts/GalaoText.png"
-        },
-        {
-            name: "Irish",
-            img: "assets/images/CoffeeTexts/IrishText.png"
-        },
-        {
-            name: "Americano",
-            img: "assets/images/CoffeeTexts/AmericanoText.png"
-        },
-        {
-            name: "Black",
-            img: "assets/images/CoffeeTexts/BlackText.png"
-        },{
-            name: "Latte",
-            img: "assets/images/CoffeeTexts/LatteText.png"
-        },
-        {
-            name: "Cappuccino",
-            img: "assets/images/CoffeeTexts/CappuccinoText.png"
-        },{
-            name: "Doppio",
-            img: "assets/images/CoffeeTexts/DoppioText.png"
-        }
-        ,{
-            name: "Espresso",
-            img: "assets/images/CoffeeTexts/EspressoText.png"
-        }
-        ,{
-            name: "Guayoyo",
-            img: "assets/images/CoffeeTexts/GuayoyoText.png"
-        }
-        ,{
-            name: "Lungo",
-            img: "assets/images/CoffeeTexts/LungoText.png"
-        }
-        ,{
-            name: "Macchiato",
-            img: "assets/images/CoffeeTexts/MacchiatoText.png"
-        }
-        ,{
-            name: "Cortado",
-            img: "assets/images/CoffeeTexts/CortadoText.png"
-        }
-        ,{
-            name: "Red Eye",
-            img: "assets/images/CoffeeTexts/RedEyeText.png"
-        }
-        ,{
-            name: "Mocha",
-            img: "assets/images/CoffeeTexts/MochaText.png"
-        },{
-            name: "Ristretto",
-            img: "assets/images/CoffeeTexts/RistrettoText.png"
-        }
-        ,{
-            name: "Flat White",
-            img: "assets/images/CoffeeTexts/FlatWhiteText.png"
-        }
-        ,{
-            name: "Affogato",
-            img: "assets/images/CoffeeTexts/AffogatoText.png"
-        }
-        ,{
-            name: "Cortadito",
-            img: "assets/images/CoffeeTexts/CortaditoText.png"
-        }
-        ,{
-            name: "Aquapanela Coffee",
-            img: "assets/images/CoffeeTexts/AquapanelaCoffeeText.png"
-        }
+    // const coffeeImages = [
+    //     {
+    //     name: "Café au Lait",
+    //     img: "assets/images/CoffeeTexts/CafeAuLaitText.png"
+    //     },
+    //     {
+    //         name: "Galão",
+    //         img: "assets/images/CoffeeTexts/GalaoText.png"
+    //     },
+    //     {
+    //         name: "Irish",
+    //         img: "assets/images/CoffeeTexts/IrishText.png"
+    //     },
+    //     {
+    //         name: "Americano",
+    //         img: "assets/images/CoffeeTexts/AmericanoText.png"
+    //     },
+    //     {
+    //         name: "Black",
+    //         img: "assets/images/CoffeeTexts/BlackText.png"
+    //     },{
+    //         name: "Latte",
+    //         img: "assets/images/CoffeeTexts/LatteText.png"
+    //     },
+    //     {
+    //         name: "Cappuccino",
+    //         img: "assets/images/CoffeeTexts/CappuccinoText.png"
+    //     },{
+    //         name: "Doppio",
+    //         img: "assets/images/CoffeeTexts/DoppioText.png"
+    //     }
+    //     ,{
+    //         name: "Espresso",
+    //         img: "assets/images/CoffeeTexts/EspressoText.png"
+    //     }
+    //     ,{
+    //         name: "Guayoyo",
+    //         img: "assets/images/CoffeeTexts/GuayoyoText.png"
+    //     }
+    //     ,{
+    //         name: "Lungo",
+    //         img: "assets/images/CoffeeTexts/LungoText.png"
+    //     }
+    //     ,{
+    //         name: "Macchiato",
+    //         img: "assets/images/CoffeeTexts/MacchiatoText.png"
+    //     }
+    //     ,{
+    //         name: "Cortado",
+    //         img: "assets/images/CoffeeTexts/CortadoText.png"
+    //     }
+    //     ,{
+    //         name: "Red Eye",
+    //         img: "assets/images/CoffeeTexts/RedEyeText.png"
+    //     }
+    //     ,{
+    //         name: "Mocha",
+    //         img: "assets/images/CoffeeTexts/MochaText.png"
+    //     },{
+    //         name: "Ristretto",
+    //         img: "assets/images/CoffeeTexts/RistrettoText.png"
+    //     }
+    //     ,{
+    //         name: "Flat White",
+    //         img: "assets/images/CoffeeTexts/FlatWhiteText.png"
+    //     }
+    //     ,{
+    //         name: "Affogato",
+    //         img: "assets/images/CoffeeTexts/AffogatoText.png"
+    //     }
+    //     ,{
+    //         name: "Cortadito",
+    //         img: "assets/images/CoffeeTexts/CortaditoText.png"
+    //     }
+    //     ,{
+    //         name: "Aquapanela Coffee",
+    //         img: "assets/images/CoffeeTexts/AquapanelaCoffeeText.png"
+    //     }
+    //
+    // ]
+    let response = await fetch("http://localhost:9000/api/coffees");
+    let coffeelist = await response.json();
+    console.log(coffeelist);
 
-    ]
-
-
-
+    const coffeeImages = coffeelist.map(coffee=>{
+        coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
+        return coffee
+    })
     const grid = document.querySelector('.grid')
     const resultDisplay = document.querySelector('#result')
     var cardsChosen = []
@@ -106,8 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 img: ''
             }
         for (let l = 0; l < coffeeImages.length; l++) {
-            if (coffee.title === coffeeImages[l].name){
-                coffeeNameArray[j].img = coffeeImages[l].img
+            if (coffee.title === coffeeImages[l].title){
+                coffeeNameArray[j].img = coffeeImages[l].coffeeImgPath
             }
         }
 
@@ -253,4 +258,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createBoard()
 
-})
+}
+window.addEventListener('load', loadMemory)
