@@ -22,7 +22,7 @@ public class APIController extends Controller {
         return ok(Json.toJson(coffeeFetcher.getAllCoffees()));
     }
 
-    public Result getIngredients() {
-        return ok(Json.toJson(ingredientFetcher.getAllIngredients()));
-    }
+//    public Result getIngredientNames() {
+//        return ok(Json.toJson(ingredientFetcher.getIngredientNames("Latte")));
+//    }
 }

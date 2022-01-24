@@ -2,6 +2,7 @@ package model;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import data.Ingredient;
 import play.db.Database;
 
 import java.sql.PreparedStatement;
@@ -26,7 +27,8 @@ public class CoffeeFetcher {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                coffee = new CoffeeFetcher.Coffee(rs);
+                List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
+                coffee = new CoffeeFetcher.Coffee(rs, ingredientList);
             }
             stmt.close();
             return coffee;
@@ -44,7 +46,10 @@ public class CoffeeFetcher {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                CoffeeFetcher.Coffee coffee = new CoffeeFetcher.Coffee(rs);
+                System.out.println(rs.getString("title"));
+                List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
+                System.out.println(ingredientList);
+                CoffeeFetcher.Coffee coffee = new CoffeeFetcher.Coffee(rs, ingredientList);
                 coffees.add(coffee);
             }
             stmt.close();
@@ -52,31 +57,50 @@ public class CoffeeFetcher {
         });
     }
 
+    public List <Ingredient> getIngredientsByID(String coffeeID){
+        return db.withConnection(conn -> {
+            List<Ingredient> ingredients = new ArrayList<>();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Ingredients JOIN Coffees_has_Ingredients ON idIngredients = Ingredients_idIngredients JOIN Coffees ON idCoffees = Coffees_idCoffees WHERE title = ?");
+            stmt.setString(1, coffeeID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Ingredient ingredient = new Ingredient(rs);
+                System.out.println(ingredient);
+                ingredients.add(ingredient);
+            }
+            stmt.close();
+            return ingredients;
+        });
+    }
+
     public class Coffee {
         private int id;
         private String title;
         private String description;
-        private String ingredients;
+        private int ingredientID;
         private float price;
         private String coffeeImgPath;
+        private List<Ingredient> ingredientList;
 
-        private Coffee(ResultSet rs) throws SQLException {
+        private Coffee(ResultSet rs, List <Ingredient> ingredients) throws SQLException {
             this.id = rs.getInt("idCoffees");
             this.title = rs.getString("title");
             this.description = rs.getString("description");
-            this.ingredients = rs.getString("ingredients");
+            this.ingredientID = rs.getInt("ingredients");
             this.price = rs.getFloat("price");
             this.coffeeImgPath = rs.getString("coffeeImgPath");
+            this.ingredientList = ingredients;
         }
 
 
-        private Coffee(int id, String title, String description, String ingredients, float price, String coffeeImgPath) {
+        private Coffee(int id, String title, String description, int ingredientID, float price, String coffeeImgPath, List<Ingredient> ingredientList) {
             this.id = id;
             this.title = title;
             this.description = description;
-            this.ingredients = ingredients;
+            this.ingredientID = ingredientID;
             this.price = price;
             this.coffeeImgPath = coffeeImgPath;
+            this.ingredientList = ingredientList;
         }
         public void setId(int id) {
             this.id = id;
@@ -90,8 +114,8 @@ public class CoffeeFetcher {
             this.description = description;
         }
 
-        public void setIngredients(String ingredients) {
-            this.ingredients = ingredients;
+        public void setIngredients(int ingredientID) {
+            this.ingredientID = ingredientID;
         }
 
         public void setPrice(float price) {
@@ -114,8 +138,8 @@ public class CoffeeFetcher {
             return description;
         }
 
-        public String getIngredients() {
-            return ingredients;
+        public int getIngredientID() {
+            return ingredientID;
         }
 
         public float getPrice() {
@@ -124,6 +148,10 @@ public class CoffeeFetcher {
 
         public String getCoffeeImgPath() {
             return coffeeImgPath;
+        }
+
+        public List<Ingredient> getIngredientList() {
+            return ingredientList;
         }
     }
 

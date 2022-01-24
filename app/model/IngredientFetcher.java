@@ -1,6 +1,7 @@
 package model;
 
 import com.google.inject.Inject;
+import data.Ingredient;
 import play.db.Database;
 
 import java.sql.PreparedStatement;
@@ -16,33 +17,47 @@ public class IngredientFetcher {
     IngredientFetcher(Database db) {
         this.db = db;
     }
-
+//    public List<IngredientFetcher.Ingredient> getIngredientNames(String coffeeTitle){
+//        List<CoffeeFetcher.Coffee> coffees = new ArrayList<>();
+//        return db.withConnection(conn -> {
+//            List<IngredientFetcher.Ingredient> ingredients = new ArrayList<>();
+//            PreparedStatement stmt = conn.prepareStatement("SELECT name FROM Ingredients JOIN Coffees_has_Ingredients ON idIngredients = Ingredients_idIngredients JOIN Coffees ON idCoffees = Coffees_idCoffees WHERE title = ?");
+//            stmt.setString(1, coffeeTitle);
+//            ResultSet rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                IngredientFetcher.Ingredient ingredient = new IngredientFetcher.Ingredient(rs);
+//                ingredients.add(ingredient);
+//            }
+//            stmt.close();
+//            return ingredients;
+//        });
+//    }
 
     public Ingredient getIngredientById(int id) {
         return db.withConnection(conn -> {
-            IngredientFetcher.Ingredient ingredient = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE idIngredients = ?");
+            Ingredient ingredient = null;
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Ingredients WHERE idIngredients = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                ingredient = new IngredientFetcher.Ingredient(rs);
+                ingredient = new Ingredient(rs);
             }
             stmt.close();
             return ingredient;
         });
     }
-    public IngredientFetcher.Ingredient getIngredientById(String id) {
+    public Ingredient getIngredientById(String id) {
         return getIngredientById(Integer.parseInt(id));
     }
 
 
-    public List<IngredientFetcher.Ingredient> getAllIngredients() {
+    public List<Ingredient> getAllIngredients() {
         return db.withConnection(conn -> {
-            List<IngredientFetcher.Ingredient> ingredients = new ArrayList<>();
+            List<Ingredient> ingredients = new ArrayList<>();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Ingredients");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                IngredientFetcher.Ingredient ingredient = new IngredientFetcher.Ingredient(rs);
+                Ingredient ingredient = new Ingredient(rs);
                 ingredients.add(ingredient);
             }
             stmt.close();
@@ -50,36 +65,6 @@ public class IngredientFetcher {
         });
     }
 
-    public class Ingredient {
-        private int id;
-        private String name;
 
-        private Ingredient(ResultSet rs) throws SQLException {
-            this.id = rs.getInt("idIngredients");
-            this.name = rs.getString("name");
-        }
-
-
-        private Ingredient(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 
 }

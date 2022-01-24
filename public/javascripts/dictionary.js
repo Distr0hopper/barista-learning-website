@@ -5,7 +5,12 @@ async function createDictionary(){
     console.log(coffeelist);
 
     coffeelist = coffeelist.map(coffee=>{
+        let ingredientArray = [];
         coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
+        // for (let i = 0; i < coffee.ingredientList.length; i++) {
+        //     ingredientArray.push(coffee.ingredientList[i]);
+        // }
+        // ingredientArray = coffee.ingredientList;
         return coffee
     })
     console.log(coffeelist);
@@ -109,6 +114,7 @@ async function createDictionary(){
     //     }
     //     coffeelist.push(coffee_name)
     // });
+    
     coffeelist.forEach((coffee, i) => {
         let cardCoffee = document.createElement("card");
         cardCoffee.classList.add("cardCoffee");
