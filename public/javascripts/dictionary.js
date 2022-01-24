@@ -3,14 +3,14 @@ async function createDictionary(){
     let response = await fetch("http://localhost:9000/api/coffees");
     let coffeelist = await response.json();
     console.log(coffeelist);
-
+    console.log(coffeelist[1].ingredientList);
     coffeelist = coffeelist.map(coffee=>{
         let ingredientArray = [];
         coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
-        // for (let i = 0; i < coffee.ingredientList.length; i++) {
-        //     ingredientArray.push(coffee.ingredientList[i]);
-        // }
-        // ingredientArray = coffee.ingredientList;
+        for (let i = 0; i < coffee.ingredientList.length; i++) {
+            ingredientArray.push(coffee.ingredientList[i].name);
+        }
+        coffee.ingredientList = ingredientArray;
         return coffee
     })
     console.log(coffeelist);
@@ -133,7 +133,7 @@ async function createDictionary(){
         divFooter.classList.add("card-footer");
         //Ingredients
         let ingredientText = document.createElement("medium");
-        ingredientText.innerText = coffee.ingredients;
+        ingredientText.innerText = coffee.ingredientList;
         ingredientText.classList.add("ingredient-text");
 
         //Collapse
