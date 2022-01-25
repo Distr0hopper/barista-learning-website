@@ -2,7 +2,6 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import data.HighScoreFetcher;
 import model.CoffeeFetcher;
 import model.UserFactory;
 import play.libs.Json;
@@ -48,6 +47,8 @@ public class HomeController extends Controller {
     public Result main(Http.Request request) {
         if (isLoggedIn(request)) {
             String money = request.session().get("money").get();
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
             return ok(
                     main.render("main", money, assetsFinder)
             );
@@ -78,14 +79,18 @@ public class HomeController extends Controller {
 
     public Result profile(Http.Request request) {
         if(isLoggedIn(request)) {
+//            List<UserFactory.User> users = userFactory.getAllUsers();
             String money = request.session().get("money").get();
+            int id = Integer.parseInt(request.session().get("userID").get());
+
+            UserFactory.User user = userFactory.getUserById(id);
+
             return ok(
-                    profile.render("profile", money, assetsFinder)
+                    profile.render("profile", money, user, assetsFinder)
             );
         } else {
             return redirect(routes.HomeController.login().url());
         }
-
     }
 
     public Result defaultGame(Http.Request request) {
@@ -161,10 +166,13 @@ public class HomeController extends Controller {
         String password = json.get("password").textValue();
         int money = 0;
         UserFactory.User user = userFactory.authenticate(username,password);
+        UserFactory.User userID = userFactory.getUserByUsername(username);
+        int id = userID.getId(); // add user id on the session
         //if (username.equals("admin") && password.equals("admin")) {
         if (userFactory.authenticate(username,password ) != null){
             return redirect(routes.HomeController.main().url())
                     .addingToSession(request, "connected", username)
+                    .addingToSession(request, "userID", String.valueOf(id))
                     .addingToSession(request,"money", String.valueOf(money));
         } else {
             ObjectNode response = Json.newObject();

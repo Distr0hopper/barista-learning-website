@@ -1,4 +1,4 @@
-@(page: String, money : String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money : String, user : model.UserFactory#User)(implicit assetsFinder: AssetsFinder)
 
 
 <!--template: https://freefrontend.com/bootstrap-profiles/-->
@@ -11,16 +11,16 @@
                 data-target="#myModal" id="modal-btn" onclick="openModal()"><img
                 src="@assetsFinder.path("images/avatar.png")"
                 alt="avatar" height="130" width="130" id="profileimage"/></button>
-                <span class="name mt-3">Katrin Stötter</span>
+                <span class="name mt-3">@user.getUsername()</span>
 
                     <!--            <div type="button" onclick="editUsername()">-->
-                <input class="profilename text-center" type="text" value="katrinstizzle" id="profilename" readonly>
-                    <!--            </div>-->
+                <input class="profilename text-center" type="text" value="@user.getUsername()" id="profilename" readonly>
+
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 mb-3">
                     <div id="level" class="level">Baristagod</div>
                     <span><i class="fa fa-copy"></i></span></div>
                 <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-                    <div id="points" class="points">1069</div>
+                    <div id="points" class="points">@user.getPoints()</div>
                 </div>
                 <div class="d-flex flex-row justify-content-center align-items-center mb-4">
                     <div id="highscore" class="highscore">Highscore</div>

@@ -83,6 +83,20 @@ public class UserFactory {
         });
     }
 
+    public User getUserByUsername(String username) {
+        return db.withConnection(conn -> {
+            User user = null;
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                user = new User(rs);
+            }
+            stmt.close();
+            return user;
+        });
+    }
+
     /**
      * Polymorphism method for getUserById(int)
      *
@@ -173,6 +187,8 @@ public class UserFactory {
                 return result;
             });
         }
+
+        // get from database the users in order for highscore
 
         public int getId() {
             return id;

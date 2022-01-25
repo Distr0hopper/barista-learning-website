@@ -44,6 +44,11 @@ GET /logout                         controllers.HomeController.logout
 
 GET /api/coffees                    controllers.APIController.getCoffees
 
+#GET /userid                         controllers.APIController.getUserId(request: Request)
+#
+#PUT /profile/:username              controllers.APIController.updateUsername(username: String)
+
+
 #GET /api/ingredientNames                controllers.APIController.getIngredientNames
 
 
