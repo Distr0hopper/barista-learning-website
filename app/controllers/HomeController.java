@@ -69,8 +69,9 @@ public class HomeController extends Controller {
         if(isLoggedIn(request)) {
             List<UserFactory.User> users = userFactory.getAllUsersDesc();
             String money = request.session().get("money").get();
+            int id = Integer.parseInt(request.session().get("userID").get());
             return ok(
-                    highscore.render("highscore", money, users, assetsFinder));
+                    highscore.render("highscore", money, users, id, assetsFinder));
         } else {
             return redirect(routes.HomeController.login().url());
         }
