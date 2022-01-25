@@ -121,6 +121,20 @@ public class UserFactory {
         });
     }
 
+    public List<User> getAllUsersDesc() {
+        return db.withConnection(conn -> {
+            List<User> users = new ArrayList<>();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User ORDER BY points DESC");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs);
+                users.add(user);
+            }
+            stmt.close();
+            return users;
+        });
+    }
+
     public class User {
         private int id;
         private String username;
@@ -187,8 +201,6 @@ public class UserFactory {
                 return result;
             });
         }
-
-        // get from database the users in order for highscore
 
         public int getId() {
             return id;

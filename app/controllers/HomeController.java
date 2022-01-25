@@ -67,7 +67,7 @@ public class HomeController extends Controller {
 
     public Result highscore(Http.Request request) {
         if(isLoggedIn(request)) {
-            List<UserFactory.User> users = userFactory.getAllUsers();
+            List<UserFactory.User> users = userFactory.getAllUsersDesc();
             String money = request.session().get("money").get();
             return ok(
                     highscore.render("highscore", money, users, assetsFinder));
