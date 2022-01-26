@@ -138,7 +138,8 @@ function submitGame(){
 }
 
 /**
- * Checks how much coffees are made correct, then print information how many coffees you made correctly.
+ * Checks how many coffees are made correctly in a row.
+ * If you are on a 3 streak or more, you gain +30 beans instead of 15.
  * @param correctDrinksCounter the amount of correct coffees made in a row
  */
 function checkCorrectDrinks(correctDrinksCounter) {
