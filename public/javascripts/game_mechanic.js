@@ -10,6 +10,7 @@ var arrayDraggedImages = [];
 var arrayImagesID = [];
 var drinks = new Array();
 var correctDrinksCounter = 0;
+var wrongDrinksCounter = 0;
 
 drinks["americano"] = new Array("espresso", "hotWater");
 drinks["latte"] = new Array("espresso", "milk", "milkfoam");
@@ -27,9 +28,12 @@ var money = Number($('#money').text());
  * Function is called when submit button is pressed.
  * If the button is next, display the next drink to make.
  * If the button is submit, check if the dropped ingredients are the same as the correct ingredients and snap them to it's original position.
- * When they are correct, receive rewards and fetch them to the server.
- * When they are wrong, display the correct ingredients.
- * Empty arrays.
+ * When they are correct, look how many attempts the user needed to make the coffee right.
+ * Depending on the number of attempts, the user gets a different number of beans.
+ * Fetch the rewards to the server to store them in a session.
+ * When they are wrong, count an attempt + 1.
+ * If the user cannot make the coffee in 3 attempts, display the correct answer.
+ * Empty arrays at the end.
  *
  * @param submitButtonText:  get the current text of the submit button. Can be "Next" or "Submit".
  * @param moneyObject: JSON object containing the key moneyKey and the Value
@@ -43,7 +47,7 @@ function submitGame(){
     if (submitButtonText === 'next') {
 
         $('#submitGame').html('submit')
-
+        // Get Drinks from the Database
         if (activeDrink == 'americano') {
             $('#order').text("2. Please make a LATTE!");
             activeDrink = 'latte';
@@ -81,7 +85,7 @@ function submitGame(){
 
         }
     } else {
-        $('#submitGame').html('next')
+
 
         for (i = 0; i < arrayDraggedImages.length; i++){
             let currentImage = arrayDraggedImages[i];
@@ -92,10 +96,12 @@ function submitGame(){
             currentImage.setAttribute('data-y', 0)
         }
         correctIngredients = drinks[activeDrink];
+
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
-            money += 15;
-            counterChecker(correctDrinksCounter);
-            $('#money').text(money)
+
+            $('#submitGame').html('next')
+           checkWrongDrinks(wrongDrinksCounter);
+            $('#money').text(money);
 
             const moneyObjekt = {
                 "moneyKey" : money,
@@ -109,10 +115,21 @@ function submitGame(){
              })
 
             correctDrinksCounter++;
+            wrongDrinksCounter = 0;
         } else {
-            $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));
+            wrongDrinksCounter++;
+            if (wrongDrinksCounter < 3){
+                $('#order').text("Wrong! Please make a " + activeDrink + " again!");
+                window.alert("You have " + (3 - wrongDrinksCounter) + " tries left");
+            } else {
+                $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));
+                $('#submitGame').html('next');
+                wrongDrinksCounter = 0;
+            }
+
             correctDrinksCounter = 0;
             $('#money-counter').text("0")
+
         }
         arrayImagesID = [];
         arrayDraggedImages = [];
@@ -121,23 +138,44 @@ function submitGame(){
 }
 
 /**
- * Checks how much coffees are made correct, then print information how many coffees you made correctly.
+ * Checks how many coffees are made correctly in a row.
+ * If you are on a 3 streak or more, you gain +30 beans instead of 15.
  * @param correctDrinksCounter the amount of correct coffees made in a row
  */
-function counterChecker(correctDrinksCounter) {
-    if (correctDrinksCounter === 0) {
-        $('#order').text("You made " + (correctDrinksCounter + 1 )+ " coffee right! +15 beans!");
-    }
-    if (correctDrinksCounter < 3 && correctDrinksCounter > 0) {
-        $('#order').text("You made " + (correctDrinksCounter + 1 )+ " coffees right! +15 beans!");
-    }
-    $('#money-counter').text("15")
-    if (correctDrinksCounter >= 3){
+function checkCorrectDrinks(correctDrinksCounter) {
+    if (correctDrinksCounter < 2){
+        $('#order').text("You made it right on the first try! +15 beans!");
         money += 15;
+        $('#money-counter').text("15")
+    }
+    else if (correctDrinksCounter >= 2){
+        money += 30;
         $('#money-counter').text("30")
-        $('#order').text("You are on a " + correctDrinksCounter + " streak! +30 beans!")
+        $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! +30 beans!")
     }
 }
+
+/**
+ * Checks on which try the coffee is made correct.
+ * If you made it on the first try, call checkCorrectDrinks to look if you are on a streak.
+ * Give 15 Points on first try, 10 on second try and 5 on third try.
+ * @param wrongDrinksCounter on which attempt you made it right
+ */
+function checkWrongDrinks(wrongDrinksCounter){
+    if (wrongDrinksCounter === 0){
+        checkCorrectDrinks(correctDrinksCounter);
+    } else if (wrongDrinksCounter === 1){
+        money += 10;
+        $('#money-counter').text("10");
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! +10 beans!");
+    } else if (wrongDrinksCounter === 2){
+        money += 5;
+        $('#money-counter').text("5");
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1)+ " try! +5 beans!");
+    }
+}
+
+
 
 /* ********** DRAGGING CODE *********** */
 
