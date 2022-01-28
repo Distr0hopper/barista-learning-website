@@ -261,27 +261,6 @@ async function loadMemory() {
 
     function showboard() {
         let timeleft = 4;
-        // let timer = setInterval(function (){
-        //     if (timeleft < 5 && timeleft >0){
-        //         for (let i = 0; i < cardArray.length; i++) {
-        //             var cardAllShown = document.createElement('img')
-        //             cardAllShown.setAttribute('src', cardArray[i].img)
-        //             cardAllShown.setAttribute('data-id', i)
-        //             cardAllShown.setAttribute('height', '200px')
-        //             cardAllShown.setAttribute('width', '200px')
-        //             cardAllShown.setAttribute('id', 'memory-img')
-        //             cardAllShown.style.padding = '5px 5px 5px 5px'
-        //             cardAllShown.style.transformStyle = 'preserve-3d'
-        //             grid.appendChild(cardAllShown);
-        //             grid.id = "allShownGrid";
-        //             console.log(grid)
-        //         }
-        //         timeleft -=1
-        //     }else {
-        //         clearInterval(timer)
-        //         createBoard()
-        //     }
-        // }, 400)
         for (let i = 0; i < cardArray.length; i++) {
             var cardAllShown = document.createElement('img')
             cardAllShown.setAttribute('src', cardArray[i].img)

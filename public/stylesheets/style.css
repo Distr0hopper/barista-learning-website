@@ -464,7 +464,7 @@ hr .new1 {
     transform: scale(1.25)
 }
 /*Memory Game*/
-.grid{
+.grid .gridShow{
     display: flex;
     flex-wrap: wrap;
     height: 600px;
