@@ -551,3 +551,24 @@ cardText{
 .cardCoffee{
     max-width: 33%;
 }
+/*main page*/
+
+.btnDict{
+    border-radius: 0.25rem;
+    border-color: transparent;
+    background-color: var(--dropshadow-color);
+    color: white;
+    font-size: 17px
+}
+
+.btnDict:hover{
+    background-color: var(--backround-color);
+    border-color: transparent;
+}
+.learnText{
+    color: var(--dropshadow-color);
+    filter: brightness(150%);
+}
+.subtitleLearn{
+    color: var(--dropshadow-color);
+}

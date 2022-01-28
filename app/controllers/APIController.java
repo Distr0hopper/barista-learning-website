@@ -22,7 +22,8 @@ public class APIController extends Controller {
         return ok(Json.toJson(coffeeFetcher.getAllCoffees()));
     }
 
-//    public Result getIngredientNames() {
-//        return ok(Json.toJson(ingredientFetcher.getIngredientNames("Latte")));
+//    TODO fetch Userpoints
+//    public Result getUserById() {
+//        return ok(Json.toJson(UserFactory.getUserById("user");
 //    }
 }

@@ -1,4 +1,4 @@
-async function loadMemory(){
+async function loadMemory() {
     const cardArray = []
     // const coffeeImages = [
     //     {
@@ -84,18 +84,19 @@ async function loadMemory(){
     let coffeelist = await response.json();
     console.log(coffeelist);
 
-    const coffeeImages = coffeelist.map(coffee=>{
-        coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
+    const coffeeImages = coffeelist.map(coffee => {
+        coffee.coffeeImgPath = "assets/images/CoffeeTexts/" + coffee.coffeeImgPath;
         return coffee
     })
     const grid = document.querySelector('.grid')
+    const gridShow = document.querySelector('.gridShow')
     const resultDisplay = document.querySelector('#result')
     var cardsChosen = []
     var cardsChosenID = []
     var cardsWon = []
     /**
      * fetch Sessionstorage*/
-    var storedCustomers = JSON.parse(sessionStorage.getItem("customers"))
+    var storedCustomers = JSON.parse(sessionStorage.getItem("customers"));
     var storedCoffeeNames = JSON.parse(sessionStorage.getItem("coffees"));
     var coffeeNameArray = []
     var customerArray = []
@@ -111,7 +112,7 @@ async function loadMemory(){
                 img: ''
             }
         for (let l = 0; l < coffeeImages.length; l++) {
-            if (coffee.title === coffeeImages[l].title){
+            if (coffee.title === coffeeImages[l].title) {
                 coffeeNameArray[j].img = coffeeImages[l].coffeeImgPath
             }
         }
@@ -140,10 +141,10 @@ async function loadMemory(){
         //check if index is even, then add customer
         if (i % 2 === 0) {
             /**depending on index, need to still get next item in array of customer*/
-            if (i === 0){
+            if (i === 0) {
                 var index = i
             } else {
-                var index = i-(i/2)
+                var index = i - (i / 2)
             }
             //create memorycard with customer name and img src
             var memorycard = {
@@ -156,10 +157,10 @@ async function loadMemory(){
         } else {
             //check if index is odd, then add drink
             /**depending on index, need to still get next item in array of customer*/
-            if (i === 1){
-                var index = i-i
+            if (i === 1) {
+                var index = i - i
             } else {
-                var index = i-(i/2 +0.5)
+                var index = i - (i / 2 + 0.5)
             }
             //create memorycard with customer name and img src
             var memorycard = {
@@ -167,12 +168,12 @@ async function loadMemory(){
                 img: coffeeNameArray[index].img
             }
             cardArray[i] = memorycard
-           // console.log(memorycard.name)
-           // console.log(memorycard.img)
+            // console.log(memorycard.name)
+            // console.log(memorycard.img)
 
             //add something to distinguish the names of the orders (tacky I know)
             nameOrder += "1"
-           // console.log(nameOrder)
+            // console.log(nameOrder)
         }
         console.log(memorycard)
     }
@@ -256,7 +257,54 @@ async function loadMemory(){
         }
     }
 
-    createBoard()
+    // createBoard()
+
+    function showboard() {
+        let timeleft = 4;
+        // let timer = setInterval(function (){
+        //     if (timeleft < 5 && timeleft >0){
+        //         for (let i = 0; i < cardArray.length; i++) {
+        //             var cardAllShown = document.createElement('img')
+        //             cardAllShown.setAttribute('src', cardArray[i].img)
+        //             cardAllShown.setAttribute('data-id', i)
+        //             cardAllShown.setAttribute('height', '200px')
+        //             cardAllShown.setAttribute('width', '200px')
+        //             cardAllShown.setAttribute('id', 'memory-img')
+        //             cardAllShown.style.padding = '5px 5px 5px 5px'
+        //             cardAllShown.style.transformStyle = 'preserve-3d'
+        //             grid.appendChild(cardAllShown);
+        //             grid.id = "allShownGrid";
+        //             console.log(grid)
+        //         }
+        //         timeleft -=1
+        //     }else {
+        //         clearInterval(timer)
+        //         createBoard()
+        //     }
+        // }, 400)
+        for (let i = 0; i < cardArray.length; i++) {
+            var cardAllShown = document.createElement('img')
+            cardAllShown.setAttribute('src', cardArray[i].img)
+            cardAllShown.setAttribute('data-id', i)
+            cardAllShown.setAttribute('height', '200px')
+            cardAllShown.setAttribute('width', '200px')
+            cardAllShown.setAttribute('id', 'memory-img')
+            cardAllShown.style.padding = '5px 5px 5px 5px'
+            cardAllShown.style.transformStyle = 'preserve-3d'
+            gridShow.appendChild(cardAllShown);
+            gridShow.id = "allShownGrid";
+        }
+        console.log(cardAllShown)
+       setTimeout(function () {
+            $('.gridShow').remove();
+            // document.querySelector('#memory-img').forEach((e) => e.parentNode.removeChild(e));
+           createBoard()
+        }, 1000)
+
+
+    }
+    showboard()
 
 }
+
 window.addEventListener('load', loadMemory)
