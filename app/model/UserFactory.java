@@ -43,7 +43,7 @@ public class UserFactory {
     public User create(String email, String name, String password) {
         return db.withConnection(conn -> {
             User user = null;
-            String sql = "INSERT INTO User (Username, Points, Email, Password) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO User (Username, Points, mail, Password) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, name);
             stmt.setInt(2, 0);
@@ -69,7 +69,7 @@ public class UserFactory {
     public User getUserById(int id) {
         return db.withConnection(conn -> {
             User user = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE UserId = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE idUsers = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -130,7 +130,7 @@ public class UserFactory {
          */
         public void save() {
             db.withConnection(conn -> {
-                String sql = "UPDATE User SET Username = ?, Points = ?, Email = ? WHERE UserId = ?";
+                String sql = "UPDATE User SET Username = ?, Points = ?, mail = ? WHERE idUsers = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.username);
                 stmt.setInt(2, this.points);
@@ -146,7 +146,7 @@ public class UserFactory {
          */
         public void delete() {
             db.withConnection(conn -> {
-                String sql = "DELETE FROM User WHERE UserId = ?";
+                String sql = "DELETE FROM User WHERE idUsers = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, this.id);
                 stmt.executeUpdate();
@@ -157,7 +157,7 @@ public class UserFactory {
         public List<User> getFriends() {
             return db.withConnection(conn -> {
                 List<User> result = new ArrayList<>();
-                String sql = "SELECT * FROM Friendship, User WHERE User1Id = ? AND Friendship.User2Id = UserId";
+                String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, this.id);
                 ResultSet rs = stmt.executeQuery();
