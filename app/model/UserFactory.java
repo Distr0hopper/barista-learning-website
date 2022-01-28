@@ -11,12 +11,13 @@ import java.util.List;
 @Singleton
 public class UserFactory {
 
-    private Database db;
+    private static Database db;
 
     @Inject
-    UserFactory(Database db) {
+    public UserFactory(Database db) {
         this.db = db;
     }
+
 
     /**
      * Authenticates a user with the given credentials
@@ -25,10 +26,11 @@ public class UserFactory {
      * @param password password from user input
      * @return Found user or null if user not found
      */
+
     public User authenticate(String username, String password) {
         return db.withConnection(conn -> {
             User user = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE Username = ? AND Password = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ? AND password = ?");
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
@@ -40,20 +42,20 @@ public class UserFactory {
         });
     }
 
-    public User create(String email, String name, String password) {
+    public User create(String username, String email, String password) {
         return db.withConnection(conn -> {
             User user = null;
-            String sql = "INSERT INTO User (Username, Points, mail, Password) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO User (username, mail, password, points) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, name);
-            stmt.setInt(2, 0);
-            stmt.setString(3, email);
-            stmt.setString(4, password);
+            stmt.setString(1, username);
+            stmt.setString(2, email);
+            stmt.setString(3, password);
+            stmt.setInt(4, 0);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
-                user = new User(id, name, email, 0);
+                user = new User(id, username, email, 0);
             }
             stmt.close();
             return user;
@@ -66,11 +68,26 @@ public class UserFactory {
      * @param id id of user to find
      * @return User if found, else null
      */
+
     public User getUserById(int id) {
         return db.withConnection(conn -> {
             User user = null;
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE idUsers = ?");
             stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                user = new User(rs);
+            }
+            stmt.close();
+            return user;
+        });
+    }
+
+    public User getUserByUsername(String username) {
+        return db.withConnection(conn -> {
+            User user = null;
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
+            stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 user = new User(rs);
@@ -104,10 +121,25 @@ public class UserFactory {
         });
     }
 
+    public List<User> getAllUsersDesc() {
+        return db.withConnection(conn -> {
+            List<User> users = new ArrayList<>();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User ORDER BY points DESC");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs);
+                users.add(user);
+            }
+            stmt.close();
+            return users;
+        });
+    }
+
     public class User {
         private int id;
         private String username;
         private String mail;
+        //private String password;
         private int points;
 
         private User(int id, String username, String mail, int points) {
@@ -118,10 +150,10 @@ public class UserFactory {
         }
 
         private User(ResultSet rs) throws SQLException {
-            this.id = rs.getInt("UserId");
-            this.username = rs.getString("Username");
-            this.mail = rs.getString("Email");
-            this.points = rs.getInt("Points");
+            this.id = rs.getInt("IdUsers");
+            this.username = rs.getString("username");
+            this.mail = rs.getString("mail");
+            this.points = rs.getInt("points");
         }
 
         /**
@@ -130,11 +162,11 @@ public class UserFactory {
          */
         public void save() {
             db.withConnection(conn -> {
-                String sql = "UPDATE User SET Username = ?, Points = ?, mail = ? WHERE idUsers = ?";
+                String sql = "UPDATE User SET username = ?, mail = ?, points = ? WHERE UserId = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.username);
-                stmt.setInt(2, this.points);
-                stmt.setString(3, this.mail);
+                stmt.setString(2, this.mail);
+                stmt.setInt(3, this.points);
                 stmt.setInt(4, this.id);
                 stmt.executeUpdate();
                 stmt.close();
@@ -157,7 +189,7 @@ public class UserFactory {
         public List<User> getFriends() {
             return db.withConnection(conn -> {
                 List<User> result = new ArrayList<>();
-                String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
+                String sql = "SELECT * FROM Friend, User WHERE User1Id = ? AND Friendship.User2Id = UserId";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, this.id);
                 ResultSet rs = stmt.executeQuery();
