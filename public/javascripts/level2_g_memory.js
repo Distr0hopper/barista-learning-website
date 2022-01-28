@@ -215,6 +215,19 @@ async function loadMemory() {
         const optionTwoId = cardsChosenID[1]
         //checks if same name and if they are different cards
         if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
+            money += 10;
+            $('#money').text(money);
+            //if no cards left display you won
+            // const moneyObjekt = {
+            //     "moneyKey": money,
+            // }
+            // fetch("/getMoney", {
+            //     method: 'POST',
+            //     body: JSON.stringify(moneyObjekt),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            // })
             alert('You found a match');
             cardsWon.push(cardsChosen)
             //console.log(cardsWon)
@@ -234,8 +247,8 @@ async function loadMemory() {
         cardsChosen = []
         cardsChosenID = []
         //puts amount of cards won into score
-        resultDisplay.textContent = cardsWon.length;
-        //if no cards left display you won
+        resultDisplay.textContent = cardsWon.length*10;
+
         if (cardsWon.length === cardArray.length / 2) {
             resultDisplay.textContent = 'Congratulations you won!'
         }
