@@ -1,18 +1,33 @@
-@import data.ScoreEntry
-@import java.util
-@(page: String, money : String)(highScoreList: util.List[ScoreEntry])(implicit assetsFinder: AssetsFinder)
+@(page: String, money : String, users: List[model.UserFactory#User], id : Integer)(implicit assetsFinder: AssetsFinder)
 
 @navbar("HighScore",money) {
     <div class="d-flex justify-content-center m-4 p-4">
         <div class="scorebox col-md-6">
             <h1 class="highscoreHeader">High Scores</h1>
+            <div class="d-flex justify-content-center pt-3">
+                <img src="@assetsFinder.path("images/podium.png")" alt="podium" width="200"/>
+            </div>
+            <div class="d-flex justify-content-center flex-row pb-3">
+                <div class="p-2">@users.get(1).getUsername()</div>
+                <div class="p-2">@users.get(0).getUsername()</div>
+                <div class="p-2">@users.get(2).getUsername()</div>
+            </div>
             <div class="list">
                 @* hier generieren wir mit Scala HighscoreListe*@
-                @for(entry <- highScoreList) {
-                    <div class="listrow">
-                        <span class="nameSpan">@entry.getUsername</span>
-                        <span class="pointSpan">@entry.getScore</span>
-                    </div>
+                @for(user <- users) {
+                    @if(user.getId() == id) {
+                        <div class="listrow">
+                            <span class="nameSpan" style="color:white">✨@user.getUsername()✨</span>
+                            <span class="pointSpan" style="color:white">@user.getPoints()</span>
+                        </div>
+                        } else {
+                         <div class="listrow">
+                             <span class="nameSpan">@user.getUsername()</span>
+                             <span class="pointSpan">@user.getPoints()</span>
+                         </div>
+                        }
+
+
                 }
             </div>
             @* data-key=@"übergebenes Objekt" s div einfuegen*@

@@ -48,23 +48,26 @@ async function loadModal() {
          * save it to sessionstorage
          * */
         async getRandomSixCoffees() {
-            const coffeeAPI = 'https://api.sampleapis.com/coffee/hot';
-            const res = await fetch(coffeeAPI);
-            const data = await res.json(); //array kommt raus aus Kaffees
-            // //is nur da um spezielle Einträge der Coffees zu kriegen und restliches JSON objekt wegzuwerfen
-            // const allCoffees = data.map((entry, index) => {
-            //     return {
-            //         title: entry.title,
-            //         id: index+1
-            //     }
-            // });
-            // console.log(allCoffees)
+            //alter Code ohne Datenbank, direkt mit API
+            // const coffeeAPI = 'https://api.sampleapis.com/coffee/hot';
+            // const res = await fetch(coffeeAPI);
+            // const data = await res.json(); //array kommt raus aus Kaffees
+            let response = await fetch("http://localhost:9000/api/coffees");
+            let coffeelist = await response.json();
+            console.log(coffeelist);
+
+            coffeelist = coffeelist.map(coffee=>{
+                coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
+                return coffee
+            })
             const sixCoffees = []
             for (let i = 0; i < 6; i++) {
-                const randomNumber = this.getRandomNumber(data.length)
-                sixCoffees.push(data.splice(randomNumber, 1)[0]);
+                const randomNumber = this.getRandomNumber(coffeelist.length)
+                // sixCoffees.push(data.splice(randomNumber, 1)[0]);
+                sixCoffees.push(coffeelist.splice(randomNumber, 1)[0])
             }
             console.log("Hallo wir sind GottCoffees");
+            console.log(sixCoffees);
             this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
             window.sessionStorage.setItem("coffees", JSON.stringify(this.sixCoffees))
         }
@@ -129,6 +132,9 @@ async function loadModal() {
     for (let i = 0; i < coffeeOrderCards.length; i++) {
         coffeeOrderCards[i].innerText = coffeeTitles[i];
     }
+    /**Put Coffee To Make Into Game*/
+    const orderHeader = $('#order');
+    orderHeader.innerText = coffeeTitles[0]
 
     /**put CustomerImages in modal*/
     const customerForGame = new Customers();

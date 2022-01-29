@@ -15,8 +15,10 @@ function checklogin() {
             'Content-Type': 'application/json'
         },
     }).then(response => {
+        console.log(response);
         if(response.ok) {
-            window.location = response.url;
+            response.text().then(res => sessionStorage.setItem("currentUser", res))
+            window.location = response.headers.get("Location");
         } else {
             return response.json()
         }}).then(userData => {

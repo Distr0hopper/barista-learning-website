@@ -1,94 +1,24 @@
-document.addEventListener('DOMContentLoaded', () => {
+async function loadMemory() {
     const cardArray = []
-    const coffeeImages = [
-        {
-        name: "Café au Lait",
-        img: "assets/images/CoffeeTexts/CafeAuLaitText.png"
-        },
-        {
-            name: "Galão",
-            img: "assets/images/CoffeeTexts/GalaoText.png"
-        },
-        {
-            name: "Irish",
-            img: "assets/images/CoffeeTexts/IrishText.png"
-        },
-        {
-            name: "Americano",
-            img: "assets/images/CoffeeTexts/AmericanoText.png"
-        },
-        {
-            name: "Black",
-            img: "assets/images/CoffeeTexts/BlackText.png"
-        },{
-            name: "Latte",
-            img: "assets/images/CoffeeTexts/LatteText.png"
-        },
-        {
-            name: "Cappuccino",
-            img: "assets/images/CoffeeTexts/CappuccinoText.png"
-        },{
-            name: "Doppio",
-            img: "assets/images/CoffeeTexts/DoppioText.png"
-        }
-        ,{
-            name: "Espresso",
-            img: "assets/images/CoffeeTexts/EspressoText.png"
-        }
-        ,{
-            name: "Guayoyo",
-            img: "assets/images/CoffeeTexts/GuayoyoText.png"
-        }
-        ,{
-            name: "Lungo",
-            img: "assets/images/CoffeeTexts/LungoText.png"
-        }
-        ,{
-            name: "Macchiato",
-            img: "assets/images/CoffeeTexts/MacchiatoText.png"
-        }
-        ,{
-            name: "Cortado",
-            img: "assets/images/CoffeeTexts/CortadoText.png"
-        }
-        ,{
-            name: "Red Eye",
-            img: "assets/images/CoffeeTexts/RedEyeText.png"
-        }
-        ,{
-            name: "Mocha",
-            img: "assets/images/CoffeeTexts/MochaText.png"
-        },{
-            name: "Ristretto",
-            img: "assets/images/CoffeeTexts/RistrettoText.png"
-        }
-        ,{
-            name: "Flat White",
-            img: "assets/images/CoffeeTexts/FlatWhiteText.png"
-        }
-        ,{
-            name: "Affogato",
-            img: "assets/images/CoffeeTexts/AffogatoText.png"
-        }
-        ,{
-            name: "Cortadito",
-            img: "assets/images/CoffeeTexts/CortaditoText.png"
-        }
-        ,{
-            name: "Aquapanela Coffee",
-            img: "assets/images/CoffeeTexts/AquapanelaCoffeeText.png"
-        }
+    // console.time("coffee")
+    let response = await fetch("http://localhost:9000/api/coffees");
+    // console.timeEnd("coffee")
+    let coffeelist = await response.json();
+    console.log(coffeelist);
 
-    ]
-
+    const coffeeImages = coffeelist.map(coffee => {
+        coffee.coffeeImgPath = "assets/images/CoffeeTexts/" + coffee.coffeeImgPath;
+        return coffee
+    })
     const grid = document.querySelector('.grid')
+    const gridShow = document.querySelector('.gridShow')
     const resultDisplay = document.querySelector('#result')
     var cardsChosen = []
     var cardsChosenID = []
     var cardsWon = []
     /**
      * fetch Sessionstorage*/
-    var storedCustomers = JSON.parse(sessionStorage.getItem("customers"))
+    var storedCustomers = JSON.parse(sessionStorage.getItem("customers"));
     var storedCoffeeNames = JSON.parse(sessionStorage.getItem("coffees"));
     var coffeeNameArray = []
     var customerArray = []
@@ -104,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 img: ''
             }
         for (let l = 0; l < coffeeImages.length; l++) {
-            if (coffee.title === coffeeImages[l].name){
-                coffeeNameArray[j].img = coffeeImages[l].img
+            if (coffee.title === coffeeImages[l].title) {
+                coffeeNameArray[j].img = coffeeImages[l].coffeeImgPath
             }
         }
 
@@ -133,10 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
         //check if index is even, then add customer
         if (i % 2 === 0) {
             /**depending on index, need to still get next item in array of customer*/
-            if (i === 0){
+            if (i === 0) {
                 var index = i
             } else {
-                var index = i-(i/2)
+                var index = i - (i / 2)
             }
             //create memorycard with customer name and img src
             var memorycard = {
@@ -149,10 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             //check if index is odd, then add drink
             /**depending on index, need to still get next item in array of customer*/
-            if (i === 1){
-                var index = i-i
+            if (i === 1) {
+                var index = i - i
             } else {
-                var index = i-(i/2 +0.5)
+                var index = i - (i / 2 + 0.5)
             }
             //create memorycard with customer name and img src
             var memorycard = {
@@ -160,12 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 img: coffeeNameArray[index].img
             }
             cardArray[i] = memorycard
-           // console.log(memorycard.name)
-           // console.log(memorycard.img)
+            // console.log(memorycard.name)
+            // console.log(memorycard.img)
 
             //add something to distinguish the names of the orders (tacky I know)
             nameOrder += "1"
-           // console.log(nameOrder)
+            // console.log(nameOrder)
         }
         console.log(memorycard)
     }
@@ -207,7 +137,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const optionTwoId = cardsChosenID[1]
         //checks if same name and if they are different cards
         if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
-            alert('You found a match');
+            money += 10;
+            $('#money').text(money);
+            //if no cards left display you won
+            // const moneyObjekt = {
+            //     "moneyKey": money,
+            // }
+            // fetch("/getMoney", {
+            //     method: 'POST',
+            //     body: JSON.stringify(moneyObjekt),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            // })
+            // alert('You found a match');
             cardsWon.push(cardsChosen)
             //console.log(cardsWon)
         } //checks if card was clicked twice
@@ -220,14 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
             //console.log(cards[optionOneId])
             cards[optionTwoId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
             //console.log(cards[optionTwoId])
-            alert('Sorry try again')
+            // alert('Sorry try again')
 
         }
         cardsChosen = []
         cardsChosenID = []
         //puts amount of cards won into score
-        resultDisplay.textContent = cardsWon.length;
-        //if no cards left display you won
+        resultDisplay.textContent = cardsWon.length*10;
+
         if (cardsWon.length === cardArray.length / 2) {
             resultDisplay.textContent = 'Congratulations you won!'
         }
@@ -245,10 +188,37 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(cardArray[cardID])
         this.setAttribute('src', cardArray[cardID].img)
         if (cardsChosen.length === 2) {
-            setTimeout(checkForMatch, 500)
+            setTimeout(checkForMatch, 800)
         }
     }
 
-    createBoard()
+    // createBoard()
 
-})
+    function showboard() {
+        let timeleft = 4;
+        for (let i = 0; i < cardArray.length; i++) {
+            var cardAllShown = document.createElement('img')
+            cardAllShown.setAttribute('src', cardArray[i].img)
+            cardAllShown.setAttribute('data-id', i)
+            cardAllShown.setAttribute('height', '200px')
+            cardAllShown.setAttribute('width', '200px')
+            cardAllShown.setAttribute('id', 'memory-img')
+            cardAllShown.style.padding = '5px 5px 5px 5px'
+            cardAllShown.style.transformStyle = 'preserve-3d'
+            gridShow.appendChild(cardAllShown);
+            gridShow.id = "allShownGrid";
+        }
+        console.log(cardAllShown)
+       setTimeout(function () {
+            $('.gridShow').remove();
+            // document.querySelector('#memory-img').forEach((e) => e.parentNode.removeChild(e));
+           createBoard()
+        }, 1000)
+
+
+    }
+    showboard()
+
+}
+
+window.addEventListener('load', loadMemory)

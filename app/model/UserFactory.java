@@ -162,7 +162,7 @@ public class UserFactory {
          */
         public void save() {
             db.withConnection(conn -> {
-                String sql = "UPDATE User SET username = ?, mail = ?, points = ? WHERE UserId = ?";
+                String sql = "UPDATE User SET username = ?, mail = ?, points = ? WHERE idUsers = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.username);
                 stmt.setString(2, this.mail);
@@ -189,7 +189,7 @@ public class UserFactory {
         public List<User> getFriends() {
             return db.withConnection(conn -> {
                 List<User> result = new ArrayList<>();
-                String sql = "SELECT * FROM Friend, User WHERE User1Id = ? AND Friendship.User2Id = UserId";
+                String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, this.id);
                 ResultSet rs = stmt.executeQuery();
