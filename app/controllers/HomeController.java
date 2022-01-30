@@ -198,7 +198,6 @@ public class HomeController extends Controller {
         int money = 0;
         if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !password2.isEmpty()) {
             if(password.equals(password2)){
-
                 userFactory.create(username,email,password);
                 return redirect(routes.HomeController.login().url());
                 //return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));

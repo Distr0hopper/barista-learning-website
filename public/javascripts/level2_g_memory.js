@@ -1,8 +1,8 @@
 async function loadMemory() {
     const cardArray = []
-    // console.time("coffee")
+    console.time("coffee")
     let response = await fetch("http://localhost:9000/api/coffees");
-    // console.timeEnd("coffee")
+    console.timeEnd("coffee")
     let coffeelist = await response.json();
     console.log(coffeelist);
 
@@ -218,9 +218,8 @@ async function loadMemory() {
         console.log(cardAllShown)
        setTimeout(function () {
             $('.gridShow').remove();
-            // document.querySelector('#memory-img').forEach((e) => e.parentNode.removeChild(e));
            createBoard()
-        }, 1000)
+        }, 12000)
 
 
     }
@@ -228,4 +227,6 @@ async function loadMemory() {
 
 }
 
+
 window.addEventListener('load', loadMemory)
+window.addEventListener('load', loadModal)
