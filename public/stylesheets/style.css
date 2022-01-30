@@ -23,6 +23,7 @@ body{
 .navbar-custom {
     /*background-color: rgba(76,34,18,255);*/
     background-color: var(--dark-brown-navbar);
+    height: 70px;
 ;
 }
 /* change the brand and text color */
@@ -478,11 +479,11 @@ hr .new1 {
 /* Money/Coffee-Beans in Menu Bar*/
 #coffee-bean-money-icon{
     margin-right: 10px;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
 }
 
 #money{
-    margin-right: 30px;
+    margin-right: 20px;
     font-size: 1.5rem;
     margin-top: 16px;
 }
