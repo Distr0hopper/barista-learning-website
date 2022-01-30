@@ -1,6 +1,78 @@
 @(page: String, money : String)(implicit assetsFinder: AssetsFinder)
 
 @navbar("GameTwoMemory",money) {
+@*    modal*@
+    <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Level 2: Remember who ordered which coffee!</h5>
+                        <!--                <button type="button" class="close btn btn-danger" data-dismiss="modal"-->
+                        <!--                        aria-label="Close" data-target="#gameModal"-->
+                        <!--                        onclick="closeButton()">-->
+                        <!--                    <span aria-hidden="true">&times;</span>-->
+                        <!--                </button>-->
+                </div>
+                <div class="modal-body modal-fade align-items-center justify-content-center">
+                    <div class="container-fluid ms-2">
+                        <div class="row w-100">
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row w-100">
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="flex d-flex align-items-center justify-content-center">
         <div class="col-lg-5 col-md-10 col-sm-12 mt-5 align-items-center justify-content-center">
             <h3 class="result mb-4 px-4">Score: <span id="result"></span></h3>
@@ -8,5 +80,6 @@
             <div class="grid image-fluid"></div>
         </div>
     </div>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g.js")"></script>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g_memory.js")"></script>
 }
