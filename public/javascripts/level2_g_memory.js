@@ -121,6 +121,8 @@ async function loadMemory() {
         }
     }
 
+
+
     /**
      * checkForMatch() checks for matches
      * 1. gets the clicked cards and compares their names to see if they are even
@@ -129,6 +131,8 @@ async function loadMemory() {
      * 4. else cards don't match and alert
      * Puts won cards into score after each round and checks if still cards left or game is over*/
     function checkForMatch() {
+        //gets the money object from the navbar
+        let money = Number($('#money').text());
         //gets the clicked cards and compares their names to see if they are even
         const cards = document.querySelectorAll('#memory-img')
         //console.log(cards)
@@ -140,16 +144,19 @@ async function loadMemory() {
             money += 10;
             $('#money').text(money);
             //if no cards left display you won
-            // const moneyObjekt = {
-            //     "moneyKey": money,
-            // }
-            // fetch("/getMoney", {
-            //     method: 'POST',
-            //     body: JSON.stringify(moneyObjekt),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            // })
+
+            /* Fetch the money to the server so it can be stored in the session
+            const moneyObjekt = {
+                "moneyKey": money,
+            }
+            fetch("/getMoney", {
+                method: 'POST',
+                body: JSON.stringify(moneyObjekt),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+             */
             // alert('You found a match');
             cardsWon.push(cardsChosen)
             //console.log(cardsWon)
