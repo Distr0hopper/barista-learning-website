@@ -130,7 +130,7 @@ public class HomeController extends Controller {
         if (isLoggedIn(request)){
             String money = request.session().get("money").get();
             return ok(
-                    gameLevelTwoMemory.render("gameTwoMemory",money, assetsFinder)
+                    gameLevelTwoMemory.render("GameTwoMemory",money, assetsFinder)
             );
         } else {
             return redirect(routes.HomeController.login().url());
