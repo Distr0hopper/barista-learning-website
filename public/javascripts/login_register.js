@@ -8,7 +8,7 @@ function checklogin() {
         password: passwordInput.value
     }
 
-    fetch("/auth", {
+    fetch("/verify/auth", {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {

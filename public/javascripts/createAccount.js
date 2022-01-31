@@ -33,7 +33,7 @@ function checkCreateAccount() {
         password2: password2Input.value
     }
 
-    fetch("/checkCreateAccount", {
+    fetch("/verify/checkCreateAccount", {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {

@@ -32,11 +32,11 @@ GET /forgotPassword                 controllers.HomeController.forgotPassword
 
 GET /createAccount                  controllers.HomeController.createAccount
 
-POST /checkCreateAccount            controllers.HomeController.checkCreateAccount(request : Request)
+POST /verify/checkCreateAccount     controllers.VerifyController.checkCreateAccount(request : Request)
 
 GET /dictionary                     controllers.HomeController.dictionary(request: Request)
 
-POST /auth                          controllers.HomeController.checklogin(request : Request)
+POST /verify/auth                   controllers.VerifyController.checklogin(request : Request)
 
 POST /getMoney                      controllers.HomeController.requestMoney(request : Request)
 

@@ -1,5 +1,7 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.CoffeeFetcher;
 import model.IngredientFetcher;
 import model.UserFactory;
@@ -26,10 +28,7 @@ public class APIController extends Controller {
     public Result getCoffees() {
         return ok(Json.toJson(coffeeFetcher.getAllCoffees()));
     }
-////
-//    public Result getFriends() {
-//        return ok(Json.toJson(userFactory.getFriends(7)));
-//    }
+
     public Result getFriends(Http.Request request){
         String userIDString = request.session().get("userID").get();
         int userID = Integer.parseInt(userIDString);

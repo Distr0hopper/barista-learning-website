@@ -2,8 +2,6 @@ async function createDictionary(){
 
     let response = await fetch("http://localhost:9000/api/coffees");
     let coffeelist = await response.json();
-    console.log(coffeelist);
-    console.log(coffeelist[1].ingredientList);
     coffeelist = coffeelist.map(coffee=>{
         let ingredientArray = [];
         coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
@@ -13,7 +11,6 @@ async function createDictionary(){
         coffee.ingredientList = ingredientArray;
         return coffee
     })
-    console.log(coffeelist);
     coffeelist.sort((a, b)=>a.title.localeCompare(b.title))
 
     
@@ -63,7 +60,6 @@ async function createDictionary(){
         divCollapseBody.appendChild(cardText);
         divCollapseBody.appendChild(divFooter);
         divFooter.appendChild(ingredientText);
-        console.log(cardCoffee);
         document.querySelector(".card-group").appendChild(cardCoffee);
     })
 }

@@ -49,9 +49,7 @@ public class CoffeeFetcher {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-//                System.out.println(rs.getString("title"));
                 List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
-//                System.out.println(ingredientList);
                 Coffee coffee = new Coffee(rs, ingredientList);
                 coffees.add(coffee);
             }
@@ -71,7 +69,6 @@ public class CoffeeFetcher {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Ingredient ingredient = new Ingredient(rs);
-                System.out.println(ingredient);
                 ingredients.add(ingredient);
             }
             stmt.close();

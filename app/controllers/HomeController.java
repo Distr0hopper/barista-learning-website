@@ -1,10 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.CoffeeFetcher;
 import model.UserFactory;
-import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
 
@@ -20,12 +18,16 @@ public class HomeController extends Controller {
     private final AssetsFinder assetsFinder;
     private final UserFactory userFactory;
     private final CoffeeFetcher coffeeFetcher;
+    private final APIController apiController;
+    private final VerifyController verifyController;
 
     @Inject
-    public HomeController(AssetsFinder assetsFinder, UserFactory userFactory, CoffeeFetcher coffeeFetcher) {
+    public HomeController(AssetsFinder assetsFinder, UserFactory userFactory, CoffeeFetcher coffeeFetcher, APIController apiController, VerifyController verifyController) {
         this.assetsFinder = assetsFinder;
         this.userFactory = userFactory;
         this.coffeeFetcher = coffeeFetcher;
+        this.apiController = apiController;
+        this.verifyController = verifyController;
     }
 
     /**
@@ -35,9 +37,7 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
 
-    public boolean isLoggedIn(Http.Request request) {
-        return request.session().get("connected").isPresent();
-    }
+
 
 
     public Result login() {
@@ -46,7 +46,7 @@ public class HomeController extends Controller {
     }
 
     public Result main(Http.Request request) {
-        if (isLoggedIn(request)) {
+        if (verifyController.isLoggedIn(request)) {
             String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
@@ -59,15 +59,8 @@ public class HomeController extends Controller {
       }
   }
 
-//        return ok(
-//                main.render("main", money, assetsFinder)
-//        );
-//    }
-
-
-
     public Result highscore(Http.Request request) {
-        if(isLoggedIn(request)) {
+        if(verifyController.isLoggedIn(request)) {
             List<UserFactory.User> users = userFactory.getAllUsersDesc();
             String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
@@ -80,7 +73,7 @@ public class HomeController extends Controller {
     }
 
     public Result profile(Http.Request request) {
-        if(isLoggedIn(request)) {
+        if(verifyController.isLoggedIn(request)) {
 //            List<UserFactory.User> users = userFactory.getAllUsers();
             String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
@@ -96,7 +89,7 @@ public class HomeController extends Controller {
     }
 
     public Result defaultGame(Http.Request request) {
-        if(isLoggedIn(request)) {
+        if(verifyController.isLoggedIn(request)) {
             String money = request.session().get("money").get();
             return ok(
                     defaultGame.render("gameOne", money, assetsFinder)
@@ -115,7 +108,7 @@ public class HomeController extends Controller {
     }
 
     public Result gameLevelTwo(Http.Request request) {
-        if (isLoggedIn(request)) {
+        if (verifyController.isLoggedIn(request)) {
             String money = request.session().get("money").get();
             return ok(
                     gameLevelTwo.render("gameTwo",money, assetsFinder)
@@ -127,7 +120,7 @@ public class HomeController extends Controller {
     }
 
     public Result gameLevelTwoMemory(Http.Request request) {
-        if (isLoggedIn(request)){
+        if (verifyController.isLoggedIn(request)){
             String money = request.session().get("money").get();
             return ok(
                     gameLevelTwoMemory.render("GameTwoMemory",money, assetsFinder)
@@ -139,7 +132,7 @@ public class HomeController extends Controller {
     }
 
     public Result store(Http.Request request) {
-        if(isLoggedIn(request)){
+        if(verifyController.isLoggedIn(request)){
             String money = request.session().get("money").get();
             return ok(
                     store.render("Store", money, assetsFinder)
@@ -151,7 +144,7 @@ public class HomeController extends Controller {
     }
 
     public Result dictionary(Http.Request request) {
-        if(isLoggedIn(request)){
+        if(verifyController.isLoggedIn(request)){
             String money = request.session().get("money").get();
             return ok(
                     dictionary.render("Dictionary", money, assetsFinder)
@@ -161,59 +154,6 @@ public class HomeController extends Controller {
         }
 
     }
-
-    public Result checklogin(Http.Request request) {
-        JsonNode json = request.body().asJson();
-        String username = json.get("username").textValue();
-        String password = json.get("password").textValue();
-        int money = 0;
-        UserFactory.User user = userFactory.authenticate(username,password);
-        UserFactory.User userID = userFactory.getUserByUsername(username);
-        int id = userID.getId(); // add user id on the session
-        //if (username.equals("admin") && password.equals("admin")) {
-
-        if (user != null){
-//            Json object is body content
-            System.out.println(user);
-            return status(200, Json.toJson(user))
-                    /**
-                     * withHeader: HttP Response besteht aus Header und Body, legen neuen Header fest weil bei redirect wenn fetch aufruft nicht Body returned sondern url wo seite hinreturned wird*/
-                    .withHeader("Location", routes.HomeController.main().url())
-                    .addingToSession(request, "connected", username)
-                    .addingToSession(request, "userID", String.valueOf(id))
-                    .addingToSession(request,"money", String.valueOf(money));
-        } else {
-            ObjectNode response = Json.newObject();
-            response.put("message", "Incorrect password. \nPlease try again.");
-            return unauthorized(response);
-        }
-    }
-
-    public Result checkCreateAccount(Http.Request request) {
-        JsonNode json = request.body().asJson();
-        String email = json.get("email").textValue();
-        String username = json.get("username").textValue();
-        String password = json.get("password").textValue();
-        String password2 = json.get("password2").textValue();
-        int money = 0;
-        if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !password2.isEmpty()) {
-            if(password.equals(password2)){
-                userFactory.create(username,email,password);
-                return redirect(routes.HomeController.login().url());
-                //return redirect(routes.HomeController.main().url()).addingToSession(request, "connected", username).addingToSession(request,"money", String.valueOf(money));
-            }
-            else{
-                ObjectNode response = Json.newObject();
-                response.put("message", "Your passwords do not match, please try again");
-                return unauthorized(response);
-            }
-        } else {
-            ObjectNode response = Json.newObject();
-            response.put("message", "Please fill out every field");
-            return unauthorized(response);
-        }
-    }
-
 
     public Result forgotPassword() {
         return ok(
@@ -231,18 +171,7 @@ public class HomeController extends Controller {
     public Result logout(){
         return redirect(routes.HomeController.login().url()).withNewSession();
     }
-//    public Result createHighScores(Http.Request request){
-//        JsonNode json = request.body().asJson();
-//        String username = json.get("name").textValue();
-//        String points = json.get("score").textValue();
-//
-//        return request
-//                .session()
-//                .get("connected")
-//                .map(Results::ok)
-//                .orElseGet(()->unauthorized("No one is connected"));
-//
-//
+
 
 }
 
