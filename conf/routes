@@ -44,8 +44,7 @@ GET /logout                         controllers.HomeController.logout
 
 GET /api/coffees                    controllers.APIController.getCoffees
 
-#TODO: comment in route for UserPoints
-#GET/api/userPoints                  controllers.APIController.getUserPoints
+GET /api/friends                    controllers.APIController.getFriends(request : Request)
 
 #GET /userid                         controllers.APIController.getUserId(request: Request)
 #

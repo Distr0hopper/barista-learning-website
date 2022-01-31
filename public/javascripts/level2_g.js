@@ -12,7 +12,6 @@ async function loadModal() {
             gameModal.find('.modal-title').text(currentHTMLText + " " + timeleft + ' seconds remaining');
         } else if (timeleft < 0) {
             // gameModal.modal("hide");
-            console.log('Vor Methodenaufruf')
             closeGameModal();
         } else {
             clearInterval(downloadTimer);
@@ -33,7 +32,6 @@ async function loadModal() {
     class CoffeesForGame {
         constructor() {
             this.sixCoffees = ['Hallo']
-            // this.getRandomSixCoffees().then(r => {});
         }
 
         getRandomNumber(lengthArray) {
@@ -48,13 +46,8 @@ async function loadModal() {
          * save it to sessionstorage
          * */
         async getRandomSixCoffees() {
-            //alter Code ohne Datenbank, direkt mit API
-            // const coffeeAPI = 'https://api.sampleapis.com/coffee/hot';
-            // const res = await fetch(coffeeAPI);
-            // const data = await res.json(); //array kommt raus aus Kaffees
             let response = await fetch("http://localhost:9000/api/coffees");
             let coffeelist = await response.json();
-            console.log(coffeelist);
 
             coffeelist = coffeelist.map(coffee=>{
                 coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
@@ -66,8 +59,6 @@ async function loadModal() {
                 // sixCoffees.push(data.splice(randomNumber, 1)[0]);
                 sixCoffees.push(coffeelist.splice(randomNumber, 1)[0])
             }
-            console.log("Hallo wir sind GottCoffees");
-            console.log(sixCoffees);
             this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
             window.sessionStorage.setItem("coffees", JSON.stringify(this.sixCoffees))
         }
@@ -75,8 +66,6 @@ async function loadModal() {
         getCoffeeTitles() {
             console.log(this.sixCoffees)
             return this.sixCoffees.map(coffee => {
-                console.log(coffee);
-                console.log(coffee.title);
                 return coffee.title
             });
         }
@@ -128,7 +117,6 @@ async function loadModal() {
     await coffeesForGame.getRandomSixCoffees();
     const coffeeOrderCards = $('.card-text');
     const coffeeTitles = coffeesForGame.getCoffeeTitles();
-    console.log(coffeeTitles)
     for (let i = 0; i < coffeeOrderCards.length; i++) {
         coffeeOrderCards[i].innerText = coffeeTitles[i];
     }
@@ -141,7 +129,6 @@ async function loadModal() {
     await customerForGame.getRandomSixCustomers();
     const coffeeOrderCustomers = $('.card-img-top');
     const customerImages = customerForGame.getCustomerImages();
-    console.log(customerImages);
     for (let i = 0; i < coffeeOrderCustomers.length; i++) {
         coffeeOrderCustomers[i].src = customerImages[i];
     }

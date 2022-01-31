@@ -135,6 +135,22 @@ public class UserFactory {
         });
     }
 
+    public List<User> getFriendsById(int idUser1) {
+        return db.withConnection(conn -> {
+            List<User> friendList = new ArrayList<>();
+            String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idUser1);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs);
+                friendList.add(user);
+            }
+            stmt.close();
+            return friendList;
+        });
+    }
+
     public class User {
         private int id;
         private String username;
@@ -155,6 +171,7 @@ public class UserFactory {
             this.mail = rs.getString("mail");
             this.points = rs.getInt("points");
         }
+
 
         /**
          * Updates the user if it already exists and creates it otherwise. Assumes an
@@ -186,21 +203,21 @@ public class UserFactory {
             });
         }
 
-        public List<User> getFriends() {
-            return db.withConnection(conn -> {
-                List<User> result = new ArrayList<>();
-                String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, this.id);
-                ResultSet rs = stmt.executeQuery();
-                while (rs.next()) {
-                    User user = new User(rs);
-                    result.add(user);
-                }
-                stmt.close();
-                return result;
-            });
-        }
+//        public List<User> getFriends() {
+//            return db.withConnection(conn -> {
+//                List<User> result = new ArrayList<>();
+//                String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
+//                PreparedStatement stmt = conn.prepareStatement(sql);
+//                stmt.setInt(1, this.id);
+//                ResultSet rs = stmt.executeQuery();
+//                while (rs.next()) {
+//                    User user = new User(rs);
+//                    result.add(user);
+//                }
+//                stmt.close();
+//                return result;
+//            });
+//        }
 
         public int getId() {
             return id;
@@ -218,6 +235,7 @@ public class UserFactory {
             this.username = username;
             this.save();
         }
+
 
         public String getMail() {
             return mail;
