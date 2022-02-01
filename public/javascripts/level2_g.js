@@ -5,6 +5,7 @@
 async function loadModal() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
+    $('#myModal').modal({backdrop: 'static', keyboard: false})
     var timeleft = 10;
     var currentHTMLText = document.querySelector("#modal-title").textContent;
     var downloadTimer = setInterval(function () {
@@ -12,19 +13,15 @@ async function loadModal() {
             gameModal.find('.modal-title').text(currentHTMLText + " " + timeleft + ' seconds remaining');
         } else if (timeleft < 0) {
             // gameModal.modal("hide");
-            closeGameModal();
+            gameModal.modal('hide');
         } else {
             clearInterval(downloadTimer);
             gameModal.find('.modal-title').text(currentHTMLText + ' Finished');
-            closeGameModal();
+            gameModal.modal('hide');
         }
         timeleft -= 1;
     }, 1000);
 
-    function closeGameModal() {
-        gameModal.modal("hide");
-        console.log('Ende');
-    }
 /**
  * CoffeesForGame is a class, that has sixCoffees in the Constructor
  * it first generates a random Number
@@ -56,7 +53,6 @@ async function loadModal() {
             const sixCoffees = []
             for (let i = 0; i < 6; i++) {
                 const randomNumber = this.getRandomNumber(coffeelist.length)
-                // sixCoffees.push(data.splice(randomNumber, 1)[0]);
                 sixCoffees.push(coffeelist.splice(randomNumber, 1)[0])
             }
             this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
