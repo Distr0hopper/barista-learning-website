@@ -32,16 +32,28 @@ GET /forgotPassword                 controllers.HomeController.forgotPassword
 
 GET /createAccount                  controllers.HomeController.createAccount
 
-GET /socials                        controllers.HomeController.socials(request : Request)
+POST /verify/checkCreateAccount     controllers.VerifyController.checkCreateAccount(request : Request)
 
-POST /checkCreateAccount            controllers.HomeController.checkCreateAccount(request : Request)
+GET /socials                        controllers.HomeController.socials(request : Request)
 
 GET /dictionary                     controllers.HomeController.dictionary(request: Request)
 
-
-POST /auth                          controllers.HomeController.checklogin(request : Request)
+POST /verify/auth                   controllers.VerifyController.checklogin(request : Request)
 
 POST /getMoney                      controllers.HomeController.requestMoney(request : Request)
+
+GET /logout                         controllers.HomeController.logout
+
+GET /api/coffees                    controllers.APIController.getCoffees
+
+GET /api/friends                    controllers.APIController.getFriends(request : Request)
+
+#GET /userid                         controllers.APIController.getUserId(request: Request)
+#
+#PUT /profile/:username              controllers.APIController.updateUsername(username: String)
+
+
+#GET /api/ingredientNames                controllers.APIController.getIngredientNames
 
 
 #POST für Daten rumschicken, Daten werden nicht in URL reingeschrieben, schlecht bei passwort z.B.

@@ -23,6 +23,7 @@ body{
 .navbar-custom {
     /*background-color: rgba(76,34,18,255);*/
     background-color: var(--dark-brown-navbar);
+    height: 70px;
 ;
 }
 /* change the brand and text color */
@@ -464,7 +465,7 @@ hr .new1 {
     transform: scale(1.25)
 }
 /*Memory Game*/
-.grid{
+.grid .gridShow{
     display: flex;
     flex-wrap: wrap;
     height: 600px;
@@ -478,11 +479,11 @@ hr .new1 {
 /* Money/Coffee-Beans in Menu Bar*/
 #coffee-bean-money-icon{
     margin-right: 10px;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
 }
 
 #money{
-    margin-right: 30px;
+    margin-right: 20px;
     font-size: 1.5rem;
     margin-top: 16px;
 }
@@ -496,7 +497,82 @@ hr .new1 {
 #money-counter{
     margin-left: -3px;
 }
+/*cards dictionary*/
+cardText{
+    color: var(--dropshadow-color);
+    font-size: x-large;
+}
+.card-body h2{
+    color: var(--dropshadow-color);
+    text-align: center;
+}
+.ingredient-text{
+    color: var(--dark-brown-navbar);
+    font-weight: bold;
+}
+.card-footer{
+    background-color: rgba(50,30,21,0.3);
+    margin: 10px 0px 10px 0px;
+    border-radius: 10px;
+}
+.cardCoffee:hover{
+    box-shadow: 6px 6px 11px var(--dropshadow-color);
+    transition: all 0.3s ease;
+}
 
+.cardCoffee{
+    border-radius: 10px;
+}
+
+.btn-toggle {
+    background-color: var(--dropshadow-color);
+    border: 0.5px solid var(--dropshadow-color);
+    width: 350px;
+    color: white;
+    border-radius: 10px;
+    align-self: center;
+    padding: 4px 4px 4px 4px;
+    margin-bottom: 10px;
+}
+
+.btn-toggle:hover{
+    background-color: var(--light-brown-color);
+    border: 0.5px solid var(--light-brown-color);
+
+}
+
+.collapse{
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.card-group{
+    box-sizing: content-box;
+}
+/*sehr tacky aber müsste sonst Daten server seitig preloaden, weil das ein Bug in Bootstrap ist*/
+.cardCoffee{
+    max-width: 33%;
+}
+/*main page*/
+
+.btnDict{
+    border-radius: 0.25rem;
+    border-color: transparent;
+    background-color: var(--dropshadow-color);
+    color: white;
+    font-size: 17px
+}
+
+.btnDict:hover{
+    background-color: var(--backround-color);
+    border-color: transparent;
+}
+.learnText{
+    color: var(--dropshadow-color);
+    filter: brightness(150%);
+}
+.subtitleLearn{
+    color: var(--dropshadow-color);
+}
 
 /* Socials Page */
 .form-control{
