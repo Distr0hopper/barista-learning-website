@@ -46,10 +46,10 @@ function checkCreateAccount() {
             return response.json()
         }}).then(userData => {
         alert(userData.message);
-        emailInput.value = "";
-        nameInput.value = "";
+        // emailInput.value = "";
+        // nameInput.value = "";
         passwordInput.value = "";
         password2Input.value = "";
-        emailInput.focus();
+        passwordInput.focus();
     })
 }

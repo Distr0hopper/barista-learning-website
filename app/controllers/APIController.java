@@ -12,7 +12,9 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 import java.util.Optional;
-
+/**
+ * Has functions that return JSON objects
+ * */
 public class APIController extends Controller {
     private final CoffeeFetcher coffeeFetcher;
     private final IngredientFetcher ingredientFetcher;

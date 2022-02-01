@@ -10,6 +10,10 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 
+/**
+ * Has functions with verfying logic
+ * */
+
 public class VerifyController extends Controller {
 
     private final UserFactory userFactory;
