@@ -28,4 +28,37 @@ function checklogin() {
         nameInput.focus();
     })
 }
-// document.querySelector('.login_btn').onclick = checklogin()
+function checkCreateAccount() {
+    // e.preventDefault();
+    let emailInput = document.getElementById("email");
+    let nameInput = document.getElementById("username");
+    let passwordInput = document.getElementById("password");
+    let password2Input = document.getElementById("password2");
+
+    const userData = {        //JSON objekt mit Keys und values nach Stringify
+        email: emailInput.value,
+        username: nameInput.value,   //werte auslesen in Objektnotion
+        password: passwordInput.value,
+        password2: password2Input.value
+    }
+
+    fetch("/verify/checkCreateAccount", {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(response => {
+        if(response.ok) {
+            return window.location = response.url;
+        } else {
+            return response.json()
+        }}).then(userData => {
+        alert(userData.message);
+        emailInput.value = "";
+        nameInput.value = "";
+        passwordInput.value = "";
+        password2Input.value = "";
+        passwordInput.focus();
+    })
+}
