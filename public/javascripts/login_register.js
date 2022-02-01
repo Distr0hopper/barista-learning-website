@@ -8,7 +8,7 @@ function checklogin() {
         password: passwordInput.value
     }
 
-    fetch("/verify/auth", {
+    fetch("/user/auth", {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {
@@ -42,7 +42,7 @@ function checkCreateAccount() {
         password2: password2Input.value
     }
 
-    fetch("/verify/checkCreateAccount", {
+    fetch("/user/checkCreateAccount", {
         method: 'POST',
         body: JSON.stringify(userData),
         headers: {

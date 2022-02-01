@@ -1,10 +1,10 @@
 async function createDictionary(){
 
-    let response = await fetch("http://localhost:9000/api/coffees");
+    let response = await fetch("http://localhost:9000/coffees/getCoffees");
     let coffeelist = await response.json();
     coffeelist = coffeelist.map(coffee=>{
         let ingredientArray = [];
-        coffee.coffeeImgPath = "assets/images/coffee/"+ coffee.coffeeImgPath;
+        coffee.coffeeImgPath = "../assets/images/coffee/"+ coffee.coffeeImgPath;
         for (let i = 0; i < coffee.ingredientList.length; i++) {
             ingredientArray.push(coffee.ingredientList[i].name);
         }
@@ -50,6 +50,7 @@ async function createDictionary(){
         toggleButton.ariaExpanded = "false";
         toggleButton.ariaControls = "collapseBody";
         toggleButton.innerText = "Mehr lernen";
+
 
 
         cardCoffee.appendChild(imgCoffee);

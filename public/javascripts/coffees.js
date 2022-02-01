@@ -20,11 +20,11 @@ class CoffeesForGame {
      * save it to sessionstorage
      * */
     async getRandomSixCoffees() {
-        let response = await fetch("http://localhost:9000/api/coffees");
+        let response = await fetch("http://localhost:9000/coffees/getCoffees");
         let coffeelist = await response.json();
 
         coffeelist = coffeelist.map(coffee=>{
-            coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
+            coffee.coffeeImgPath = "../assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
             return coffee
         })
         const sixCoffees = []

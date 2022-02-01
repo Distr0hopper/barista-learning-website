@@ -4,47 +4,47 @@
 
 # An example controller showing a sample home page
 
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+## An example controller showing how to use dependency injection
+#GET     /count                      controllers.CountController.count
+## An example controller showing how to write asynchronous code
+#GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(file)
 
-GET  /                              controllers.HomeController.login
+GET  /                              controllers.UserController.login
 
-GET /main                          controllers.HomeController.main(request : Request)
+GET /main                           controllers.HomeController.main(request : Request)
 
-GET /highscore                      controllers.HomeController.highscore(request : Request)
+GET /social/highscore               controllers.SocialPageController.highscore(request : Request)
 
-GET /profile                        controllers.HomeController.profile(request : Request)
+GET /user/profile                   controllers.UserController.profile(request : Request)
 
-GET /defaultGame                    controllers.HomeController.defaultGame(request : Request)
+GET /games/defaultGame              controllers.GameController.defaultGame(request : Request)
 
 GET /store                          controllers.HomeController.store(request : Request)
 
-GET /gameLevelTwo                   controllers.HomeController.gameLevelTwo(request : Request)
+GET /games/gameLevelTwo             controllers.GameController.gameLevelTwo(request : Request)
 
-GET /gameLevelTwoMemory             controllers.HomeController.gameLevelTwoMemory(request : Request)
+GET /games/gameLevelTwoMemory       controllers.GameController.gameLevelTwoMemory(request : Request)
 
-GET /forgotPassword                 controllers.HomeController.forgotPassword
+GET /user/forgotPassword            controllers.UserController.forgotPassword
 
-GET /createAccount                  controllers.HomeController.createAccount
+GET /user/createAccount             controllers.UserController.createAccount
 
-POST /verify/checkCreateAccount     controllers.VerifyController.checkCreateAccount(request : Request)
+POST /user/checkCreateAccount       controllers.UserController.checkCreateAccount(request : Request)
 
 GET /dictionary                     controllers.HomeController.dictionary(request: Request)
 
-POST /verify/auth                   controllers.VerifyController.checklogin(request : Request)
+POST /user/auth                     controllers.UserController.checklogin(request : Request)
 
-POST /getMoney                      controllers.HomeController.requestMoney(request : Request)
+POST /games/getMoney                controllers.GameController.requestMoney(request : Request)
 
-GET /logout                         controllers.HomeController.logout
+GET /logout                    controllers.UserController.logout
 
-GET /api/coffees                    controllers.APIController.getCoffees
+GET /coffees/getCoffees             controllers.CoffeeController.getCoffees
 
-GET /api/friends                    controllers.APIController.getFriends(request : Request)
+GET /social/friends                 controllers.SocialPageController.getFriends(request : Request)
 
 #GET /userid                         controllers.APIController.getUserId(request: Request)
 #
