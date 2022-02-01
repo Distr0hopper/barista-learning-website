@@ -4,7 +4,7 @@ async function createDictionary(){
     let coffeelist = await response.json();
     coffeelist = coffeelist.map(coffee=>{
         let ingredientArray = [];
-        coffee.coffeeImgPath = "assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
+        coffee.coffeeImgPath = "assets/images/coffee/"+ coffee.coffeeImgPath;
         for (let i = 0; i < coffee.ingredientList.length; i++) {
             ingredientArray.push(coffee.ingredientList[i].name);
         }
@@ -20,6 +20,7 @@ async function createDictionary(){
         let imgCoffee = document.createElement("img");
         imgCoffee.src = coffee.coffeeImgPath;
         imgCoffee.classList.add("imgCoffee");
+        imgCoffee.classList.add("p-5");
         let divCardBody = document.createElement("div");
         divCardBody.classList.add("card-body");
         //CoffeeTitle
