@@ -48,13 +48,13 @@ async function loadModal() {
 async function loadMemory() {
     const cardArray = []
     console.time("coffee")
-    let response = await fetch("http://localhost:9000/api/coffees");
+    let response = await fetch("http://localhost:9000/coffees/getCoffees");
     console.timeEnd("coffee")
     let coffeelist = await response.json();
     console.log(coffeelist);
 
     const coffeeImages = coffeelist.map(coffee => {
-        coffee.coffeeImgPath = "assets/images/coffee/" + coffee.coffeeImgPath;
+        coffee.coffeeImgPath = "../assets/images/coffee/" + coffee.coffeeImgPath;
         return coffee
     })
     const grid = document.querySelector('.grid')
@@ -156,7 +156,7 @@ async function loadMemory() {
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
             var card = document.createElement('img')
-            card.setAttribute('src', "assets/images/Memory-Backdrop.png")
+            card.setAttribute('src', "../assets/images/Memory-Backdrop.png")
             card.setAttribute('data-id', i)
             card.setAttribute('height', '200px')
             card.setAttribute('width', '200px')
@@ -209,13 +209,13 @@ async function loadMemory() {
             //console.log(cardsWon)
         } //checks if card was clicked twice
         else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
-            cards[optionOneId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
-            cards[optionTwoId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
+            cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
+            cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
             alert('You need to pick two different cards!')
         } else {
-            cards[optionOneId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
+            cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
             //console.log(cards[optionOneId])
-            cards[optionTwoId].setAttribute('src', 'assets/images/Memory-Backdrop.png')
+            cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
             //console.log(cards[optionTwoId])
             // alert('Sorry try again')
 
