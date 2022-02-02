@@ -6,6 +6,7 @@ import data.Coffee;
 import data.Ingredient;
 import play.db.Database;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -43,10 +44,14 @@ public class CoffeeFetcher {
  * getallCoffees() retrieves all Coffees and sets Values for ingredientList by calling getIngredientsByID with title as id Value
  * Coffee has two parameters now therefore, one being the ResultSet and one being ingredientlist
  * Ingredientlist is added like this into the Coffee Class and the entire new Coffee is built and returned*/
+String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
+String sql2= "SELECT * FROM Coffees, Coffees_has_Ingredients, Ingredients WHERE idCoffees = ? AND Coffees_idCoffees = Coffees.idCoffees AND Ingredients_idIngredients = Ingredients.idIngredients";
+
     public List<Coffee> getAllCoffees() {
         return db.withConnection(conn -> {
             List<Coffee> coffees = new ArrayList<>();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees");
+//            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees, Coffees_has_Ingredients, Ingredients WHERE idCoffees = ? AND Coffees_idCoffees = Coffees.idCoffees AND Ingredients_idIngredients = Ingredients.idIngredients")
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));

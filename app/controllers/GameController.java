@@ -1,6 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import model.CustomerFetcher;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -13,11 +15,13 @@ import javax.inject.Inject;
 public class GameController extends Controller {
     private final AssetsFinder assetsFinder;
     private final UserController userController;
+    private final CustomerFetcher customerFetcher;
 
     @Inject
-    public GameController(AssetsFinder assetsFinder, UserController userController) {
+    public GameController(AssetsFinder assetsFinder, UserController userController, CustomerFetcher customerFetcher) {
         this.assetsFinder = assetsFinder;
         this.userController = userController;
+        this.customerFetcher = customerFetcher;
     }
 
 
@@ -62,5 +66,9 @@ public class GameController extends Controller {
             return redirect(routes.UserController.login().url());
         }
 
+    }
+
+    public Result getCustomers() {
+        return ok(Json.toJson(customerFetcher.getAllCustomers()));
     }
 }

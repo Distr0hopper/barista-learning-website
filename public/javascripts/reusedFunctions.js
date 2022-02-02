@@ -47,16 +47,15 @@ async function loadModal() {
 
 async function loadMemory() {
     const cardArray = []
-    console.time("coffee")
-    let response = await fetch("http://localhost:9000/coffees/getCoffees");
-    console.timeEnd("coffee")
-    let coffeelist = await response.json();
-    console.log(coffeelist);
-
-    const coffeeImages = coffeelist.map(coffee => {
-        coffee.coffeeImgPath = "../assets/images/coffee/" + coffee.coffeeImgPath;
-        return coffee
-    })
+    // // console.time("coffee")
+    // let response = await fetch("http://localhost:9000/coffees/getCoffees");
+    // // console.timeEnd("coffee")
+    // let coffeelist = await response.json();
+    //
+    // const coffeeImages = coffeelist.map(coffee => {
+    //     coffee.coffeeImgPath = "../assets/images/coffee/" + coffee.coffeeImgPath;
+    //     return coffee
+    // })
     const grid = document.querySelector('.grid')
     const gridShow = document.querySelector('.gridShow')
     const resultDisplay = document.querySelector('#result')
@@ -70,7 +69,6 @@ async function loadMemory() {
     var coffeeNameArray = []
     var customerArray = []
     //convert storage to arrays
-    console.log(storedCoffeeNames)
     /**
      * Goal here: convert fetched storage to arrays
      * Firs we Create Array only Containing CoffeeNames and Images*/
@@ -78,30 +76,26 @@ async function loadMemory() {
         coffeeNameArray[j] =
             {
                 title: coffee.title,
-                img: ''
+                img: "../coffee/" + coffee.coffeeImgPath
             }
-        for (let l = 0; l < coffeeImages.length; l++) {
-            if (coffee.title === coffeeImages[l].title) {
-                coffeeNameArray[j].img = coffeeImages[l].coffeeImgPath
-            }
-        }
+        // for (let l = 0; l < coffeeImages.length; l++) {
+        //     if (coffee.title === coffeeImages[l].title) {
+        //         coffeeNameArray[j].img = coffeeImages[l].coffeeImgPath
+        //     }
+        // }
 
     })
-    console.log(coffeeNameArray)
     /**
      * Then an Array called createArray of Customers*/
     storedCustomers.forEach((customer, k) => {
-        customerArray[k] = customer
-    })
+            customerArray[k] = "../Customers/" + customer.customerImgPath
+        }
+    )
     console.log(storedCustomers)
-    console.log(customerArray)
     /**
      * Goal here: match CoffeeNames to images and create new array for matched images
      * nameorder is there to match the coffeeCustomers with the same name as the Drinks they ordered*/
     var nameOrder = "coffeeOrder";
-    let coffeeImageName = []
-    //console.log(coffeeNameArray)
-    //console.log(coffeeImageName)
     /**This loop
      * First: checks if Index is even, if so add a customer
      * Second: if index is odd, add a drink
@@ -137,12 +131,8 @@ async function loadMemory() {
                 img: coffeeNameArray[index].img
             }
             cardArray[i] = memorycard
-            // console.log(memorycard.name)
-            // console.log(memorycard.img)
-
             //add something to distinguish the names of the orders (tacky I know)
             nameOrder += "1"
-            // console.log(nameOrder)
         }
         console.log(memorycard)
     }
@@ -168,8 +158,6 @@ async function loadMemory() {
         }
     }
 
-
-
     /**
      * checkForMatch() checks for matches
      * 1. gets the clicked cards and compares their names to see if they are even
@@ -178,15 +166,10 @@ async function loadMemory() {
      * 4. else cards don't match and alert
      * Puts won cards into score after each round and checks if still cards left or game is over*/
     function checkForMatch() {
-        //gets the money object from the navbar
         let money = Number($('#money').text());
-        //gets the clicked cards and compares their names to see if they are even
         const cards = document.querySelectorAll('#memory-img')
-        //console.log(cards)
         const optionOneId = cardsChosenID[0]
-        //console.log(optionOneId)
         const optionTwoId = cardsChosenID[1]
-        //checks if same name and if they are different cards
         if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
             money += 10;
             $('#money').text(money);
@@ -206,7 +189,6 @@ async function loadMemory() {
              */
             // alert('You found a match');
             cardsWon.push(cardsChosen)
-            //console.log(cardsWon)
         } //checks if card was clicked twice
         else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
             cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
@@ -214,9 +196,7 @@ async function loadMemory() {
             alert('You need to pick two different cards!')
         } else {
             cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-            //console.log(cards[optionOneId])
             cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-            //console.log(cards[optionTwoId])
             // alert('Sorry try again')
 
         }
@@ -239,7 +219,6 @@ async function loadMemory() {
         var cardID = this.getAttribute('data-id')
         cardsChosen.push(cardArray[cardID].name)
         cardsChosenID.push(cardID)
-        console.log(cardArray[cardID])
         this.setAttribute('src', cardArray[cardID].img)
         if (cardsChosen.length === 2) {
             setTimeout(checkForMatch, 800)
@@ -262,7 +241,6 @@ async function loadMemory() {
             gridShow.appendChild(cardAllShown);
             gridShow.id = "allShownGrid";
         }
-        console.log(cardAllShown)
         setTimeout(function () {
             $('.gridShow').remove();
             createBoard()
