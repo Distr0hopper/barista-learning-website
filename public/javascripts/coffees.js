@@ -42,11 +42,10 @@ class CoffeesForGame {
         });
     }
 
-    getIngredientList() {
-
-        for (let i = 0; i < this.sixCoffees.length; i++){
-            let currentCoffee = this.sixCoffees[i];
-            console.log(currentCoffee);
-        }
-    }
+    // getIngredientList() {
+    //     for (let i = 0; i < this.sixCoffees.length; i++){
+    //         let currentCoffee = this.sixCoffees[i];
+    //        return currentCoffee.ingredientList;
+    //     }
+    // }
 }
