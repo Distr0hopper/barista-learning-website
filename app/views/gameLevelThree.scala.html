@@ -1,0 +1,167 @@
+@(page: String, money : String)(implicit assetsFinder: AssetsFinder)
+@navbar("GameThree",money){
+
+    <div class = "container">
+        <section class="my-3 mx-4 ">
+            <div class="container justify-content-center">
+                <div class="mh-100 row row-game  col-lg-10 col-xs-5 mx-auto">
+                    <span><h1 class=" sticky-top font-weight-bold py-3 font-game text-center"
+                    id="order" >Level Three: Your costumer wants to pay!</h1></span>
+<hr>
+            <div class="row px-2" style="--bs-columns: 10;  --bs-gap: 1rem;">
+            <div class="row col-6">
+                <!-- Adding Customer and each individual coffee-->
+                <div class=" col-md-4 ml-auto">
+                    <div class="card w-100 h-auto" style="width: 18rem;">
+                        <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">Capuccino</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-4 ml-auto">
+                    <div class="card w-100 h-auto" style="width: 18rem;">
+                        <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">Capuccino</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ml-auto">
+                    <div class="card w-100 h-auto" style="width: 18rem;">
+                        <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">Capuccino</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-4 ml-auto">
+                    <div class="card w-100 h-auto" style="width: 18rem;">
+                        <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">Capuccino</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- Bill with coffe options and total input -->
+            <div class=  "col-4">
+                <div class="backround-thridLevel " style="align-items: center">
+                    <div class=" font-weight-bold py-3 font-game text-center">
+                        Bill
+                    </div>
+                    <form class="row ">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Choose...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </form>
+
+                    <button class="login_btn mt-1 mb-1 p-" type="button" id="btnAdd"> Add Coffee</button>
+
+                    <form class="row ">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                            </div>
+                            <select class="custom-select" id="inputSelectCoffe3">
+                                <option selected>Choose...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </form>
+
+                    <form class="row">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                            </div>
+                            <select class="user-select-auto" id="inputGroupSelect01">
+                                <option selected>Choose                   ...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </form>
+                    <form>
+                    <div class="input-group mb-3 ">
+                        <div class="col-xs-3">
+                            <input type="text" class="form-control" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
+                        </div>
+                        <div class="input-group-append">
+                            <button class="login_btn mt-1 mb-1 p-2" type="button" id="submitTotalPrice" onclick="submitTotalPrice">
+                                Submit</button>
+                        </div>
+                    </div>
+                    </form>
+                    <form>
+                        <div class="input-group mb-3 ">
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="input-group-append">
+                                <button class="login_btn mt-1 mb-1 p-2" type="button" id="submitTotalPrice" onclick="submitTotalPrice">
+                                    Submit Tipp </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+            </div>
+            </div>
+        </section>
+    </div>
+
+
+        </div>
+        <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title">Level 3: Remember who wants to pay what!</h5>
+                            <!--                <button type="button" class="close btn btn-danger" data-dismiss="modal"-->
+                            <!--                        aria-label="Close" data-target="#gameModal"-->
+                            <!--                        onclick="closeButton()">-->
+                            <!--                    <span aria-hidden="true">&times;</span>-->
+                            <!--                </button>-->
+                    </div>
+                    <div class="modal-body modal-fade align-items-center justify-content-center">
+                        <div class="container-fluid ms-2">
+                            <div class="row w-100">
+                                <div class="col-md-4 ml-auto">
+                                    <div class="card w-100 h-auto" style="width: 18rem;">
+                                        <img class="card-img-top" src="@assetsFinder.path("/images/waiter")" alt="Card image cap">
+                                    </div>
+                                </div>
+                                <div class="text-white"> Hello, I wold like to pay for my coffee </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--modal-->
+
+        <!--    script tags-->
+        <!--    <script type="javascript" src="coffeeAPI.js"></script>-->
+        <!--    <script type="javascript" src="test.js"></script>-->
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g.js")"></script>
+
+}
+
