@@ -21,8 +21,25 @@ drinks["macchiato"] = new Array("espresso","milkfoam");
 //drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
 drinks["caffe au lait"] = new Array("brewedCoffee","milk");
 drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
-var activeDrink = 'americano';
+// var activeDrink = 'americano';
 var money = Number($('#money').text());
+
+async function getCoffees(){
+
+    const test = new CoffeesForGame();
+    await test.getRandomSixCoffees();
+    test.getIngredientList();
+    //console.log("Coffee Titles: " + test.getCoffeeTitles());
+    console.log(test);
+    var activeDrink = test[0] ;
+    $('#order').text("Please make a " + test.getCoffeeTitles()[0] + "!");
+
+
+
+
+}
+
+window.addEventListener('load', getCoffees);
 
 /**
  * Function is called when submit button is pressed.
@@ -44,50 +61,50 @@ function submitGame(){
 
     var submitButtonText = $('#submitGame').text();
 
+
     if (submitButtonText === 'next') {
 
         $('#submitGame').html('submit')
         // Get Drinks from the Database
-        if (activeDrink == 'americano') {
-            $('#order').text("2. Please make a LATTE!");
-            activeDrink = 'latte';
-        } else if (activeDrink == 'latte') {
-            $('#order').text("3. Please make a MOCHA!");
-            activeDrink = 'mocha';
-
-        } else if (activeDrink == 'mocha') {
-            $('#order').text("4. Please make a CAPPUCCINO!");
-            activeDrink = 'cappuccino';
-
-        } else if (activeDrink == 'cappuccino') {
-            $('#order').text("5. Please make a BREVE!");
-            activeDrink = 'breve';
-
-        } else if (activeDrink == 'breve') {
-            $('#order').text("6. Please make a MACCHIATO!");
-            activeDrink = 'macchiato';
-
-        } else if (activeDrink == 'macchiato') {
-            $('#order').text("7. Please make an IRISH COFFEE!");
-            activeDrink = 'irish';
-
-        } else if (activeDrink == 'irish') {
-            $('#order').text("8. Please make a CAFFE AU LAIT!");
-            activeDrink = 'caffe au lait';
-
-        } else if (activeDrink == 'caffe au lait') {
-            $('#order').text("9. Please make an ESPRESSO CON PANNA!");
-            activeDrink = 'espresso con panna';
-
-        } else if (activeDrink == 'espresso con panna') {
-            $('#order').text("10. Please make a MOCHA BREVE!");
-            activeDrink = 'mocha breve';
-
-        }
+        // if (activeDrink == 'americano') {
+        //     $('#order').text("2. Please make a LATTE!");
+        //     activeDrink = 'latte';
+        // } else if (activeDrink == 'latte') {
+        //     $('#order').text("3. Please make a MOCHA!");
+        //     activeDrink = 'mocha';
+        //
+        // } else if (activeDrink == 'mocha') {
+        //     $('#order').text("4. Please make a CAPPUCCINO!");
+        //     activeDrink = 'cappuccino';
+        //
+        // } else if (activeDrink == 'cappuccino') {
+        //     $('#order').text("5. Please make a BREVE!");
+        //     activeDrink = 'breve';
+        //
+        // } else if (activeDrink == 'breve') {
+        //     $('#order').text("6. Please make a MACCHIATO!");
+        //     activeDrink = 'macchiato';
+        //
+        // } else if (activeDrink == 'macchiato') {
+        //     $('#order').text("7. Please make an IRISH COFFEE!");
+        //     activeDrink = 'irish';
+        //
+        // } else if (activeDrink == 'irish') {
+        //     $('#order').text("8. Please make a CAFFE AU LAIT!");
+        //     activeDrink = 'caffe au lait';
+        //
+        // } else if (activeDrink == 'caffe au lait') {
+        //     $('#order').text("9. Please make an ESPRESSO CON PANNA!");
+        //     activeDrink = 'espresso con panna';
+        //
+        // } else if (activeDrink == 'espresso con panna') {
+        //     $('#order').text("10. Please make a MOCHA BREVE!");
+        //     activeDrink = 'mocha breve';
+        //}
     } else {
 
 
-        for (i = 0; i < arrayDraggedImages.length; i++){
+        for (let i = 0; i < arrayDraggedImages.length; i++){
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
 

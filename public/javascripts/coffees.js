@@ -41,4 +41,12 @@ class CoffeesForGame {
             return coffee.title
         });
     }
+
+    getIngredientList() {
+
+        for (let i = 0; i < this.sixCoffees.length; i++){
+            let currentCoffee = this.sixCoffees[i];
+            console.log(currentCoffee);
+        }
+    }
 }
