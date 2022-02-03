@@ -3,6 +3,7 @@ package controllers;
 import akka.http.impl.engine.server.ServerTerminationDeadlineReached;
 import com.fasterxml.jackson.databind.JsonNode;
 import model.CustomerFetcher;
+import model.UserFactory;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -17,12 +18,14 @@ public class GameController extends Controller {
     private final AssetsFinder assetsFinder;
     private final UserController userController;
     private final UserFactory userFactory;
+    private final CustomerFetcher customerFetcher;
 
     @Inject
-    public GameController(AssetsFinder assetsFinder, UserController userController, UserFactory userFactory) {
+    public GameController(AssetsFinder assetsFinder, UserController userController, UserFactory userFactory, CustomerFetcher customerFetcher) {
         this.assetsFinder = assetsFinder;
         this.userController = userController;
         this.userFactory = userFactory;
+        this.customerFetcher = customerFetcher;
     }
 
 
