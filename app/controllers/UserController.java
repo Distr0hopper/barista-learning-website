@@ -7,23 +7,59 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import views.html.createAccount;
+import views.html.forgotPassword;
+import views.html.login;
+import views.html.profile;
 
 import javax.inject.Inject;
 
-/**
- * Has functions with verfying logic
- * */
+import java.util.ArrayList;
+import java.util.List;
 
-public class VerifyController extends Controller {
+public class UserController extends Controller {
 
     private final UserFactory userFactory;
+    private final AssetsFinder assetsFinder;
+    private List<String> userNamesList = new ArrayList<>();
+//    private List<UserFactory.User> allUsersList = new ArrayList<>();
+
 
     @Inject
-    public VerifyController(UserFactory userFactory) {
+    public UserController(UserFactory userFactory, AssetsFinder assetsFinder) {
         this.userFactory = userFactory;
+        this.assetsFinder = assetsFinder;
     }
+
+    public Result createAccount(){
+        return ok(
+                createAccount.render("createAccount", assetsFinder)
+        );
+    }
+    public Result profile(Http.Request request) {
+        if(isLoggedIn(request)) {
+//            List<UserFactory.User> users = userFactory.getAllUsers();
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
+
+            return ok(
+                    profile.render("profile", String.valueOf(money), user, assetsFinder)
+            );
+        } else {
+            return redirect(routes.UserController.login().url());
+        }
+    }
+
+
+
     public boolean isLoggedIn(Http.Request request) {
         return request.session().get("connected").isPresent();
+    }
+
+    public Result login() {
+        return ok(
+                login.render(assetsFinder));
     }
 
     public Result checklogin(Http.Request request) {
@@ -34,10 +70,8 @@ public class VerifyController extends Controller {
         UserFactory.User user = userFactory.authenticate(username,password);
         UserFactory.User userID = userFactory.getUserByUsername(username);
         int id = userID.getId(); // add user id on the session
-        //if (username.equals("admin") && password.equals("admin")) {
 
         if (user != null){
-//            Json object is body content
             System.out.println(user);
             return status(200, Json.toJson(user))
                     /**
@@ -53,7 +87,18 @@ public class VerifyController extends Controller {
         }
     }
 
+//    public List<String> getAllUserNames(List allUsers){
+//        for (int i = 0; i < allUsers.size(); i++) {
+//            UserFactory.User user = (UserFactory.User) allUsers.get(i);
+//            //System.out.println(user.getUsername());
+//            userNamesList.add(user.getUsername());
+//        }
+//        return userNamesList;
+//    }
+
     public Result checkCreateAccount(Http.Request request) {
+        userNamesList = userFactory.getAllUsernames();
+        //System.out.println(userNamesList);
         JsonNode json = request.body().asJson();
         String email = json.get("email").textValue();
         String username = json.get("username").textValue();
@@ -61,11 +106,18 @@ public class VerifyController extends Controller {
         String password2 = json.get("password2").textValue();
         int money = 0;
         if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !password2.isEmpty()) {
-            if(password.equals(password2)){
+            if(password.equals(password2) && email.contains("@") && !userNamesList.contains(username)){
                 userFactory.create(username,email,password);
-                return redirect(routes.HomeController.login().url());
-            }
-            else{
+                return redirect(routes.UserController.login().url());
+            } else if (!email.contains("@")) {
+                ObjectNode response = Json.newObject();
+                response.put("message","Your Email needs to contain @");
+                return unauthorized(response);
+            } else if (userNamesList.contains(username)){
+                ObjectNode response = Json.newObject();
+                response.put("message","Username already taken!");
+                return unauthorized(response);
+            } else {
                 ObjectNode response = Json.newObject();
                 response.put("message", "Your passwords do not match, please try again");
                 return unauthorized(response);
@@ -75,6 +127,17 @@ public class VerifyController extends Controller {
             response.put("message", "Please fill out every field");
             return unauthorized(response);
         }
+    }
+
+
+    public Result forgotPassword() {
+        return ok(
+                forgotPassword.render("forgotPassword", assetsFinder)
+        );
+    }
+
+    public Result logout(){
+        return redirect(routes.UserController.login().url()).withNewSession();
     }
 
 }

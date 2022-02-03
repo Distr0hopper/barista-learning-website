@@ -2,6 +2,7 @@ package data;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,27 +15,29 @@ public class Coffee {
         private int ingredientID;
         private float price;
         private String coffeeImgPath;
-        private List<Ingredient> ingredientList;
+        private String[] ingredientList;
 
-        public Coffee(ResultSet rs, List <Ingredient> ingredients) throws SQLException {
+        public Coffee(ResultSet rs) throws SQLException {
             this.id = rs.getInt("idCoffees");
             this.title = rs.getString("title");
             this.description = rs.getString("description");
             this.ingredientID = rs.getInt("ingredients");
             this.price = rs.getFloat("price");
             this.coffeeImgPath = rs.getString("coffeeImgPath");
-            this.ingredientList = ingredients;
+            String ingredientList1 = rs.getString("ingredientList");
+            System.out.println(ingredientList1);
+            this.ingredientList = ingredientList1.split(",");
+            Arrays.stream(ingredientList).forEach(System.out::println);
         }
 
 
-        private Coffee(int id, String title, String description, int ingredientID, float price, String coffeeImgPath, List<Ingredient> ingredientList) {
+        private Coffee(int id, String title, String description, int ingredientID, float price, String coffeeImgPath) {
             this.id = id;
             this.title = title;
             this.description = description;
             this.ingredientID = ingredientID;
             this.price = price;
             this.coffeeImgPath = coffeeImgPath;
-            this.ingredientList = ingredientList;
         }
         public void setId(int id) {
             this.id = id;
@@ -84,7 +87,7 @@ public class Coffee {
             return coffeeImgPath;
         }
 
-        public List<Ingredient> getIngredientList() {
+        public String[] getIngredientList() {
             return ingredientList;
         }
 }

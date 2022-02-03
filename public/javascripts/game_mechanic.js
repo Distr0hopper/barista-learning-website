@@ -5,24 +5,88 @@
  * @param correctDrinksCounter: Counts how many drinks are made in a row
  * @param money: Get the money from the Menuebar and display it as text
  */
+let arrayDraggedImages = [];
+let arrayImagesID = [];
+// const drinks = new Array();
+let correctDrinksCounter = 0;
+let wrongDrinksCounter = 0;
+let correctIngredients = [];
+let activeDrink = "Test";
 
-var arrayDraggedImages = [];
-var arrayImagesID = [];
-var drinks = new Array();
-var correctDrinksCounter = 0;
-var wrongDrinksCounter = 0;
+// drinks["americano"] = new Array("espresso", "hotWater");
+// drinks["latte"] = new Array("espresso", "milk", "milkfoam");
+// drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam");
+// drinks["cappuccino"] = new Array("espresso", "milk","milkfoam") ;
+// drinks["breve"] = new Array("espresso","milk");
+// drinks["macchiato"] = new Array("espresso","milkfoam");
+// //drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
+// drinks["caffe au lait"] = new Array("brewedCoffee","milk");
+// drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
+// var activeDrink = 'americano';
+let money = Number($('#money').text());
 
-drinks["americano"] = new Array("espresso", "hotWater");
-drinks["latte"] = new Array("espresso", "milk", "milkfoam");
-drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam");
-drinks["cappuccino"] = new Array("espresso", "milk","milkfoam") ;
-drinks["breve"] = new Array("espresso","milk");
-drinks["macchiato"] = new Array("espresso","milkfoam");
-//drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
-drinks["caffe au lait"] = new Array("brewedCoffee","milk");
-drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
-var activeDrink = 'americano';
-var money = Number($('#money').text());
+let allCoffees = getCoffees().then(function (result){
+    allCoffees = result;
+    getActiveDrink(allCoffees);
+   console.log(allCoffees)
+});
+
+
+
+
+
+async function getCoffees(){
+    const test = new CoffeesForGame();
+    await test.getRandomSixCoffees();
+
+    let allCoffees = test.sixCoffees;
+
+    $('#order').text("Please make a " + test.getCoffeeTitles()[0] + "!");
+
+
+
+
+    // let activeCoffee = allCoffees[0];
+    // console.log(activeCoffee);
+    // console.log(getIngredientList(activeCoffee));
+    return allCoffees;
+}
+
+function getNextDrink(allCoffees){
+    activeDrink = allCoffees.shift();
+    return activeDrink;
+}
+
+async function getActiveDrink(allCoffees){
+    activeDrink = allCoffees.shift();
+    console.log(activeDrink);
+    return activeDrink;
+}
+
+
+function getIngredientList(activeCoffee) {
+    let ingredientArray = [];
+    for (let i = 0; i < activeCoffee.ingredientList.length; i++){
+        ingredientArray.push(activeCoffee.ingredientList[i].name);
+        //console.log(sixCoffees[i].ingredientList)
+    }
+    return ingredientArray;
+}
+
+function getTitle(activeDrink){
+    //console.log(activeDrink.title);
+    return activeDrink.title;
+}
+
+// function getIngredientsFromActiveCoffee(sixCoffeesWithIngredientList){
+//     let ingredients = [];
+//     for (let i = 0; i < sixCoffeesWithIngredientList[0].length; i++) {
+//         ingredients.push(sixCoffeesWithIngredientList[0][i].name);
+//     }
+//     console.log(ingredients);
+// }
+
+
 
 /**
  * Function is called when submit button is pressed.
@@ -39,63 +103,71 @@ var money = Number($('#money').text());
  * @param moneyObject: JSON object containing the key moneyKey and the Value
  */
 function submitGame(){
+    // console.log(allCoffees.shift());
+    // console.log(allCoffees);
+    // getActiveDrink(allCoffees);
     $('#plusForMoneyCounter').show();
     $('#money-counter').show();
-
+    console.log(activeDrink)
     var submitButtonText = $('#submitGame').text();
+
 
     if (submitButtonText === 'next') {
 
         $('#submitGame').html('submit')
+        activeDrink = getNextDrink(allCoffees);
+        $('#order').text("Please make a " + getTitle(activeDrink) + "!");
         // Get Drinks from the Database
-        if (activeDrink == 'americano') {
-            $('#order').text("2. Please make a LATTE!");
-            activeDrink = 'latte';
-        } else if (activeDrink == 'latte') {
-            $('#order').text("3. Please make a MOCHA!");
-            activeDrink = 'mocha';
-
-        } else if (activeDrink == 'mocha') {
-            $('#order').text("4. Please make a CAPPUCCINO!");
-            activeDrink = 'cappuccino';
-
-        } else if (activeDrink == 'cappuccino') {
-            $('#order').text("5. Please make a BREVE!");
-            activeDrink = 'breve';
-
-        } else if (activeDrink == 'breve') {
-            $('#order').text("6. Please make a MACCHIATO!");
-            activeDrink = 'macchiato';
-
-        } else if (activeDrink == 'macchiato') {
-            $('#order').text("7. Please make an IRISH COFFEE!");
-            activeDrink = 'irish';
-
-        } else if (activeDrink == 'irish') {
-            $('#order').text("8. Please make a CAFFE AU LAIT!");
-            activeDrink = 'caffe au lait';
-
-        } else if (activeDrink == 'caffe au lait') {
-            $('#order').text("9. Please make an ESPRESSO CON PANNA!");
-            activeDrink = 'espresso con panna';
-
-        } else if (activeDrink == 'espresso con panna') {
-            $('#order').text("10. Please make a MOCHA BREVE!");
-            activeDrink = 'mocha breve';
-
-        }
+        // if (activeDrink == 'americano') {
+        //     $('#order').text("2. Please make a LATTE!");
+        //     activeDrink = 'latte';
+        // } else if (activeDrink == 'latte') {
+        //     $('#order').text("3. Please make a MOCHA!");
+        //     activeDrink = 'mocha';
+        //
+        // } else if (activeDrink == 'mocha') {
+        //     $('#order').text("4. Please make a CAPPUCCINO!");
+        //     activeDrink = 'cappuccino';
+        //
+        // } else if (activeDrink == 'cappuccino') {
+        //     $('#order').text("5. Please make a BREVE!");
+        //     activeDrink = 'breve';
+        //
+        // } else if (activeDrink == 'breve') {
+        //     $('#order').text("6. Please make a MACCHIATO!");
+        //     activeDrink = 'macchiato';
+        //
+        // } else if (activeDrink == 'macchiato') {
+        //     $('#order').text("7. Please make an IRISH COFFEE!");
+        //     activeDrink = 'irish';
+        //
+        // } else if (activeDrink == 'irish') {
+        //     $('#order').text("8. Please make a CAFFE AU LAIT!");
+        //     activeDrink = 'caffe au lait';
+        //
+        // } else if (activeDrink == 'caffe au lait') {
+        //     $('#order').text("9. Please make an ESPRESSO CON PANNA!");
+        //     activeDrink = 'espresso con panna';
+        //
+        // } else if (activeDrink == 'espresso con panna') {
+        //     $('#order').text("10. Please make a MOCHA BREVE!");
+        //     activeDrink = 'mocha breve';
+        //}
     } else {
 
 
-        for (i = 0; i < arrayDraggedImages.length; i++){
+        for (let i = 0; i < arrayDraggedImages.length; i++){
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
+            console.log(currentImage.id)
 
             currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
             currentImage.setAttribute('data-x', 0)
             currentImage.setAttribute('data-y', 0)
         }
-        correctIngredients = drinks[activeDrink];
+        correctIngredients = getIngredientList(activeDrink);
+        console.log(correctIngredients);
+
 
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
 
@@ -106,11 +178,11 @@ function submitGame(){
             const moneyObjekt = {
                 "moneyKey" : money,
             }
-             fetch("/getMoney",{
+              fetch("/games/getMoney", {
                  method: 'POST',
                  body: JSON.stringify(moneyObjekt),
                  headers: {
-                     'Content-Type' : 'application/json'
+                     'Content-Type': 'application/json'
                  },
              })
 
@@ -119,10 +191,10 @@ function submitGame(){
         } else {
             wrongDrinksCounter++;
             if (wrongDrinksCounter < 3){
-                $('#order').text("Wrong! Please make a " + activeDrink + " again!");
+                $('#order').text("Wrong! Please make a " + getTitle(activeDrink) + " again!");
                 window.alert("You have " + (3 - wrongDrinksCounter) + " tries left");
             } else {
-                $('#order').text("Wrong! " + activeDrink + " = " + correctIngredients.join(" + "));
+                $('#order').text("Wrong! " + getTitle(activeDrink) + " = " + correctIngredients.join(" + "));
                 $('#submitGame').html('next');
                 wrongDrinksCounter = 0;
             }

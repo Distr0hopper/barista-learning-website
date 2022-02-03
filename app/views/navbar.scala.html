@@ -24,15 +24,15 @@
                     <ul class="navbar-nav me-auto">
                         <li><a class="nav-link @("active".when(page == "Home"))" href="@routes.HomeController.main">
                             Home</a></li>
-                        <li><a class="nav-link @("active".when(page == "HighScore"))" href="@routes.HomeController.highscore">
+                        <li><a class="nav-link @("active".when(page == "HighScore"))" href="@routes.SocialPageController.highscore">
                             Highscore</a></li>
-                        <li><a class="nav-link  @("active".when(page == "Profile"))" href="@routes.HomeController.profile">
+                        <li><a class="nav-link  @("active".when(page == "Profile"))" href="@routes.UserController.profile">
                             Profile</a></li>
-                        <li><a class="nav-link  @("active".when(page == "GameOne"))" href="@routes.HomeController.defaultGame">
+                        <li><a class="nav-link  @("active".when(page == "GameOne"))" href="@routes.GameController.defaultGame">
                             Game</a></li>
-                        <li><a class="nav-link  @("active".when(page == "GameTwo"))" href="@routes.HomeController.gameLevelTwo">
+                        <li><a class="nav-link  @("active".when(page == "GameTwo"))" href="@routes.GameController.gameLevelTwo">
                             Game-Level-2</a></li>
-                        <li><a class="nav-link  @("active".when(page == "GameTwoMemory"))" href="@routes.HomeController.gameLevelTwoMemory">
+                        <li><a class="nav-link  @("active".when(page == "GameTwoMemory"))" href="@routes.GameController.gameLevelTwoMemory">
                             Game-Level-2-Memory</a></li>
                         <li><a class="nav-link  @("active".when(page == "Store"))" href="@routes.HomeController.store">
                             Store</a></li>
@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="\logout">Logout </a>
+                            <a class="nav-link" href="\logout" onclick="clearSessionStorage()">Logout </a>
                         </li>
                     </ul>
                 </div>

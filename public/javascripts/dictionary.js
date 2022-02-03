@@ -1,14 +1,10 @@
 async function createDictionary(){
-
-    let response = await fetch("http://localhost:9000/api/coffees");
+    console.time("coffees")
+    let response = await fetch("http://localhost:9000/coffees/getCoffees");
+    console.timeEnd("coffees")
     let coffeelist = await response.json();
     coffeelist = coffeelist.map(coffee=>{
-        let ingredientArray = [];
-        coffee.coffeeImgPath = "assets/images/coffee/"+ coffee.coffeeImgPath;
-        for (let i = 0; i < coffee.ingredientList.length; i++) {
-            ingredientArray.push(coffee.ingredientList[i].name);
-        }
-        coffee.ingredientList = ingredientArray;
+        coffee.coffeeImgPath = "../assets/images/coffee/"+ coffee.coffeeImgPath;
         return coffee
     })
     coffeelist.sort((a, b)=>a.title.localeCompare(b.title))
@@ -19,13 +15,12 @@ async function createDictionary(){
         cardCoffee.classList.add("cardCoffee");
         let imgCoffee = document.createElement("img");
         imgCoffee.src = coffee.coffeeImgPath;
-        imgCoffee.classList.add("imgCoffee");
-        imgCoffee.classList.add("p-5");
+        imgCoffee.classList.add("imgCoffee", "px-5", "pt-5");
         let divCardBody = document.createElement("div");
         divCardBody.classList.add("card-body");
         //CoffeeTitle
-        let cardTitle = document.createElement("h2");
-        cardTitle.innerText = coffee.title;
+        // let cardTitle = document.createElement("h2");
+        // cardTitle.innerText = coffee.title;
         //CoffeeDescription
         let cardText = document.createElement("cardText");
         cardText.innerText = coffee.description;
@@ -49,12 +44,12 @@ async function createDictionary(){
         toggleButton.dataset.toggle = "collapse";
         toggleButton.ariaExpanded = "false";
         toggleButton.ariaControls = "collapseBody";
-        toggleButton.innerText = "Mehr lernen";
+        toggleButton.innerText = "Read more";
 
 
         cardCoffee.appendChild(imgCoffee);
         cardCoffee.appendChild(divCardBody);
-        divCardBody.appendChild(cardTitle);
+        // divCardBody.appendChild(cardTitle);
         divCardBody.appendChild(toggleButton);
 
         divCardBody.appendChild(divCollapseBody);
