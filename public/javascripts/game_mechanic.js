@@ -7,21 +7,21 @@
  */
 let arrayDraggedImages = [];
 let arrayImagesID = [];
-const drinks = new Array();
+// const drinks = new Array();
 let correctDrinksCounter = 0;
 let wrongDrinksCounter = 0;
 let correctIngredients = [];
 let activeDrink = "Test";
 
-drinks["americano"] = new Array("espresso", "hotWater");
-drinks["latte"] = new Array("espresso", "milk", "milkfoam");
-drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam");
-drinks["cappuccino"] = new Array("espresso", "milk","milkfoam") ;
-drinks["breve"] = new Array("espresso","milk");
-drinks["macchiato"] = new Array("espresso","milkfoam");
-//drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
-drinks["caffe au lait"] = new Array("brewedCoffee","milk");
-drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
+// drinks["americano"] = new Array("espresso", "hotWater");
+// drinks["latte"] = new Array("espresso", "milk", "milkfoam");
+// drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam");
+// drinks["cappuccino"] = new Array("espresso", "milk","milkfoam") ;
+// drinks["breve"] = new Array("espresso","milk");
+// drinks["macchiato"] = new Array("espresso","milkfoam");
+// //drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
+// drinks["caffe au lait"] = new Array("brewedCoffee","milk");
+// drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
 // var activeDrink = 'americano';
 let money = Number($('#money').text());
 

@@ -4,12 +4,7 @@ async function createDictionary(){
     console.timeEnd("coffees")
     let coffeelist = await response.json();
     coffeelist = coffeelist.map(coffee=>{
-        let ingredientArray = [];
         coffee.coffeeImgPath = "../assets/images/coffee/"+ coffee.coffeeImgPath;
-        for (let i = 0; i < coffee.ingredientList.length; i++) {
-            ingredientArray.push(coffee.ingredientList[i].name);
-        }
-        coffee.ingredientList = ingredientArray;
         return coffee
     })
     coffeelist.sort((a, b)=>a.title.localeCompare(b.title))

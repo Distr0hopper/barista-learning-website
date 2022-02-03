@@ -28,8 +28,8 @@ public class CoffeeFetcher {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
-                coffee = new Coffee(rs, ingredientList);
+//                List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
+                coffee = new Coffee(rs);
             }
             stmt.close();
             return coffee;
@@ -50,12 +50,15 @@ String sql2= "SELECT * FROM Coffees, Coffees_has_Ingredients, Ingredients WHERE 
     public List<Coffee> getAllCoffees() {
         return db.withConnection(conn -> {
             List<Coffee> coffees = new ArrayList<>();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees");
-//            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees, Coffees_has_Ingredients, Ingredients WHERE idCoffees = ? AND Coffees_idCoffees = Coffees.idCoffees AND Ingredients_idIngredients = Ingredients.idIngredients")
+//            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees");
+            PreparedStatement stmt = conn.prepareStatement("SELECT Coffees.*, group_concat(Ingredients.name) AS ingredientList " +
+                    "FROM Coffees, Ingredients, Coffees_has_Ingredients " +
+                    "WHERE Coffees.idCoffees = Coffees_has_Ingredients.Coffees_idCoffees " +
+                    "AND Coffees_has_Ingredients.Ingredients_idIngredients = Ingredients.idIngredients " +
+                    "GROUP BY Coffees.idCoffees");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
-                Coffee coffee = new Coffee(rs, ingredientList);
+                Coffee coffee = new Coffee(rs);
                 coffees.add(coffee);
             }
             stmt.close();
@@ -66,20 +69,20 @@ String sql2= "SELECT * FROM Coffees, Coffees_has_Ingredients, Ingredients WHERE 
      * getIngredients() returns a list of Ingredients by fetching the matching ingredients to title (coffeeID) by JOINing the tables
      */
 
-    public List <Ingredient> getIngredientsByID(String coffeeID){
-        return db.withConnection(conn -> {
-            List<Ingredient> ingredients = new ArrayList<>();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Ingredients JOIN Coffees_has_Ingredients ON idIngredients = Ingredients_idIngredients JOIN Coffees ON idCoffees = Coffees_idCoffees WHERE title = ?");
-            stmt.setString(1, coffeeID);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Ingredient ingredient = new Ingredient(rs);
-                ingredients.add(ingredient);
-            }
-            stmt.close();
-            return ingredients;
-        });
-    }
+//    public List <Ingredient> getIngredientsByID(String coffeeID){
+//        return db.withConnection(conn -> {
+//            List<Ingredient> ingredients = new ArrayList<>();
+//            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Ingredients JOIN Coffees_has_Ingredients ON idIngredients = Ingredients_idIngredients JOIN Coffees ON idCoffees = Coffees_idCoffees WHERE title = ?");
+//            stmt.setString(1, coffeeID);
+//            ResultSet rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                Ingredient ingredient = new Ingredient(rs);
+//                ingredients.add(ingredient);
+//            }
+//            stmt.close();
+//            return ingredients;
+//        });
+//    }
 
 }
 
