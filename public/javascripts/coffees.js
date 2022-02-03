@@ -24,7 +24,7 @@ class CoffeesForGame {
         let coffeelist = await response.json();
 
         coffeelist = coffeelist.map(coffee=>{
-            coffee.coffeeImgPath = "../assets/images/CoffeeTexts/"+ coffee.coffeeImgPath;
+            coffee.coffeeImgPath = "../assets/images/coffee/"+ coffee.coffeeImgPath;
             return coffee
         })
         const sixCoffees = []

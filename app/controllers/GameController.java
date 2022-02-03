@@ -2,7 +2,8 @@ package controllers;
 
 import akka.http.impl.engine.server.ServerTerminationDeadlineReached;
 import com.fasterxml.jackson.databind.JsonNode;
-import model.UserFactory;
+import model.CustomerFetcher;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -76,5 +77,9 @@ public class GameController extends Controller {
             return redirect(routes.UserController.login().url());
         }
 
+    }
+
+    public Result getCustomers() {
+        return ok(Json.toJson(customerFetcher.getAllCustomers()));
     }
 }

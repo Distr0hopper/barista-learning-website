@@ -40,11 +40,13 @@ POST /user/auth                     controllers.UserController.checklogin(reques
 
 POST /games/getMoney                controllers.GameController.requestMoney(request : Request)
 
-GET /logout                    controllers.UserController.logout
+GET /logout                         controllers.UserController.logout
 
 GET /coffees/getCoffees             controllers.CoffeeController.getCoffees
 
 GET /social/friends                 controllers.SocialPageController.getFriends(request : Request)
+
+GET /games/getAllCustomers             controllers.GameController.getCustomers
 
 #GET /userid                         controllers.APIController.getUserId(request: Request)
 #

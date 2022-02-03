@@ -16,18 +16,18 @@ public class Coffee {
         private String coffeeImgPath;
         private List<Ingredient> ingredientList;
 
-        public Coffee(ResultSet rs, List <Ingredient> ingredients) throws SQLException {
+        public Coffee(ResultSet rs, List<Ingredient> ingredientList) throws SQLException {
             this.id = rs.getInt("idCoffees");
             this.title = rs.getString("title");
             this.description = rs.getString("description");
             this.ingredientID = rs.getInt("ingredients");
             this.price = rs.getFloat("price");
             this.coffeeImgPath = rs.getString("coffeeImgPath");
-            this.ingredientList = ingredients;
+            this.ingredientList = ingredientList;
         }
 
 
-        private Coffee(int id, String title, String description, int ingredientID, float price, String coffeeImgPath, List<Ingredient> ingredientList) {
+        private Coffee(int id, String title, String description, int ingredientID, List<Ingredient> ingredientList, float price, String coffeeImgPath) {
             this.id = id;
             this.title = title;
             this.description = description;
