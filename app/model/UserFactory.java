@@ -121,6 +121,21 @@ public class UserFactory {
         });
     }
 
+    public List<String> getAllUsernames() {
+        return db.withConnection(conn -> {
+            List<String> userNames = new ArrayList<>();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs);
+                userNames.add(user.username);
+            }
+            stmt.close();
+            return userNames;
+        });
+    }
+
+
     public List<User> getAllUsersDesc() {
         return db.withConnection(conn -> {
             List<User> users = new ArrayList<>();

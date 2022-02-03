@@ -178,7 +178,7 @@ function submitGame(){
             const moneyObjekt = {
                 "moneyKey" : money,
             }
-              fetch("/getMoney", {
+              fetch("/games/getMoney", {
                  method: 'POST',
                  body: JSON.stringify(moneyObjekt),
                  headers: {
