@@ -1,4 +1,6 @@
-@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+@import java.util
+@(page: String, money: String, user : model.UserFactory#User, friends : util.List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
+@import model.UserFactory
 
 
 @navbar("Socials", money) {
@@ -7,13 +9,13 @@
             <div class="ui-widget">
                 <input type="search" id ="tags" class="form-control rounded" placeholder="Search for new friends" aria-label="Search" aria-describedby="search-addon" onclick="search()" />
             </div>
-            <ul class="list-unstyled chat-list mt-2 mb-0">
+            <ul class="list-unstyled chat-list mt-2 mb-0" id="friend-list" onload = "getFriends('@friends')">
                 <li class="clearfix">
                     <button type="button" class="btn btn-friend" onclick="openChat('Cristina', 'christinastizzle', '@assetsFinder.path("images/avatar.png")')">
                         <span class="btn avatar-background"><img src="@assetsFinder.path("images/avatar.png")" class="socialsAvatar"/>
                         </span>
                         <span class="socialsName">Cristina</span><br>
-                        <span class="friendsUsername">christinastizzle</span>
+                        <span class="friendsRanking">christinastizzle</span>
                     </button>
                 </li>
                 <li class="clearfix">
@@ -21,7 +23,7 @@
                         <span class="btn avatar-background"><img src="@assetsFinder.path("images/waitress.png")" class="socialsAvatar"/>
                         </span>
                         <span class="socialsName">Ronja</span><br>
-                        <span class="friendsUsername">ronjastizzle</span>
+                        <span class="friendsRanking">ronjastizzle</span>
                     </button>
                 </li>
                 <li class="clearfix">
@@ -29,7 +31,7 @@
                         <span class="btn avatar-background"><img src="@assetsFinder.path("images/waitress.png")" class="socialsAvatar"/>
                         </span>
                         <span class="socialsName">Katrin</span><br>
-                        <span class="friendsUsername">katrinstizzle</span>
+                        <span class="friendsRanking">katrinstizzle</span>
                     </button>
                 </li>
                 <li class="clearfix">
@@ -37,7 +39,7 @@
                         <span class="btn avatar-background"><img src="@assetsFinder.path("images/waiter.png")" class="socialsAvatar"/>
                         </span>
                         <span class="socialsName">Julius</span><br>
-                        <span class="friendsUsername">juliusstizzle</span>
+                        <span class="friendsRanking">juliusstizzle</span>
                     </button>
                 </li>
             </ul>
@@ -57,7 +59,7 @@
                             <span class="btn avatar-background"><img src="" class="socialsAvatar" id="header-avatar"/>
                             </span>
                             <span class="socialsName" id="header-name"></span><br>
-                            <span class="friendsUsername" id="header-username"></span>
+                            <span class="friendsRanking" id="header-username"></span>
                             <button type="button" class="btn btn-show-profile" onclick="openModal()">Show profile</button>
                         </div>
                         <div class="chat-messages">

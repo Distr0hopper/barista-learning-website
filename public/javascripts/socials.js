@@ -52,3 +52,26 @@ function createMessage(klasse, message){
     li.appendChild(div);
     ul.appendChild(li);
 }
+
+function getFriends(friends){
+    let ul = document.getElementById("friend-list");
+    for (let i = 0; i < friends.length; i++){
+        let friend = friends[i];
+        let button = document.createElement("friend-button");
+        button.className = "btn btn-friend";
+        button.type = "button";
+        let spanAvatar = document.createElement("span");
+        spanAvatar.className = "btn avatar-background";
+        let imgAvatar = document.createElement("img");
+        imgAvatar.src = "";
+        spanAvatar.appendChild(imgAvatar);
+        let nameSpan = document.createElement("span");
+        nameSpan.className = "socialsName";
+        let rankingSpan = document.createElement("span");
+        rankingSpan.className = "friendsRanking";
+
+        button.appendChild(spanAvatar);
+        button.appendChild(nameSpan);
+        button.appendChild(rankingSpan);
+    }
+}

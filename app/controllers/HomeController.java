@@ -168,8 +168,12 @@ public class HomeController extends Controller {
 
     public Result socials(Http.Request request){
         String money = request.session().get("money").get();
+        int id = Integer.parseInt(request.session().get("userID").get());
+
+        UserFactory.User user = userFactory.getUserById(id);
+        List<UserFactory.User> friends = userFactory.getFriendsById(id);
         return ok(
-                socials.render("socials", money, assetsFinder)
+                socials.render("socials", money, user, friends, assetsFinder)
         );
     }
 
