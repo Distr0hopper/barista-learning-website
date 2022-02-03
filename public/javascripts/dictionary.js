@@ -1,6 +1,7 @@
 async function createDictionary(){
-
+    console.time("coffees")
     let response = await fetch("http://localhost:9000/coffees/getCoffees");
+    console.timeEnd("coffees")
     let coffeelist = await response.json();
     coffeelist = coffeelist.map(coffee=>{
         let ingredientArray = [];

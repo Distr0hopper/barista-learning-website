@@ -25,7 +25,9 @@ class Customers {
         // CustomerArray[6] = '../assets/images/Customers/old-black-man.png';
         // CustomerArray[7] = '../assets/images/Customers/indian-woman.png';
         // console.log(CustomerArray);
-        let response = await fetch("http://localhost:9000/games/getCustomers");
+        console.time("response")
+        let response = await fetch("http://localhost:9000/games/getAllCustomers");
+        console.timeEnd("response")
         let customerList = await response.json();
         console.log(customerList)
 

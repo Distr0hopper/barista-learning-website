@@ -46,7 +46,7 @@ GET /coffees/getCoffees             controllers.CoffeeController.getCoffees
 
 GET /social/friends                 controllers.SocialPageController.getFriends(request : Request)
 
-GET /games/getCustomers             controllers.GameController.getCustomers
+GET /games/getAllCustomers             controllers.GameController.getCustomers
 
 #GET /userid                         controllers.APIController.getUserId(request: Request)
 #

@@ -5,8 +5,8 @@
 async function loadModal() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
-    $('#myModal').modal({backdrop: 'static', keyboard: false})
-    var timeleft = 10;
+    // $('#myModal').modal({backdrop: 'static', keyboard: false})
+    var timeleft = 5;
     var currentHTMLText = document.querySelector("#modal-title").textContent;
     var downloadTimer = setInterval(function () {
         if (timeleft > 0) {
@@ -25,7 +25,9 @@ async function loadModal() {
     /**
      * put Coffeetitles in modal*/
     const coffeesForGame = new CoffeesForGame();
+    console.time("customer")
     await coffeesForGame.getRandomSixCoffees();
+    console.timeEnd("customer")
     const coffeeOrderCards = $('.card-text');
     const coffeeTitles = coffeesForGame.getCoffeeTitles();
     for (let i = 0; i < coffeeOrderCards.length; i++) {
@@ -47,15 +49,6 @@ async function loadModal() {
 
 async function loadMemory() {
     const cardArray = []
-    // // console.time("coffee")
-    // let response = await fetch("http://localhost:9000/coffees/getCoffees");
-    // // console.timeEnd("coffee")
-    // let coffeelist = await response.json();
-    //
-    // const coffeeImages = coffeelist.map(coffee => {
-    //     coffee.coffeeImgPath = "../assets/images/coffee/" + coffee.coffeeImgPath;
-    //     return coffee
-    // })
     const grid = document.querySelector('.grid')
     const gridShow = document.querySelector('.gridShow')
     const resultDisplay = document.querySelector('#result')
@@ -244,7 +237,7 @@ async function loadMemory() {
         setTimeout(function () {
             $('.gridShow').remove();
             createBoard()
-        }, 12000)
+        }, 9000)
 
 
     }
