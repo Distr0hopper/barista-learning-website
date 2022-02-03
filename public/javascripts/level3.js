@@ -149,6 +149,12 @@ async function loadModal() {
     for (let i = 0; i < coffeeOrderCards.length; i++) {
         coffeeOrderCards[i].innerText = coffeeTitles[i];
     }
+    // putting the coffees in the options of the input group Select 01
+
+    const coffeeOptionsForInputGroup = $('.options');
+    for (let i = 0; i < coffeeOptionsForInputGroup.length; i++){
+        coffeeOptionsForInputGroup[i].innerText = coffeeTitles[i];
+    }
 
     /**put CustomerImages in to the tiles */
     const customerForGame = new Customers();
