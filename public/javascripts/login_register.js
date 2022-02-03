@@ -54,11 +54,11 @@ function checkCreateAccount() {
         } else {
             return response.json()
         }}).then(userData => {
-        alert(userData.message);
-        emailInput.value = "";
-        nameInput.value = "";
-        passwordInput.value = "";
-        password2Input.value = "";
-        passwordInput.focus();
+                alert(userData.message);
+                emailInput.value = "";
+                nameInput.value = "";
+                passwordInput.value = "";
+                password2Input.value = "";
+                passwordInput.focus();
     })
 }

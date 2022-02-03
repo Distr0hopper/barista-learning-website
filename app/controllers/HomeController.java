@@ -34,11 +34,12 @@ public class HomeController extends Controller {
 
     public Result main(Http.Request request) {
         if (userController.isLoggedIn(request)) {
-            String money = request.session().get("money").get();
+            //String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
             return ok(
-                    main.render("main",money ,assetsFinder)
+                    main.render("main",String.valueOf(money) ,assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -48,9 +49,12 @@ public class HomeController extends Controller {
 
         public Result store(Http.Request request) {
         if(userController.isLoggedIn(request)){
-            String money = request.session().get("money").get();
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
+
             return ok(
-                    store.render("Store", money, assetsFinder)
+                    store.render("Store", String.valueOf(money), assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -60,9 +64,11 @@ public class HomeController extends Controller {
 
     public Result dictionary(Http.Request request) {
         if(userController.isLoggedIn(request)){
-            String money = request.session().get("money").get();
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
             return ok(
-                    dictionary.render("Dictionary", money, assetsFinder)
+                    dictionary.render("Dictionary", String.valueOf(money), assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());

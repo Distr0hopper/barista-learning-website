@@ -35,10 +35,11 @@ public class SocialPageController extends Controller {
     public Result highscore(Http.Request request) {
         if(userController.isLoggedIn(request)) {
             List<UserFactory.User> users = userFactory.getAllUsersDesc();
-            String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
             return ok(
-                    highscore.render("highscore", money, users, id, assetsFinder));
+                    highscore.render("highscore", String.valueOf(money), users, id, assetsFinder));
         } else {
             return redirect(routes.UserController.login().url());
         }

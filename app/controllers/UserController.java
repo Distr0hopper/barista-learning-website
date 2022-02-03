@@ -14,12 +14,15 @@ import views.html.profile;
 
 import javax.inject.Inject;
 
-import static play.mvc.Results.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserController extends Controller {
 
     private final UserFactory userFactory;
     private final AssetsFinder assetsFinder;
+    private List<String> userNamesList = new ArrayList<>();
+//    private List<UserFactory.User> allUsersList = new ArrayList<>();
 
 
     @Inject
@@ -36,13 +39,12 @@ public class UserController extends Controller {
     public Result profile(Http.Request request) {
         if(isLoggedIn(request)) {
 //            List<UserFactory.User> users = userFactory.getAllUsers();
-            String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
-
             UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
 
             return ok(
-                    profile.render("profile", money, user, assetsFinder)
+                    profile.render("profile", String.valueOf(money), user, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -85,7 +87,18 @@ public class UserController extends Controller {
         }
     }
 
+//    public List<String> getAllUserNames(List allUsers){
+//        for (int i = 0; i < allUsers.size(); i++) {
+//            UserFactory.User user = (UserFactory.User) allUsers.get(i);
+//            //System.out.println(user.getUsername());
+//            userNamesList.add(user.getUsername());
+//        }
+//        return userNamesList;
+//    }
+
     public Result checkCreateAccount(Http.Request request) {
+        userNamesList = userFactory.getAllUsernames();
+        //System.out.println(userNamesList);
         JsonNode json = request.body().asJson();
         String email = json.get("email").textValue();
         String username = json.get("username").textValue();
@@ -93,11 +106,18 @@ public class UserController extends Controller {
         String password2 = json.get("password2").textValue();
         int money = 0;
         if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty() && !password2.isEmpty()) {
-            if(password.equals(password2)){
+            if(password.equals(password2) && email.contains("@") && !userNamesList.contains(username)){
                 userFactory.create(username,email,password);
                 return redirect(routes.UserController.login().url());
-            }
-            else{
+            } else if (!email.contains("@")) {
+                ObjectNode response = Json.newObject();
+                response.put("message","Your Email needs to contain @");
+                return unauthorized(response);
+            } else if (userNamesList.contains(username)){
+                ObjectNode response = Json.newObject();
+                response.put("message","Username already taken!");
+                return unauthorized(response);
+            } else {
                 ObjectNode response = Json.newObject();
                 response.put("message", "Your passwords do not match, please try again");
                 return unauthorized(response);
@@ -108,6 +128,8 @@ public class UserController extends Controller {
             return unauthorized(response);
         }
     }
+
+
     public Result forgotPassword() {
         return ok(
                 forgotPassword.render("forgotPassword", assetsFinder)
