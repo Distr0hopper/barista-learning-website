@@ -13,16 +13,6 @@ let wrongDrinksCounter = 0;
 let correctIngredients = [];
 let activeDrink = "Test";
 
-// drinks["americano"] = new Array("espresso", "hotWater");
-// drinks["latte"] = new Array("espresso", "milk", "milkfoam");
-// drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam");
-// drinks["cappuccino"] = new Array("espresso", "milk","milkfoam") ;
-// drinks["breve"] = new Array("espresso","milk");
-// drinks["macchiato"] = new Array("espresso","milkfoam");
-// //drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
-// drinks["caffe au lait"] = new Array("brewedCoffee","milk");
-// drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
-// var activeDrink = 'americano';
 let money = Number($('#money').text());
 
 let allCoffees = getCoffees().then(function (result){
@@ -38,17 +28,8 @@ let allCoffees = getCoffees().then(function (result){
 async function getCoffees(){
     const test = new CoffeesForGame();
     await test.getRandomSixCoffees();
-
     let allCoffees = test.sixCoffees;
-
     $('#order').text("Please make a " + test.getCoffeeTitles()[0] + "!");
-
-
-
-
-    // let activeCoffee = allCoffees[0];
-    // console.log(activeCoffee);
-    // console.log(getIngredientList(activeCoffee));
     return allCoffees;
 }
 
@@ -70,7 +51,6 @@ function getIngredientList(activeCoffee) {
     let ingredientArray = []
     for (let i = 0; i < activeCoffee.ingredientList.length; i++){
         ingredientArray.push(activeCoffee.ingredientList[i]);
-       // console.log(sixCoffees[i].ingredientList)
     }
     return ingredientArray;
 }
@@ -80,13 +60,6 @@ function getTitle(activeDrink){
     return activeDrink.title;
 }
 
-// function getIngredientsFromActiveCoffee(sixCoffeesWithIngredientList){
-//     let ingredients = [];
-//     for (let i = 0; i < sixCoffeesWithIngredientList[0].length; i++) {
-//         ingredients.push(sixCoffeesWithIngredientList[0][i].name);
-//     }
-//     console.log(ingredients);
-// }
 
 
 
@@ -119,42 +92,6 @@ function submitGame(){
         $('#submitGame').html('submit')
         activeDrink = getNextDrink(allCoffees);
         $('#order').text("Please make a " + getTitle(activeDrink) + "!");
-        // Get Drinks from the Database
-        // if (activeDrink == 'americano') {
-        //     $('#order').text("2. Please make a LATTE!");
-        //     activeDrink = 'latte';
-        // } else if (activeDrink == 'latte') {
-        //     $('#order').text("3. Please make a MOCHA!");
-        //     activeDrink = 'mocha';
-        //
-        // } else if (activeDrink == 'mocha') {
-        //     $('#order').text("4. Please make a CAPPUCCINO!");
-        //     activeDrink = 'cappuccino';
-        //
-        // } else if (activeDrink == 'cappuccino') {
-        //     $('#order').text("5. Please make a BREVE!");
-        //     activeDrink = 'breve';
-        //
-        // } else if (activeDrink == 'breve') {
-        //     $('#order').text("6. Please make a MACCHIATO!");
-        //     activeDrink = 'macchiato';
-        //
-        // } else if (activeDrink == 'macchiato') {
-        //     $('#order').text("7. Please make an IRISH COFFEE!");
-        //     activeDrink = 'irish';
-        //
-        // } else if (activeDrink == 'irish') {
-        //     $('#order').text("8. Please make a CAFFE AU LAIT!");
-        //     activeDrink = 'caffe au lait';
-        //
-        // } else if (activeDrink == 'caffe au lait') {
-        //     $('#order').text("9. Please make an ESPRESSO CON PANNA!");
-        //     activeDrink = 'espresso con panna';
-        //
-        // } else if (activeDrink == 'espresso con panna') {
-        //     $('#order').text("10. Please make a MOCHA BREVE!");
-        //     activeDrink = 'mocha breve';
-        //}
     } else {
 
 
