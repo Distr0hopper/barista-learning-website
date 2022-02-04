@@ -13,15 +13,14 @@ async function removeCoffee(){
 async function loadModal() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
-
     /**
      * CoffeesForGame is a class, that has sixCoffees in the Constructor
      * it first generates a random Number
      * then it creates randomSixCoffees and Titles*/
+
     class CoffeesForGame {
         constructor() {
             this.sixCoffees = ['Hallo']
-            // this.getRandomSixCoffees().then(r => {});
         }
 
         getRandomNumber(lengthArray) {
@@ -36,37 +35,54 @@ async function loadModal() {
          * save it to sessionstorage
          * */
         async getRandomSixCoffees() {
-            const coffeeAPI = 'https://api.sampleapis.com/coffee/hot';
-            const res = await fetch(coffeeAPI);
-            const data = await res.json(); //array kommt raus aus Kaffees
-            // //is nur da um spezielle Einträge der Coffees zu kriegen und restliches JSON objekt wegzuwerfen
-            // const allCoffees = data.map((entry, index) => {
-            //     return {
-            //         title: entry.title,
-            //         id: index+1
-            //     }
-            // });
-            // console.log(allCoffees)
+            let response = await fetch("http://localhost:9000/coffees/getCoffees");
+            let coffeelist = await response.json();
+
+            coffeelist = coffeelist.map(coffee => {
+                coffee.coffeeImgPath = "../assets/images/CoffeeTexts/" + coffee.coffeeImgPath;
+                return coffee
+            })
             const sixCoffees = []
             for (let i = 0; i < 6; i++) {
-                const randomNumber = this.getRandomNumber(data.length)
-                sixCoffees.push(data.splice(randomNumber, 1)[0]);
+                const randomNumber = this.getRandomNumber(coffeelist.length)
+                sixCoffees.push(coffeelist.splice(randomNumber, 1)[0])
             }
-            console.log("Hallo wir sind GottCoffees");
             this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
             window.sessionStorage.setItem("coffees", JSON.stringify(this.sixCoffees))
-        }
 
+
+
+
+
+
+        }
         /**getCoffeeTitles() returns a map with the titles from sixCoffees*/
         getCoffeeTitles() {
-            console.log(this.sixCoffees)
             return this.sixCoffees.map(coffee => {
-                console.log(coffee);
-                console.log(coffee.title);
                 return coffee.title
             });
         }
+        // getCoffeePrices() returns a map with the prices of the sixCoffees
+        getCoffeePrices(){
+            return this.sixCoffees.map(coffee => {
+                return coffee.title + "  " + coffee.price+"€"
+            })
+        }
+
+        getPricesForCoffee(){
+
+            this.sixCoffees.forEach(coffeePrices => {
+                this.sixCoffees = {
+                    price: coffeePrices.price
+                }
+
+               return  coffeePrices.price
+
+            });
+        }
     }
+
+
 
     /**
      * Customers is a class with the Instructor sixCustomer Array and this.getRandomSixCustomers()
@@ -138,22 +154,23 @@ async function loadModal() {
     }
 
 
-
     /**
      * put Coffeetitles in modal*/
     const coffeesForGame = new CoffeesForGame();
     await coffeesForGame.getRandomSixCoffees();
     const coffeeOrderCards = $('.card-text');
     const coffeeTitles = coffeesForGame.getCoffeeTitles();
+
     console.log(coffeeTitles)
     for (let i = 0; i < coffeeOrderCards.length; i++) {
         coffeeOrderCards[i].innerText = coffeeTitles[i];
     }
-    // putting the coffees in the options of the input group Select 01
-
+    // putting the coffees in the options of the input group Select
     const coffeeOptionsForInputGroup = $('.options');
+    const coffeePrices = coffeesForGame.getCoffeePrices();
+    console.log(coffeePrices)
     for (let i = 0; i < coffeeOptionsForInputGroup.length; i++){
-        coffeeOptionsForInputGroup[i].innerText = coffeeTitles[i];
+        coffeeOptionsForInputGroup[i].innerText = coffeePrices[i]
     }
 
     /**put CustomerImages in to the tiles */
@@ -183,7 +200,10 @@ async function loadModal() {
 
 
 
+function submitTotal (){
+        let submitTotalButtonText =  document.getElementById('submitGame')
 
+}
 
 
 
