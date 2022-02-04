@@ -167,6 +167,8 @@ public class UserFactory {
         });
     }
 
+
+
 //    public void deleteFriend(int userID1, int userID2) {
 //        db.withConnection(conn -> {
 //            String sql = "DELETE FROM Friendship WHERE idUser1 = ? AND idUser2 = ?;";

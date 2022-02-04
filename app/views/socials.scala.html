@@ -9,11 +9,13 @@
     <div class="row no-gutters">
         <div class="col-lg-4">
             <div class="ui-widget">
-                <input type="search" id ="tags" class="form-control rounded" placeholder="Search for new friends" aria-label="Search" aria-describedby="search-addon" onclick="search()" />
+                <input type="search" id ="search-user" class="form-control rounded" placeholder="Search for new friends" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-search"  onclick="search()">search</button>
             </div>
             <!--In this ul all of the friends are displayed -->
             <ul class="list-unstyled chat-list mt-2 mb-0" id="friend-list" >
             </ul>
+            <div class="search-friends" id="search-friends"></div>
         </div>
         <div class="col-lg-8">
             <div class="mainbackround">
@@ -46,6 +48,7 @@
                         </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

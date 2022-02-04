@@ -581,6 +581,8 @@ cardText{
     border-color: var(--dropshadow-color);
     background-color: var(--dropshadow-color);
     color: white;
+    float: left;
+    width: 80%;
 }
 
 .form-control:focus{
@@ -674,6 +676,10 @@ cardText{
     display:none;
 }
 
+.search-friends{
+    display:none;
+}
+
 .chat-header{
     background-color: var(--card-color);
     width: 100%;
@@ -761,4 +767,19 @@ li{
     margin-left: -10px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+#add-friend{
+    color: white;
+    background-color: var(--dropshadow-color);
+    margin-top: 5%;
+}
+
+#user-found{
+    background-color: var(--dark-brown-navbar);
+    border-color: var(--dark-brown-navbar);
+    color: white;
+    width: 60%;
+    margin-left: 5%;
+    margin-top: 5%;
 }

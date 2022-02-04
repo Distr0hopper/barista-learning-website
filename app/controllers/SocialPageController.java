@@ -1,5 +1,8 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import model.FriendshipFactory;
 import model.UserFactory;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -8,6 +11,7 @@ import play.mvc.Result;
 import views.html.highscore;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 //    here also methods regarding rewards and chat
@@ -16,12 +20,16 @@ public class SocialPageController extends Controller {
 
     private final UserFactory userFactory;
     private final UserController userController;
+    private final FriendshipFactory friendshipFactory;
     private final AssetsFinder assetsFinder;
+    private List<String> userNamesList = new ArrayList<>();
+    private List<UserFactory.User> friends = new ArrayList<>();
 
     @Inject
-    public SocialPageController(UserFactory userFactory, UserController userController, AssetsFinder assetsFinder) {
+    public SocialPageController(UserFactory userFactory, UserController userController, FriendshipFactory friendshipFactory, AssetsFinder assetsFinder) {
         this.userFactory = userFactory;
         this.userController = userController;
+        this.friendshipFactory = friendshipFactory;
         this.assetsFinder = assetsFinder;
     }
 
@@ -45,6 +53,30 @@ public class SocialPageController extends Controller {
         }
     }
 
+    public Result createFriendship(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        String friend = json.get("user-found").textValue();
+        int friendId = userFactory.getUserByUsername(friend).getId();
+        String userIDString = request.session().get("userID").get();
+        int userID = Integer.parseInt(userIDString);
+        friendshipFactory.createFriendship(userID, friendId);
+        return redirect(routes.HomeController.socials().url());
+}
 
+    public Result getEveryone(Http.Request request){
+        return ok(Json.toJson(userFactory.getAllUsernames()));
+    }
 
+    public Result getNotFriends(Http.Request request){
+        String userIDString = request.session().get("userID").get();
+        int userID = Integer.parseInt(userIDString);
+        friends = userFactory.getFriendsById(userID);
+        userNamesList = userFactory.getAllUsernames();
+        for (UserFactory.User friend : friends){
+            if (userNamesList.contains(friend.getUsername())){
+                userNamesList.remove(friend.getUsername());
+            }
+        }
+        return ok(Json.toJson(userNamesList));
+    }
 }

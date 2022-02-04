@@ -31,12 +31,11 @@ public class ChatFactory {
         });
     }
 
-    public ChatFactory.Message createMessage(int id, int idUser1, int idUser2, Timestamp timestamp, String text, int senderId){
+    public ChatFactory.Message createMessage(int idUser1, int idUser2, Timestamp timestamp, String text, int senderId){
         return db.withConnection(conn -> {
             ChatFactory.Message message = null;
-            String sql = "INSERT INTO Message (idMessage, Friendship_idUser1, Friendship_idUser2, timestamp, message_text, senderId) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Message (Friendship_idUser1, Friendship_idUser2, timestamp, message_text, senderId) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, id);
             stmt.setInt(2, idUser1);
             stmt.setInt(3, idUser2);
             stmt.setTimestamp(4, timestamp);
@@ -46,7 +45,7 @@ public class ChatFactory {
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 int messageId = rs.getInt(1);
-                message = new Message(id, idUser1, idUser2, timestamp, text, senderId);
+                message = new Message(messageId, idUser1, idUser2, timestamp, text, senderId);
             }
             stmt.close();
             return message;

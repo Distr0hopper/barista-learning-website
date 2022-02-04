@@ -48,6 +48,10 @@ GET /coffees/getCoffees             controllers.CoffeeController.getCoffees
 
 GET /social/friends                 controllers.SocialPageController.getFriends(request : Request)
 
+GET /social/getEveryone             controllers.SocialPageController.getNotFriends(request : Request)
+
+POST /social/createFriendship       controllers.SocialPageController.createFriendship(request : Request)
+
 GET /games/getAllCustomers             controllers.GameController.getCustomers
 
 #POST /user/deleteFriend            controllers.UserController.removeFriend
