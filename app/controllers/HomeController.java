@@ -6,6 +6,7 @@ import views.html.*;
 
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -74,6 +75,16 @@ public class HomeController extends Controller {
             return redirect(routes.UserController.login().url());
         }
 
+    }
+
+    public Result socials(Http.Request request){
+        int id = Integer.parseInt(request.session().get("userID").get());
+        UserFactory.User user = userFactory.getUserById(id);
+        int money = user.getPoints();
+        List<UserFactory.User> friends = userFactory.getFriendsById(id);
+        return ok(
+                socials.render("socials", String.valueOf(money), user, friends, assetsFinder)
+        );
     }
 
 }

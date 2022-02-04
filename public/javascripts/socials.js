@@ -1,11 +1,3 @@
-function openChat(name, username, source){
-    document.getElementById("header-name").innerHTML = name;
-    document.getElementById("header-username").innerHTML = username;
-    document.getElementById("header-avatar").src = source;
-    document.getElementById("select-friend").style.display = "none";
-    document.getElementById("chat-history").style.display = "block";
-    getMessages();
-}
 
 function openModal(){
     document.getElementById("friendsAvatar").src = document.getElementById("header-avatar").src;
@@ -53,25 +45,52 @@ function createMessage(klasse, message){
     ul.appendChild(li);
 }
 
-function getFriends(friends){
+async function createFriends(){
+    console.time("friends")
+    let response = await fetch("http://localhost:9000/social/friends");
+    console.timeEnd("friends")
+    let friendlist = await response.json();
+    friendlist = friendlist.map(friend=>{
+        friend.profile_pic = "../assets/images/coffee/" + friend.profile_pic;
+        return friend
+    })
+
+
     let ul = document.getElementById("friend-list");
-    for (let i = 0; i < friends.length; i++){
-        let friend = friends[i];
-        let button = document.createElement("friend-button");
+    friendlist.forEach((friend, i) => {
+        let button = document.createElement("button");
         button.className = "btn btn-friend";
         button.type = "button";
         let spanAvatar = document.createElement("span");
         spanAvatar.className = "btn avatar-background";
         let imgAvatar = document.createElement("img");
-        imgAvatar.src = "";
+        imgAvatar.src = friend.profile_pic;
         spanAvatar.appendChild(imgAvatar);
         let nameSpan = document.createElement("span");
         nameSpan.className = "socialsName";
+        nameSpan.innerHTML = friend.username;
         let rankingSpan = document.createElement("span");
         rankingSpan.className = "friendsRanking";
+        rankingSpan.innerHTML = friend.ranking;
 
         button.appendChild(spanAvatar);
         button.appendChild(nameSpan);
+        button.appendChild(document.createElement("br"));
         button.appendChild(rankingSpan);
-    }
+        button.onclick = function openChatNew(){
+            document.getElementById("header-name").innerHTML = friend.username;
+            document.getElementById("header-username").innerHTML = friend.ranking;
+            document.getElementById("header-avatar").src = friend.profile_pic;
+            document.getElementById("points").innerHTML = friend.points;
+            document.getElementById("select-friend").style.display = "none";
+            document.getElementById("chat-history").style.display = "block";
+            getMessages();
+        };
+
+        let li = document.createElement("li");
+        li.className = "clearfix";
+        li.appendChild(button);
+
+        ul.appendChild(li);
+    })
 }

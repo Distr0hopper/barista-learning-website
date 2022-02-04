@@ -2,46 +2,17 @@
 @(page: String, money: String, user : model.UserFactory#User, friends : util.List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
 @import model.UserFactory
 
-
+<!DOCTYPE html>
+<html lang="en">
+    <body onload="createFriends()">
 @navbar("Socials", money) {
     <div class="row no-gutters">
         <div class="col-lg-4">
             <div class="ui-widget">
                 <input type="search" id ="tags" class="form-control rounded" placeholder="Search for new friends" aria-label="Search" aria-describedby="search-addon" onclick="search()" />
             </div>
-            <ul class="list-unstyled chat-list mt-2 mb-0" id="friend-list" onload = "getFriends('@friends')">
-                <li class="clearfix">
-                    <button type="button" class="btn btn-friend" onclick="openChat('Cristina', 'christinastizzle', '@assetsFinder.path("images/avatar.png")')">
-                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/avatar.png")" class="socialsAvatar"/>
-                        </span>
-                        <span class="socialsName">Cristina</span><br>
-                        <span class="friendsRanking">christinastizzle</span>
-                    </button>
-                </li>
-                <li class="clearfix">
-                    <button type="button" class="btn btn-friend" onclick="openChat('Ronja', 'ronjastizzle', '@assetsFinder.path("images/waitress.png")')">
-                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/waitress.png")" class="socialsAvatar"/>
-                        </span>
-                        <span class="socialsName">Ronja</span><br>
-                        <span class="friendsRanking">ronjastizzle</span>
-                    </button>
-                </li>
-                <li class="clearfix">
-                    <button type="button" class="btn btn-friend" onclick="openChat('Katrin', 'katrinstizzle', '@assetsFinder.path("images/waitress.png")')">
-                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/waitress.png")" class="socialsAvatar"/>
-                        </span>
-                        <span class="socialsName">Katrin</span><br>
-                        <span class="friendsRanking">katrinstizzle</span>
-                    </button>
-                </li>
-                <li class="clearfix">
-                    <button type="button" class="btn btn-friend" onclick="openChat('Julius', 'juliusstizzle', '@assetsFinder.path("images/waiter.png")')">
-                        <span class="btn avatar-background"><img src="@assetsFinder.path("images/waiter.png")" class="socialsAvatar"/>
-                        </span>
-                        <span class="socialsName">Julius</span><br>
-                        <span class="friendsRanking">juliusstizzle</span>
-                    </button>
-                </li>
+            <!--In this ul all of the friends are displayed -->
+            <ul class="list-unstyled chat-list mt-2 mb-0" id="friend-list" >
             </ul>
         </div>
         <div class="col-lg-8">
@@ -102,13 +73,13 @@
                                 <span class="name mt-3" id="friendsName"></span>
 
                                     <!--            <div type="button" onclick="editUsername()">-->
-                                <input class="profilename text-center" type="text" value="katrinstizzle" id="profilename" readonly>
+                                <input class="profilename text-center" type="text" id="profilename" readonly>
                                     <!--            </div>-->
                                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 mb-3">
                                     <div id="level" class="level">Baristagod</div>
                                     <span><i class="fa fa-copy"></i></span></div>
                                 <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-                                    <div id="points" class="points">1069</div>
+                                    <div id="points" class="points"></div>
                                 </div>
                                 <div class="d-flex flex-row justify-content-center align-items-center mb-4">
                                     <div id="highscore" class="highscore">Highscore</div>
@@ -126,4 +97,6 @@
     </div>
     </div>
 <script type="text/javascript" src="@assetsFinder.path("javascripts/socials.js")"></script>
+</body>
+</html>
 }

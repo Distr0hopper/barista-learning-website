@@ -44,4 +44,7 @@ public class SocialPageController extends Controller {
             return redirect(routes.UserController.login().url());
         }
     }
+
+
+
 }
