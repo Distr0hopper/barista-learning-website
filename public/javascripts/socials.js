@@ -78,7 +78,7 @@ function createFriendship() {
         } else {
             return response.json()
         }}).then(friend => {
-        alert(friend.message);
+            alert("You added a new friend!");
     })
 }
 
@@ -114,12 +114,12 @@ async function search(){
         div.appendChild(userbutton);
         document.getElementById("search-friends").appendChild(div);
 
-        document.getElementById("friend-list").style.display = "none";
+        //document.getElementById("friend-list").style.display = "none";
         document.getElementById("search-friends").style.display = "block";
     }
     else{
         document.getElementById("search-friends").appendChild(document.createTextNode("This user does not exist"));
-        document.getElementById("friend-list").style.display = "none";
+        //document.getElementById("friend-list").style.display = "none";
         document.getElementById("search-friends").style.display = "block";
     }
 }

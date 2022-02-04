@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import model.FriendshipFactory;
 import model.UserFactory;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -22,13 +23,15 @@ public class UserController extends Controller {
     private final UserFactory userFactory;
     private final AssetsFinder assetsFinder;
     private List<String> userNamesList = new ArrayList<>();
+    private final FriendshipFactory friendshipFactory;
 //    private List<UserFactory.User> allUsersList = new ArrayList<>();
 
 
     @Inject
-    public UserController(UserFactory userFactory, AssetsFinder assetsFinder) {
+    public UserController(UserFactory userFactory, AssetsFinder assetsFinder, FriendshipFactory friendshipFactory) {
         this.userFactory = userFactory;
         this.assetsFinder = assetsFinder;
+        this.friendshipFactory = friendshipFactory;
     }
 
     public Result createAccount(){
@@ -145,5 +148,7 @@ public class UserController extends Controller {
     public Result logout(){
         return redirect(routes.UserController.login().url()).withNewSession();
     }
+
+
 
 }

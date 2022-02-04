@@ -55,7 +55,7 @@ public class SocialPageController extends Controller {
 
     public Result createFriendship(Http.Request request) {
         JsonNode json = request.body().asJson();
-        String friend = json.get("user-found").textValue();
+        String friend = json.get("username").textValue();
         int friendId = userFactory.getUserByUsername(friend).getId();
         String userIDString = request.session().get("userID").get();
         int userID = Integer.parseInt(userIDString);
