@@ -60,15 +60,17 @@ function getNextDrink(allCoffees){
 async function getActiveDrink(allCoffees){
     activeDrink = allCoffees.shift();
     console.log(activeDrink);
+    console.log(getTitle(activeDrink))
+    console.log(getIngredientList(activeDrink));
     return activeDrink;
 }
 
 
 function getIngredientList(activeCoffee) {
-    let ingredientArray = [];
+    let ingredientArray = []
     for (let i = 0; i < activeCoffee.ingredientList.length; i++){
-        ingredientArray.push(activeCoffee.ingredientList[i].name);
-        //console.log(sixCoffees[i].ingredientList)
+        ingredientArray.push(activeCoffee.ingredientList[i]);
+       // console.log(sixCoffees[i].ingredientList)
     }
     return ingredientArray;
 }
