@@ -136,7 +136,7 @@ a:hover{
         border-radius: 50%*/
 }
 
-.name {
+.name, .friends {
     font-size: 30px;
     font-weight: bold;
     color: var(--dropshadow-color);

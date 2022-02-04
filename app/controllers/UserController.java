@@ -41,16 +41,22 @@ public class UserController extends Controller {
 //            List<UserFactory.User> users = userFactory.getAllUsers();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
+            List<UserFactory.User> friends = userFactory.getFriendsById(id);
             int money = user.getPoints();
 
             return ok(
-                    profile.render("profile", String.valueOf(money), user, assetsFinder)
+                    profile.render("profile", String.valueOf(money), user, friends, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
         }
     }
 
+//    public Result removeFriend(Http.Request request) {
+//        int userID = Integer.parseInt(request.session().get("userID").get());
+//        userFactory.deleteFriend(userID, userID);
+//        return redirect(routes.UserController.profile().url());
+//    }
 
 
     public boolean isLoggedIn(Http.Request request) {
