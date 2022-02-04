@@ -167,18 +167,31 @@ public class UserFactory {
         });
     }
 
+//    public void deleteFriend(int userID1, int userID2) {
+//        db.withConnection(conn -> {
+//            String sql = "DELETE FROM Friendship WHERE idUser1 = ? AND idUser2 = ?;";
+//            PreparedStatement stmt = conn.prepareStatement(sql);
+//            stmt.setInt(1, userID1);
+//            stmt.setInt(2, userID2);
+//            stmt.executeUpdate();
+//            stmt.close();
+//        });
+//    }
+
     public class User {
         private int id;
         private String username;
         private String mail;
         //private String password;
         private int points;
+        private Date timestamp;
 
         private User(int id, String username, String mail, int points) {
             this.id = id;
             this.username = username;
             this.mail = mail;
             this.points = points;
+            this.timestamp = timestamp;
         }
 
         private User(ResultSet rs) throws SQLException {
@@ -186,6 +199,7 @@ public class UserFactory {
             this.username = rs.getString("username");
             this.mail = rs.getString("mail");
             this.points = rs.getInt("points");
+            this.timestamp = rs.getDate("timestampt");
         }
 
 
@@ -273,6 +287,11 @@ public class UserFactory {
             this.points += points;
             this.save();
         }
+
+        public Date getTimestamp() {
+            return timestamp;
+        }
+
     }
 
 }

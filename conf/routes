@@ -50,6 +50,9 @@ GET /social/friends                 controllers.SocialPageController.getFriends(
 
 GET /games/getAllCustomers             controllers.GameController.getCustomers
 
+#POST /user/deleteFriend            controllers.UserController.removeFriend
+
+
 #GET /userid                         controllers.APIController.getUserId(request: Request)
 #
 #PUT /profile/:username              controllers.APIController.updateUsername(username: String)

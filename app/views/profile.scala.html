@@ -1,19 +1,17 @@
-@(page: String, money : String, user : model.UserFactory#User)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, user: model.UserFactory#User, friends: List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
 
-
-<!--template: https://freefrontend.com/bootstrap-profiles/-->
-@navbar("Profile",money) {
+@navbar("Profile", money) {
     <div class="container mt-4 mb-4 p-5 d-flex justify-content-center">
         <div class="card p-1">
             <div class="image d-flex flex-column justify-content-center align-items-center m-4">
-                    <!--            trigger modal with button behind image-->
+                    <!--trigger modal with button behind image-->
                 <button type="button" class="btn btn-backround" data-toggle="modal"
                 data-target="#myModal" id="modal-btn" onclick="openModal()"><img
                 src="@assetsFinder.path("images/avatar.png")"
                 alt="avatar" height="130" width="130" id="profileimage"/></button>
                 <span class="name mt-3">@user.getUsername()</span>
 
-                    <!--            <div type="button" onclick="editUsername()">-->
+                    <!--<div type="button" onclick="editUsername()">-->
                 <input class="profilename text-center" type="text" value="@user.getUsername()" id="profilename" readonly>
 
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 mb-3">
@@ -28,12 +26,23 @@
                 <div class=" d-flex mt-2 mb-3">
                     <button class="edit_button" id="edit_button" onclick="editUsername()">Edit Username</button>
                 </div>
-                <div class="text m-3"><span>
-                    Katrin Stoetter will work at Fred Café in Wuerzburg starting December.<br><br>
-                    Current Occupation: Student.</span>
+                <div class="text m-3">
+                    <span>
+                        @user.getUsername() started the practice on
+                    </span>
                 </div>
                     <!--            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter">hi</i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>-->
-                <div class=" px-2 rounded date"><span class="join">Joined May,2021</span></div>
+                <div class=" px-2 rounded date"><span class="join">@user.getTimestamp()</span></div>
+            </div>
+        </div>
+        <div class="card p-1">
+            <div class="d-flex flex-column justify-content-center align-items-center m-4">
+                <span class="friends">Friends</span>
+                @for(friend <- friends) {
+                    <span>@friend.getUsername()</span>
+@*                    <input type="submit" value="Delete" name="delete" onclick="removeFriend(@friend.getId(), @user.getId());">*@
+
+                }
             </div>
         </div>
             <!--    modal-->
@@ -88,5 +97,5 @@
         </div>
     </div>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/profile.js")"></script>
-
 }
+    <!--template: https://freefrontend.com/bootstrap-profiles/-->
