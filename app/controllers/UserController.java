@@ -93,14 +93,6 @@ public class UserController extends Controller {
         }
     }
 
-//    public List<String> getAllUserNames(List allUsers){
-//        for (int i = 0; i < allUsers.size(); i++) {
-//            UserFactory.User user = (UserFactory.User) allUsers.get(i);
-//            //System.out.println(user.getUsername());
-//            userNamesList.add(user.getUsername());
-//        }
-//        return userNamesList;
-//    }
 
     public Result checkCreateAccount(Http.Request request) {
         userNamesList = userFactory.getAllUsernames();

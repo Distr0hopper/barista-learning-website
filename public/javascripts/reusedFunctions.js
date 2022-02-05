@@ -2,50 +2,7 @@
  * then it sets the timer until the modal disappears with a countdown
  * while theres at elast 1 second remaining it counts down, at 0 it shows finished and afterwards closes the modal
  */
-async function loadModal() {
-    var gameModal = $('#gameModal2')
-    gameModal.modal('show');
-    // $('#myModal').modal({backdrop: 'static', keyboard: false})
-    var timeleft = 5;
-    var currentHTMLText = document.querySelector("#modal-title").textContent;
-    var downloadTimer = setInterval(function () {
-        if (timeleft > 0) {
-            gameModal.find('.modal-title').text(currentHTMLText + " " + timeleft + ' seconds remaining');
-        } else if (timeleft < 0) {
-            // gameModal.modal("hide");
-            gameModal.modal('hide');
-        } else {
-            clearInterval(downloadTimer);
-            gameModal.find('.modal-title').text(currentHTMLText + ' Finished');
-            gameModal.modal('hide');
-        }
-        timeleft -= 1;
-    }, 1000);
 
-    /**
-     * put Coffeetitles in modal*/
-    const coffeesForGame = new CoffeesForGame();
-    console.time("customer")
-    await coffeesForGame.getRandomSixCoffees();
-    console.timeEnd("customer")
-    const coffeeOrderCards = $('.card-text');
-    const coffeeTitles = coffeesForGame.getCoffeeTitles();
-    for (let i = 0; i < coffeeOrderCards.length; i++) {
-        coffeeOrderCards[i].innerText = coffeeTitles[i];
-    }
-    /**Put Coffee To Make Into Game*/
-    const orderHeader = $('#order');
-    orderHeader.innerText = coffeeTitles[0]
-
-    /**put CustomerImages in modal*/
-    const customerForGame = new Customers();
-    await customerForGame.getRandomSixCustomers();
-    const coffeeOrderCustomers = $('.card-img-top');
-    const customerImages = customerForGame.getCustomerImages();
-    for (let i = 0; i < coffeeOrderCustomers.length; i++) {
-        coffeeOrderCustomers[i].src = customerImages[i];
-    }
-}
 
 async function loadMemory() {
     const cardArray = []
@@ -57,11 +14,9 @@ async function loadMemory() {
     var cardsWon = []
     /**
      * fetch Sessionstorage*/
-    var storedCustomers = JSON.parse(sessionStorage.getItem("customers"));
-    var storedCoffeeNames = JSON.parse(sessionStorage.getItem("coffees"));
+    var storedCustomers = JSON.parse(sessionStorage.getItem("sixCustomerImg"));
+    var storedCoffeeNames = JSON.parse(sessionStorage.getItem("allCoffees"));
     var coffeeNameArray = []
-    var customerArray = []
-    //convert storage to arrays
     /**
      * Goal here: convert fetched storage to arrays
      * Firs we Create Array only Containing CoffeeNames and Images*/
@@ -71,20 +26,9 @@ async function loadMemory() {
                 title: coffee.title,
                 img: "../coffee/" + coffee.coffeeImgPath
             }
-        // for (let l = 0; l < coffeeImages.length; l++) {
-        //     if (coffee.title === coffeeImages[l].title) {
-        //         coffeeNameArray[j].img = coffeeImages[l].coffeeImgPath
-        //     }
-        // }
-
     })
     /**
      * Then an Array called createArray of Customers*/
-    storedCustomers.forEach((customer, k) => {
-            customerArray[k] = "../Customers/" + customer.customerImgPath
-        }
-    )
-    console.log(storedCustomers)
     /**
      * Goal here: match CoffeeNames to images and create new array for matched images
      * nameorder is there to match the coffeeCustomers with the same name as the Drinks they ordered*/
@@ -105,11 +49,9 @@ async function loadMemory() {
             //create memorycard with customer name and img src
             var memorycard = {
                 name: nameOrder,
-                img: customerArray[index]
+                img: storedCustomers[index]
             }
             cardArray[i] = memorycard
-            console.log(memorycard.name)
-            console.log(memorycard.img)
         } else {
             //check if index is odd, then add drink
             /**depending on index, need to still get next item in array of customer*/
@@ -127,9 +69,7 @@ async function loadMemory() {
             //add something to distinguish the names of the orders (tacky I know)
             nameOrder += "1"
         }
-        console.log(memorycard)
     }
-    console.log(cardArray);
     /**Randomize orders and customers in array*/
     cardArray.sort(() => 0.5 - Math.random())
 

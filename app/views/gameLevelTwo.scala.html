@@ -1,64 +1,63 @@
-@(page: String, money : String)(implicit assetsFinder: AssetsFinder)
-    @navbar("GameTwo",money) {
-    @*            modal*@
-        <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-title">Level 2: Remember who ordered which coffee!</h5>
-                    </div>
-                    <div class="modal-body modal-fade align-items-center justify-content-center">
-                        <div class="container-fluid ms-2">
-                            <div class="row w-100">
-                                <div class="col-md-4 ml-auto">
-                                    <div class="card w-100 h-auto" style="width: 18rem;">
-                                        <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
-                                        <div class="card-body">
-                                            <p class="card-text">Capuccino</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 ml-auto">
-                                    <div class="card w-100 h-auto" style="width: 18rem;">
-                                        <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
-                                        <div class="card-body">
-                                            <p class="card-text">Capuccino</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 ml-auto">
-                                    <div class="card w-100 h-auto" style="width: 18rem;">
-                                        <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
-                                        <div class="card-body">
-                                            <p class="card-text">Capuccino</p>
-                                        </div>
+@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+@navbar("GameTwo", money) {
+    @* modal*@
+    <div class="modal fade" id="gameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Level 2: Remember who ordered which coffee!</h5>
+                </div>
+                <div class="modal-body modal-fade align-items-center justify-content-center">
+                    <div class="container-fluid ms-2">
+                        <div class="row w-100">
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row w-100">
-                                <div class="col-md-4 ml-auto">
-                                    <div class="card w-100 h-auto" style="width: 18rem;">
-                                        <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
-                                        <div class="card-body">
-                                            <p class="card-text">Capuccino</p>
-                                        </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
                                     </div>
                                 </div>
-                                <div class="col-md-4 ml-auto">
-                                    <div class="card w-100 h-auto" style="width: 18rem;">
-                                        <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
-                                        <div class="card-body">
-                                            <p class="card-text">Capuccino</p>
-                                        </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
                                     </div>
                                 </div>
-                                <div class="col-md-4 ml-auto">
-                                    <div class="card w-100 h-auto" style="width: 18rem;">
-                                        <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
-                                        <div class="card-body">
-                                            <p class="card-text">Capuccino</p>
-                                        </div>
+                            </div>
+                        </div>
+                        <div class="row w-100">
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
                                     </div>
                                 </div>
                             </div>
@@ -67,90 +66,111 @@
                 </div>
             </div>
         </div>
+    </div>
 
-            <!--game-level-2-->
-            <!--Game-->
-        <div class="flex align-items-center">
-            <section class="my-4 mx-5">
-                <div class="container-fluid">
-                    <span><h1 class="font-weight-bold py-3 font-game text-center"
-                    id="order">Please make an "AMERICANO"!</h1></span>
-                    <div class="row row-game no-gutters px-3 py-4 align-items-center">
-                        <div class="col-lg-7 backround-ingredients">
-                            <div>
-                                <div class="ingredient-div text-center w-100 h-100">
-                                    <div id="ingredients" class="align-items-center justify-content-center p-2 h-75 ">
-                                        <div class="row justify-content-center align-items-center ingredient-box h-100 w-100">
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Milk_Foam.png")"
-                                                alt="milkfoam" height="220" width="446" class="drag-drop" id="milkfoam">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Steamed_Milk.png")"
-                                                alt="steamedMilk" height="220" width="421" class="drag-drop"
-                                                id="steamedMilk">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Choclate_Syrup.png")"
-                                                alt="chocolateSyrup" height="220" width="446" class="drag-drop"
-                                                id="chocolateSyrup">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Espresso.png")"
-                                                alt="espresso" height="220" width="424" class="drag-drop" id="espresso">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/IceCream.png")"
-                                                alt="iceCream" height="220" width="410" class=" drag-drop" id="iceCream">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Brown_Sugar.png")"
-                                                alt="brownSugar" height="220" width="458" class="drag-drop"
-                                                id="brownSugar">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/White_Sugar.png")"
-                                                alt="whiteSugar" height="220" width="456" class="drag-drop"
-                                                id="whiteSugar">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Hot_Water.png")"
-                                                alt="hotWater" height="220" width="458" class="drag-drop" id="hotWater">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
-                                                <img src="@assetsFinder.path("images/Ingredients/Milk.png")"
-                                                alt="milk" height="220" width="428" class="drag-drop" id="milk">
-                                            </div>
-                                            <div class="col-12 col-sm-4 col-lg-4 text-center">
-                                                <img src="@assetsFinder.path("images/Ingredients/Brewed_Coffee.png")"
-                                                alt="brewedCoffee" height="220" width="435" class="drag-drop"
-                                                id="brewedCoffee">
-                                            </div>
+    <div class="flex align-items-center">
+        <section class="my-3 mx-4 ">
+            <div class="container-fluid  justify-content-center">
+
+                <div class="mh-100 row row-game  col-lg-10 col-xs-5 mx-auto">
+                    <span><h1 class=" sticky-top font-weight-bold py-3 font-game text-center"
+                    id="order" >Receiving Order!</h1></span>
+                    <hr>
+                    <div class="col-lg-7 col-xs-3 col-md-5 backround-ingredients">
+                        <div>
+                            <div class="ingredient-div text-center">
+                                <div id="ingredients" class="align-items-center justify-content-center p-2 h-75">
+                                    <div class="row justify-content-center align-items-center ingredient-box h-100 w-100">
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/coffee.svg")"
+                                            alt="Coffee" class="drag-drop" id="Coffee">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/espresso.svg")"
+                                            alt="Espresso" class="drag-drop" id="Espresso">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/foam.svg")"
+                                            alt="Foam" class="drag-drop" id="Foam">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/milk.svg")"
+                                            alt="Milk" class="drag-drop" id="Milk">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/steamed-milk.svg")"
+                                            alt="Steamed Milk" class="drag-drop" id="Steamed Milk">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/foamed-milk.svg")"
+                                            alt="Foamed Milk" class="drag-drop" id="Foamed Milk">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/cream.svg")"
+                                            alt="Cream" class="drag-drop" id="Cream">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/sugar.svg")"
+                                            alt="Sugar" class="drag-drop" id="Sugar">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/sweet.svg")"
+                                            alt="Sweet" class="drag-drop" id="Sweet">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/panela.svg")"
+                                            alt="Panela" class="drag-drop" id="Panela">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/whiskey.svg")"
+                                            alt="Whiskey" class="drag-drop" id="Whiskey">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/chocolate.svg")"
+                                            alt="Chocolate" class="drag-drop" id="Chocolate">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/coffee-big.svg")"
+                                            alt="Coffee Big" class="drag-drop" id="Big Coffee">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/espresso-big.svg")"
+                                            alt="Espresso Big" class="drag-drop" id="Double Espresso">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/hot-water.svg")"
+                                            alt="Hot Water" class="drag-drop" id="Hot Water">
+                                        </div>
+                                        <div class="col-12 col-sm-4 col-lg-4 text-center py-4">
+                                            <img src="@assetsFinder.path("images/Ingredients/ice-cream.svg")"
+                                            alt="Ice Cream" class="drag-drop" id="Ice Cream">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5 px-5 text-center">
-                            <div class="dropzone" id="cup"><img
-                            src="@assetsFinder.path("images/Ingredients/cofee_mug_left_and_right_same_space.png")"
-                            class="img-fluid pt-5 pb-5" alt="coffe-mug" id="coffee-mug"></div>
-                            <div class="">
-                                <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()">
-                                    submit
-                                </button>
-                            </div>
-                        </div>
-
                     </div>
+                    <div class="col-lg-5 col-md-5 col-sm-2 px-3 text-center">
+                        <div class="dropzone" id="cup"><img
+                        src="@assetsFinder.path("images/Ingredients/cup.svg")"
+                        class="img-fluid p-5" alt="coffe-mug" id="coffee-mug"></div>
+                        <div class="">
+                            <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()">
+                                submit
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
-            </section>
-        </div>
-    <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
+            </div>
+        </section>
+    </div>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/customers.js")"></script>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/coffees.js")"></script>
-    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g.js")"></script>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/game_mechanic.js")"></script>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
 
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g.js")"></script>
 
 
 }

@@ -15,14 +15,13 @@ let activeDrink = "Test";
 
 let money = Number($('#money').text());
 
-let allCoffees = getCoffees().then(function (result){
+let allCoffees
+getCoffees().then(function (result){
     allCoffees = result;
+    sessionStorage.setItem("allCoffees", JSON.stringify(allCoffees))
+    console.log(allCoffees)
     getActiveDrink(allCoffees);
-   console.log(allCoffees)
 });
-
-
-
 
 
 async function getCoffees(){
@@ -33,12 +32,27 @@ async function getCoffees(){
     return allCoffees;
 }
 
+//important here for level 2
+async function getRandomSixCustomers(){
+    const customerForGame = new Customers();
+    await customerForGame.getRandomSixCustomers();
+    let sixCustomers = customerForGame.sixCustomers
+    return sixCustomers
+}
+
+let sixCustomers
+getRandomSixCustomers().then(function (result) {
+    sixCustomers = result;
+    sessionStorage.setItem("sixCustomers", JSON.stringify(sixCustomers))
+    console.log(sixCustomers)
+})
+
 function getNextDrink(allCoffees){
     activeDrink = allCoffees.shift();
     return activeDrink;
 }
 
-async function getActiveDrink(allCoffees){
+function getActiveDrink(allCoffees){
     activeDrink = allCoffees.shift();
     console.log(activeDrink);
     console.log(getTitle(activeDrink))
@@ -59,8 +73,6 @@ function getTitle(activeDrink){
     //console.log(activeDrink.title);
     return activeDrink.title;
 }
-
-
 
 
 /**
@@ -93,8 +105,6 @@ function submitGame(){
         activeDrink = getNextDrink(allCoffees);
         $('#order').text("Please make a " + getTitle(activeDrink) + "!");
     } else {
-
-
         for (let i = 0; i < arrayDraggedImages.length; i++){
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
