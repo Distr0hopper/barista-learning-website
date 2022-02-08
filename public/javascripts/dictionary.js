@@ -18,10 +18,6 @@ async function createDictionary(){
         imgCoffee.classList.add("imgCoffee", "px-5", "pt-5");
         let divCardBody = document.createElement("div");
         divCardBody.classList.add("card-body");
-        //CoffeeTitle
-        // let cardTitle = document.createElement("h2");
-        // cardTitle.innerText = coffee.title;
-        //CoffeeDescription
         let cardText = document.createElement("cardText");
         cardText.innerText = coffee.description;
         let divFooter = document.createElement("div");

@@ -241,6 +241,11 @@ hr .new1 {
     filter: brightness(140%);
 }
 
+.highscorePodium{
+    color: var(--dropshadow-color);
+    filter: brightness(140%);
+}
+
 .list{
     width: 100%;
 }
