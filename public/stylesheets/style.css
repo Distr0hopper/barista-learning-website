@@ -762,3 +762,25 @@ li{
     margin-top: 5px;
     margin-bottom: 5px;
 }
+/*popover*/
+.popover-header{
+    color: white;
+    background-color: rgba(71,34,16,85%);
+    border-color: transparent;
+
+}
+.popover-body{
+    color: white;
+    background-color: var(--card-color);
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-color: transparent;
+}
+.popover{
+    background-color: var(--card-color);
+    -moz-border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    border-color: transparent;
+
+}

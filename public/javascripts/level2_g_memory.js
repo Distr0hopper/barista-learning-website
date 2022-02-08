@@ -38,6 +38,11 @@ async function loadModalMemory() {
     }
     orderHeader.innerText = modalInput[0].title
 }
+$(function () {
+    $('.example-popover').popover({
+        container: 'body'
+    })
+})
 
 window.addEventListener('load', loadModalMemory)
 window.addEventListener('load', loadMemory)

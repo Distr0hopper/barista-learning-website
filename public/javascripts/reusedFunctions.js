@@ -81,8 +81,8 @@ async function loadMemory() {
             var card = document.createElement('img')
             card.setAttribute('src', "../assets/images/Memory-Backdrop.png")
             card.setAttribute('data-id', i)
-            card.setAttribute('height', '200px')
-            card.setAttribute('width', '200px')
+            card.setAttribute('height', '230px')
+            card.setAttribute('width', '230px')
             card.setAttribute('id', 'memory-img')
             card.style.padding = '5px 5px 5px 5px'
             card.style.transformStyle = 'preserve-3d'
@@ -166,8 +166,8 @@ async function loadMemory() {
             var cardAllShown = document.createElement('img')
             cardAllShown.setAttribute('src', cardArray[i].img)
             cardAllShown.setAttribute('data-id', i)
-            cardAllShown.setAttribute('height', '200px')
-            cardAllShown.setAttribute('width', '200px')
+            cardAllShown.setAttribute('height', '230px')
+            cardAllShown.setAttribute('width', '230px')
             cardAllShown.setAttribute('id', 'memory-img')
             cardAllShown.style.padding = '5px 5px 5px 5px'
             cardAllShown.style.transformStyle = 'preserve-3d'
