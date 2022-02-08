@@ -29,15 +29,12 @@ async function loadModalMemory() {
     /**
      * put Coffeetitles in modal*/
     var modalInput = JSON.parse(sessionStorage.getItem("modalInput"));
-    console.log(modalInput)
     const coffeeOrderCards = $('.card-text');
     const coffeeOrderCustomers = $('.card-img-top');
     const orderHeader = $('#order');
     for (let i = 0; i < modalInput.length; i++) {
         coffeeOrderCards[i].innerText = modalInput[i].title
-        console.log(modalInput[i].img)
         coffeeOrderCustomers[i].src = modalInput[i].img
-        console.log(coffeeOrderCustomers[i].src)
     }
     orderHeader.innerText = modalInput[0].title
 }

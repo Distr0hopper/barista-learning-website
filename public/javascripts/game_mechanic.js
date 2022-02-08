@@ -19,7 +19,6 @@ let allCoffees
 getCoffees().then(function (result){
     allCoffees = result;
     sessionStorage.setItem("allCoffees", JSON.stringify(allCoffees))
-    console.log(allCoffees)
     getActiveDrink(allCoffees);
 });
 
@@ -44,7 +43,6 @@ let sixCustomers
 getRandomSixCustomers().then(function (result) {
     sixCustomers = result;
     sessionStorage.setItem("sixCustomers", JSON.stringify(sixCustomers))
-    console.log(sixCustomers)
 })
 
 function getNextDrink(allCoffees){
@@ -295,7 +293,8 @@ interact('.dropzone').dropzone({
         event.target.classList.remove('drop-target')
     }
 })
-
+var gameModal = $('#explainGameModal')
+window.addEventListener('load', loadModalMain)
 
 
 
