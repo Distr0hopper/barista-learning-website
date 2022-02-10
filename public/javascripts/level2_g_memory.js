@@ -21,6 +21,7 @@ $(function () {
     })
 })
 
+
 async function loadModalMemory() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
