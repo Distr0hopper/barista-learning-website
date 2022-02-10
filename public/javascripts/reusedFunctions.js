@@ -184,3 +184,9 @@ async function loadMemory() {
     showboard()
 
 }
+
+function checkMoneyForRanking(money){
+    if (money >= 60 && money <=80){
+
+    }
+}

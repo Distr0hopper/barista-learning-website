@@ -123,7 +123,7 @@ function submitGame(){
             $('#submitGame').html('next')
            checkWrongDrinks(wrongDrinksCounter);
             $('#money').text(money);
-
+            checkMoneyForRanking(money);
             const moneyObjekt = {
                 "moneyKey" : money,
             }
@@ -157,6 +157,7 @@ function submitGame(){
     }
 
 }
+
 
 /**
  * Checks how many coffees are made correctly in a row.

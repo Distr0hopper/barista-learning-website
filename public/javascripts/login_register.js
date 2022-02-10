@@ -20,14 +20,20 @@ function checklogin() {
             response.text().then(res => sessionStorage.setItem("currentUser", res))
             window.location = response.headers.get("Location");
         } else {
-            return response.json()
-        }}).then(userData => {
-        alert(userData.message);
-        nameInput.value = "";
-        passwordInput.value = "";
-        nameInput.focus();
-    })
+            window.alert("Wrong Username or Password")
+            nameInput.value = "";
+            passwordInput.value = "";
+            nameInput.focus();
+            return response.json();
+        }})
+    //     .then(userData => {
+    //     window.alert(userData.message);
+    //     nameInput.value = "";
+    //     passwordInput.value = "";
+    //     nameInput.focus();
+    // })
 }
+
 function checkCreateAccount() {
     // e.preventDefault();
     let emailInput = document.getElementById("email");
