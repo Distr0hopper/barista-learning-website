@@ -67,11 +67,10 @@
             </div>
         </div>
     </div>
-
+    @*Game*@
     <div class="flex align-items-center">
         <section class="my-3 mx-4 ">
             <div class="container-fluid  justify-content-center">
-
                 <div class="mh-100 row row-game  col-lg-10 col-xs-5 mx-auto">
                     <span><h1 class=" sticky-top font-weight-bold py-3 font-game text-center"
                     id="order" >Receiving Order!</h1></span>
@@ -151,6 +150,41 @@
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-5 col-sm-2 px-3 text-center">
+                        <div class="text-end">
+                            <span class="tooltipCoffee" data-toggle="tooltip" data-placement="left" data-html="true" title="<b><em>!ATTENTION!</em> YOU WON'T RECEIVE AS MANY POINTS IF YOU USE A TIP!</b>">
+                                <a type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" onclick="">
+                                    <img src="@assetsFinder.path("images/tipsIcon.svg")" alt="help">
+                                </a>
+                            </span>
+                        </div>
+                        <div class="justify-content-center">
+
+                                <!-- Modal Tip-->
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Hier ist dein Tipp</h5>
+                                            <button type="button" class="close btn btn-danger tipButton" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">x</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="d-flex justify-content-center m-4 p-4">
+                                                <div class="scorebox">
+                                                    <div class="card-group">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
+                                                Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="dropzone" id="cup"><img
                         src="@assetsFinder.path("images/Ingredients/cup.svg")"
                         class="img-fluid p-5" alt="coffe-mug" id="coffee-mug"></div>
@@ -165,10 +199,14 @@
             </div>
         </section>
     </div>
+
+
     <script type="text/javascript" src="@assetsFinder.path("javascripts/customers.js")"></script>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/coffees.js")"></script>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/game_mechanic.js")"></script>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/dictionary.js")"></script>
+
 
     <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g.js")"></script>
 

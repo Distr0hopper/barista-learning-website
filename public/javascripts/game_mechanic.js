@@ -19,7 +19,6 @@ let allCoffees
 getCoffees().then(function (result){
     allCoffees = result;
     sessionStorage.setItem("allCoffees", JSON.stringify(allCoffees))
-    console.log(allCoffees)
     getActiveDrink(allCoffees);
 });
 
@@ -44,7 +43,6 @@ let sixCustomers
 getRandomSixCustomers().then(function (result) {
     sixCustomers = result;
     sessionStorage.setItem("sixCustomers", JSON.stringify(sixCustomers))
-    console.log(sixCustomers)
 })
 
 function getNextDrink(allCoffees){
@@ -54,8 +52,8 @@ function getNextDrink(allCoffees){
 
 function getActiveDrink(allCoffees){
     activeDrink = allCoffees.shift();
-    console.log(activeDrink);
-    console.log(getTitle(activeDrink))
+    // console.log(activeDrink);
+    // console.log(getTitle(activeDrink))
     console.log(getIngredientList(activeDrink));
     return activeDrink;
 }
@@ -95,7 +93,6 @@ function submitGame(){
     // getActiveDrink(allCoffees);
     $('#plusForMoneyCounter').show();
     $('#money-counter').show();
-    console.log(activeDrink)
     var submitButtonText = $('#submitGame').text();
 
 
@@ -121,19 +118,25 @@ function submitGame(){
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
 
             $('#submitGame').html('next')
-           checkWrongDrinks(wrongDrinksCounter);
+            // Check how much coffee beans you receive
+            let moneyCounter = checkWrongDrinks(wrongDrinksCounter);
+            // Check if you receive a lvl-up bonus
+            moneyCounter += checkMoneyForRanking(money + moneyCounter);
+            // Update the counter object in HTML (with or without the bonus)
+            updateMoneyCounter(moneyCounter);
+            // Add the amount of beans you received to the money
+            money += moneyCounter;
             $('#money').text(money);
-            checkMoneyForRanking(money);
             const moneyObjekt = {
                 "moneyKey" : money,
             }
-              fetch("/games/getMoney", {
-                 method: 'POST',
-                 body: JSON.stringify(moneyObjekt),
-                 headers: {
-                     'Content-Type': 'application/json'
-                 },
-             })
+             //  fetch("/games/getMoney", {
+             //     method: 'POST',
+             //     body: JSON.stringify(moneyObjekt),
+             //     headers: {
+             //         'Content-Type': 'application/json'
+             //     },
+             // })
 
             correctDrinksCounter++;
             wrongDrinksCounter = 0;
@@ -158,6 +161,9 @@ function submitGame(){
 
 }
 
+function updateMoneyCounter(moneyCounter){
+    $('#money-counter').text(moneyCounter);
+}
 
 /**
  * Checks how many coffees are made correctly in a row.
@@ -167,13 +173,11 @@ function submitGame(){
 function checkCorrectDrinks(correctDrinksCounter) {
     if (correctDrinksCounter < 2){
         $('#order').text("You made it right on the first try! +15 beans!");
-        money += 15;
-        $('#money-counter').text("15")
+        return 15;
     }
     else if (correctDrinksCounter >= 2){
-        money += 30;
-        $('#money-counter').text("30")
         $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! +30 beans!")
+        return 30;
     }
 }
 
@@ -185,15 +189,13 @@ function checkCorrectDrinks(correctDrinksCounter) {
  */
 function checkWrongDrinks(wrongDrinksCounter){
     if (wrongDrinksCounter === 0){
-        checkCorrectDrinks(correctDrinksCounter);
+        return checkCorrectDrinks(correctDrinksCounter);
     } else if (wrongDrinksCounter === 1){
-        money += 10;
-        $('#money-counter').text("10");
         $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! +10 beans!");
+        return 10;
     } else if (wrongDrinksCounter === 2){
-        money += 5;
-        $('#money-counter').text("5");
         $('#order').text("You made it right on the " + (wrongDrinksCounter + 1)+ " try! +5 beans!");
+        return 5;
     }
 }
 
@@ -296,7 +298,38 @@ interact('.dropzone').dropzone({
         event.target.classList.remove('drop-target')
     }
 })
+//tip
 
+$("[data-toggle=tooltip]").tooltip({
+    html: true,
+    content: function() {
+        return $('.tooltipCoffee').html();
+    }
+});
+
+$(function () {
+    $('.example-popover').popover({
+        container: 'body'
+    })
+})
+
+var explainModal = $('#ModalExplainGame');
+async function loadModalExplain() {
+    var currentUserString = sessionStorage.getItem("currentUser");
+    let currentUser = JSON.parse(currentUserString);
+    console.log(currentUser);
+
+    if (currentUser.points === 0){
+        explainModal.modal('show');
+    }
+}
+
+
+window.addEventListener('load', loadModalExplain)
+var tipModal = $('#exampleModalCenter')
+tipModal.on('shown.bs.modal', function (){
+    $('.card-group').innerText = createDictionary()
+})
 
 
 

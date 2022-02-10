@@ -1,6 +1,6 @@
 var gameModal = $('#ModalLearnCoffees')
 
-async function loadModal() {
+async function loadModalMain() {
     // var currentCustomer = JSON.parse(sessionStorage.getItem("connected"))
     var currentUserString = sessionStorage.getItem("currentUser");
     let currentUser = JSON.parse(currentUserString);
@@ -10,4 +10,4 @@ async function loadModal() {
         gameModal.modal('show');
     }
 }
-window.addEventListener('load', loadModal)
+window.addEventListener('load', loadModalMain)

@@ -1,7 +1,7 @@
-@(page: String, money : String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
 
-@navbar("GameTwoMemory",money) {
-@*    modal*@
+@navbar("GameTwoMemory", money) {
+    @* modal*@
     <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -70,9 +70,25 @@
     </div>
     <div class="flex d-flex align-items-center justify-content-center">
         <div class="col-lg-6 col-md-10 col-sm-12 mt-5 align-items-center justify-content-center">
-            <h3 class="result mb-4 px-4">Score: <span id="result"></span></h3>
-            <div class="gridShow image-fluid"></div>
-            <div class="grid image-fluid"></div>
+            @*Popover*@
+            <div>
+                <h3 class="result mb-4 px-4 text-center">Score
+                    <button type="button" class="btn example-popover p-0" data-toggle="popover" title="LEVEL 2: MEMORY"
+                    data-content="Now that you know the ingredients of a few Coffees, let's practise remembering which customer ordered which coffee.<br/>
+                    Try to match the people that you saw in the pop-up window a second ago to the Coffees they ordered!
+                      <br/> The score here will be added to your total amount of points as soon as you have finished your memory.
+                      <br/> Good luck ☘" data-placement="bottom" data-html="true">
+                        <img src="@assetsFinder.path("images/help_white.svg")" alt="help">
+                    </button>
+                    : <span id="result"></span>
+                </h3>
+
+            </div>
+@*            content memory*@
+            <div>
+                <div class="gridShow image-fluid align-items-center justify-content-center text-center"></div>
+                <div class="grid image-fluid align-items-center justify-content-center text-center"></div>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>

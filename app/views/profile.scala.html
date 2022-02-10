@@ -35,15 +35,15 @@
                 <div class=" px-2 rounded date"><span class="join">@user.getTimestamp()</span></div>
             </div>
         </div>
-        <div class="card p-1">
-            <div class="d-flex flex-column justify-content-center align-items-center m-4">
-                <span class="friends">Friends</span>
-                @for(friend <- friends) {
-                    <span>@friend.getUsername()</span>
+@*        <div class="card p-1">*@
+@*            <div class="d-flex flex-column justify-content-center align-items-center m-4">*@
+@*                <span class="friends">Friends</span>*@
+@*                @for(friend <- friends) {*@
+@*                    <span>@friend.getUsername()</span>*@
 @*                    <input type="submit" value="Delete" name="delete" onclick="removeFriend(@friend.getId(), @user.getId());">*@
 
-                }
-            </div>
+@*                }*@
+@*            </div>*@
         </div>
             <!--    modal-->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
