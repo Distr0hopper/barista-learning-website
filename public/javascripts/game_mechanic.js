@@ -52,9 +52,9 @@ function getNextDrink(allCoffees){
 
 function getActiveDrink(allCoffees){
     activeDrink = allCoffees.shift();
-    console.log(activeDrink);
-    console.log(getTitle(activeDrink))
-    console.log(getIngredientList(activeDrink));
+    // console.log(activeDrink);
+    // console.log(getTitle(activeDrink))
+    // console.log(getIngredientList(activeDrink));
     return activeDrink;
 }
 
@@ -293,8 +293,26 @@ interact('.dropzone').dropzone({
         event.target.classList.remove('drop-target')
     }
 })
-var gameModal = $('#explainGameModal')
+//tip
+
+$("[data-toggle=tooltip]").tooltip({
+    html: true,
+    content: function() {
+        return $('.tooltipCoffee').html();
+    }
+});
+
+$(function () {
+    $('.example-popover').popover({
+        container: 'body'
+    })
+})
+
 window.addEventListener('load', loadModalMain)
+var tipModal = $('#exampleModalCenter')
+tipModal.on('shown.bs.modal', function (){
+    $('.card-group').innerText = createDictionary()
+})
 
 
 
