@@ -308,7 +308,19 @@ $(function () {
     })
 })
 
-window.addEventListener('load', loadModalMain)
+var explainModal = $('#ModalExplainGame');
+async function loadModalExplain() {
+    var currentUserString = sessionStorage.getItem("currentUser");
+    let currentUser = JSON.parse(currentUserString);
+    console.log(currentUser);
+
+    if (currentUser.points === 0){
+        explainModal.modal('show');
+    }
+}
+
+
+window.addEventListener('load', loadModalExplain)
 var tipModal = $('#exampleModalCenter')
 tipModal.on('shown.bs.modal', function (){
     $('.card-group').innerText = createDictionary()
