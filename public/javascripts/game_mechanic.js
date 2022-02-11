@@ -186,10 +186,12 @@ function countHelpsAndReturnDeduction() {
     let helpClicks = countHelps(false);
     console.log("Help Button Clicks " + helpClicks)
     if (helpClicks === 1) {
+        correctDrinksCounter = 0;
         countHelps(true);
         return 3;
     }
     if (helpClicks > 1) {
+        correctDrinksCounter = 0;
         countHelps(true);
         return 6;
     }
@@ -248,7 +250,7 @@ function checkWrongDrinks(wrongDrinksCounter) {
     } else if (wrongDrinksCounter === 1) {
         return 12;
     } else if (wrongDrinksCounter === 2) {
-        return 9;
+        return 7;
     }
 }
 
