@@ -13,6 +13,7 @@ let wrongDrinksCounter = 0;
 let correctIngredients = [];
 let activeDrink = "Test";
 
+
 let money = Number($('#money').text());
 
 let allCoffees
@@ -73,6 +74,8 @@ function getTitle(activeDrink){
 }
 
 
+
+
 /**
  * Function is called when submit button is pressed.
  * If the button is next, display the next drink to make.
@@ -105,27 +108,29 @@ function submitGame(){
         for (let i = 0; i < arrayDraggedImages.length; i++){
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
-            console.log(currentImage.id)
 
             currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
             currentImage.setAttribute('data-x', 0)
             currentImage.setAttribute('data-y', 0)
         }
         correctIngredients = getIngredientList(activeDrink);
-        console.log(correctIngredients);
 
 
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
 
             $('#submitGame').html('next')
-            // Check how much coffee beans you receive
-            let moneyCounter = checkWrongDrinks(wrongDrinksCounter);
+            // Check how much coffee beans you receive by making the drink right
+            let earnedMoney = checkWrongDrinks(wrongDrinksCounter);
+            // Check if you received any help
+            earnedMoney -= countHelpsAndReturnDeduction();
             // Check if you receive a lvl-up bonus
-            moneyCounter += checkMoneyForRanking(money + moneyCounter);
+            earnedMoney += checkMoneyForRanking(money + earnedMoney);
             // Update the counter object in HTML (with or without the bonus)
-            updateMoneyCounter(moneyCounter);
+            updateMoneyCounter(earnedMoney);
+            // Update the Message
+            updateMessage(earnedMoney,correctDrinksCounter, wrongDrinksCounter);
             // Add the amount of beans you received to the money
-            money += moneyCounter;
+            money += earnedMoney;
             $('#money').text(money);
             const moneyObjekt = {
                 "moneyKey" : money,
@@ -161,22 +166,57 @@ function submitGame(){
 
 }
 
-function updateMoneyCounter(moneyCounter){
-    $('#money-counter').text(moneyCounter);
+/**
+ * Checks how often you clicked the help button. Depending on that you receive less coffee beans.
+ * @returns {number} Returns the deduction you receive by getting help
+ */
+function countHelpsAndReturnDeduction(){
+    let helpClicks = countHelps(false);
+    console.log("Help Button Clicks " + helpClicks)
+    if (helpClicks === 1){
+        countHelps(true);
+        return 3;
+    }
+    if (helpClicks > 1){
+        countHelps(true);
+        return 6;
+    }
+    countHelps(true);
+    return 0;
+}
+
+function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter){
+    if (correctDrinksCounter < 2){
+        $('#order').text("You made it right on the first try! " + earnedMoney + "  beans!");
+    } if (correctDrinksCounter >= 2) {
+        $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! " + earnedMoney + " beans!")
+    } if (wrongDrinksCounter === 1) {
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
+    } if (wrongDrinksCounter === 2) {
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
+    }
+}
+
+
+/**
+ * Updates the HTML Object in the View
+ * @param earnedMoney checks how much coffee beans you receive by making the coffee
+ */
+function updateMoneyCounter(earnedMoney){
+    $('#money-counter').text(earnedMoney);
 }
 
 /**
  * Checks how many coffees are made correctly in a row.
  * If you are on a 3 streak or more, you gain +30 beans instead of 15.
  * @param correctDrinksCounter the amount of correct coffees made in a row
+ * @returns {number} The number of earned beans you receive for this round.
  */
 function checkCorrectDrinks(correctDrinksCounter) {
     if (correctDrinksCounter < 2){
-        $('#order').text("You made it right on the first try! +15 beans!");
         return 15;
     }
     else if (correctDrinksCounter >= 2){
-        $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! +30 beans!")
         return 30;
     }
 }
@@ -186,16 +226,15 @@ function checkCorrectDrinks(correctDrinksCounter) {
  * If you made it on the first try, call checkCorrectDrinks to look if you are on a streak.
  * Give 15 Points on first try, 10 on second try and 5 on third try.
  * @param wrongDrinksCounter on which attempt you made it right
+ * @returns {number} The number of earned beans you receive for this round.
  */
 function checkWrongDrinks(wrongDrinksCounter){
     if (wrongDrinksCounter === 0){
         return checkCorrectDrinks(correctDrinksCounter);
     } else if (wrongDrinksCounter === 1){
-        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! +10 beans!");
-        return 10;
+        return 12;
     } else if (wrongDrinksCounter === 2){
-        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1)+ " try! +5 beans!");
-        return 5;
+        return 9;
     }
 }
 
@@ -317,7 +356,7 @@ var explainModal = $('#ModalExplainGame');
 async function loadModalExplain() {
     var currentUserString = sessionStorage.getItem("currentUser");
     let currentUser = JSON.parse(currentUserString);
-    console.log(currentUser);
+   // console.log(currentUser);
 
     if (currentUser.points === 0){
         explainModal.modal('show');

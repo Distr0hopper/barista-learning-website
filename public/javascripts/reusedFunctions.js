@@ -1,6 +1,19 @@
+/**
+ * This function is called everytime the Help-Button is pressed.
+ * Just a counter which increments every time the Button is pressed.
+ * @type {number} helpCounter is the number which counts how often the help button is pressed
+ * @return {number} How many times the button was pressed.
+ */
+var helpCounter = 0;
+function countHelps(reset){
+    if (reset == false){
+        return helpCounter++
+    }
+    else {
+        helpCounter = 0;
+    }
 
-
-
+}
 
     /**
      * createBoard() creates an array of images, with src set to coffeemug and set height, width and id
@@ -133,4 +146,8 @@ function checkMoneyForRanking(money){
     return 0;
 
 }
+
+
+
+
 

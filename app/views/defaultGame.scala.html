@@ -1,5 +1,4 @@
 @(page: String, money: String)(implicit assetsFinder: AssetsFinder)
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
             <!-- interact js -->
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
     </head>
     <body>
             <!-- Navbar -->
@@ -132,7 +131,7 @@
                             <div class="col-lg-5 col-md-5 col-sm-2 px-3 text-center">
                                 <div class="text-end">
                                     <span class="tooltipCoffee" data-toggle="tooltip" data-placement="left" data-html="true" title="<b><em>!ATTENTION!</em> YOU WON'T RECEIVE AS MANY POINTS IF YOU USE A TIP!</b>">
-                                        <a type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" onclick="">
+                                        <a type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" onclick="countHelps(false)">
                                             <img src="@assetsFinder.path("images/tipsIcon.svg")" alt="help">
                                         </a>
                                     </span>
@@ -180,21 +179,15 @@
                     </div>
                 </section>
             </div>
-
-        </section>
-    </div>
+        </body>
         <script type="text/javascript" src="@assetsFinder.path("javascripts/coffees.js")"></script>
         <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
-    <script type="text/javascript" src="@assetsFinder.path("javascripts/game_mechanic.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/game_mechanic.js")"></script>
 
 
-            <script type="text/javascript" src="@assetsFinder.path("javascripts/main.js")"></script>
-            <script type="text/javascript" src="@assetsFinder.path("javascripts/customers.js")"></script>
-            <script type="text/javascript" src="@assetsFinder.path("javascripts/dictionary.js")"></script>
-
-            <script type="text/javascript" src="@assetsFinder.path("javascripts/coffees.js")"></script>
-            <script type="text/javascript" src="@assetsFinder.path("javascripts/game_mechanic.js")"></script>
-
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/main.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/customers.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/dictionary.js")"></script>
 }
 
 

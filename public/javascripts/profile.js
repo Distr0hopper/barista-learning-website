@@ -12,7 +12,6 @@ function editUsername() {
 }
 
 function changeRanking(){
-    console.log("Test");
     let money = Number($('#money').text());
     if (money >= 60 && money < 200){
         $('#level').text("Sergeant of the Milk Foam")
