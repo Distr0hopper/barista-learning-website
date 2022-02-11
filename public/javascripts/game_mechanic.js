@@ -12,28 +12,29 @@ let correctDrinksCounter = 0;
 let wrongDrinksCounter = 0;
 let correctIngredients = [];
 let activeDrink = "Test";
-
+let countCorrectCoffees = 0;
 
 let money = Number($('#money').text());
 
 let allCoffees
-getCoffees().then(function (result){
+getCoffees().then(function (result) {
     allCoffees = result;
+    console.log(allCoffees);
     sessionStorage.setItem("allCoffees", JSON.stringify(allCoffees))
     getActiveDrink(allCoffees);
 });
 
 
-async function getCoffees(){
-    const test = new CoffeesForGame();
-    await test.getRandomSixCoffees();
-    let allCoffees = test.sixCoffees;
-    $('#order').text("Please make a " + test.getCoffeeTitles()[0] + "!");
+async function getCoffees() {
+    const fetchedCoffees = new CoffeesForGame();
+    await fetchedCoffees.getRandomSixCoffees();
+    let allCoffees = fetchedCoffees.sixCoffees;
+    $('#order').text("Please make a " + fetchedCoffees.getCoffeeTitles()[0] + "!");
     return allCoffees;
 }
 
 //important here for level 2
-async function getRandomSixCustomers(){
+async function getRandomSixCustomers() {
     const customerForGame = new Customers();
     await customerForGame.getRandomSixCustomers();
     let sixCustomers = customerForGame.sixCustomers
@@ -46,12 +47,12 @@ getRandomSixCustomers().then(function (result) {
     sessionStorage.setItem("sixCustomers", JSON.stringify(sixCustomers))
 })
 
-function getNextDrink(allCoffees){
+function getNextDrink(allCoffees) {
     activeDrink = allCoffees.shift();
     return activeDrink;
 }
 
-function getActiveDrink(allCoffees){
+function getActiveDrink(allCoffees) {
     activeDrink = allCoffees.shift();
     // console.log(activeDrink);
     // console.log(getTitle(activeDrink))
@@ -62,18 +63,16 @@ function getActiveDrink(allCoffees){
 
 function getIngredientList(activeCoffee) {
     let ingredientArray = []
-    for (let i = 0; i < activeCoffee.ingredientList.length; i++){
+    for (let i = 0; i < activeCoffee.ingredientList.length; i++) {
         ingredientArray.push(activeCoffee.ingredientList[i]);
     }
     return ingredientArray;
 }
 
-function getTitle(activeDrink){
+function getTitle(activeDrink) {
     //console.log(activeDrink.title);
     return activeDrink.title;
 }
-
-
 
 
 /**
@@ -90,7 +89,7 @@ function getTitle(activeDrink){
  * @param submitButtonText:  get the current text of the submit button. Can be "Next" or "Submit".
  * @param moneyObject: JSON object containing the key moneyKey and the Value
  */
-function submitGame(){
+function submitGame() {
     // console.log(allCoffees.shift());
     // console.log(allCoffees);
     // getActiveDrink(allCoffees);
@@ -105,7 +104,7 @@ function submitGame(){
         activeDrink = getNextDrink(allCoffees);
         $('#order').text("Please make a " + getTitle(activeDrink) + "!");
     } else {
-        for (let i = 0; i < arrayDraggedImages.length; i++){
+        for (let i = 0; i < arrayDraggedImages.length; i++) {
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
 
@@ -114,9 +113,15 @@ function submitGame(){
             currentImage.setAttribute('data-y', 0)
         }
         correctIngredients = getIngredientList(activeDrink);
+        console.log(correctIngredients);
 
 
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
+           countCorrectCoffees++;
+
+
+            // If you finished all coffees, you can go to the next level
+
 
             $('#submitGame').html('next')
             // Check how much coffee beans you receive by making the drink right
@@ -128,26 +133,33 @@ function submitGame(){
             // Update the counter object in HTML (with or without the bonus)
             updateMoneyCounter(earnedMoney);
             // Update the Message
-            updateMessage(earnedMoney,correctDrinksCounter, wrongDrinksCounter);
+            updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter);
             // Add the amount of beans you received to the money
             money += earnedMoney;
             $('#money').text(money);
             const moneyObjekt = {
-                "moneyKey" : money,
+                "moneyKey": money,
             }
-             //  fetch("/games/getMoney", {
-             //     method: 'POST',
-             //     body: JSON.stringify(moneyObjekt),
-             //     headers: {
-             //         'Content-Type': 'application/json'
-             //     },
-             // })
+            //  fetch("/games/getMoney", {
+            //     method: 'POST',
+            //     body: JSON.stringify(moneyObjekt),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            // })
 
             correctDrinksCounter++;
             wrongDrinksCounter = 0;
+
+            if (countCorrectCoffees === 6) {
+                $('#order').text("Well done, you made all coffees! You can now play Level 2!");
+                $('#submitGame').hide();
+                $('#nextGame').show();
+            }
+
         } else {
             wrongDrinksCounter++;
-            if (wrongDrinksCounter < 3){
+            if (wrongDrinksCounter < 3) {
                 $('#order').text("Wrong! Please make a " + getTitle(activeDrink) + " again!");
                 window.alert("You have " + (3 - wrongDrinksCounter) + " tries left");
             } else {
@@ -170,14 +182,14 @@ function submitGame(){
  * Checks how often you clicked the help button. Depending on that you receive less coffee beans.
  * @returns {number} Returns the deduction you receive by getting help
  */
-function countHelpsAndReturnDeduction(){
+function countHelpsAndReturnDeduction() {
     let helpClicks = countHelps(false);
     console.log("Help Button Clicks " + helpClicks)
-    if (helpClicks === 1){
+    if (helpClicks === 1) {
         countHelps(true);
         return 3;
     }
-    if (helpClicks > 1){
+    if (helpClicks > 1) {
         countHelps(true);
         return 6;
     }
@@ -185,14 +197,17 @@ function countHelpsAndReturnDeduction(){
     return 0;
 }
 
-function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter){
-    if (correctDrinksCounter < 2){
+function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter) {
+    if (correctDrinksCounter < 2) {
         $('#order').text("You made it right on the first try! " + earnedMoney + "  beans!");
-    } if (correctDrinksCounter >= 2) {
+    }
+    if (correctDrinksCounter >= 2) {
         $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! " + earnedMoney + " beans!")
-    } if (wrongDrinksCounter === 1) {
+    }
+    if (wrongDrinksCounter === 1) {
         $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
-    } if (wrongDrinksCounter === 2) {
+    }
+    if (wrongDrinksCounter === 2) {
         $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
     }
 }
@@ -202,7 +217,7 @@ function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter){
  * Updates the HTML Object in the View
  * @param earnedMoney checks how much coffee beans you receive by making the coffee
  */
-function updateMoneyCounter(earnedMoney){
+function updateMoneyCounter(earnedMoney) {
     $('#money-counter').text(earnedMoney);
 }
 
@@ -213,10 +228,9 @@ function updateMoneyCounter(earnedMoney){
  * @returns {number} The number of earned beans you receive for this round.
  */
 function checkCorrectDrinks(correctDrinksCounter) {
-    if (correctDrinksCounter < 2){
+    if (correctDrinksCounter < 2) {
         return 15;
-    }
-    else if (correctDrinksCounter >= 2){
+    } else if (correctDrinksCounter >= 2) {
         return 30;
     }
 }
@@ -224,20 +238,19 @@ function checkCorrectDrinks(correctDrinksCounter) {
 /**
  * Checks on which try the coffee is made correct.
  * If you made it on the first try, call checkCorrectDrinks to look if you are on a streak.
- * Give 15 Points on first try, 10 on second try and 5 on third try.
+ * Give 15 Points on first try, 12 on second try and 9 on third try.
  * @param wrongDrinksCounter on which attempt you made it right
  * @returns {number} The number of earned beans you receive for this round.
  */
-function checkWrongDrinks(wrongDrinksCounter){
-    if (wrongDrinksCounter === 0){
+function checkWrongDrinks(wrongDrinksCounter) {
+    if (wrongDrinksCounter === 0) {
         return checkCorrectDrinks(correctDrinksCounter);
-    } else if (wrongDrinksCounter === 1){
+    } else if (wrongDrinksCounter === 1) {
         return 12;
-    } else if (wrongDrinksCounter === 2){
+    } else if (wrongDrinksCounter === 2) {
         return 9;
     }
 }
-
 
 
 /* ********** DRAGGING CODE *********** */
@@ -281,10 +294,10 @@ function dragMoveListener(event) {
  *
  * @param event The drag event
  */
-function checkIngredientArray(event){
+function checkIngredientArray(event) {
     var currentImage = event.target;
 
-    if(arrayDraggedImages.indexOf(currentImage) === alreadyInside){
+    if (arrayDraggedImages.indexOf(currentImage) === alreadyInside) {
         currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
         currentImage.setAttribute('data-x', 0)
         currentImage.setAttribute('data-y', 0)
@@ -315,7 +328,7 @@ interact('.dropzone').dropzone({
         dropzoneElement.classList.add('drop-target')
         droppedIngredient.classList.add('can-drop')
 
-        if (arrayDraggedImages.indexOf(droppedIngredient) === alreadyInside){
+        if (arrayDraggedImages.indexOf(droppedIngredient) === alreadyInside) {
             arrayDraggedImages.push(droppedIngredient);
         } else {
             console.log("Ingredient already inside!");
@@ -326,9 +339,9 @@ interact('.dropzone').dropzone({
         let droppedIngredient = event.relatedTarget;
         event.target.classList.remove('drop-target');
         event.relatedTarget.classList.remove('can-drop');
-        const index =arrayDraggedImages.indexOf(droppedIngredient);
+        const index = arrayDraggedImages.indexOf(droppedIngredient);
 
-        if (index > -1 ) {
+        if (index > -1) {
             arrayDraggedImages.splice(index, 1);
         }
     },
@@ -341,7 +354,7 @@ interact('.dropzone').dropzone({
 
 $("[data-toggle=tooltip]").tooltip({
     html: true,
-    content: function() {
+    content: function () {
         return $('.tooltipCoffee').html();
     }
 });
@@ -353,12 +366,13 @@ $(function () {
 })
 
 var explainModal = $('#ModalExplainGame');
+
 async function loadModalExplain() {
     var currentUserString = sessionStorage.getItem("currentUser");
     let currentUser = JSON.parse(currentUserString);
-   // console.log(currentUser);
+    // console.log(currentUser);
 
-    if (currentUser.points === 0){
+    if (currentUser.points === 0) {
         explainModal.modal('show');
     }
 }
@@ -366,7 +380,7 @@ async function loadModalExplain() {
 
 window.addEventListener('load', loadModalExplain)
 var tipModal = $('#exampleModalCenter')
-tipModal.on('shown.bs.modal', function (){
+tipModal.on('shown.bs.modal', function () {
     $('.card-group').innerText = createDictionary()
 })
 

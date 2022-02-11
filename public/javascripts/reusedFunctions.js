@@ -131,20 +131,23 @@ function checkMoneyForRanking(money){
         window.alert("Congratulations! You are now Sergeant of the Milk Foam! +100 Beans")
         return 100;
     }
-    if (money >= 200 && money <= 225){
+    if (money >= 280 && money <= 305){
         window.alert("Congratulations! You are now Commander of the Coffeebeans! +200 Beans")
         return 200;
     }
-    if (money >= 460 && money <= 485){
+    if (money >= 600 && money <= 625){
         window.alert("Congratulations! You are now Barista-Colonel! +300 Beans")
         return 300;
     }
-    if (money >= 600 && money <= 625){
-        window.alert("WOW! You are now the General of Baristas! +1000 Beans")
-        return 1000;
+    if (money >= 1000 && money <= 1030){
+        window.alert("WOW! You are now the General of Baristas! +500 Beans")
+        return 500;
     }
     return 0;
+}
 
+function nextGame(){
+        window.location = '/games/gameLevelTwo'
 }
 
 
