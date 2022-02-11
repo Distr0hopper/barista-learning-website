@@ -149,6 +149,7 @@ function createBoard() {
  * 3. if no match, checks if if cards clicked were the same card, and alerts if true
  * 4. else cards don't match and alert
  * Puts won cards into score after each round and checks if still cards left or game is over*/
+let bonusMoney = 0;
 function checkForMatch() {
     const cards = document.querySelectorAll('#memory-img')
     const optionOneId = cardsChosenID[0]
@@ -156,8 +157,8 @@ function checkForMatch() {
     if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
         correctMatches++;
         money += 10;
-        let bonusMoney = checkMoneyForRanking(money);
-
+        // Check if you lvl up, if true, then display your bonus money in the navbar
+        bonusMoney += checkMoneyForRanking(money);
         if (bonusMoney !== 0) {
             money += bonusMoney;
             $('#plusForMoneyCounter').show();
@@ -176,8 +177,11 @@ function checkForMatch() {
             //         'Content-Type': 'application/json'
             //     },
             // })
+            console.log(bonusMoney)
+            bonusMoney += 60;
+            console.log(bonusMoney)
             $('#money').text(money);
-            $('#money-counter').text(60);
+            $('#money-counter').text(bonusMoney);
         }
 
         //if no cards left display you won
@@ -200,7 +204,7 @@ function checkForMatch() {
     resultDisplay.textContent = cardsWon.length * 10;
 
     if (cardsWon.length === cardArray.length / 2) {
-        resultDisplay.textContent = 'Congratulations you won!'
+        resultDisplay.textContent = 'Congratulations you won! You can now play the last lvl!'
     }
 }
 
