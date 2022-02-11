@@ -152,7 +152,7 @@ function submitGame() {
             wrongDrinksCounter = 0;
 
             if (countCorrectCoffees === 6) {
-                $('#order').text("Well done, you made all coffees! You can now play Level 2!");
+                $('#order').text("Well done, you made all coffees! You can now play the next lvl!");
                 $('#submitGame').hide();
                 $('#nextGame').show();
             }

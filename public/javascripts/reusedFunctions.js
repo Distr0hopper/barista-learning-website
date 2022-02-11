@@ -146,8 +146,12 @@ function checkMoneyForRanking(money){
     return 0;
 }
 
-function nextGame(){
+function redirectLvlTwo(){
         window.location = '/games/gameLevelTwo'
+}
+
+function redirectToMemory(){
+    window.location = '/games/gameLevelTwoMemory '
 }
 
 
