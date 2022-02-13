@@ -54,7 +54,7 @@ body{
     /*background-color: rgba(255, 255, 255, 0.3);*/
     background-color: var(--light-brown-color);
     border-radius: 30px;
-    box-shadow: 6px 6px 11px var(--dropshadow-color);
+    box-shadow: 0px 0px 20px var(--dropshadow-color);
     color: white;
 }
 .login_btn{
@@ -103,6 +103,20 @@ a:hover{
     cursor: pointer;
     transition: all 0.5s
 }
+
+.card-profile{
+    width: 700px;
+    height: 700px;
+    /*background-color: #efefef;*/
+    background-color:var(--card-color);
+    filter: brightness(110%);
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0px 0px 20px var(--dropshadow-color);
+    cursor: pointer;
+    transition: all 0.5s
+}
+
 .btn-backround{
     background-color: var(--dropshadow-color);
     height: 170px;
@@ -218,9 +232,11 @@ hr .new1 {
     /*background-color: rgba(147,101,68,0.7);*/
     background-color: var(--card-color);
     filter: brightness(110%);
+    /*border-radius: 10px;*/
+    /*border: 1px dashed var(--dropshadow-color);*/
+    box-shadow: 0px 0px 20px var(--dropshadow-color);
+    /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23936544FF' stroke-width='8' stroke-dasharray='8%2c 21' stroke-dashoffset='28' stroke-linecap='square'/%3e%3c/svg%3e");*/
     border-radius: 10px;
-    border: none;
-    box-shadow: 6px 6px 11px var(--dropshadow-color);
     cursor: pointer;
     transition: all 0.5s
 }
@@ -356,7 +372,7 @@ hr .new1 {
     background-color: var(--card-color);
     border-radius: 10px;
     border: none;
-    box-shadow: 6px 6px 11px px var(--dropshadow-color);
+    box-shadow: 0px 0px 20px px var(--dropshadow-color);
     color: white;
 }
 
@@ -526,7 +542,7 @@ cardText{
     border-radius: 10px;
 }
 .cardCoffee:hover{
-    box-shadow: 6px 6px 11px var(--dropshadow-color);
+    box-shadow: 0px 0px 20px var(--dropshadow-color);
     transition: all 0.3s ease;
 }
 
