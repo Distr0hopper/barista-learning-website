@@ -129,7 +129,7 @@
                                             <input type="text" class="form-control" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
                                         </div>
                                         <div class="input-group-append">
-                                            <button class="login_btn mt-1 mb-1 p-2" type="button" id="submitTotalPrice" onclick="submitTotalPrice">
+                                            <button class="login_btn mt-1 mb-1 p-2" type="button" id="submitTotalPrice" data-toggle = "modal" data-target= "#costumerWishModal2" onclick="submitTotalPrice">
                                                 Submit Tipp </button>
                                         </div>
                                     </div>
@@ -146,47 +146,88 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
+                                            <div class=" col-md-4 ml-auto">
+                                                <div id = "imageCostumer1">
+                                                    <img class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
+                                                </div>
+                                            </div>
                                             <h5 class="modal-title" id="exampleModalLongTitle">
-                                                Hey! I would like to pay</h5>
+                                                Hey! I would like to pay </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="row">
-                                                <div class=" col-md-4 ml-auto">
 
-                                                        <img class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
-                                                    </div>
-                                                <div class=" col-4">
+
+                                                <div id=" card-text-body-modal1">
                                                     I would like to pay me and for my friend
-
+                                                    <p id="label">*</p>
                                                 </div>
-                                                <p id="label">*</p>
-                                                <div id="moreCostumers">
-                                                <div class=" col-md-4 ml-auto">
-                                                        <div class="addingCostumer">
-                                                            <img class="card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
-                                                        </div>
+                                            <div class="row px-2" style="--bs-columns: 10;
+                                                --bs-gap: 1rem;">
+                                            <div id="moreCostumers">
+                                                    <div class="addingCostumer ">
+                                                        <img class="card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
                                                     </div>
                                                 </div>
-                                                <div id="addingMoreCostumers"></div>
+
+                                                <div class=" col-md-4 ml-auto">
+                                                  <div id="addingMoreCostumers" ></div>
                                                 </div>
+                                                </div>
+
                                             </div>
-                                        </div>
-                                        </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 OK</button>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                    </div>
+                </div>
+    <div class="modal fade" id="costumerWishModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                        Hey! I would like to pay</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id = "addingPayingCostumer2">
+                            <div class=" col-md-4 ml-auto">
+                                <img class="card-img-Person-paying-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                            </div>
+                        </div>
+                        <div class=" col-4" id="card-text-body-modal">
+                            I would like to pay me and for my friend
+                        </div>
+                        <p id="label2">*</p>
+                        <div id="moreCostumers2">
+                            <div class=" col-md-4 ml-auto">
+                                <div class="addingInvitedCostumer2">
+                                    <img id = "imageCostumer2" class="card-img-Person-getting-invited-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addingMoreCostumers2"></div>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                OK</button>
+        </div>
+    </div>
+    </div>
+    </section>
     </div>
 
 

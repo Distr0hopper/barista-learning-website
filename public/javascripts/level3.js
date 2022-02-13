@@ -128,7 +128,9 @@ async function loadModal() {
     }
     class CoffeeToBePayed {
         constructor() {
-            this.getRandomCoffeeAmountNumber();
+            this.getRandomCoffeeAmountNumber()
+            this.getNextPayingCostumer()
+            this.getNextRandomCoffeeOrders()
 
         }
         getRandomCoffeeAmountNumber() {
@@ -136,26 +138,77 @@ async function loadModal() {
             return randomNumber
         }
 
+        getNextPayingCostumer(){
+            let nextCostumerWhoHasToPay = null;
+            let randomCostumerAmount = this.getRandomCoffeeAmountNumber();
+            if(  randomCostumerAmount <5) {
+                nextCostumerWhoHasToPay = randomCostumerAmount + 1 ;
+            }
+            return nextCostumerWhoHasToPay;
+        }
+
+        getNextRandomCoffeeOrders(){
+            const randomNumberCoffee = this.getRandomCoffeeAmountNumber();
+            return Math.floor(Math.random() * randomNumberCoffee);
+
+        }
+
+
+
     }
 
+    /***
+     * gets the RandomCoffeeAmountNumber from the CoffeeToBePayed class and usess them to define how many coffees one costumer has to pay.
+     * Costumers who are payed for are shown in the model Costumer ( adding costumer)
+     * @type {CoffeeToBePayed}
+     */
     const payedCoffeeNumber = new CoffeeToBePayed();
     const numberOfPayedCoffeeByOneCostumer = payedCoffeeNumber.getRandomCoffeeAmountNumber();
+    let costumerNumber = numberOfPayedCoffeeByOneCostumer;
     console.log(payedCoffeeNumber);
     document.getElementById("label").innerText= numberOfPayedCoffeeByOneCostumer.toString();
+    if(numberOfPayedCoffeeByOneCostumer === 0 ){
+        document.getElementById('#imageCostumer1').display='none';
+        document.getElementById('#card-text-body-modal1').innerHTML= "I would like to pay for just my coffee"
 
-    for (let i = 1; i <= numberOfPayedCoffeeByOneCostumer; ++i) {
-        if(numberOfPayedCoffeeByOneCostumer !== 1) {
+    }
+    for (let i = 0; i <= numberOfPayedCoffeeByOneCostumer-1; i++) {
+
+        if(numberOfPayedCoffeeByOneCostumer > 1) {
 
             $('.addingCostumer').clone().appendTo('#addingMoreCostumers');
-            i++;
+i++;
         }
 
 
     }
 
 
-    /**
-     * put Coffeetitles in modal*/
+    // adds further costumers if needed.
+
+
+        //let nextInvitedCostumers = Math.floor(Math.random()* numberOfPayedCoffeeByOneCostumer);
+       // console.log(nextInvitedCostumers)
+    if(costumerNumber <5 ) {
+        let leftCostumers = 5 - costumerNumber;
+        let nextRandomNumber = Math.floor(Math.random() * leftCostumers);
+
+        for (let j = 0; j <= nextRandomNumber; j++) {
+        $('.addingInvitedCostumer2').clone().appendTo('#addingMoreCostumers2');
+        j++;
+        }
+        document.getElementById("label2").innerText= "invited: "+ nextRandomNumber + "\n random " + numberOfPayedCoffeeByOneCostumer.toString();
+
+    }
+
+
+
+
+
+
+
+    /*** put Coffeetitles in modal*/
+
     const coffeesForGame = new CoffeesForGame();
     await coffeesForGame.getRandomSixCoffees();
     const coffeeOrderCards = $('.card-text');
@@ -191,6 +244,10 @@ async function loadModal() {
         coffeeOrderCustomersPayer[i].src = payerForGame[i]
     }
 
+    /**
+     * puts CustomerImages of the ones who are being payed for in to the model.
+     * @type {*|jQuery|HTMLElement}
+     */
     const customerBeingPayed = $('.card-img-Person-getting-payed')
     const beingPayedFor = customerForGame.getCustomerImages();
     for( let i = 0; i < customerBeingPayed.length; i++){
@@ -200,8 +257,12 @@ async function loadModal() {
 
 
 
+
+
 function submitTotal (){
-        let submitTotalButtonText =  document.getElementById('submitGame')
+        let submitTotalButtonText =  document.getElementById('submitGame');
+
+
 
 }
 
