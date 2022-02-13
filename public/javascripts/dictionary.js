@@ -1,7 +1,7 @@
 async function createDictionary(){
-    console.time("coffees")
+    // console.time("coffees")
     let response = await fetch("http://localhost:9000/coffees/getCoffees");
-    console.timeEnd("coffees")
+    // console.timeEnd("coffees")
     let coffeelist = await response.json();
     coffeelist = coffeelist.map(coffee=>{
         coffee.coffeeImgPath = "../assets/images/coffee/"+ coffee.coffeeImgPath;
@@ -18,10 +18,6 @@ async function createDictionary(){
         imgCoffee.classList.add("imgCoffee", "px-5", "pt-5");
         let divCardBody = document.createElement("div");
         divCardBody.classList.add("card-body");
-        //CoffeeTitle
-        // let cardTitle = document.createElement("h2");
-        // cardTitle.innerText = coffee.title;
-        //CoffeeDescription
         let cardText = document.createElement("cardText");
         cardText.innerText = coffee.description;
         let divFooter = document.createElement("div");
