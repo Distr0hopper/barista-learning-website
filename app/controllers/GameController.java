@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.defaultGame;
+import views.html.gameLevelThree;
 import views.html.gameLevelTwo;
 import views.html.gameLevelTwoMemory;
 
@@ -82,6 +83,18 @@ public class GameController extends Controller {
             int money = user.getPoints();
             return ok(
                     gameLevelTwoMemory.render("GameTwoMemory", String.valueOf(money), assetsFinder)
+            );
+        } else {
+            return redirect(routes.UserController.login().url());
+        }
+
+    }
+
+    public Result gameLevelThree(Http.Request request) {
+        if (userController.isLoggedIn(request)) {
+            String money = request.session().get("money").get();
+            return ok(
+                    gameLevelThree.render("gameThree",money, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());

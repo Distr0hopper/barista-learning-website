@@ -1,0 +1,270 @@
+@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dictionary</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+@navbar("GameThree", money) {
+    <div class = "container">
+        <section class="my-3 mx-4 ">
+            <div class="container justify-content-center">
+                <div class="mh-100 row row-game  col-lg-10 col-xs-5 mx-auto">
+                    <span><h1 class=" sticky-top font-weight-bold py-3 font-game text-center"
+                    id="order" >Level Three: Your costumer wants to pay!</h1></span>
+                    <hr>
+                    <div class="row px-2" style="--bs-columns: 10;
+                        --bs-gap: 1rem;">
+                        <div class="row col-6">
+                                <!-- Adding Customer and each individual coffee-->
+                            <div class=" col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <!-- Bill with coffe options and total input -->
+                        <div class=  "col-4">
+                            <div class="backround-thridLevel " style="align-items: center">
+                                <div class=" font-weight-bold py-3 font-game text-center">
+                                    Bill
+                                </div>
+                                <form method = "post" action="">
+
+                                    <div id="firstCoffee">
+                                        <div class="coffePickerdiv">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                </div>
+                                                <select class="custom-select" id="inputGroupSelect01">
+                                                    <option selected>Choose the correct Coffee...</option>
+                                                    <option class = "options" value="1">One</option>
+                                                    <option class = "options" value="2">Two</option>
+                                                    <option class = "options" value="3">Two</option>
+                                                    <option class = "options" value="4">Two</option>
+                                                    <option class = "options" value="5">Two</option>
+                                                    <option class = "options" value="6">Two</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                        <!-- Add more coffee-->
+                                    <div id="moreCoffee"></div>
+                                        <!-- Add more coffee-->
+
+                                    <div class=" form-group row">
+                                        <label class="col-md"></label>
+                                        <button class="login_btn mt-1 mb-1 p-" type="button" id="btnAdd" onclick="addCoffee();">
+                                            Add Coffee</button>
+                                        <button class="login_btn mt-1 mb-1 p-" type="button" id="btnRemove" onclick="removeCoffee();">
+                                            Remove Cofee</button>
+                                    </div>
+                                    <hr>
+                                    <div class="input-group-append">
+                                        <form>
+                                            <div class="input-group mb-3 ">
+                                                <div class="col-xs-3">
+                                                    <input type="text" class="form-control" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
+                                                </div>
+                                                <div class="input-group-append">
+                                                    <button class="login_btn mt-1 mb-1 p-2" type="button" id="submitTotalPrice" onclick="submitTotalPrice">
+                                                        Submit</button>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </form>
+                                <form>
+                                    <div class="input-group mb-3 ">
+                                        <div class="col-xs-3">
+                                            <input type="text" class="form-control" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
+                                        </div>
+                                        <div class="input-group-append">
+                                            <button class="login_btn mt-1 mb-1 p-2" type="button" id="submitTotalPrice" data-toggle = "modal" data-target= "#costumerWishModal2" onclick="submitTotalPrice">
+                                                Submit Tipp </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                            <!-- costumer who wants to pay modal-->
+                        <div class="col-2">
+                            <button class="login_btn " type="button" data-toggle= "modal" data-target= "#costumerWishModal" id="payingCostumer" onclick="randomNumber()">
+                                Costumer </button>
+                                <!-- Modal -->
+                            <div class="modal fade" id="costumerWishModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class=" col-md-4 ml-auto">
+                                                <div id = "imageCostumer1">
+                                                    <img class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
+                                                </div>
+                                            </div>
+                                            <h5 class="modal-title" id="exampleModalLongTitle">
+                                                Hey! I would like to pay </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+
+                                                <div id=" card-text-body-modal1">
+                                                    I would like to pay me and for my friend
+                                                    <p id="label">*</p>
+                                                </div>
+                                            <div class="row px-2" style="--bs-columns: 10;
+                                                --bs-gap: 1rem;">
+                                            <div id="moreCostumers">
+                                                    <div class="addingCostumer ">
+                                                        <img class="card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                                                    </div>
+                                                </div>
+
+                                                <div class=" col-md-4 ml-auto">
+                                                  <div id="addingMoreCostumers" ></div>
+                                                </div>
+                                                </div>
+
+                                            </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    <div class="modal fade" id="costumerWishModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                        Hey! I would like to pay</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id = "addingPayingCostumer2">
+                            <div class=" col-md-4 ml-auto">
+                                <img class="card-img-Person-paying-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                            </div>
+                        </div>
+                        <div class=" col-4" id="card-text-body-modal">
+                            I would like to pay me and for my friend
+                        </div>
+                        <p id="label2">*</p>
+                        <div id="moreCostumers2">
+                            <div class=" col-md-4 ml-auto">
+                                <div class="addingInvitedCostumer2">
+                                    <img id = "imageCostumer2" class="card-img-Person-getting-invited-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="addingMoreCostumers2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                OK</button>
+        </div>
+    </div>
+    </div>
+    </section>
+    </div>
+
+
+    <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Level 3: Remember who wants to pay what!</h5>
+
+                </div>
+                <div class="modal-body modal-fade align-items-center justify-content-center">
+                    <div class="container-fluid ms-2">
+                        <div class="row w-100">
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                                </div>
+                            </div>
+                            <div class="text-white"> Hello, I wold like to pay for my coffee </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!--modal-->
+
+        <!--    script tags-->
+        <!--    <script type="javascript" src="coffeeAPI.js"></script>-->
+        <!--    <script type="javascript" src="test.js"></script>-->
+
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level3.js")"></script>
+
+}
+
