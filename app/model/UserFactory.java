@@ -187,13 +187,13 @@ public class UserFactory {
         //private String password;
         private int points;
         private Date timestamp;
+        private String profilePic = "/images/avatar.png";
 
         private User(int id, String username, String mail, int points) {
             this.id = id;
             this.username = username;
             this.mail = mail;
             this.points = points;
-            this.timestamp = timestamp;
         }
 
         private User(ResultSet rs) throws SQLException {
@@ -292,6 +292,10 @@ public class UserFactory {
 
         public Date getTimestamp() {
             return timestamp;
+        }
+
+        public String getProfilePic(){
+            return this.profilePic;
         }
 
     }

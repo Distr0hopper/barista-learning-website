@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import play.db.Database;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,40 +16,49 @@ public class ChatFactory {
         this.db = db;
     }
 
-    public List<ChatFactory.Message> getAllMessages(int idUser1, int idUser2) {
+    public List<ChatFactory.Message> getAllMessages(int idUser1) {
         return db.withConnection(conn -> {
             List<ChatFactory.Message> messages = new ArrayList<>();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Message WHERE Friendship_idUser1 = ? AND Friendship_idUser2 = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Message WHERE (Friendship_idUser1 = ?) OR (Friendship_idUser2 = ?) ORDER BY timestamp");
             stmt.setInt(1, idUser1);
-            stmt.setInt(2, idUser2);
+            stmt.setInt(2, idUser1);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ChatFactory.Message message = new Message(rs);
                 messages.add(message);
             }
+
             stmt.close();
             return messages;
         });
     }
 
-    public ChatFactory.Message createMessage(int idUser1, int idUser2, Timestamp timestamp, String text, int senderId){
+    public ChatFactory.Message createMessage(int idUser1, int idUser2, String text, int senderId){
         return db.withConnection(conn -> {
-            ChatFactory.Message message = null;
-            String sql = "INSERT INTO Message (Friendship_idUser1, Friendship_idUser2, timestamp, message_text, senderId) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(2, idUser1);
+            //ChatFactory.Message message = null;
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            String sql = "SELECT idUser1, idUser2 FROM Friendship WHERE (idUser1 = ? AND idUser2 = ?) OR (idUser1 = ? AND idUser2 = ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idUser1);
+            stmt.setInt(2, idUser2);
             stmt.setInt(3, idUser2);
-            stmt.setTimestamp(4, timestamp);
-            stmt.setString(5, text);
-            stmt.setInt(6, senderId);
-            stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                int messageId = rs.getInt(1);
-                message = new Message(messageId, idUser1, idUser2, timestamp, text, senderId);
+            stmt.setInt(4, idUser1);
+            ResultSet rs = stmt.executeQuery();
+            int id1 = rs.getInt("idUser1");
+            int id2 = rs.getInt("idUser2");
+            String sql2 = "INSERT INTO Message (Friendship_idUser1, Friendship_idUser2, message_text, senderId) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt2 = conn.prepareStatement(sql2);
+            stmt2.setInt(1, id1);
+            stmt2.setInt(2, id2);
+            stmt2.setString(3, text);
+            stmt2.setInt(4, senderId);
+            stmt2.executeUpdate();
+            ResultSet rs2 = stmt2.getGeneratedKeys();
+            if (rs2.next()) {
+                int messageId = rs2.getInt(1);
             }
-            stmt.close();
-            return message;
+            stmt2.close();
+            return null;
         });
     }
 

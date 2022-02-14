@@ -52,6 +52,10 @@ GET /social/getEveryone             controllers.SocialPageController.getNotFrien
 
 POST /social/createFriendship       controllers.SocialPageController.createFriendship(request : Request)
 
+GET /social/getMessages             controllers.SocialPageController.getMessages(request : Request)
+
+POST /social/sendMessage           controllers.SocialPageController.sendMessage(request : Request)
+
 GET /games/getAllCustomers             controllers.GameController.getCustomers
 
 #POST /user/deleteFriend            controllers.UserController.removeFriend

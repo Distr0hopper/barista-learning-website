@@ -1,4 +1,4 @@
-async function createFriends(){
+async function createFriends(myId){
     console.time("friends")
     let response = await fetch("http://localhost:9000/social/friends");
     console.timeEnd("friends")
@@ -38,7 +38,7 @@ async function createFriends(){
             document.getElementById("select-friend").style.display = "none";
             document.getElementById("search-friends").style.display = "none";
             document.getElementById("chat-history").style.display = "block";
-            getMessages();
+            openMessages(myId, friend.id);
         };
 
         let li = document.createElement("li");
@@ -124,23 +124,57 @@ async function search(){
     }
 }
 
-const messages = ["myself:Hi", "friend:Hello, how are you?"]
+let messages = '';
 
-function getMessages(){
-    $('#chat-list').empty();
-    for (let i = 0; i < messages.length; i++) {
+async function getMessages(){
+    messages = '';
+    /*for (let i = 0; i < messages.length; i++) {
         let message = messages[i].split(":");
         if(message[0]==="myself"){
             createMessage("my-message", message[1]);
         }else{
             createMessage("their-message", message[1]);
         }
-    }
+    }*/
+    console.time("messages")
+    let response = await fetch("http://localhost:9000/social/getMessages");
+    console.timeEnd("messages")
+    messages = await response.json();
+}
+
+function openMessages(myId, friendId){
+    $('#chat-list').empty();
+    messages.forEach((message, i) => {
+        if (message.senderId === friendId){
+            createMessage("their-message", message.text);
+        }
+        else if(message.senderId === myId && (message.idUser1 === friendId || message.idUser2 === friendId)){
+            createMessage("my-message", message.text);
+        }
+    })
 }
 
 function sendMessage(){
-    let message = document.getElementById("message");
-    createMessage("my-message", message.value);
+    let message = document.getElementById("message").value;
+    createMessage("my-message", message);
+    let friend = document.getElementById("header-name").innerHTML;
+    const messageData = {        //JSON objekt mit Keys und values nach Stringify
+        message: message,
+        friend: friend
+    }
+
+    fetch("/social/sendMessage", {
+        method: 'POST',
+        body: JSON.stringify(messageData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(response => {
+        if(response.ok) {
+            return window.location = response.url;
+        } else {
+            return response.json()
+        }})
     message.value = '';
 }
 
@@ -154,6 +188,7 @@ function createMessage(klasse, message){
     li.appendChild(div);
     ul.appendChild(li);
 }
+
 
 
 
