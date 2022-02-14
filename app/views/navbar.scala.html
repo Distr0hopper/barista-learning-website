@@ -30,12 +30,12 @@
                             Profile</a></li>
                         <li><a class="nav-link  @("active".when(page == "GameOne"))" href="@routes.GameController.defaultGame">
                             Game</a></li>
-                        <li><a class="nav-link  @("active".when(page == "GameTwo"))" href="@routes.GameController.gameLevelTwo">
-                            Game-Level-2</a></li>
-                        <li><a class="nav-link  @("active".when(page == "GameTwoMemory"))" href="@routes.GameController.gameLevelTwoMemory">
-                            Game-Level-2-Memory</a></li>
-                        <li><a class="nav-link  @("active".when(page == "GameThree"))" href="@routes.GameController.gameLevelThree">
-                            Game-Level-3</a></li>
+                        <li><a id="gametwoNav" class="nav-link @("active".when(page == "GameTwo"))" href="@routes.GameController.gameLevelTwo">
+                            <nobr> Game-Level-2</nobr></a></li>
+                        <li><a id="gametwoNav" class="nav-link @("active".when(page == "GameTwoMemory"))" href="@routes.GameController.gameLevelTwoMemory">
+                            <nobr>Game-Level-2-Memory</nobr></a></li>
+                        <li><a class="nav-link gamethreeNav @("active".when(page == "GameThree"))" href="@routes.GameController.gameLevelThree">
+                            <nobr>Game-Level-3</nobr></a></li>
                         <li><a class="nav-link  @("active".when(page == "Store"))" href="@routes.HomeController.store">
                             Store</a></li>
                         <li><a class="nav-link  @("active".when(page == "Dictionary"))" href="@routes.HomeController.dictionary">

@@ -45,6 +45,7 @@ async function loadModalMemory() {
     /**
      * put Coffeetitles in modal*/
     var modalInput = JSON.parse(sessionStorage.getItem("modalInput"));
+    console.log(modalInput)
     const coffeeOrderCards = $('.card-text');
     const coffeeOrderCustomers = $('.card-img-top');
     const orderHeader = $('#order');

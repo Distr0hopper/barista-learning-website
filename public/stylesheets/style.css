@@ -31,6 +31,7 @@ body{
 .navbar-custom .navbar-text {
     color: rgba(255,255,255,.8);
 }
+
 /* change the link color */
 .navbar-custom .navbar-nav .nav-link {
     color: rgba(255,255,255,.5);
@@ -40,6 +41,7 @@ body{
 .navbar-custom .nav-item:hover .nav-link {
     color: #ffffff;
 }
+
 .mainbackround{
     /*background-image: url("https://www.vecteezy.com/free-vector/cafe");*/
     background-image: url("../images/Industrial-01.jpg")!important;
