@@ -199,6 +199,12 @@ function countHelpsAndReturnDeduction() {
     return 0;
 }
 
+/**
+ * Updated the message when you made a coffee right
+ * @param earnedMoney the amount of beans you receive for the coffee
+ * @param correctDrinksCounter How many drinks you made right in a row
+ * @param wrongDrinksCounter In which try you made the drink
+ */
 function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter) {
     if (correctDrinksCounter < 2) {
         $('#order').text("You made it right on the first try! " + earnedMoney + "  beans!");
