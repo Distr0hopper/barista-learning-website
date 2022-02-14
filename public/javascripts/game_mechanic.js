@@ -12,55 +12,50 @@ let correctDrinksCounter = 0;
 let wrongDrinksCounter = 0;
 let correctIngredients = [];
 let activeDrink = "Test";
+let countCorrectCoffees = 0;
 
-// drinks["americano"] = new Array("espresso", "hotWater");
-// drinks["latte"] = new Array("espresso", "milk", "milkfoam");
-// drinks["mocha"] = new Array("espresso","chocolateSyrup","milk","milkfoam");
-// drinks["cappuccino"] = new Array("espresso", "milk","milkfoam") ;
-// drinks["breve"] = new Array("espresso","milk");
-// drinks["macchiato"] = new Array("espresso","milkfoam");
-// //drinks["irish"] = new Array("brewedCoffee","whiskey","cream")
-// drinks["caffe au lait"] = new Array("brewedCoffee","milk");
-// drinks["mocha breve"] = new Array("espresso","chocolateSyrup","milk","milkFoam");
-// var activeDrink = 'americano';
 let money = Number($('#money').text());
 
-let allCoffees = getCoffees().then(function (result){
+let allCoffees
+getCoffees().then(function (result) {
     allCoffees = result;
+    console.log(allCoffees);
+    sessionStorage.setItem("allCoffees", JSON.stringify(allCoffees))
     getActiveDrink(allCoffees);
-   console.log(allCoffees)
 });
 
 
-
-
-
-async function getCoffees(){
-    const test = new CoffeesForGame();
-    await test.getRandomSixCoffees();
-
-    let allCoffees = test.sixCoffees;
-
-    $('#order').text("Please make a " + test.getCoffeeTitles()[0] + "!");
-
-
-
-
-    // let activeCoffee = allCoffees[0];
-    // console.log(activeCoffee);
-    // console.log(getIngredientList(activeCoffee));
+async function getCoffees() {
+    const fetchedCoffees = new CoffeesForGame();
+    await fetchedCoffees.getRandomSixCoffees();
+    let allCoffees = fetchedCoffees.sixCoffees;
+    $('#order').text("Please make a " + fetchedCoffees.getCoffeeTitles()[0] + "!");
     return allCoffees;
 }
 
-function getNextDrink(allCoffees){
+//important here for level 2
+async function getRandomSixCustomers() {
+    const customerForGame = new Customers();
+    await customerForGame.getRandomSixCustomers();
+    let sixCustomers = customerForGame.sixCustomers
+    return sixCustomers
+}
+
+let sixCustomers
+getRandomSixCustomers().then(function (result) {
+    sixCustomers = result;
+    sessionStorage.setItem("sixCustomers", JSON.stringify(sixCustomers))
+})
+
+function getNextDrink(allCoffees) {
     activeDrink = allCoffees.shift();
     return activeDrink;
 }
 
-async function getActiveDrink(allCoffees){
+function getActiveDrink(allCoffees) {
     activeDrink = allCoffees.shift();
-    console.log(activeDrink);
-    console.log(getTitle(activeDrink))
+    // console.log(activeDrink);
+    // console.log(getTitle(activeDrink))
     console.log(getIngredientList(activeDrink));
     return activeDrink;
 }
@@ -68,26 +63,16 @@ async function getActiveDrink(allCoffees){
 
 function getIngredientList(activeCoffee) {
     let ingredientArray = []
-    for (let i = 0; i < activeCoffee.ingredientList.length; i++){
+    for (let i = 0; i < activeCoffee.ingredientList.length; i++) {
         ingredientArray.push(activeCoffee.ingredientList[i]);
-       // console.log(sixCoffees[i].ingredientList)
     }
     return ingredientArray;
 }
 
-function getTitle(activeDrink){
+function getTitle(activeDrink) {
     //console.log(activeDrink.title);
     return activeDrink.title;
 }
-
-// function getIngredientsFromActiveCoffee(sixCoffeesWithIngredientList){
-//     let ingredients = [];
-//     for (let i = 0; i < sixCoffeesWithIngredientList[0].length; i++) {
-//         ingredients.push(sixCoffeesWithIngredientList[0][i].name);
-//     }
-//     console.log(ingredients);
-// }
-
 
 
 /**
@@ -104,13 +89,12 @@ function getTitle(activeDrink){
  * @param submitButtonText:  get the current text of the submit button. Can be "Next" or "Submit".
  * @param moneyObject: JSON object containing the key moneyKey and the Value
  */
-function submitGame(){
+function submitGame() {
     // console.log(allCoffees.shift());
     // console.log(allCoffees);
     // getActiveDrink(allCoffees);
     $('#plusForMoneyCounter').show();
     $('#money-counter').show();
-    console.log(activeDrink)
     var submitButtonText = $('#submitGame').text();
 
 
@@ -119,49 +103,10 @@ function submitGame(){
         $('#submitGame').html('submit')
         activeDrink = getNextDrink(allCoffees);
         $('#order').text("Please make a " + getTitle(activeDrink) + "!");
-        // Get Drinks from the Database
-        // if (activeDrink == 'americano') {
-        //     $('#order').text("2. Please make a LATTE!");
-        //     activeDrink = 'latte';
-        // } else if (activeDrink == 'latte') {
-        //     $('#order').text("3. Please make a MOCHA!");
-        //     activeDrink = 'mocha';
-        //
-        // } else if (activeDrink == 'mocha') {
-        //     $('#order').text("4. Please make a CAPPUCCINO!");
-        //     activeDrink = 'cappuccino';
-        //
-        // } else if (activeDrink == 'cappuccino') {
-        //     $('#order').text("5. Please make a BREVE!");
-        //     activeDrink = 'breve';
-        //
-        // } else if (activeDrink == 'breve') {
-        //     $('#order').text("6. Please make a MACCHIATO!");
-        //     activeDrink = 'macchiato';
-        //
-        // } else if (activeDrink == 'macchiato') {
-        //     $('#order').text("7. Please make an IRISH COFFEE!");
-        //     activeDrink = 'irish';
-        //
-        // } else if (activeDrink == 'irish') {
-        //     $('#order').text("8. Please make a CAFFE AU LAIT!");
-        //     activeDrink = 'caffe au lait';
-        //
-        // } else if (activeDrink == 'caffe au lait') {
-        //     $('#order').text("9. Please make an ESPRESSO CON PANNA!");
-        //     activeDrink = 'espresso con panna';
-        //
-        // } else if (activeDrink == 'espresso con panna') {
-        //     $('#order').text("10. Please make a MOCHA BREVE!");
-        //     activeDrink = 'mocha breve';
-        //}
     } else {
-
-
-        for (let i = 0; i < arrayDraggedImages.length; i++){
+        for (let i = 0; i < arrayDraggedImages.length; i++) {
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
-            console.log(currentImage.id)
 
             currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
             currentImage.setAttribute('data-x', 0)
@@ -172,27 +117,49 @@ function submitGame(){
 
 
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
+           countCorrectCoffees++;
+
+
+            // If you finished all coffees, you can go to the next level
+
 
             $('#submitGame').html('next')
-           checkWrongDrinks(wrongDrinksCounter);
+            // Check how much coffee beans you receive by making the drink right
+            let earnedMoney = checkWrongDrinks(wrongDrinksCounter);
+            // Check if you received any help
+            earnedMoney -= countHelpsAndReturnDeduction();
+            // Check if you receive a lvl-up bonus
+            earnedMoney += checkMoneyForRanking(money + earnedMoney);
+            // Update the counter object in HTML (with or without the bonus)
+            updateMoneyCounter(earnedMoney);
+            // Update the Message
+            updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter);
+            // Add the amount of beans you received to the money
+            money += earnedMoney;
             $('#money').text(money);
-
             const moneyObjekt = {
-                "moneyKey" : money,
+                "moneyKey": money,
             }
-              fetch("/games/getMoney", {
-                 method: 'POST',
-                 body: JSON.stringify(moneyObjekt),
-                 headers: {
-                     'Content-Type': 'application/json'
-                 },
-             })
+            //  fetch("/games/getMoney", {
+            //     method: 'POST',
+            //     body: JSON.stringify(moneyObjekt),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            // })
 
             correctDrinksCounter++;
             wrongDrinksCounter = 0;
+
+            if (countCorrectCoffees === 6) {
+                $('#order').text("Well done, you made all coffees! You can now play the next lvl!");
+                $('#submitGame').hide();
+                $('#nextGame').show();
+            }
+
         } else {
             wrongDrinksCounter++;
-            if (wrongDrinksCounter < 3){
+            if (wrongDrinksCounter < 3) {
                 $('#order').text("Wrong! Please make a " + getTitle(activeDrink) + " again!");
                 window.alert("You have " + (3 - wrongDrinksCounter) + " tries left");
             } else {
@@ -212,43 +179,86 @@ function submitGame(){
 }
 
 /**
+ * Checks how often you clicked the help button. Depending on that you receive less coffee beans.
+ * @returns {number} Returns the deduction you receive by getting help
+ */
+function countHelpsAndReturnDeduction() {
+    let helpClicks = countHelps(false);
+    console.log("Help Button Clicks " + helpClicks)
+    if (helpClicks === 1) {
+        correctDrinksCounter = 0;
+        countHelps(true);
+        return 3;
+    }
+    if (helpClicks > 1) {
+        correctDrinksCounter = 0;
+        countHelps(true);
+        return 6;
+    }
+    countHelps(true);
+    return 0;
+}
+
+/**
+ * Updated the message when you made a coffee right
+ * @param earnedMoney the amount of beans you receive for the coffee
+ * @param correctDrinksCounter How many drinks you made right in a row
+ * @param wrongDrinksCounter In which try you made the drink
+ */
+function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter) {
+    if (correctDrinksCounter < 2) {
+        $('#order').text("You made it right on the first try! " + earnedMoney + "  beans!");
+    }
+    if (correctDrinksCounter >= 2) {
+        $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! " + earnedMoney + " beans!")
+    }
+    if (wrongDrinksCounter === 1) {
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
+    }
+    if (wrongDrinksCounter === 2) {
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
+    }
+}
+
+
+/**
+ * Updates the HTML Object in the View
+ * @param earnedMoney checks how much coffee beans you receive by making the coffee
+ */
+function updateMoneyCounter(earnedMoney) {
+    $('#money-counter').text(earnedMoney);
+}
+
+/**
  * Checks how many coffees are made correctly in a row.
  * If you are on a 3 streak or more, you gain +30 beans instead of 15.
  * @param correctDrinksCounter the amount of correct coffees made in a row
+ * @returns {number} The number of earned beans you receive for this round.
  */
 function checkCorrectDrinks(correctDrinksCounter) {
-    if (correctDrinksCounter < 2){
-        $('#order').text("You made it right on the first try! +15 beans!");
-        money += 15;
-        $('#money-counter').text("15")
-    }
-    else if (correctDrinksCounter >= 2){
-        money += 30;
-        $('#money-counter').text("30")
-        $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! +30 beans!")
+    if (correctDrinksCounter < 2) {
+        return 15;
+    } else if (correctDrinksCounter >= 2) {
+        return 30;
     }
 }
 
 /**
  * Checks on which try the coffee is made correct.
  * If you made it on the first try, call checkCorrectDrinks to look if you are on a streak.
- * Give 15 Points on first try, 10 on second try and 5 on third try.
+ * Give 15 Points on first try, 12 on second try and 9 on third try.
  * @param wrongDrinksCounter on which attempt you made it right
+ * @returns {number} The number of earned beans you receive for this round.
  */
-function checkWrongDrinks(wrongDrinksCounter){
-    if (wrongDrinksCounter === 0){
-        checkCorrectDrinks(correctDrinksCounter);
-    } else if (wrongDrinksCounter === 1){
-        money += 10;
-        $('#money-counter').text("10");
-        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! +10 beans!");
-    } else if (wrongDrinksCounter === 2){
-        money += 5;
-        $('#money-counter').text("5");
-        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1)+ " try! +5 beans!");
+function checkWrongDrinks(wrongDrinksCounter) {
+    if (wrongDrinksCounter === 0) {
+        return checkCorrectDrinks(correctDrinksCounter);
+    } else if (wrongDrinksCounter === 1) {
+        return 12;
+    } else if (wrongDrinksCounter === 2) {
+        return 7;
     }
 }
-
 
 
 /* ********** DRAGGING CODE *********** */
@@ -292,10 +302,10 @@ function dragMoveListener(event) {
  *
  * @param event The drag event
  */
-function checkIngredientArray(event){
+function checkIngredientArray(event) {
     var currentImage = event.target;
 
-    if(arrayDraggedImages.indexOf(currentImage) === alreadyInside){
+    if (arrayDraggedImages.indexOf(currentImage) === alreadyInside) {
         currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
         currentImage.setAttribute('data-x', 0)
         currentImage.setAttribute('data-y', 0)
@@ -326,7 +336,7 @@ interact('.dropzone').dropzone({
         dropzoneElement.classList.add('drop-target')
         droppedIngredient.classList.add('can-drop')
 
-        if (arrayDraggedImages.indexOf(droppedIngredient) === alreadyInside){
+        if (arrayDraggedImages.indexOf(droppedIngredient) === alreadyInside) {
             arrayDraggedImages.push(droppedIngredient);
         } else {
             console.log("Ingredient already inside!");
@@ -337,9 +347,9 @@ interact('.dropzone').dropzone({
         let droppedIngredient = event.relatedTarget;
         event.target.classList.remove('drop-target');
         event.relatedTarget.classList.remove('can-drop');
-        const index =arrayDraggedImages.indexOf(droppedIngredient);
+        const index = arrayDraggedImages.indexOf(droppedIngredient);
 
-        if (index > -1 ) {
+        if (index > -1) {
             arrayDraggedImages.splice(index, 1);
         }
     },
@@ -348,7 +358,39 @@ interact('.dropzone').dropzone({
         event.target.classList.remove('drop-target')
     }
 })
+//tip
 
+$("[data-toggle=tooltip]").tooltip({
+    html: true,
+    content: function () {
+        return $('.tooltipCoffee').html();
+    }
+});
+
+$(function () {
+    $('.example-popover').popover({
+        container: 'body'
+    })
+})
+
+var explainModal = $('#ModalExplainGame');
+
+async function loadModalExplain() {
+    var currentUserString = sessionStorage.getItem("currentUser");
+    let currentUser = JSON.parse(currentUserString);
+    // console.log(currentUser);
+
+    if (currentUser.points === 0) {
+        explainModal.modal('show');
+    }
+}
+
+
+window.addEventListener('load', loadModalExplain)
+var tipModal = $('#exampleModalCenter')
+tipModal.on('shown.bs.modal', function () {
+    $('.card-group').innerText = createDictionary()
+})
 
 
 

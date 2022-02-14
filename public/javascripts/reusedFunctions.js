@@ -1,137 +1,19 @@
-/**loadModal() loads modal and shows it
- * then it sets the timer until the modal disappears with a countdown
- * while theres at elast 1 second remaining it counts down, at 0 it shows finished and afterwards closes the modal
+/**
+ * This function is called everytime the Help-Button is pressed.
+ * Just a counter which increments every time the Button is pressed.
+ * @type {number} helpCounter is the number which counts how often the help button is pressed
+ * @return {number} How many times the button was pressed.
  */
-async function loadModal() {
-    var gameModal = $('#gameModal2')
-    gameModal.modal('show');
-    // $('#myModal').modal({backdrop: 'static', keyboard: false})
-    var timeleft = 5;
-    var currentHTMLText = document.querySelector("#modal-title").textContent;
-    var downloadTimer = setInterval(function () {
-        if (timeleft > 0) {
-            gameModal.find('.modal-title').text(currentHTMLText + " " + timeleft + ' seconds remaining');
-        } else if (timeleft < 0) {
-            // gameModal.modal("hide");
-            gameModal.modal('hide');
-        } else {
-            clearInterval(downloadTimer);
-            gameModal.find('.modal-title').text(currentHTMLText + ' Finished');
-            gameModal.modal('hide');
-        }
-        timeleft -= 1;
-    }, 1000);
-
-    /**
-     * put Coffeetitles in modal*/
-    const coffeesForGame = new CoffeesForGame();
-    console.time("customer")
-    await coffeesForGame.getRandomSixCoffees();
-    console.timeEnd("customer")
-    const coffeeOrderCards = $('.card-text');
-    const coffeeTitles = coffeesForGame.getCoffeeTitles();
-    for (let i = 0; i < coffeeOrderCards.length; i++) {
-        coffeeOrderCards[i].innerText = coffeeTitles[i];
+var helpCounter = 0;
+function countHelps(reset){
+    if (reset == false){
+        return helpCounter++
     }
-    /**Put Coffee To Make Into Game*/
-    const orderHeader = $('#order');
-    orderHeader.innerText = coffeeTitles[0]
-
-    /**put CustomerImages in modal*/
-    const customerForGame = new Customers();
-    await customerForGame.getRandomSixCustomers();
-    const coffeeOrderCustomers = $('.card-img-top');
-    const customerImages = customerForGame.getCustomerImages();
-    for (let i = 0; i < coffeeOrderCustomers.length; i++) {
-        coffeeOrderCustomers[i].src = customerImages[i];
+    else {
+        helpCounter = 0;
     }
+
 }
-
-async function loadMemory() {
-    const cardArray = []
-    const grid = document.querySelector('.grid')
-    const gridShow = document.querySelector('.gridShow')
-    const resultDisplay = document.querySelector('#result')
-    var cardsChosen = []
-    var cardsChosenID = []
-    var cardsWon = []
-    /**
-     * fetch Sessionstorage*/
-    var storedCustomers = JSON.parse(sessionStorage.getItem("customers"));
-    var storedCoffeeNames = JSON.parse(sessionStorage.getItem("coffees"));
-    var coffeeNameArray = []
-    var customerArray = []
-    //convert storage to arrays
-    /**
-     * Goal here: convert fetched storage to arrays
-     * Firs we Create Array only Containing CoffeeNames and Images*/
-    storedCoffeeNames.forEach((coffee, j) => {
-        coffeeNameArray[j] =
-            {
-                title: coffee.title,
-                img: "../coffee/" + coffee.coffeeImgPath
-            }
-        // for (let l = 0; l < coffeeImages.length; l++) {
-        //     if (coffee.title === coffeeImages[l].title) {
-        //         coffeeNameArray[j].img = coffeeImages[l].coffeeImgPath
-        //     }
-        // }
-
-    })
-    /**
-     * Then an Array called createArray of Customers*/
-    storedCustomers.forEach((customer, k) => {
-            customerArray[k] = "../Customers/" + customer.customerImgPath
-        }
-    )
-    console.log(storedCustomers)
-    /**
-     * Goal here: match CoffeeNames to images and create new array for matched images
-     * nameorder is there to match the coffeeCustomers with the same name as the Drinks they ordered*/
-    var nameOrder = "coffeeOrder";
-    /**This loop
-     * First: checks if Index is even, if so add a customer
-     * Second: if index is odd, add a drink
-     * Third: Adda a 1 to distinguish the names of the orders (a little bit of a tacky solution) */
-    for (let i = 0; i < coffeeNameArray.length * 2; i++) {
-        //check if index is even, then add customer
-        if (i % 2 === 0) {
-            /**depending on index, need to still get next item in array of customer*/
-            if (i === 0) {
-                var index = i
-            } else {
-                var index = i - (i / 2)
-            }
-            //create memorycard with customer name and img src
-            var memorycard = {
-                name: nameOrder,
-                img: customerArray[index]
-            }
-            cardArray[i] = memorycard
-            console.log(memorycard.name)
-            console.log(memorycard.img)
-        } else {
-            //check if index is odd, then add drink
-            /**depending on index, need to still get next item in array of customer*/
-            if (i === 1) {
-                var index = i - i
-            } else {
-                var index = i - (i / 2 + 0.5)
-            }
-            //create memorycard with customer name and img src
-            var memorycard = {
-                name: nameOrder,
-                img: coffeeNameArray[index].img
-            }
-            cardArray[i] = memorycard
-            //add something to distinguish the names of the orders (tacky I know)
-            nameOrder += "1"
-        }
-        console.log(memorycard)
-    }
-    console.log(cardArray);
-    /**Randomize orders and customers in array*/
-    cardArray.sort(() => 0.5 - Math.random())
 
     /**
      * createBoard() creates an array of images, with src set to coffeemug and set height, width and id
@@ -243,4 +125,36 @@ async function loadMemory() {
     }
     showboard()
 
+function checkMoneyForRanking(money){
+    console.log(money);
+    if (money >= 60 && money <=85){
+        window.alert("Congratulations! You are now Sergeant of the Milk Foam! +100 Beans")
+        return 100;
+    }
+    if (money >= 280 && money <= 305){
+        window.alert("Congratulations! You are now Commander of the Coffeebeans! +200 Beans")
+        return 200;
+    }
+    if (money >= 600 && money <= 625){
+        window.alert("Congratulations! You are now Barista-Colonel! +300 Beans")
+        return 300;
+    }
+    if (money >= 1000 && money <= 1030){
+        window.alert("WOW! You are now the General of Baristas! +500 Beans")
+        return 500;
+    }
+    return 0;
 }
+
+function redirectLvlTwo(){
+        window.location = '/games/gameLevelTwo'
+}
+
+function redirectToMemory(){
+    window.location = '/games/gameLevelTwoMemory '
+}
+
+
+
+
+

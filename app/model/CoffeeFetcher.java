@@ -24,7 +24,11 @@ public class CoffeeFetcher {
     public Coffee getCoffeeById(int id) {
         return db.withConnection(conn -> {
             Coffee coffee = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees WHERE idCoffees = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT Coffees.*, group_concat(Ingredients.name) AS ingredientList " +
+                    "FROM Coffees, Ingredients, Coffees_has_Ingredients " +
+                    "WHERE Coffees.idCoffees = Coffees_has_Ingredients.Coffees_idCoffees " +
+                    "AND Coffees_has_Ingredients.Ingredients_idIngredients = Ingredients.idIngredients " +
+                    "GROUP BY Coffees.idCoffees");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

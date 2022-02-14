@@ -46,7 +46,6 @@ public class UserController extends Controller {
             UserFactory.User user = userFactory.getUserById(id);
             List<UserFactory.User> friends = userFactory.getFriendsById(id);
             int money = user.getPoints();
-
             return ok(
                     profile.render("profile", String.valueOf(money), user, friends, assetsFinder)
             );
@@ -91,19 +90,11 @@ public class UserController extends Controller {
                     .addingToSession(request,"money", String.valueOf(money));
         } else {
             ObjectNode response = Json.newObject();
-            response.put("message", "Incorrect password. \nPlease try again.");
+            response.put("message", "Incorrect username or password. \nPlease try again.");
             return unauthorized(response);
         }
     }
 
-//    public List<String> getAllUserNames(List allUsers){
-//        for (int i = 0; i < allUsers.size(); i++) {
-//            UserFactory.User user = (UserFactory.User) allUsers.get(i);
-//            //System.out.println(user.getUsername());
-//            userNamesList.add(user.getUsername());
-//        }
-//        return userNamesList;
-//    }
 
     public Result checkCreateAccount(Http.Request request) {
         userNamesList = userFactory.getAllUsernames();
