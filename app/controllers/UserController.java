@@ -63,6 +63,11 @@ public class UserController extends Controller {
     }
 
     public Result login() {
+//        UserFactory.User user = userFactory.getUserByUsername("admin");
+//        user.setReward(5);
+//        System.out.println(user.getRewardId());
+//        user.save();
+//        System.out.println(user.getReward());
         return ok(
                 login.render(assetsFinder));
     }
@@ -75,7 +80,6 @@ public class UserController extends Controller {
         UserFactory.User user = userFactory.authenticate(username,password);
         UserFactory.User userID = userFactory.getUserByUsername(username);
         int id = userID.getId(); // add user id on the session
-
         if (user != null){
             System.out.println(user);
             return status(200, Json.toJson(user))

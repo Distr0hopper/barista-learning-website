@@ -30,13 +30,14 @@ public class UserFactory {
     public User authenticate(String username, String password) {
         return db.withConnection(conn -> {
             User user = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ? AND password = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT User.*, Rewards.reward AS rewardString FROM User,Rewards WHERE User.Rewards_idRewards = Rewards.idRewards AND username = ? AND password = ?");
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 user = new User(rs);
             }
+            System.out.println(user);
             stmt.close();
             return user;
         });
@@ -55,7 +56,7 @@ public class UserFactory {
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
-                user = new User(id, username, email, 0);
+                user = new User(id, username, email, 0, 1);
             }
             stmt.close();
             return user;
@@ -72,7 +73,7 @@ public class UserFactory {
     public User getUserById(int id) {
         return db.withConnection(conn -> {
             User user = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE idUsers = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT User.*, Rewards.reward AS rewardString FROM User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards AND idUsers = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -83,10 +84,11 @@ public class UserFactory {
         });
     }
 
+
     public User getUserByUsername(String username) {
         return db.withConnection(conn -> {
             User user = null;
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT User.*, Rewards.reward AS rewardString FROM User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards AND username = ?");
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -96,6 +98,20 @@ public class UserFactory {
             return user;
         });
     }
+
+//    public User getUserWithReward(String username) {
+//        return db.withConnection(conn -> {
+//            User user = null;
+//            PreparedStatement stmt = conn.prepareStatement("SELECT User.*, Rewards.reward AS rewardString FROM User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards AND username = ?");
+//            stmt.setString(1, username);
+//            ResultSet rs = stmt.executeQuery();
+//            if (rs.next()) {
+//                user = new User(rs);
+//            }
+//            stmt.close();
+//            return user;
+//        });
+//    }
 
     /**
      * Polymorphism method for getUserById(int)
@@ -110,7 +126,7 @@ public class UserFactory {
     public List<User> getAllUsers() {
         return db.withConnection(conn -> {
             List<User> users = new ArrayList<>();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User");
+            PreparedStatement stmt = conn.prepareStatement("SELECT User.*, Rewards.reward AS rewardString FROM User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs);
@@ -124,7 +140,7 @@ public class UserFactory {
     public List<String> getAllUsernames() {
         return db.withConnection(conn -> {
             List<String> userNames = new ArrayList<>();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User");
+            PreparedStatement stmt = conn.prepareStatement("SELECT User.*, Rewards.reward AS rewardString FROM User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs);
@@ -139,7 +155,7 @@ public class UserFactory {
     public List<User> getAllUsersDesc() {
         return db.withConnection(conn -> {
             List<User> users = new ArrayList<>();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User ORDER BY points DESC");
+            PreparedStatement stmt = conn.prepareStatement("SELECT User.*, Rewards.reward AS rewardString FROM User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards ORDER BY points DESC");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs);
@@ -153,8 +169,9 @@ public class UserFactory {
     public List<User> getFriendsById(int idUser1) {
         return db.withConnection(conn -> {
             List<User> friendList = new ArrayList<>();
-            String sql = "SELECT * FROM Friendship, User WHERE (idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?) ";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            //String sql = "SELECT * FROM Friendship, User WHERE (idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?) ";
+            String sql2 = "SELECT Friendship.*, User.*, Rewards.reward AS rewardString FROM Friendship, User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards AND (idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql2);
             stmt.setInt(1, idUser1);
             stmt.setInt(2, idUser1);
             ResultSet rs = stmt.executeQuery();
@@ -185,13 +202,16 @@ public class UserFactory {
         //private String password;
         private int points;
         private Date timestamp;
+        private String reward;
+        private int rewardId;
 
-        private User(int id, String username, String mail, int points) {
+        private User(int id, String username, String mail, int points, int rewardId) {
             this.id = id;
             this.username = username;
             this.mail = mail;
             this.points = points;
             this.timestamp = timestamp;
+            this.rewardId = rewardId;
         }
 
         private User(ResultSet rs) throws SQLException {
@@ -200,7 +220,10 @@ public class UserFactory {
             this.mail = rs.getString("mail");
             this.points = rs.getInt("points");
             this.timestamp = rs.getDate("timestampt");
+            this.reward = rs.getString("rewardString");
+            this.rewardId = rs.getInt("Rewards_idRewards");
         }
+
 
 
         /**
@@ -209,12 +232,13 @@ public class UserFactory {
          */
         public void save() {
             db.withConnection(conn -> {
-                String sql = "UPDATE User SET username = ?, mail = ?, points = ? WHERE idUsers = ?";
+                String sql = "UPDATE User SET username = ?, mail = ?, points = ?, Rewards_idRewards = ? WHERE idUsers = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.username);
                 stmt.setString(2, this.mail);
                 stmt.setInt(3, this.points);
-                stmt.setInt(4, this.id);
+                stmt.setInt(4,this.rewardId);
+                stmt.setInt(5, this.id);
                 stmt.executeUpdate();
                 stmt.close();
             });
@@ -292,6 +316,17 @@ public class UserFactory {
             return timestamp;
         }
 
+        public String getReward(){
+            return reward;
+        }
+
+        public void setReward(int idReward){
+            this.rewardId = idReward;
+        }
+
+        public int getRewardId(){
+            return rewardId;
+        }
     }
 
 }

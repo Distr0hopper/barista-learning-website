@@ -140,18 +140,18 @@ function submitGame() {
             const moneyObjekt = {
                 "moneyKey": money,
             }
-            //  fetch("/games/getMoney", {
-            //     method: 'POST',
-            //     body: JSON.stringify(moneyObjekt),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            // })
 
             correctDrinksCounter++;
             wrongDrinksCounter = 0;
 
             if (countCorrectCoffees === 6) {
+                //  fetch("/games/getMoney", {
+                //     method: 'POST',
+                //     body: JSON.stringify(moneyObjekt),
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     },
+                // })
                 $('#order').text("Well done, you made all coffees! You can now play the next lvl!");
                 $('#submitGame').hide();
                 $('#nextGame').show();
@@ -207,16 +207,16 @@ function countHelpsAndReturnDeduction() {
  */
 function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter) {
     if (correctDrinksCounter < 2) {
-        $('#order').text("You made it right on the first try! " + earnedMoney + "  beans!");
+        $('#order').text("You made it right on the first try! +" + earnedMoney + "  beans!");
     }
     if (correctDrinksCounter >= 2) {
-        $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! " + earnedMoney + " beans!")
+        $('#order').text("You are on a " + (correctDrinksCounter + 1) + " streak! +" + earnedMoney + " beans!")
     }
     if (wrongDrinksCounter === 1) {
-        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! +" + earnedMoney + " beans!");
     }
     if (wrongDrinksCounter === 2) {
-        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! " + earnedMoney + " beans!");
+        $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! +" + earnedMoney + " beans!");
     }
 }
 

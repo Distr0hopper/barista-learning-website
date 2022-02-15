@@ -12,16 +12,16 @@ function editUsername() {
 }
 
 function changeRanking(){
-    let money = Number($('#money').text());
-    if (money >= 60 && money < 200){
-        $('#level').text("Sergeant of the Milk Foam")
-    } else if (money >= 200 && money < 460){
-        $('#level').text("Commander of the Coffeebeans");
-    } else if (money >= 460 && money < 600){
-        $('#level').text("Barista-Colonel")
-    } else if (money >= 600){
-        $('#level').text("General of Baristas")
-    }
+    // let money = Number($('#money').text());
+    // if (money >= 60 && money < 200){
+    //     $('#level').text("Sergeant of the Milk Foam")
+    // } else if (money >= 200 && money < 460){
+    //     $('#level').text("Commander of the Coffeebeans");
+    // } else if (money >= 460 && money < 600){
+    //     $('#level').text("Barista-Colonel")
+    // } else if (money >= 600){
+    //     $('#level').text("General of Baristas")
+    // }
 
 }
 window.onload(changeRanking());
