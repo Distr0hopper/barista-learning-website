@@ -78,6 +78,7 @@ async function loadModal() {
             img: customersLevel2Img[i]
         }
     })
+    console.log(modalInputMap)
     sessionStorage.setItem("modalInput", JSON.stringify(modalInputMap))
 }
 

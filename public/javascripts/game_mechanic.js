@@ -155,8 +155,11 @@ function submitGame() {
                 $('#order').text("Well done, you made all coffees! You can now play the next lvl!");
                 $('#submitGame').hide();
                 $('#nextGame').show();
-            }
+                // $('#nextGame').on('onclick', function (){
+                //     $('ul.navbar-nav').find('a').find('#gametwoNav').removeClass('disabled')
+                // })
 
+            }
         } else {
             wrongDrinksCounter++;
             if (wrongDrinksCounter < 3) {
