@@ -3,10 +3,6 @@ async function createFriends(myId){
     let response = await fetch("http://localhost:9000/social/friends");
     console.timeEnd("friends")
     let friendlist = await response.json();
-    friendlist = friendlist.map(friend=>{
-        friend.profile_pic = "../assets/images/coffee/" + friend.profile_pic;
-        return friend
-    })
 
 
     let ul = document.getElementById("friend-list");
@@ -17,7 +13,8 @@ async function createFriends(myId){
         let spanAvatar = document.createElement("span");
         spanAvatar.className = "btn avatar-background";
         let imgAvatar = document.createElement("img");
-        imgAvatar.src = friend.profile_pic;
+        imgAvatar.src = friend.profilePic;
+        imgAvatar.style.height = '40px';
         spanAvatar.appendChild(imgAvatar);
         let nameSpan = document.createElement("span");
         nameSpan.className = "socialsName";
@@ -33,7 +30,7 @@ async function createFriends(myId){
         button.onclick = function openChatNew(){
             document.getElementById("header-name").innerHTML = friend.username;
             document.getElementById("header-username").innerHTML = friend.ranking;
-            document.getElementById("header-avatar").src = friend.profile_pic;
+            document.getElementById("header-avatar").src = friend.profilePic;
             document.getElementById("points").innerHTML = friend.points;
             document.getElementById("select-friend").style.display = "none";
             document.getElementById("search-friends").style.display = "none";
@@ -171,9 +168,9 @@ function sendMessage(){
         },
     }).then(response => {
         if(response.ok) {
-            return window.location = response.url;
+            window.location = response.url;
         } else {
-            return response.json()
+            response.json()
         }})
     message.value = '';
 }

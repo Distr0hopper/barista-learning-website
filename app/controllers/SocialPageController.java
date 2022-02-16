@@ -99,7 +99,7 @@ public class SocialPageController extends Controller {
         String friend = json.get("friend").textValue();
         int friendId = userFactory.getUserByUsername(friend).getId();
 
-        chatFactory.createMessage(userID, friendId, message, userID);
+        chatFactory.createMessage(userID, friendId, message);
         return redirect(routes.HomeController.socials().url());
     }
 }

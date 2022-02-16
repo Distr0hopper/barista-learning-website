@@ -7,15 +7,15 @@
                     <!--trigger modal with button behind image-->
                 <button type="button" class="btn btn-backround" data-toggle="modal"
                 data-target="#myModal" id="modal-btn" onclick="openModal()"><img
-                src="@assetsFinder.path("images/avatar.png")"
+                src="@user.getProfilePic"
                 alt="avatar" height="130" width="130" id="profileimage"/></button>
-                <span class="name mt-3">@user.getUsername()</span>
+                <span class="name mt-3" id="name">@user.getUsername()</span>
 
                     <!--<div type="button" onclick="editUsername()">-->
                 <input class="profilename text-center" type="text" value="@user.getUsername()" id="profilename" readonly>
 
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 mb-3">
-                    <div id="level" class="level" style="font-size: 2rem">Recruit of the Coffee Machine</div>
+                    <div id="level" class="level" style="font-size: 2rem">@user.getRanking()</div>
                     <span><i class="fa fa-copy"></i></span></div>
                 <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                     <div id="points" class="points">@user.getPoints()</div>
@@ -62,15 +62,15 @@
                             <label class="form-check-label" for="inlineRadio1">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
                                 value="option1">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3462/3462124.png"
-                                alt="waitress" height="102.4" width="102.4" class="avatar-images" id="avatar1">
+                                <img src="@assetsFinder.path("images/avatar.png")"
+                                alt="avatar" height="102.4" width="102.4" class="avatar-images" id="avatar1">
                             </label>
                         </div>
                         <div class="col-12 col-sm-3 col-lg-3 text-center form-check form-check-inline">
                             <label class="form-check-label" for="inlineRadio2">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
                                 value="option2">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2317/2317940.png" alt="waitress"
+                                <img src="@assetsFinder.path("images/waitress.png")" alt="waitress"
                                 height="102.4" width="102.4" class="avatar-images" id="avatar2">
                             </label>
                         </div>
@@ -78,7 +78,7 @@
                             <label class="form-check-label" for="inlineRadio3">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
                                 value="option3">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2007/2007804.png" alt="avatar"
+                                <img src="@assetsFinder.path("images/waiter.png")" alt="avatar"
                                 height="102.4" width="102.4" class="avatar-images" id="avatar3">
                             </label>
                         </div>

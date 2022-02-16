@@ -28,6 +28,21 @@ window.onload(changeRanking());
 
 function saveUsername() {
     if (canEdit === true) {
+        let profilename = document.getElementById('profilename').value;
+        const data = {
+            name : profilename
+        }
+
+        fetch("/user/updateName", {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            console.log(response);
+        });
+        document.getElementById('name').innerHTML = profilename;
         document.querySelector('#profilename').readOnly = true;
         document.querySelector('#edit_button').textContent = "Edit Username";
         canEdit = false;
@@ -45,26 +60,35 @@ function closeModal() {
 }
 
 function chooseAvatar() {
-    var img = '';
+    let img = '';
     setTimeout(function () {
         if ($('#inlineRadio1').is(':checked')) {
-            document.getElementById('profileimage').src = "https://cdn-icons-png.flaticon.com/512/3462/3462124.png";
+            img = "../assets/images/avatar.png";
+            document.getElementById('profileimage').src = "../assets/images/avatar.png";
             closeModal();
         } else if ($('#inlineRadio2').is(':checked')) {
-            img = $('#avatar2');
-            document.getElementById('profileimage').src = "https://cdn-icons-png.flaticon.com/512/2317/2317940.png";
+            img = "../assets/images/waitress.png";
+            document.getElementById('profileimage').src = "../assets/images/waitress.png";
             closeModal();
         } else if ($('#inlineRadio3').is(':checked')) {
-            img = $('#avatar3');
-            document.getElementById('profileimage').src = "https://cdn-icons-png.flaticon.com/512/2007/2007804.png";
-            closeModal();
-        } else if ($('#inlineRadio4').is(':checked')) {
-            img = $('#avatar4');
-            document.getElementById('profileimage').src = "../assets/profile-icon.png";
+            img = "../assets/images/waiter.png";
+            document.getElementById('profileimage').src = "../assets/images/waiter.png";
             closeModal();
         } else {
             document.getElementById('error-message').textContent = "You need to select a picture."
         }
+        const image = {
+            source: img,
+        }
+        fetch("/user/updatePic", {
+            method: 'POST',
+            body: JSON.stringify(image),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            console.log(response);
+            })
     }, 100)
 
 }

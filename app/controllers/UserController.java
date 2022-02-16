@@ -141,5 +141,36 @@ public class UserController extends Controller {
     }
 
 
+    public Result updateProfilePic(Http.Request request){
+        JsonNode json = request.body().asJson();
+        String img = json.get("source").textValue();
+        int id = Integer.parseInt(request.session().get("userID").get());
+        UserFactory.User user = userFactory.getUserById(id);
+        user.updateProfilePic(img);
+        return ok();
+    }
+
+    public Result updateName(Http.Request request){
+        /*JsonNode json = request.body().asJson();
+        String name = json.get("name").textValue();
+        int id = Integer.parseInt(request.session().get("userID").get());
+        UserFactory.User user = userFactory.getUserById(id);
+        user.updateName(name);
+        return ok();*/
+        JsonNode json = request.body().asJson();
+        String name = json.get("name").textValue();
+        int id = Integer.parseInt(request.session().get("userID").get());
+        UserFactory.User user = userFactory.getUserById(id);
+        userNamesList = userFactory.getAllUsernames();
+        if(userNamesList.contains(name)){
+            ObjectNode response = Json.newObject();
+            response.put("message","Username already taken!");
+            return unauthorized(response);
+        }
+        else{
+            user.updateName(name);
+            return ok();
+        }
+    }
 
 }

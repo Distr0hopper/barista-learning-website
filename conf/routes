@@ -36,6 +36,10 @@ GET /user/createAccount             controllers.UserController.createAccount
 
 POST /user/checkCreateAccount       controllers.UserController.checkCreateAccount(request : Request)
 
+POST /user/updatePic                controllers.UserController.updateProfilePic(request : Request)
+
+POST /user/updateName               controllers.UserController.updateName(request : Request)
+
 GET /socials                        controllers.HomeController.socials(request : Request)
 
 GET /dictionary                     controllers.HomeController.dictionary(request: Request)

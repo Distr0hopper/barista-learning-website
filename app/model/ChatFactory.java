@@ -33,7 +33,7 @@ public class ChatFactory {
         });
     }
 
-    public ChatFactory.Message createMessage(int idUser1, int idUser2, String text, int senderId){
+    /*public ChatFactory.Message createMessage(int idUser1, int idUser2, String text, int senderId){
         return db.withConnection(conn -> {
             //ChatFactory.Message message = null;
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -60,7 +60,45 @@ public class ChatFactory {
             stmt2.close();
             return null;
         });
-    }
+    }*/
+    public ChatFactory.Message createMessage(int userId, int friendId, String message) {
+        /*try{
+        return db.withConnection(conn -> {
+            ChatFactory.Message msg = null;
+            String sql = "INSERT INTO Message (message_text, Friendship_idUser1, Friendship_idUser2, senderId) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, message);
+            stmt.setInt(2, userId);
+            stmt.setInt(3, friendId);
+            stmt.setInt(4, userId);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                msg = new ChatFactory.Message(id, userId, friendId, message, userId);
+            }
+            stmt.close();
+            return msg;
+        });
+    }catch(RuntimeException runtimeException){
+            return db.withConnection(conn -> {
+                ChatFactory.Message msg = null;
+                String sql = "INSERT INTO Message (message_text, Friendship_idUser1, Friendship_idUser2, senderId) VALUES (?, ?, ?, ?)";
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                stmt.setString(1, message);
+                stmt.setInt(2, friendId);
+                stmt.setInt(3, userId);
+                stmt.setInt(4, userId);
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    msg = new ChatFactory.Message(id, userId, friendId, message, userId);
+                }
+                stmt.close();
+                return msg;
+        });
+    }*/return null;}
 
 
     public class Message {
@@ -81,13 +119,12 @@ public class ChatFactory {
         }
 
 
-        private Message(int id, int idUser1, int idUser2, Timestamp timestamp, String text, int senderId) {
+        private Message(int id, int idUser1, int idUser2, String text, int senderId) {
             this.id = id;
             this.idUser1 = idUser1;
             this.idUser2 = idUser2;
             this.senderId = senderId;
             this.text = text;
-            this.timestamp = timestamp;
         }
         public void setId(int id) {
             this.id = id;

@@ -187,7 +187,8 @@ public class UserFactory {
         //private String password;
         private int points;
         private Date timestamp;
-        private String profilePic = "/images/avatar.png";
+        private String profilePic;
+        private String ranking;
 
         private User(int id, String username, String mail, int points) {
             this.id = id;
@@ -202,6 +203,23 @@ public class UserFactory {
             this.mail = rs.getString("mail");
             this.points = rs.getInt("points");
             this.timestamp = rs.getDate("timestampt");
+            this.profilePic = rs.getString("profile_pic");
+            int rankingint = rs.getInt("Rewards_idRewards");
+            if(rankingint == 1){
+                this.ranking = "Recruit of the coffee machine";
+            }
+            else if(rankingint == 2){
+                this.ranking = "Sergeant of the Milk Foam";
+            }
+            else if(rankingint == 3){
+                this.ranking = "Commander of the Coffeebeans";
+            }
+            else if(rankingint == 4){
+                this.ranking = "Barista-Colonel";
+            }
+            else if(rankingint == 5){
+                this.ranking = "General of Baristas";
+            }
         }
 
 
@@ -233,6 +251,30 @@ public class UserFactory {
                 stmt.executeUpdate();
                 stmt.close();
             });
+        }
+
+        public void updateProfilePic(String source){
+            db.withConnection(conn -> {
+                String sql = "UPDATE User SET profile_pic = ? WHERE idUsers = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, source);
+                stmt.setInt(2, this.id);
+                stmt.executeUpdate();
+                stmt.close();
+                setProfilePic(source);
+            });
+        }
+
+        public void updateName(String name){
+            db.withConnection((conn -> {
+                String sql = "UPDATE User SET username = ? WHERE idUsers = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, name);
+                stmt.setInt(2, this.id);
+                stmt.executeUpdate();
+                stmt.close();
+                setUsername(name);
+            }));
         }
 
 //        public List<User> getFriends() {
@@ -296,6 +338,16 @@ public class UserFactory {
 
         public String getProfilePic(){
             return this.profilePic;
+        }
+
+        public void setProfilePic(String source) {this.profilePic = source;}
+
+        public String getRanking() {
+            return ranking;
+        }
+
+        public void setRanking(String ranking) {
+            this.ranking = ranking;
         }
 
     }
