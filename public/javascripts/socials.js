@@ -21,7 +21,7 @@ async function createFriends(myId){
         nameSpan.innerHTML = friend.username;
         let rankingSpan = document.createElement("span");
         rankingSpan.className = "friendsRanking";
-        rankingSpan.innerHTML = friend.ranking;
+        rankingSpan.innerHTML = friend.reward;
 
         button.appendChild(spanAvatar);
         button.appendChild(nameSpan);
@@ -29,9 +29,13 @@ async function createFriends(myId){
         button.appendChild(rankingSpan);
         button.onclick = function openChatNew(){
             document.getElementById("header-name").innerHTML = friend.username;
-            document.getElementById("header-username").innerHTML = friend.ranking;
+            document.getElementById("friends-name").value = friend.username;
+            document.getElementById("header-username").innerHTML = friend.reward;
             document.getElementById("header-avatar").src = friend.profilePic;
             document.getElementById("points").innerHTML = friend.points;
+            document.getElementById("friends-avatar").src = friend.profilePic;
+            document.getElementById("friends-ranking").innerHTML = friend.reward;
+            document.getElementById("timestamp").innerHTML = friend.timestamp.toString();
             document.getElementById("select-friend").style.display = "none";
             document.getElementById("search-friends").style.display = "none";
             document.getElementById("chat-history").style.display = "block";
@@ -47,9 +51,6 @@ async function createFriends(myId){
 }
 
 function openModal(){
-    document.getElementById("friendsAvatar").src = document.getElementById("header-avatar").src;
-    document.getElementById("friendsName").innerHTML = document.getElementById("header-name").innerHTML;
-    document.getElementById("profilename").value = document.getElementById("header-username").innerHTML;
     $('#friendModal').modal('show');
 }
 
@@ -110,13 +111,10 @@ async function search(){
         div.appendChild(userFound);
         div.appendChild(userbutton);
         document.getElementById("search-friends").appendChild(div);
-
-        //document.getElementById("friend-list").style.display = "none";
         document.getElementById("search-friends").style.display = "block";
     }
     else{
         document.getElementById("search-friends").appendChild(document.createTextNode("This user does not exist"));
-        //document.getElementById("friend-list").style.display = "none";
         document.getElementById("search-friends").style.display = "block";
     }
 }
@@ -125,14 +123,6 @@ let messages = '';
 
 async function getMessages(){
     messages = '';
-    /*for (let i = 0; i < messages.length; i++) {
-        let message = messages[i].split(":");
-        if(message[0]==="myself"){
-            createMessage("my-message", message[1]);
-        }else{
-            createMessage("their-message", message[1]);
-        }
-    }*/
     console.time("messages")
     let response = await fetch("http://localhost:9000/social/getMessages");
     console.timeEnd("messages")
@@ -168,7 +158,7 @@ function sendMessage(){
         },
     }).then(response => {
         if(response.ok) {
-            window.location = response.url;
+            console.log(response);
         } else {
             response.json()
         }})

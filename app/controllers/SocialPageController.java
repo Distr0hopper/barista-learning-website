@@ -67,9 +67,6 @@ public class SocialPageController extends Controller {
         return redirect(routes.HomeController.socials().url());
 }
 
-    public Result getEveryone(Http.Request request){
-        return ok(Json.toJson(userFactory.getAllUsernames()));
-    }
 
     public Result getNotFriends(Http.Request request){
         String userIDString = request.session().get("userID").get();
@@ -100,6 +97,6 @@ public class SocialPageController extends Controller {
         int friendId = userFactory.getUserByUsername(friend).getId();
 
         chatFactory.createMessage(userID, friendId, message);
-        return redirect(routes.HomeController.socials().url());
+        return ok();
     }
 }

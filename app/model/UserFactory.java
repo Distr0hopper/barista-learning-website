@@ -156,7 +156,7 @@ public class UserFactory {
         return db.withConnection(conn -> {
             List<User> friendList = new ArrayList<>();
             //String sql = "SELECT * FROM Friendship, User WHERE (idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?) ";
-            String sql2 = "SELECT Friendship.*, User.*, Rewards.reward AS rewardString FROM Friendship, User, Rewards WHERE User.Rewards_idRewards = Rewards.idRewards AND (idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?)";
+            String sql2 = "SELECT Friendship.*, User.*, Rewards.reward AS rewardString FROM Friendship, User, Rewards WHERE (User.Rewards_idRewards = Rewards.idRewards) AND ((idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?))";
             PreparedStatement stmt = conn.prepareStatement(sql2);
             stmt.setInt(1, idUser1);
             stmt.setInt(2, idUser1);
@@ -209,6 +209,7 @@ public class UserFactory {
             this.timestamp = rs.getDate("timestampt");
             this.reward = rs.getString("rewardString");
             this.rewardId = rs.getInt("Rewards_idRewards");
+            this.profilePic = rs.getString("profile_pic");
         }
 
 

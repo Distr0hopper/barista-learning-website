@@ -28,7 +28,8 @@ window.onload(changeRanking());
 
 function saveUsername() {
     if (canEdit === true) {
-        let profilename = document.getElementById('profilename').value;
+        let nameInput = document.getElementById('profilename')
+        let profilename = nameInput.value;
         const data = {
             name : profilename
         }
@@ -40,12 +41,18 @@ function saveUsername() {
                 'Content-Type': 'application/json'
             },
         }).then(response => {
-            console.log(response);
+            if(response.ok) {
+                return window.location = response.url;
+                document.querySelector('#profilename').readOnly = true;
+                document.querySelector('#edit_button').textContent = "Edit Username";
+                canEdit = false;
+            } else {
+                return response.json()
+            }}).then(data => {
+            alert(data.message);
+            nameInput.value = '';
+            nameInput.focus();
         });
-        document.getElementById('name').innerHTML = profilename;
-        document.querySelector('#profilename').readOnly = true;
-        document.querySelector('#edit_button').textContent = "Edit Username";
-        canEdit = false;
     } else {
         editUsername()
     }

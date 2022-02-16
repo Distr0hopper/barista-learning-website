@@ -161,19 +161,22 @@ public class UserController extends Controller {
         UserFactory.User user = userFactory.getUserById(id);
         user.updateName(name);
         return ok();*/
+
+
+
         JsonNode json = request.body().asJson();
         String name = json.get("name").textValue();
         int id = Integer.parseInt(request.session().get("userID").get());
         UserFactory.User user = userFactory.getUserById(id);
         userNamesList = userFactory.getAllUsernames();
-        if(userNamesList.contains(name)){
+        if(!userNamesList.contains(name) && !name.isEmpty()){
+            user.updateName(name);
+            return redirect(routes.UserController.profile().url());
+        }
+        else{
             ObjectNode response = Json.newObject();
             response.put("message","Username already taken!");
             return unauthorized(response);
-        }
-        else{
-            user.updateName(name);
-            return ok();
         }
     }
 

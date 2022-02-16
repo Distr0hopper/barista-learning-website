@@ -33,72 +33,35 @@ public class ChatFactory {
         });
     }
 
-    /*public ChatFactory.Message createMessage(int idUser1, int idUser2, String text, int senderId){
+
+    public Message createMessage(int userId, int friendId, String message) {
         return db.withConnection(conn -> {
-            //ChatFactory.Message message = null;
+            Message msg = null;
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String sql = "SELECT idUser1, idUser2 FROM Friendship WHERE (idUser1 = ? AND idUser2 = ?) OR (idUser1 = ? AND idUser2 = ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idUser1);
-            stmt.setInt(2, idUser2);
-            stmt.setInt(3, idUser2);
-            stmt.setInt(4, idUser1);
-            ResultSet rs = stmt.executeQuery();
-            int id1 = rs.getInt("idUser1");
-            int id2 = rs.getInt("idUser2");
-            String sql2 = "INSERT INTO Message (Friendship_idUser1, Friendship_idUser2, message_text, senderId) VALUES (?, ?, ?, ?)";
-            PreparedStatement stmt2 = conn.prepareStatement(sql2);
-            stmt2.setInt(1, id1);
-            stmt2.setInt(2, id2);
-            stmt2.setString(3, text);
-            stmt2.setInt(4, senderId);
-            stmt2.executeUpdate();
-            ResultSet rs2 = stmt2.getGeneratedKeys();
-            if (rs2.next()) {
-                int messageId = rs2.getInt(1);
-            }
-            stmt2.close();
-            return null;
-        });
-    }*/
-    public ChatFactory.Message createMessage(int userId, int friendId, String message) {
-        /*try{
-        return db.withConnection(conn -> {
-            ChatFactory.Message msg = null;
-            String sql = "INSERT INTO Message (message_text, Friendship_idUser1, Friendship_idUser2, senderId) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Message (Friendship_idUser1, Friendship_idUser2, message_text, senderId, timestamp) VALUES ((SELECT idUser1 FROM Friendship WHERE (idUser1 = ? AND idUser2 = ?) OR (idUser1 = ? AND idUser2 = ?)), (SELECT idUser2 FROM Friendship WHERE (idUser1 = ? AND idUser2 = ?) OR (idUser1 = ? AND idUser2 = ?)), ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, message);
-            stmt.setInt(2, userId);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, friendId);
             stmt.setInt(3, friendId);
             stmt.setInt(4, userId);
+            stmt.setInt(5, userId);
+            stmt.setInt(6, friendId);
+            stmt.setInt(7, friendId);
+            stmt.setInt(8, userId);
+            stmt.setString(9, message);
+            stmt.setInt(10, userId);
+            stmt.setTimestamp(11, timestamp);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt(1);
-                msg = new ChatFactory.Message(id, userId, friendId, message, userId);
+                msg = new Message(id, userId, friendId, message, userId);
             }
+
             stmt.close();
             return msg;
         });
-    }catch(RuntimeException runtimeException){
-            return db.withConnection(conn -> {
-                ChatFactory.Message msg = null;
-                String sql = "INSERT INTO Message (message_text, Friendship_idUser1, Friendship_idUser2, senderId) VALUES (?, ?, ?, ?)";
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                stmt.setString(1, message);
-                stmt.setInt(2, friendId);
-                stmt.setInt(3, userId);
-                stmt.setInt(4, userId);
-                stmt.executeUpdate();
-                ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) {
-                    int id = rs.getInt(1);
-                    msg = new ChatFactory.Message(id, userId, friendId, message, userId);
-                }
-                stmt.close();
-                return msg;
-        });
-    }*/return null;}
+    }
 
 
     public class Message {
