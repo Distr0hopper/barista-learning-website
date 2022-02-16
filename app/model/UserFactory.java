@@ -206,7 +206,7 @@ public class UserFactory {
             this.username = rs.getString("username");
             this.mail = rs.getString("mail");
             this.points = rs.getInt("points");
-            this.timestamp = rs.getDate("timestampt");
+            this.timestamp = rs.getDate("timestamp");
             this.reward = rs.getString("rewardString");
             this.rewardId = rs.getInt("Rewards_idRewards");
             this.profilePic = rs.getString("profile_pic");
