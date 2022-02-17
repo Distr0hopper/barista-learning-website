@@ -81,7 +81,8 @@ function createFriendship() {
 }
 
 async function search(){
-    console.time("users")
+    document.getElementById("search-friends").innerHTML = '';
+    console.time("users");
     let response = await fetch("http://localhost:9000/social/getEveryone");
     console.timeEnd("users")
     let userlist = await response.json();
@@ -114,7 +115,8 @@ async function search(){
         document.getElementById("search-friends").style.display = "block";
     }
     else{
-        document.getElementById("search-friends").appendChild(document.createTextNode("This user does not exist"));
+        document.getElementById("search-friends").innerHTML = "This user does not exist";
+        document.getElementById("search-friends").style.color = "white";
         document.getElementById("search-friends").style.display = "block";
     }
 }
@@ -149,7 +151,7 @@ function sendMessage(){
         message: message,
         friend: friend
     }
-
+    document.getElementById("message").value = '';
     fetch("/social/sendMessage", {
         method: 'POST',
         body: JSON.stringify(messageData),
@@ -162,7 +164,7 @@ function sendMessage(){
         } else {
             response.json()
         }})
-    message.value = '';
+
 }
 
 function createMessage(klasse, message){

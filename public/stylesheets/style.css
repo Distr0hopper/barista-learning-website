@@ -767,6 +767,11 @@ li{
     list-style: none;
 }
 
+#friend-list{
+    overflow-y: scroll;
+    height: 85vh;
+}
+
 .my-message{
     color:white;
     background-color: var(--dropshadow-color);
