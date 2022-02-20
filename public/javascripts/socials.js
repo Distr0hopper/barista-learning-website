@@ -143,28 +143,46 @@ function openMessages(myId, friendId){
     })
 }
 
-function sendMessage(){
+function validateForm() {
     let message = document.getElementById("message").value;
-    createMessage("my-message", message);
-    let friend = document.getElementById("header-name").innerHTML;
-    const messageData = {        //JSON objekt mit Keys und values nach Stringify
-        message: message,
-        friend: friend
+    if (message == null || message == "") {
+        // alert("You cannot send an empty message!");
+        return false;
+    } else {
+        return true;
     }
-    document.getElementById("message").value = '';
-    fetch("/social/sendMessage", {
-        method: 'POST',
-        body: JSON.stringify(messageData),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    }).then(response => {
-        if(response.ok) {
-            console.log(response);
-        } else {
-            response.json()
-        }})
+}
 
+// send message by pressing enter
+$('html').keydown(function(e){
+    if(e.which==13 && validateForm()){
+        sendMessage();
+    }
+});
+
+function sendMessage(){
+    if (validateForm()) {
+        let message = document.getElementById("message").value;
+        createMessage("my-message", message);
+        let friend = document.getElementById("header-name").innerHTML;
+        const messageData = {        //JSON objekt mit Keys und values nach Stringify
+            message: message,
+            friend: friend
+        }
+        document.getElementById("message").value = '';
+        fetch("/social/sendMessage", {
+            method: 'POST',
+            body: JSON.stringify(messageData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            if(response.ok) {
+                console.log(response);
+            } else {
+                response.json()
+            }})
+    }
 }
 
 function createMessage(klasse, message){
