@@ -4,70 +4,57 @@
 <html lang="de">
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <title>Create account</title>
+        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/bootstrap.min.css")" type="text/css">
+        <script src="@assetsFinder.path("javascripts/bootstrap.bundle.min.js")"></script>
+        <script src="@assetsFinder.path("javascripts/jquery.min.js")"></script>
         <link rel="stylesheet" href="@assetsFinder.path("stylesheets/style.css")" type="text/css">
     </head>
     <body>
-        <div class="flex align-items-center m-5 pt-5">
-            <section class="form my-4 mx-5">
-                <div class="container">
-                    <div class="row row-login no-gutters">
-                        <div class="col-lg-5">
-                            <img src="@assetsFinder.path("images/heisser-kaffee.png")" class="img-fluid pt-5" alt="coffe-mug">
-                        </div>
-                        <div class="col-lg-7 px-5 pt-5">
-                            <h1 class="font-weight-bold py-3">Create your Account</h1>
-                            <div>
-                                <div class="form-row">
-                                    <div class="col-lg-7 pt-3">
-                                        <label for="email">Enter your Email: </label> <input type="email" placeholder="Email"
-                                    id="email"
-                                    class="form-control my-3 p-4"/>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7 pt-3">
-                                        <label for="username">Choose a Username: </label> <input type="text" placeholder="Username"
-                                    id="username"
-                                    class="form-control my-3 p-4"/>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <label for="password">Create Password: </label> <input type="password" placeholder="Password"
-                                    id="password"
-                                    class="form-control my-3 p-4"/>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <label for="password"> Repeat Password: </label> <input type="password" placeholder="Repeat Password"
-                                    id="password2"
-                                    class="form-control my-3 p-4"/>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-7">
-                                        <button type="button" class="login_btn mt-3 mb-5 p-4" onclick="checkCreateAccount()" id="myBtn">
-                                            Create Account
-                                        </button>
-
-                                        <p id="fehler" class="mb-2 bg-danger text-white"></p>
-                                    </div>
-                                </div>
-                                <p class="pb-5">Already have an account? <a href='/'>Login</a></p>
-                            </div>
-                        </div>
-                    </div>
+        <div class="container mt-5">
+            <div class="row row-login no-gutters">
+                <div class="d-none d-lg-block col-5">
+                    <img src="@assetsFinder.path("images/heisser-kaffee.png")" class="img-fluid pt-5" alt="Coffee Cup">
                 </div>
-            </section>
-            <script type="text/javascript" src="@assetsFinder.path("javascripts/login_register.js")"></script>
-</div>
-</body>
+                <div class="col-12 col-lg-7 px-5 pt-5">
+                    <h1 class="font-weight-bold py-3">Create your Account</h1>
+                    <div class="form-inline pt-3 col-12 col-lg-9">
+                        <div class="" role="alert" id="alert-auth">
+                            <span id="alert-auth-message" class="text-brown"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Enter your Email: </label>
+                            <input type="email" placeholder="Email" id="email" class="form-control mb-3 p-3"/>
+                            <div class="text-brown mb-3" id="email-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Choose a Username: </label>
+                            <input type="text" placeholder="Username" id="username" class="form-control mb-3 p-3"/>
+                            <div class="text-brown mb-3" id="name-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Create Password: </label>
+                            <input type="password" placeholder="Password" id="password" class="form-control p-3"/>
+                            <div class="form-text text-white mb-3">
+                                The password should have at least eight characters, one lowercase letter, one uppercase letter, one digit and one special character.
+                            </div>
+                            <div class="text-brown mb-3" id="password-strength-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password2"> Repeat Password: </label>
+                            <input type="password" placeholder="Repeat Password" id="password2" class="form-control mb-2 p-3"/>
+                            <div class="text-brown mb-2" id="password-error"></div>
+                        </div>
+                        <button type="button" class="login_btn mt-3 mb-5 p-4" onclick="checkCreateAccount()" id="myBtn">
+                            Create Account
+                        </button>
+
+                        <p id="fehler" class="mb-2 bg-danger text-white"></p>
+                    </div>
+                    <p class="pb-5">Already have an account? <a href='/'>Login</a></p>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/login_register.js")"></script>
+    </body>
 </html>

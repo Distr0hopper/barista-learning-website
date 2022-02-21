@@ -75,7 +75,7 @@ public class UserController extends Controller {
                 login.render(assetsFinder));
     }
 
-    public Result checklogin(Http.Request request) {
+    public Result checkLogin(Http.Request request) {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
         String password = json.get("password").textValue();
@@ -99,7 +99,7 @@ public class UserController extends Controller {
         }
     }
 
-
+    // TODO: form validation on server to match the rules that are on frontend
     public Result checkCreateAccount(Http.Request request) {
         userNamesList = userFactory.getAllUsernames();
         //System.out.println(userNamesList);

@@ -44,7 +44,7 @@ GET /socials                        controllers.HomeController.socials(request :
 
 GET /dictionary                     controllers.HomeController.dictionary(request: Request)
 
-POST /user/auth                     controllers.UserController.checklogin(request : Request)
+POST /user/auth                     controllers.UserController.checkLogin(request : Request)
 
 POST /games/getMoney                controllers.GameController.requestMoney(request : Request)
 
