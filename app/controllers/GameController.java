@@ -90,6 +90,19 @@ public class GameController extends Controller {
         }
 
     }
+    public Result gameLevelThreeGame1(Http.Request request) {
+        if (userController.isLoggedIn(request)) {
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
+            return ok(
+                    gameLevelTwo.render("GameThree",String.valueOf(money), assetsFinder)
+            );
+        } else {
+            return redirect(routes.UserController.login().url());
+        }
+
+    }
 
     public Result gameLevelTwoMemory(Http.Request request) {
         if (userController.isLoggedIn(request)){
@@ -104,6 +117,21 @@ public class GameController extends Controller {
         }
 
     }
+
+    public Result gameLevelThreeMemory(Http.Request request) {
+        if (userController.isLoggedIn(request)){
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
+            return ok(
+                    gameLevelTwoMemory.render("GameThreeMemory", String.valueOf(money), assetsFinder)
+            );
+        } else {
+            return redirect(routes.UserController.login().url());
+        }
+
+    }
+
 
     public Result gameLevelThree(Http.Request request) {
         if (userController.isLoggedIn(request)) {
