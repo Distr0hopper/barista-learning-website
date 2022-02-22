@@ -81,7 +81,7 @@ async function loadModal() {
     console.log(modalInputMap)
     sessionStorage.setItem("modalInput", JSON.stringify(modalInputMap))
 }
-
+window.addEventListener('load', getRandomSixCustomers)
 window.addEventListener('load', loadModal)
 tipModal.on('shown.bs.modal', function (){
     $('.card-group').innerText = createDictionary()
