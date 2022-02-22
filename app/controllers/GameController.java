@@ -1,6 +1,7 @@
 package controllers;
 
 import akka.http.impl.engine.server.ServerTerminationDeadlineReached;
+import akka.http.javadsl.model.Query;
 import com.fasterxml.jackson.databind.JsonNode;
 import model.CustomerFetcher;
 import model.UserFactory;
@@ -8,10 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.defaultGame;
-import views.html.gameLevelThree;
-import views.html.gameLevelTwo;
-import views.html.gameLevelTwoMemory;
+import views.html.*;
 
 import javax.inject.Inject;
 import javax.script.Invocable;
@@ -90,6 +88,19 @@ public class GameController extends Controller {
         }
 
     }
+    public Result gameLevelThreeGame1(Http.Request request) {
+        if (userController.isLoggedIn(request)) {
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
+            return ok(
+                    gameLevelThreeGame1.render("GameThreeGame1",String.valueOf(money), assetsFinder)
+            );
+        } else {
+            return redirect(routes.UserController.login().url());
+        }
+
+    }
 
     public Result gameLevelTwoMemory(Http.Request request) {
         if (userController.isLoggedIn(request)){
@@ -105,11 +116,26 @@ public class GameController extends Controller {
 
     }
 
+    public Result gameLevelThreeMemory(Http.Request request) {
+        if (userController.isLoggedIn(request)){
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
+            return ok(
+                    gameLevelThreeMemory.render("GameThreeMemory", String.valueOf(money), assetsFinder)
+            );
+        } else {
+            return redirect(routes.UserController.login().url());
+        }
+
+    }
+
+
     public Result gameLevelThree(Http.Request request) {
         if (userController.isLoggedIn(request)) {
             String money = request.session().get("money").get();
             return ok(
-                    gameLevelThree.render("gameThree",money, assetsFinder)
+                    gameLevelThree.render("GameThree",money, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());

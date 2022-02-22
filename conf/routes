@@ -28,6 +28,10 @@ GET /games/gameLevelTwo             controllers.GameController.gameLevelTwo(requ
 
 GET /games/gameLevelTwoMemory       controllers.GameController.gameLevelTwoMemory(request : Request)
 
+GET /games/gameLevelThreeGame1      controllers.GameController.gameLevelThreeGame1(request : Request)
+
+GET /games/gameLevelThreeMemory     controllers.GameController.gameLevelThreeMemory(request : Request)
+
 GET /games/gameLevelThree           controllers.GameController.gameLevelThree(request : Request)
 
 GET /user/forgotPassword            controllers.UserController.forgotPassword

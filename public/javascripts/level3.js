@@ -141,7 +141,7 @@ async function loadModal() {
         getNextPayingCostumer(){
             let nextCostumerWhoHasToPay = null;
             let randomCostumerAmount = this.getRandomCoffeeAmountNumber();
-            if(  randomCostumerAmount <5) {
+            if( randomCostumerAmount <5) {
                 nextCostumerWhoHasToPay = randomCostumerAmount + 1 ;
             }
             return nextCostumerWhoHasToPay;
@@ -175,9 +175,8 @@ async function loadModal() {
     for (let i = 0; i <= numberOfPayedCoffeeByOneCostumer-1; i++) {
 
         if(numberOfPayedCoffeeByOneCostumer > 1) {
-
             $('.addingCostumer').clone().appendTo('#addingMoreCostumers');
-i++;
+        i++;
         }
 
 

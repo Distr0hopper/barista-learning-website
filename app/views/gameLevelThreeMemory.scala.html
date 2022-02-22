@@ -1,0 +1,99 @@
+@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+
+@navbar("GameThreeMemory", money) {
+    @* modal*@
+    <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Level 2: Remember who ordered which coffee!</h5>
+                </div>
+                <div class="modal-body modal-fade align-items-center justify-content-center">
+                    <div class="container-fluid ms-2">
+                        <div class="row w-100">
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row w-100">
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ml-auto">
+                                <div class="card w-100 h-auto" style="width: 18rem;">
+                                    <img class="card-img-top" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">Capuccino</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex d-flex align-items-center justify-content-center">
+        <div class="col-lg-6 col-md-10 col-sm-12 mt-5 align-items-center justify-content-center">
+            @*Popover*@
+            <div>
+                <h3 class="result mb-4 px-4 text-center">Score
+                    <button type="button" class="btn example-popover p-0" data-toggle="popover" title="LEVEL 2: MEMORY"
+                    data-content="Now that you know the ingredients of a few Coffees, let's practise remembering which customer ordered which coffee.<br/>
+                    Try to match the people that you saw in the pop-up window a second ago to the Coffees they ordered!
+                      <br/> The score here will be added to your total amount of points as soon as you have finished your memory.
+                      <br/> Good luck ☘" data-placement="bottom" data-html="true">
+                        <img src="@assetsFinder.path("images/help_white.svg")" alt="help">
+                    </button>
+                    : <span id="result"></span>
+                </h3>
+
+            </div>
+@*            content memory*@
+            <div>
+                <div class="gridShow image-fluid align-items-center justify-content-center text-center"></div>
+                <div class="grid image-fluid align-items-center justify-content-center text-center"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/customers.js")"></script>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/coffees.js")"></script>
+@*    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g.js")"></script>*@
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level2_g_memory.js")"></script>
+}
