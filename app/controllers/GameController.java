@@ -12,14 +12,7 @@ import play.mvc.Result;
 import views.html.*;
 
 import javax.inject.Inject;
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 
 public class GameController extends Controller {
     private final AssetsFinder assetsFinder;

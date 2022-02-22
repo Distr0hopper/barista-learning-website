@@ -25,9 +25,9 @@ public class Coffee {
             this.price = rs.getFloat("price");
             this.coffeeImgPath = rs.getString("coffeeImgPath");
             String ingredientList1 = rs.getString("ingredientList");
-            System.out.println(ingredientList1);
+//            System.out.println(ingredientList1);
             this.ingredientList = ingredientList1.split(",");
-            Arrays.stream(ingredientList).forEach(System.out::println);
+//            Arrays.stream(ingredientList).forEach(System.out::println);
         }
 
 

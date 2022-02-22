@@ -56,7 +56,7 @@ body{
     /*background-color: rgba(255, 255, 255, 0.3);*/
     background-color: var(--light-brown-color);
     border-radius: 30px;
-    box-shadow: 0 0 20px var(--dropshadow-color);
+    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     color: white;
 }
 .login_btn{
@@ -101,7 +101,7 @@ a:hover{
     filter: brightness(110%);
     border-radius: 10px;
     border: none;
-    box-shadow: 6px 6px 11px var(--dropshadow-color);
+    /*box-shadow: 6px 6px 11px var(--dropshadow-color);*/
     cursor: pointer;
     transition: all 0.5s
 }
@@ -114,7 +114,7 @@ a:hover{
     filter: brightness(110%);
     border-radius: 10px;
     border: none;
-    box-shadow: 0 0 20px var(--dropshadow-color);
+    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     cursor: pointer;
     transition: all 0.5s
 }
@@ -231,12 +231,11 @@ hr .new1 {
 /*styling list highscores*/
 .scorebox{
     width: 1200px;
-    /*background-color: rgba(147,101,68,0.7);*/
     background-color: var(--card-color);
     filter: brightness(110%);
     /*border-radius: 10px;*/
     /*border: 1px dashed var(--dropshadow-color);*/
-    box-shadow: 0 0 20px var(--dropshadow-color);
+    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23936544FF' stroke-width='8' stroke-dasharray='8%2c 21' stroke-dashoffset='28' stroke-linecap='square'/%3e%3c/svg%3e");*/
     border-radius: 10px;
     cursor: pointer;
@@ -304,17 +303,17 @@ hr .new1 {
 .modal-content{
     background-color: var(--card-color);
     color: white;
+    border-radius: 10px;
 }
 .modal-header{
-    /*border-bottom-color: rgba(147,101,68,255);*/
     border-bottom-color: var(--light-brown-color);
 }
 .modal-footer{
-    /*border-top-color: rgba(147,101,68,255);*/
     border-bottom-color: var(--light-brown-color);
+    border-top-color: var(--light-brown-color);
+
 }
 .savebutton{
-    /*background-color: rgba(147,101,68,255);*/
     background-color: var(--light-brown-color);
     filter: brightness(110%);
     color: white;
@@ -374,7 +373,7 @@ hr .new1 {
     background-color: var(--card-color);
     border-radius: 10px;
     border: none;
-    box-shadow: 0 0 20px px var(--dropshadow-color);
+    /*box-shadow: 0 0 20px px var(--dropshadow-color);*/
     color: white;
 }
 
@@ -408,85 +407,6 @@ hr .new1 {
 #coffee-mug{
     width: 100%;
     height: 100%;
-}
-
-/*
-.dropzone {
-    border: dashed 4px transparent;
-    border-radius: 4px;
-    margin: 10px auto 30px;
-    padding: 10px;
-
-    transition: background-color 0.3s;
-}
-
-.drop-active {
-    border-color: #aaa;
-}
-
-.drop-target{
-    background-color: #29e;
-    border-color: #fff;
-    border-style: solid;
-}
-
-.drag-drop {
-    color: #fff;
-    border: solid 2px #fff;
-    transform: translate(0px,0px);
-    transition: background-color 0.3s;
-}
-*/
-
-/*progressbar*/
-.progress-game{
-    background-color: var(--backround-color);
-    /*color: */
-}
-.progress-shown{
-    background-color: var(--card-color);
-}
-/*draggable img*/
-
-
-/*memory game*/
-
-/*modal*/
-.modal-content{
-    background-color: rgba(96,47,32,255);
-    color: white;
-}
-.modal-header{
-    border-bottom-color: rgba(147,101,68,255);
-}
-.modal-footer{
-    border-top-color: rgba(147,101,68,255);
-}
-.savebutton{
-    background-color: rgba(147,101,68,255);
-    color: white;
-}
-.savebutton:hover{
-    background-color: rgba(50,30,21,255);
-    color: white;
-    border-color: transparent;
-}
-.savebutton:focus{
-    background-color: rgba(50,30,21,255);
-    color: white;
-    border-color: transparent;
-}
-.closebutton-bottom{
-    color: white;
-    background-color: rgba(50,30,21,255);
-}
-.closebutton-bottom:hover{
-    background-color: saddlebrown;
-    color: white;
-    border-color: transparent;
-}
-.closebutton-bottom:focus{
-
 }
 
 .coffeemachine:hover{
@@ -544,7 +464,7 @@ hr .new1 {
     border-radius: 10px;
 }
 .cardCoffee:hover{
-    box-shadow: 0 0 20px var(--dropshadow-color);
+    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     transition: all 0.3s ease;
 }
 
@@ -595,8 +515,9 @@ hr .new1 {
     border-color: transparent;
 }
 .learnText{
-    color: var(--dropshadow-color);
-    filter: brightness(150%);
+    color: white;
+    font-weight: 100;
+
 }
 .subtitleLearn{
     color: var(--dropshadow-color);
@@ -866,4 +787,8 @@ li{
 #alert-message, .text-brown {
     color: var(--backround-color);
     font-weight: bold;
+}
+
+.cursor-normal {
+    pointer-events: none!important;
 }
