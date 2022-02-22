@@ -44,6 +44,7 @@ async function loadModal() {
     /**
      * put Coffeetitles in modal*/
     var coffeesForLevel2 = JSON.parse(sessionStorage.getItem("allCoffees"))
+    console.log(coffeesForLevel2)
     const coffeeOrderCards = $('.card-text');
     const coffeeTitles = coffeesForLevel2.map(coffee => {
         return coffee.title
@@ -59,11 +60,11 @@ async function loadModal() {
     var customersForLevel2 = JSON.parse(sessionStorage.getItem("sixCustomers"))
     console.log(customersForLevel2)
     const coffeeOrderCustomers = $('.card-img-top');
+
     var customersLevel2Img = []
     for (let i = 0; i < customersForLevel2.length; i++) {
         customersLevel2Img[i] = customersForLevel2[i].customerImgPath
     }
-
     console.log(customersLevel2Img)
 
     sessionStorage.setItem("sixCustomerImg", JSON.stringify(customersLevel2Img))
