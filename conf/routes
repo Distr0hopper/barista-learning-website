@@ -64,7 +64,7 @@ POST /social/sendMessage           controllers.SocialPageController.sendMessage(
 
 GET /games/getAllCustomers             controllers.GameController.getCustomers
 
-#POST /user/deleteFriend            controllers.UserController.removeFriend
+POST /social/deleteFriend            controllers.SocialPageController.deleteFriendship(request : Request)
 
 
 #GET /userid                         controllers.APIController.getUserId(request: Request)

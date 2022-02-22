@@ -817,6 +817,25 @@ li{
     margin-left: 5%;
     margin-top: 5%;
 }
+
+.btn-cancel{
+    background-color: var(--light-brown-color);
+    color: white;
+    float: left;
+    margin: 5px;
+}
+
+.btn-unfriend{
+    background-color: var(--light-brown-color);
+    color: white;
+    margin: 20px;
+    font-size: 20px;
+}
+
+.btn-unfriend:hover{
+    color: white;
+    border-color: white;
+}
 /*popover*/
 .popover-header{
     color: white;

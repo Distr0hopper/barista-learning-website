@@ -26,6 +26,9 @@ function changeRanking(){
 }
 window.onload(changeRanking());
 
+/**
+ * saves the new username to the database and reloads the profile page to display the new username
+ */
 function saveUsername() {
     if (canEdit === true) {
         let nameInput = document.getElementById('profilename')
@@ -42,10 +45,8 @@ function saveUsername() {
             },
         }).then(response => {
             if(response.ok) {
+
                 return window.location = response.url;
-                document.querySelector('#profilename').readOnly = true;
-                document.querySelector('#edit_button').textContent = "Edit Username";
-                canEdit = false;
             } else {
                 return response.json()
             }}).then(data => {
@@ -66,6 +67,9 @@ function closeModal() {
     $('#myModal').modal('hide');
 }
 
+/**
+ * saves the new avatar chosen by the user to the database and displays it in the profile page
+ */
 function chooseAvatar() {
     let img = '';
     setTimeout(function () {
