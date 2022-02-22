@@ -1,6 +1,7 @@
 package controllers;
 
 import akka.http.impl.engine.server.ServerTerminationDeadlineReached;
+import akka.http.javadsl.model.Query;
 import com.fasterxml.jackson.databind.JsonNode;
 import model.CustomerFetcher;
 import model.UserFactory;
@@ -8,10 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.defaultGame;
-import views.html.gameLevelThree;
-import views.html.gameLevelTwo;
-import views.html.gameLevelTwoMemory;
+import views.html.*;
 
 import javax.inject.Inject;
 import javax.script.Invocable;
@@ -96,7 +94,7 @@ public class GameController extends Controller {
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             return ok(
-                    gameLevelTwo.render("GameThreeGame1",String.valueOf(money), assetsFinder)
+                    gameLevelThreeGame1.render("GameThreeGame1",String.valueOf(money), assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -124,7 +122,7 @@ public class GameController extends Controller {
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             return ok(
-                    gameLevelTwoMemory.render("GameThreeMemory", String.valueOf(money), assetsFinder)
+                    gameLevelThreeMemory.render("GameThreeMemory", String.valueOf(money), assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
