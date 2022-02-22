@@ -1,3 +1,10 @@
+/**
+ * fetches all of the friends of the logged in user and displays them on the left side of the socials page
+ * every username and their profile pic are stored in a button
+ * when you click on that button the chat with said user opens
+ * @param myId
+ * @returns {Promise<void>}
+ */
 async function createFriends(myId){
     console.time("friends")
     let response = await fetch("http://localhost:9000/social/friends");
@@ -58,6 +65,12 @@ function closeModal(){
     $('#friendModal').modal('hide');
 }
 
+/**
+ * creates a new friendship between two users and stores it in the database
+ * is only called from the function search() to make sure that the user input is valid
+ * after the friendship has been successfully saved the user is alerted that it worked and
+ * the page is reloaded
+ */
 function createFriendship() {
     let friend = document.getElementById("search-user");
     const friendData = {        //JSON objekt mit Keys und values nach Stringify
@@ -80,14 +93,20 @@ function createFriendship() {
     })
 }
 
+/**
+ * searches for other users to become friends with. Only shows users, the logged in user is not already friends with
+ * @returns {Promise<void>}
+ */
 async function search(){
+    // fetches the user input from the html and fetches all of the users the logged in user is not friends with from the
+    // database
     document.getElementById("search-friends").innerHTML = '';
     console.time("users");
     let response = await fetch("http://localhost:9000/social/getEveryone");
     console.timeEnd("users")
     let userlist = await response.json();
 
-
+    // checks if the user input equals a real user
     let searchUser = document.getElementById("search-user").value;
     let userExists;
     userlist.forEach((user, i) => {
@@ -95,6 +114,7 @@ async function search(){
             userExists = true;
         }
     })
+    // if the user exists the username is displayed and a button to create a friendship is added
     if (userExists){
         let userbutton = document.createElement("button");
         userbutton.type = "button";
@@ -114,6 +134,7 @@ async function search(){
         document.getElementById("search-friends").appendChild(div);
         document.getElementById("search-friends").style.display = "block";
     }
+    // otherwise an error message is displayed
     else{
         document.getElementById("search-friends").innerHTML = "This user does not exist";
         document.getElementById("search-friends").style.color = "white";
@@ -121,8 +142,15 @@ async function search(){
     }
 }
 
+
+// here the messages will be stored later on
 let messages = '';
 
+
+/**
+ * fetches the messages from the database via the SocialPageController
+ * @returns {Promise<void>}
+ */
 async function getMessages(){
     messages = '';
     console.time("messages")
@@ -131,6 +159,12 @@ async function getMessages(){
     messages = await response.json();
 }
 
+/**
+ * Displays the messages between the logged in user and one friend in the chat by first sorting them via senderId and then giving them
+ * to createMessage() with the right sender
+ * @param myId - id of the logged in user
+ * @param friendId - friend the user wants to chat with
+ */
 function openMessages(myId, friendId){
     $('#chat-list').empty();
     messages.forEach((message, i) => {
@@ -143,6 +177,10 @@ function openMessages(myId, friendId){
     })
 }
 
+/**
+ * makes sure you can't send empty messages
+ * @returns true when the user input is not empty.
+ */
 function validateForm() {
     let message = document.getElementById("message").value;
     if (message == null || message == "") {
@@ -160,6 +198,9 @@ $('html').keydown(function(e){
     }
 });
 
+/**
+ * sends the message to the SocialPage Controller via a JSON object
+ */
 function sendMessage(){
     if (validateForm()) {
         let message = document.getElementById("message").value;
@@ -185,6 +226,11 @@ function sendMessage(){
     }
 }
 
+/**
+ * creates a new visual representation of the message
+ * @param klasse - either 'my-message' or 'their-message'. Determines where the message is shown (on the left or the right side of the chat)
+ * @param message - the text in the message
+ */
 function createMessage(klasse, message){
     let ul = document.getElementById("chat-list");
     let li = document.createElement("li");
@@ -194,6 +240,32 @@ function createMessage(klasse, message){
     div.appendChild((document.createTextNode(message)));
     li.appendChild(div);
     ul.appendChild(li);
+}
+
+/**
+ * opens the warning modal "Are you sure you want to unfriend this user?"
+ */
+function openUnfriendModal(){
+    $('#ModalUnfriendUser').modal('show');
+}
+
+function deleteFriendship(){
+    let friend = document.getElementById("header-name").innerHTML;
+    const data = {
+        friendName: friend
+    }
+    fetch("/social/deleteFriend", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(response => {
+        if(response.ok) {
+            window.location = response.url;
+        } else {
+            response.json()
+        }})
 }
 
 

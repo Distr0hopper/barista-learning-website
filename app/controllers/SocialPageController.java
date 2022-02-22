@@ -67,6 +67,17 @@ public class SocialPageController extends Controller {
         return redirect(routes.HomeController.socials().url());
 }
 
+    public Result deleteFriendship(Http.Request request) {
+        JsonNode json = request.body().asJson();
+        String friend = json.get("friendName").textValue();
+        int friendId = userFactory.getUserByUsername(friend).getId();
+        String userIDString = request.session().get("userID").get();
+        int userId = Integer.parseInt(userIDString);
+        friendshipFactory.deleteMessages(userId, friendId);
+        friendshipFactory.deleteFriendship(userId, friendId);
+        return redirect(routes.HomeController.socials().url());
+    }
+
 
     public Result getNotFriends(Http.Request request){
         String userIDString = request.session().get("userID").get();

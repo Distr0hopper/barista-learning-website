@@ -16,6 +16,11 @@ public class ChatFactory {
         this.db = db;
     }
 
+    /**
+     * fetches all the messages one user has sent or received and returns them in a list
+     * @param idUser1 the user for which the messages shall be fetched
+     * @return the list of all the messages
+     */
     public List<ChatFactory.Message> getAllMessages(int idUser1) {
         return db.withConnection(conn -> {
             List<ChatFactory.Message> messages = new ArrayList<>();
@@ -34,6 +39,14 @@ public class ChatFactory {
     }
 
 
+    /**
+     * adds a new Message in the database table 'Message'
+     * creates a new instance of the class message
+     * @param userId - the id of the user that sent the message
+     * @param friendId - the id of the friend that the message shall be sent to
+     * @param message - the message that shall be sent
+     * @return the new instance of the class message
+     */
     public Message createMessage(int userId, int friendId, String message) {
         return db.withConnection(conn -> {
             Message msg = null;
