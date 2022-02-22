@@ -792,3 +792,20 @@ li{
 .cursor-normal {
     pointer-events: none!important;
 }
+
+/* game 2 memory display only 4 elements on a row */
+.parent {
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    justify-content: center;
+}
+
+.child {
+    height: 200px;
+    width: 200px;
+    padding: 15px;
+    transformStyle: preserve-3d;
+    margin: auto;
+}

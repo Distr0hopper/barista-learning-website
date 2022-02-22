@@ -132,11 +132,8 @@ function createBoard() {
         var card = document.createElement('img')
         card.setAttribute('src', "../assets/images/Memory-Backdrop.png")
         card.setAttribute('data-id', i)
-        card.setAttribute('height', '200px')
-        card.setAttribute('width', '200px')
-        card.setAttribute('id', 'memory-img')
-        card.style.padding = '15px'
-        card.style.transformStyle = 'preserve-3d'
+        card.setAttribute('id', 'memory-img') // the id should be unique
+        card.setAttribute('class', 'child')
         card.addEventListener('click', flipcard)
         grid.appendChild(card)
     }
@@ -232,11 +229,8 @@ function showBoard() {
         var cardAllShown = document.createElement('img')
         cardAllShown.setAttribute('src', cardArray[i].img)
         cardAllShown.setAttribute('data-id', i)
-        cardAllShown.setAttribute('height', '200px')
-        cardAllShown.setAttribute('width', '200px')
         cardAllShown.setAttribute('id', 'memory-img')
-        cardAllShown.style.padding = '15px'
-        cardAllShown.style.transformStyle = 'preserve-3d'
+        cardAllShown.setAttribute('class', 'child')
         gridShow.appendChild(cardAllShown);
         gridShow.id = "allShownGrid";
     }
