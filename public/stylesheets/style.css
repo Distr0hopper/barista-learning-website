@@ -231,7 +231,6 @@ hr .new1 {
 /*styling list highscores*/
 .scorebox{
     width: 1200px;
-    /*background-color: rgba(147,101,68,0.7);*/
     background-color: var(--card-color);
     filter: brightness(110%);
     /*border-radius: 10px;*/
@@ -304,17 +303,17 @@ hr .new1 {
 .modal-content{
     background-color: var(--card-color);
     color: white;
+    border-radius: 10px;
 }
 .modal-header{
-    /*border-bottom-color: rgba(147,101,68,255);*/
     border-bottom-color: var(--light-brown-color);
 }
 .modal-footer{
-    /*border-top-color: rgba(147,101,68,255);*/
     border-bottom-color: var(--light-brown-color);
+    border-top-color: var(--light-brown-color);
+
 }
 .savebutton{
-    /*background-color: rgba(147,101,68,255);*/
     background-color: var(--light-brown-color);
     filter: brightness(110%);
     color: white;
@@ -408,85 +407,6 @@ hr .new1 {
 #coffee-mug{
     width: 100%;
     height: 100%;
-}
-
-/*
-.dropzone {
-    border: dashed 4px transparent;
-    border-radius: 4px;
-    margin: 10px auto 30px;
-    padding: 10px;
-
-    transition: background-color 0.3s;
-}
-
-.drop-active {
-    border-color: #aaa;
-}
-
-.drop-target{
-    background-color: #29e;
-    border-color: #fff;
-    border-style: solid;
-}
-
-.drag-drop {
-    color: #fff;
-    border: solid 2px #fff;
-    transform: translate(0px,0px);
-    transition: background-color 0.3s;
-}
-*/
-
-/*progressbar*/
-.progress-game{
-    background-color: var(--backround-color);
-    /*color: */
-}
-.progress-shown{
-    background-color: var(--card-color);
-}
-/*draggable img*/
-
-
-/*memory game*/
-
-/*modal*/
-.modal-content{
-    background-color: rgba(96,47,32,255);
-    color: white;
-}
-.modal-header{
-    border-bottom-color: rgba(147,101,68,255);
-}
-.modal-footer{
-    border-top-color: rgba(147,101,68,255);
-}
-.savebutton{
-    background-color: rgba(147,101,68,255);
-    color: white;
-}
-.savebutton:hover{
-    background-color: rgba(50,30,21,255);
-    color: white;
-    border-color: transparent;
-}
-.savebutton:focus{
-    background-color: rgba(50,30,21,255);
-    color: white;
-    border-color: transparent;
-}
-.closebutton-bottom{
-    color: white;
-    background-color: rgba(50,30,21,255);
-}
-.closebutton-bottom:hover{
-    background-color: saddlebrown;
-    color: white;
-    border-color: transparent;
-}
-.closebutton-bottom:focus{
-
 }
 
 .coffeemachine:hover{
@@ -595,8 +515,9 @@ hr .new1 {
     border-color: transparent;
 }
 .learnText{
-    color: var(--dropshadow-color);
-    filter: brightness(150%);
+    color: white;
+    font-weight: 100;
+
 }
 .subtitleLearn{
     color: var(--dropshadow-color);
@@ -816,6 +737,25 @@ li{
     width: 60%;
     margin-left: 5%;
     margin-top: 5%;
+}
+
+.btn-cancel{
+    background-color: var(--light-brown-color);
+    color: white;
+    float: left;
+    margin: 5px;
+}
+
+.btn-unfriend{
+    background-color: var(--light-brown-color);
+    color: white;
+    margin: 20px;
+    font-size: 20px;
+}
+
+.btn-unfriend:hover{
+    color: white;
+    border-color: white;
 }
 /*popover*/
 .popover-header{

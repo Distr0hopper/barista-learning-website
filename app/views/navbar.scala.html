@@ -26,15 +26,19 @@
                             Home</a></li>
                         <li><a class="nav-link @("active".when(page == "HighScore"))" href="@routes.SocialPageController.highscore">
                             Highscore</a></li>
-                        <li><a class="nav-link  @("active".when(page == "Profile"))" href="@routes.UserController.profile">
+                        <li><a class="nav-link @("active".when(page == "Profile"))" href="@routes.UserController.profile">
                             Profile</a></li>
-                        <li><a class="nav-link  @("active".when(page == "GameOne"))" href="@routes.GameController.defaultGame">
+                        <li><a class="nav-link @("active".when(page == "GameOne"))" href="@routes.GameController.defaultGame">
                             Game</a></li>
-                        <li><a id="gametwoNav" class="nav-link @("active".when(page == "GameTwo"))" href="@routes.GameController.gameLevelTwo">
-                            <nobr> Game-Level-2</nobr></a></li>
-                        <li><a id="gametwoNav" class="nav-link @("active".when(page == "GameTwoMemory"))" href="@routes.GameController.gameLevelTwoMemory">
+                        <li><a class="nav-link @("active".when(page == "GameTwo"))" href="@routes.GameController.gameLevelTwo">
+                            <nobr>Game-Level-2</nobr></a></li>
+                        <li><a class="nav-link @("active".when(page == "GameTwoMemory"))" href="@routes.GameController.gameLevelTwoMemory">
                             <nobr>Game-Level-2-Memory</nobr></a></li>
-                        <li><a class="nav-link gamethreeNav @("active".when(page == "GameThree"))" href="@routes.GameController.gameLevelThree">
+                        <li><a class="nav-link @("active".when(page == "GameThreeGame1"))" href="@routes.GameController.gameLevelThreeGame1">
+                        <nobr> Game-Level-3.1 </nobr></a></li>
+                        <li><a  class="nav-link @("active".when(page == "GameThreeMemory"))" href="@routes.GameController.gameLevelThreeMemory">
+                            <nobr>Game-Level-3-Memory</nobr></a></li>
+                        <li><a  class="nav-link @("active".when(page == "GameThree"))" href="@routes.GameController.gameLevelThree">
                             <nobr>Game-Level-3</nobr></a></li>
                         <li><a class="nav-link  @("active".when(page == "Store"))" href="@routes.HomeController.store">
                             Store</a></li>
@@ -42,8 +46,6 @@
                             Dictionary</a></li>
                         <li><a class="nav-link  @("active".when(page == "Socials"))" href="@routes.HomeController.socials">
                             Socials</a></li>
-                        <li></li>
-                        <li></li>
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse w-100 order-3">

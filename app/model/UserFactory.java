@@ -245,6 +245,10 @@ public class UserFactory {
             });
         }
 
+        /**
+         * updates the profile pic source in the database
+         * @param source - the new source of the profile pic
+         */
         public void updateProfilePic(String source){
             db.withConnection(conn -> {
                 String sql = "UPDATE User SET profile_pic = ? WHERE idUsers = ?";
@@ -257,6 +261,10 @@ public class UserFactory {
             });
         }
 
+        /**
+         * updates the username in the database
+         * @param name - the new username that shall be stored in the database
+         */
         public void updateName(String name){
             db.withConnection((conn -> {
                 String sql = "UPDATE User SET username = ? WHERE idUsers = ?";
