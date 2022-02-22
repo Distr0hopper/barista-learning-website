@@ -46,7 +46,7 @@ async function loadModalMemory() {
      * put Coffeetitles in modal*/
     var modalInput = JSON.parse(sessionStorage.getItem("modalInput"));
     console.log(modalInput)
-    const coffeeOrderCards = $('.card-text');
+    const coffeeOrderCards = $('.card-title');
     const coffeeOrderCustomers = $('.card-img-top');
     const orderHeader = $('#order');
     for (let i = 0; i < modalInput.length; i++) {
@@ -132,10 +132,10 @@ function createBoard() {
         var card = document.createElement('img')
         card.setAttribute('src', "../assets/images/Memory-Backdrop.png")
         card.setAttribute('data-id', i)
-        card.setAttribute('height', '230px')
-        card.setAttribute('width', '230px')
+        card.setAttribute('height', '200px')
+        card.setAttribute('width', '200px')
         card.setAttribute('id', 'memory-img')
-        card.style.padding = '5px 5px 5px 5px'
+        card.style.padding = '15px'
         card.style.transformStyle = 'preserve-3d'
         card.addEventListener('click', flipcard)
         grid.appendChild(card)
@@ -232,10 +232,10 @@ function showBoard() {
         var cardAllShown = document.createElement('img')
         cardAllShown.setAttribute('src', cardArray[i].img)
         cardAllShown.setAttribute('data-id', i)
-        cardAllShown.setAttribute('height', '230px')
-        cardAllShown.setAttribute('width', '230px')
+        cardAllShown.setAttribute('height', '200px')
+        cardAllShown.setAttribute('width', '200px')
         cardAllShown.setAttribute('id', 'memory-img')
-        cardAllShown.style.padding = '5px 5px 5px 5px'
+        cardAllShown.style.padding = '15px'
         cardAllShown.style.transformStyle = 'preserve-3d'
         gridShow.appendChild(cardAllShown);
         gridShow.id = "allShownGrid";

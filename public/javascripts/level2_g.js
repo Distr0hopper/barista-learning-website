@@ -44,7 +44,7 @@ async function loadModal() {
     /**
      * put Coffeetitles in modal*/
     var coffeesForLevel2 = JSON.parse(sessionStorage.getItem("allCoffees"))
-    const coffeeOrderCards = $('.card-text');
+    const coffeeOrderCards = $('.card-title');
     const coffeeTitles = coffeesForLevel2.map(coffee => {
         return coffee.title
     });
