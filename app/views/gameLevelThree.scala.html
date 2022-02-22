@@ -1,12 +1,6 @@
 @(page: String, money: String)(implicit assetsFinder: AssetsFinder)
 <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>Dictionary</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
+
 @navbar("GameThree", money) {
     <div class = "container">
         <section class="my-3 mx-4 ">
@@ -136,6 +130,11 @@
                                 </form>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
                             <!-- costumer who wants to pay modal-->
                         <div class="col-2">
@@ -185,8 +184,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+
+
+
+
     <div class="modal fade" id="costumerWishModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -225,10 +226,8 @@
                 OK</button>
         </div>
     </div>
-    </div>
-    </section>
-    </div>
-    <div class="modal fade" id="costumerAwnserAfterSubmit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+    <div class="modal fade" id="costumerAnswerAfterSubmit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -265,10 +264,9 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                 OK</button>
         </div>
+
     </div>
-    </div>
-    </section>
-    </div>
+
 
 
     <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -295,6 +293,7 @@
             </div>
         </div>
     </div>
+
 
 
         <!--modal-->

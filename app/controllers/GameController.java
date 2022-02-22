@@ -96,7 +96,7 @@ public class GameController extends Controller {
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             return ok(
-                    gameLevelTwo.render("GameThree",String.valueOf(money), assetsFinder)
+                    gameLevelTwo.render("GameThreeGame1",String.valueOf(money), assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -137,7 +137,7 @@ public class GameController extends Controller {
         if (userController.isLoggedIn(request)) {
             String money = request.session().get("money").get();
             return ok(
-                    gameLevelThree.render("gameThree",money, assetsFinder)
+                    gameLevelThree.render("GameThree",money, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
