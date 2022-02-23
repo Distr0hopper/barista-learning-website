@@ -149,8 +149,12 @@ function redirectLvlTwo() {
     window.location = '/games/gameLevelTwo'
 }
 
-function redirectToMemory() {
+function redirectToMemoryLvl2() {
     window.location = '/games/gameLevelTwoMemory '
+}
+
+function redirectToMemoryLvl3(){
+    window.location = '/games/gameLevelThreeMemory'
 }
 
 
