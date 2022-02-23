@@ -47,11 +47,6 @@ async function loadModal() {
     //         this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
     //         window.sessionStorage.setItem("coffees", JSON.stringify(this.sixCoffees))
     //
-    //
-    //
-    //
-    //
-    //
     //     }
     //     /**getCoffeeTitles() returns a map with the titles from sixCoffees*/
     //     getCoffeeTitles() {
@@ -127,7 +122,6 @@ async function loadModal() {
             this.getRandomCoffeeAmountNumber()
             this.getNextPayingCostumer()
             this.getNextRandomCoffeeOrders()
-
         }
 
         getRandomCoffeeAmountNumber() {
@@ -147,9 +141,7 @@ async function loadModal() {
         getNextRandomCoffeeOrders() {
             const randomNumberCoffee = this.getRandomCoffeeAmountNumber();
             return Math.floor(Math.random() * randomNumberCoffee);
-
         }
-
 
     }
 
@@ -181,7 +173,7 @@ async function loadModal() {
     // const coffeePrices = coffeesForGame.getCoffeePrices();
     console.log(coffeePrices)
     for (let i = 0; i < coffeeOptionsForInputGroup.length; i++) {
-        coffeeOptionsForInputGroup[i].innerText = coffeePrices[i]
+        coffeeOptionsForInputGroup[i].innerText = coffeeTitles[i]  // show title of the coffee
     }
 
     /**put CustomerImages in to the tiles */
@@ -208,7 +200,7 @@ async function loadModal() {
      */
     const customerBeingPayed = $('.card-img-Person-getting-payed')
     for (let i = 0; i < customerBeingPayed.length; i++) {
-        customerBeingPayed[i].src = customersLevel3[i + 1];
+        customerBeingPayed[i].src = customersLevel3Img[i]; // show the image
     }
 
     function submitTotal() {

@@ -92,6 +92,10 @@ a:hover{
 #password2{
     border-radius: 15px;
 }
+/*to replace ids that have the same properties with a class*/
+.input-border-rounded {
+    border-radius: 15px;
+}
 /*profile card*/
 .card {
     width: 700px;
@@ -789,6 +793,7 @@ li{
     font-weight: bold;
 }
 
+/* display cursor as normal on cards*/
 .cursor-normal {
     pointer-events: none!important;
 }
