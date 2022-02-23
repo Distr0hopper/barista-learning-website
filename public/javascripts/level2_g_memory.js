@@ -240,7 +240,11 @@ function showBoard() {
     }, 9000)
 
 }
-
-
-window.addEventListener('load', loadModalMemory)
-window.addEventListener('load', loadMemory)
+window.addEventListener('load', async ()=>{
+    await loadModalMemory();
+    await loadMemory();
+    await loadModal()
+})
+//
+// window.addEventListener('load', loadModalMemory)
+// window.addEventListener('load', loadMemory)
