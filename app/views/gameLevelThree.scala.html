@@ -96,32 +96,28 @@
                 <div class="modal-header">
                     <div class=" col-md-4 ml-auto">
                         <div id = "imageCostumer1">
-                            <img class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
+                            <img height="100" class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
                         </div>
                     </div>
-                    <h5 class="modal-title" id="exampleModalLongTitle">
-                        Hey! I would like to pay </h5>
+                    <h5 class="modal-title" id="card-text-body-modal1">
+                        Hey! I would like to pay for me and my friend <span id="label">*</span>
+                    </h5>
+
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
+                    <div class="row px-2 my-2" id="addingMoreCostumers"></div> <!--id gets duplicated multiple times here and it's not a good practice-->
 
-                    <div id=" card-text-body-modal1">
-                        I would like to pay me and for my friend
-                        <p id="label">*</p>
-                    </div>
-                    <div class="row px-2" style="--bs-columns: 10;
-                        --bs-gap: 1rem;">
-                        <div id="moreCostumers">
-                            <div class="addingCostumer ">
-                                <img class="card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                    <div class="row px-2 my-2">
+                        <div class="col-4 addingCostumer" id="moreCostumers">
+                            <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">
+                                <img class="p-3 card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
                             </div>
                         </div>
-
-                        <div class=" col-md-4 ml-auto">
-                            <div id="addingMoreCostumers" ></div>
-                        </div>
                     </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
@@ -131,7 +127,7 @@
         </div>
     </div>
 
-
+        <!-- Do we need this modal? -->
     <div class="modal fade" id="costumerWishModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -170,15 +166,13 @@
         </div>
     </div>
 
+        <!-- Do we need this modal? -->
     <div class="modal fade" id="costumerAnswerAfterSubmit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">
                         Hey! I would like to pay</h5>
-                    @* <button type="button" class="close" data-dismiss="modal" aria-label="Close">*@
-                    @* <span aria-hidden="true">&times;</span>*@
-                    @* </button>*@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 
                 </div>
