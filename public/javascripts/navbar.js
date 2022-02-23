@@ -7,6 +7,7 @@ function clearSessionStorage() {
     window.location = '\\logout';
 }
 
+
 // function checkToLevelUp() {
 //     if (countCorrectCoffees === 1) {
 //         $('#nextGame').on('onclick', function () {

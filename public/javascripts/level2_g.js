@@ -1,3 +1,4 @@
+
 var tipModal = $('#exampleModalCenter')
 
 $(window).on('load', function () {
@@ -60,11 +61,13 @@ async function loadModal() {
     console.log(customersForLevel2)
     const coffeeOrderCustomers = $('.card-img-top');
     var customersLevel2Img = []
-    for (let i = 0; i < customersForLevel2.length; i++) {
+    for (let i = 0; i < coffeeOrderCustomers.length; i++) {
         customersLevel2Img[i] = customersForLevel2[i].customerImgPath
     }
-
-    console.log(customersLevel2Img)
+    console.log(coffeeOrderCustomers)
+    // const customerImges = customersForLevel2.map(customer => {
+    //     return customer.customerImgPath
+    // })
 
     sessionStorage.setItem("sixCustomerImg", JSON.stringify(customersLevel2Img))
 
@@ -75,14 +78,17 @@ async function loadModal() {
     const modalInputMap = coffeeTitles.map((order, i) => {
         return {
             title: coffeeTitles[i],
-            img: customersLevel2Img[i]
+            img: coffeeOrderCustomers[i]
         }
     })
     console.log(modalInputMap)
     sessionStorage.setItem("modalInput", JSON.stringify(modalInputMap))
 }
-window.addEventListener('load', getRandomSixCustomers)
-window.addEventListener('load', loadModal)
+window.addEventListener('load', async ()=>{
+     await getRandomSixCustomers();
+     loadModal();
+})
+// window.addEventListener('load', loadModal)
 tipModal.on('shown.bs.modal', function (){
     $('.card-group').innerText = createDictionary()
 })
