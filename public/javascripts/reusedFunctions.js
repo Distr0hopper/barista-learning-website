@@ -1,128 +1,3 @@
-/**
- * This function is called everytime the Help-Button is pressed.
- * Just a counter which increments every time the Button is pressed.
- * @type {number} helpCounter is the number which counts how often the help button is pressed
- * @return {number} How many times the button was pressed.
- */
-var helpCounter = 0;
-
-function countHelps(reset) {
-    if (reset == false) {
-        return helpCounter++
-    } else {
-        helpCounter = 0;
-    }
-
-}
-
-/**
- * createBoard() creates an array of images, with src set to coffeemug and set height, width and id
- * calls flipcard on click*/
-function createBoard() {
-    for (let i = 0; i < cardArray.length; i++) {
-        var card = document.createElement('img')
-        card.setAttribute('src', "../assets/images/Memory-Backdrop.png")
-        card.setAttribute('data-id', i)
-        card.setAttribute('height', '200px')
-        card.setAttribute('width', '200px')
-        card.setAttribute('id', 'memory-img')
-        card.style.padding = '5px 5px 5px 5px'
-        card.style.transformStyle = 'preserve-3d'
-        card.addEventListener('click', flipcard)
-        grid.appendChild(card)
-    }
-}
-
-/**
- * checkForMatch() checks for matches
- * 1. gets the clicked cards and compares their names to see if they are even
- * 2. checks if cards match and if cards clicked are not the same card, alerts if match and pushes cards to cardsWon
- * 3. if no match, checks if if cards clicked were the same card, and alerts if true
- * 4. else cards don't match and alert
- * Puts won cards into score after each round and checks if still cards left or game is over*/
-function checkForMatch() {
-    let money = Number($('#money').text());
-    const cards = document.querySelectorAll('#memory-img')
-    const optionOneId = cardsChosenID[0]
-    const optionTwoId = cardsChosenID[1]
-    if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
-        money += 10;
-        $('#money').text(money);
-        //if no cards left display you won
-
-        /* Fetch the money to the server so it can be stored in the session
-        const moneyObjekt = {
-            "moneyKey": money,
-        }
-        fetch("/getMoney", {
-            method: 'POST',
-            body: JSON.stringify(moneyObjekt),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-         */
-        // alert('You found a match');
-        cardsWon.push(cardsChosen)
-    } //checks if card was clicked twice
-    else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
-        cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-        cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-        alert('You need to pick two different cards!')
-    } else {
-        cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-        cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-        // alert('Sorry try again')
-
-    }
-    cardsChosen = []
-    cardsChosenID = []
-    //puts amount of cards won into score
-    resultDisplay.textContent = cardsWon.length * 10;
-
-    if (cardsWon.length === cardArray.length / 2) {
-        resultDisplay.textContent = 'Congratulations you won!'
-    }
-}
-
-/**
- * flipcard() flips card
- * gets id of clicked card and puts id and name into cardsChosen
- * sets img to new src and calls checkformatch as soon as to cards were flipped*/
-function flipcard() {
-    //gets id of clicked card and puts id and name into cardsChosen/cardsChosenID, sets img to new src and calls checkformatch
-    var cardID = this.getAttribute('data-id')
-    cardsChosen.push(cardArray[cardID].name)
-    cardsChosenID.push(cardID)
-    this.setAttribute('src', cardArray[cardID].img)
-    if (cardsChosen.length === 2) {
-        setTimeout(checkForMatch, 800)
-    }
-}
-
-function showboard() {
-    let timeleft = 4;
-    for (let i = 0; i < cardArray.length; i++) {
-        var cardAllShown = document.createElement('img')
-        cardAllShown.setAttribute('src', cardArray[i].img)
-        cardAllShown.setAttribute('data-id', i)
-        cardAllShown.setAttribute('height', '200px')
-        cardAllShown.setAttribute('width', '200px')
-        cardAllShown.setAttribute('id', 'memory-img')
-        cardAllShown.style.padding = '5px 5px 5px 5px'
-        cardAllShown.style.transformStyle = 'preserve-3d'
-        gridShow.appendChild(cardAllShown);
-        gridShow.id = "allShownGrid";
-    }
-    setTimeout(function () {
-        $('.gridShow').remove();
-        createBoard()
-    }, 9000)
-
-
-}
-
-showboard()
 
 function checkMoneyForRanking(money) {
     console.log(money);
@@ -159,5 +34,65 @@ function redirectToMemoryLvl3(){
 
 
 
+async function loadModal() {
+    var gameModal = $('#gameModal')
+    gameModal.modal('show');
+    var timeleft = 5;
+    var currentHTMLText = document.querySelector("#modal-title").textContent;
+    var downloadTimer = setInterval(function () {
+        if (timeleft > 0) {
+            gameModal.find('.modal-title').text(currentHTMLText + " " + timeleft + ' seconds remaining');
+        } else if (timeleft < 0) {
+            // gameModal.modal("hide");
+            gameModal.modal('hide');
+        } else {
+            clearInterval(downloadTimer);
+            gameModal.find('.modal-title').text(currentHTMLText + ' Finished');
+            gameModal.modal('hide');
+        }
+        timeleft -= 1;
+    }, 1000);
 
+    /**
+     * put Coffeetitles in modal*/
+    var coffeesForLevel2 = JSON.parse(sessionStorage.getItem("allCoffees"))
+    const coffeeOrderCards = $('.card-title');
+    const coffeeTitles = coffeesForLevel2.map(coffee => {
+        return coffee.title
+    });
+    for (let i = 0; i < coffeeOrderCards.length; i++) {
+        coffeeOrderCards[i].innerText = coffeeTitles[i];
+    }
+    /**Put Coffee To Make Into Game*/
+    const orderHeader = $('#order');
+    orderHeader.innerText = coffeeTitles[0]
+
+    /**put CustomerImages in modal*/
+    var customersForLevel2 = JSON.parse(sessionStorage.getItem("sixCustomers"))
+    console.log(customersForLevel2)
+    const coffeeOrderCustomers = $('.card-img-top');
+    var customersLevel2Img = []
+    for (let i = 0; i < coffeeOrderCustomers.length; i++) {
+        customersLevel2Img[i] = customersForLevel2[i].customerImgPath
+    }
+    console.log(coffeeOrderCustomers)
+    // const customerImges = customersForLevel2.map(customer => {
+    //     return customer.customerImgPath
+    // })
+
+    sessionStorage.setItem("sixCustomerImg", JSON.stringify(customersLevel2Img))
+
+    for (let i = 0; i < coffeeOrderCustomers.length; i++) {
+        coffeeOrderCustomers[i].src = customersLevel2Img[i];
+    }
+
+    const modalInputMap = coffeeTitles.map((order, i) => {
+        return {
+            title: coffeeTitles[i],
+            img: coffeeOrderCustomers[i]
+        }
+    })
+    console.log(modalInputMap)
+    sessionStorage.setItem("modalInput", JSON.stringify(modalInputMap))
+}
 

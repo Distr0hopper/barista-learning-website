@@ -384,8 +384,10 @@ async function loadModalExplain() {
     }
 }
 
+window.addEventListener('load', async ()=>{
+    await loadModalExplain();
+})
 
-window.addEventListener('load', loadModalExplain)
 var tipModal = $('#exampleModalCenter')
 tipModal.on('shown.bs.modal', function () {
     $('.card-group').innerText = createDictionary()
