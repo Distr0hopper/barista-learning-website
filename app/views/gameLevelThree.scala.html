@@ -101,9 +101,7 @@
                     </div>
                     <h5 class="modal-title" id="exampleModalLongTitle">
                         Hey! I would like to pay </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
@@ -124,15 +122,13 @@
                             <div id="addingMoreCostumers" ></div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                        OK</button>
+                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
+                        Ok!</button>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 
@@ -142,9 +138,8 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">
                         Hey! I would like to pay</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -170,8 +165,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                OK</button>
+            <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
+                Ok!</button>
         </div>
     </div>
 
@@ -181,9 +176,11 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">
                         Hey! I would like to pay</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    @* <button type="button" class="close" data-dismiss="modal" aria-label="Close">*@
+                    @* <span aria-hidden="true">&times;</span>*@
+                    @* </button>*@
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -209,34 +206,26 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                OK</button>
+            <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
+                Ok!</button>
         </div>
 
     </div>
-
 
     <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">
+                    <h5 class="modal-title text-uppercase" id="modal-title">
                         Level 3: Remember who wants to pay what!</h5>
-
                 </div>
-                <div class="modal-body modal-fade align-items-center justify-content-center">
-                    <div class="container-fluid ms-2">
-                        <div class="row w-100">
-                            <div class="col-md-4 ml-auto">
-
-                            </div>
-                            <button class="login_btn " type="button" data-dismiss="modal" data-toggle= "modal" data-target= "#costumerWishModal" id="payingCostumer" onclick="randomNumber()">
-                                OK </button>
-
-                        </div>
-
-                    </div>
+                <div class="modal-body">
+                    <p>Description</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal" data-toggle="modal" data-target="#costumerWishModal" id="payingCostumer" onclick="randomNumber()">
+                        Ok let's go!</button>
                 </div>
             </div>
         </div>

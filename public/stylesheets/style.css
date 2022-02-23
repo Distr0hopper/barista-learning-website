@@ -814,3 +814,7 @@ li{
     transformStyle: preserve-3d;
     margin: auto;
 }
+
+.btn-close:focus {
+    box-shadow: none!important;
+}
