@@ -36,6 +36,7 @@
                                 </div>
 
                                 <div class="col-12" id="firstCoffee">
+                                    <p id="message-error"></p>
                                     <div class="coffePickerdiv">
                                         <select class="form-control input-border-rounded mt-3 p-3" id="inputGroupSelect01">
                                             <option selected>Choose the correct Coffee...</option>
@@ -54,15 +55,38 @@
                                     <!-- Add more coffee-->
 
                                 <div class="col-6 mb-3">
-                                    <button class="login_btn my-3 p-3" type="button" id="btnAdd" onclick="addCoffee();">
+                                    <button class="login_btn my-3 p-3" type="button" id="btnAdd" onclick="addCoffeeToPay();">
                                         Add Coffee</button>
                                 </div>
                                 <div class="col-6 mb-3">
-                                    <button class="login_btn my-3 p-3" type="button" id="btnRemove" onclick="removeCoffee();">
+                                    <button class="login_btn my-3 p-3" type="button" id="btnRemove" onclick="removeCoffeeForPay();">
                                         Remove Coffee</button>
                                 </div>
 
                                 <hr>
+
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless text-white" id="invoice-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+@*                                                    <td id="Latte">Latte</td>*@
+@*                                                    <td id="LatteQuantity">3</td>*@
+@*                                                    <td id="LattePrice">2.4</td>*@
+@*                                                    <td>7.2</td>*@
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 
                                 <div class="col-6">
                                     <input type="text" class="form-control input-border-rounded mt-3 p-3" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">

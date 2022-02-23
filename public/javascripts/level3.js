@@ -6,10 +6,57 @@ async function removeCoffee() {
     $('#moreCoffee .coffePickerdiv').last().remove();
 }
 
+function addCoffeeToPay() {
+    let selectedCoffee = $('.coffePickerdiv :selected').text();
+    let quantity = 1;
+    let price = 2.3; // take it later from database
+    let total = price;
+
+    if (selectedCoffee != 'Choose the correct Coffee...') {
+        // if coffee exists in the table increase quantity
+        if ($('#' + selectedCoffee).length) {
+            quantity = parseInt($('#' + selectedCoffee + 'Quantity').text()) + 1;
+            price = parseFloat($('#' + selectedCoffee + 'Price').text());
+            let total = (quantity * price).toFixed(2);
+            $('#' + selectedCoffee + 'Quantity').text(quantity);
+            $('#' + selectedCoffee + 'Total').text(total);
+        } else {
+            quantity = 1
+            $('#message-error').text('');
+            $('#invoice-table').append('<tr><td id="' + selectedCoffee + '">' + selectedCoffee + '</td><td id="' + selectedCoffee + 'Quantity">' + quantity + '</td><td id="' + selectedCoffee + 'Price">' + price + '</td><td id="' + selectedCoffee + 'Total">' + total + '</td></tr>');
+        }
+        console.log("pressed");
+    } else {
+        $('#message-error').text('You have to select a coffee!');
+    }
+}
+
+function removeCoffeeForPay() {
+    let selectedCoffee = $('.coffePickerdiv :selected').text();
+    let quantity = parseInt($('#' + selectedCoffee + 'Quantity').text());
+    let price = parseFloat($('#' + selectedCoffee + 'Price').text());
+
+    // solve the error
+    if ($('#' + selectedCoffee).length) {
+        // if coffee exists in the table increase quantity
+        if (quantity > 1) {
+            quantity = parseInt($('#' + selectedCoffee + 'Quantity').text()) - 1;
+            price = parseFloat($('#' + selectedCoffee + 'Price').text());
+            let total = (quantity * price).toFixed(2);
+            $('#' + selectedCoffee + 'Quantity').text(quantity);
+            $('#' + selectedCoffee + 'Total').text(total);
+        } else {
+            $('#' + selectedCoffee).closest("tr").remove();
+        }
+    } else {
+        $('#message-error').text('You cannot delete this element!');
+    }
+}
 
 async function loadModal() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
+
     /**
      * CoffeesForGame is a class, that has sixCoffees in the Constructor
      * it first generates a random Number
@@ -132,8 +179,8 @@ async function loadModal() {
         getNextPayingCostumer() {
             let nextCostumerWhoHasToPay = null;
             let randomCostumerAmount = this.getRandomCoffeeAmountNumber();
-            if(  randomCostumerAmount <5) {
-                nextCostumerWhoHasToPay = randomCostumerAmount + 1 ;
+            if (randomCostumerAmount < 5) {
+                nextCostumerWhoHasToPay = randomCostumerAmount + 1;
             }
             return nextCostumerWhoHasToPay;
         }
@@ -224,10 +271,10 @@ async function loadModal() {
     }
     for (let i = 0; i <= numberOfPayedCoffeeByOneCostumer - 1; i++) {
 
-        if(numberOfPayedCoffeeByOneCostumer > 1) {
+        if (numberOfPayedCoffeeByOneCostumer > 1) {
 
             $('.addingCostumer').clone().appendTo('#addingMoreCostumers');
-i++;
+            i++;
         }
 
 
@@ -253,5 +300,6 @@ i++;
 
 
 }
+
 
 window.addEventListener('load', loadModal)
