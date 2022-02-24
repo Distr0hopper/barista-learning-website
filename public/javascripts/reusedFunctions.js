@@ -1,3 +1,13 @@
+var helpCounter = 0;
+
+function countHelps(reset) {
+    if (reset == false) {
+        return helpCounter++
+    } else {
+        helpCounter = 0;
+    }
+
+}
 
 function checkMoneyForRanking(money) {
     console.log(money);
