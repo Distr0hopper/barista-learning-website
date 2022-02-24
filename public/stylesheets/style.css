@@ -233,7 +233,7 @@ hr .new1 {
 }
 
 /*styling list highscores*/
-.scorebox{
+.score-box{
     width: 1200px;
     background-color: var(--card-color);
     filter: brightness(110%);
@@ -246,35 +246,96 @@ hr .new1 {
     transition: all 0.5s
 }
 
-.pointSpan{
+.point-span{
     float: right;
     margin-right: 60px;
     color: var(--dropshadow-color);
     /*color: rgba(71,34,16,255);*/
     font-weight: bold;
     filter: brightness(140%);
+    font-size: larger;
 
 }
-.nameSpan{
+.name-span{
     /*float: left;*/
     margin-left: 60px;
     color: var(--dropshadow-color);
     filter: brightness(140%);
+    font-size: larger;
 }
 
-.highscorePodium{
+.score-podium{
     color: var(--dropshadow-color);
     filter: brightness(140%);
+}
+
+.image-podium {
+    width: 50px;
+    border-radius: 50%;
+    /*background-color: var(--dropshadow-color);*/
+    background-color: white;
+    padding: 3%;
+}
+
+#podium-box {
+    margin: 0 auto;
+    display: flex;
+    height: 250px;
+    width: 400px;
+}
+
+.podium-number {
+    /*font-family: DaggerSquare;*/
+    font-weight: bold;
+    font-size: 3em;
+    color: white;
+}
+
+.step-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.step-container>div:first-child {
+    margin-top: auto;
+    text-align: center;
+}
+
+.step {
+    text-align: center;
+}
+
+.bg-dark-brown {
+    background-color: var(--backround-color);
+}
+.bg-darker-brown {
+    background-color: var(--dark-brown-navbar);
+}
+.bg-light-brown {
+    background-color: var(--dropshadow-color);
+}
+
+#first-step {
+    height: 100%;
+}
+
+#second-step {
+    height: 50%;
+}
+
+#third-step {
+    height: 40%;
 }
 
 .list{
     width: 100%;
 }
-.listrow {
+.list-row {
     border-top: 1px solid var(--backround-color);
 }
 
-.highscoreHeader{
+.score-header{
     text-align-last: center;
     padding-top: 20px;
     padding-bottom: 10px;

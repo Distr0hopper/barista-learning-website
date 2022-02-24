@@ -1,36 +1,66 @@
-@(page: String, money : String, users: List[model.UserFactory#User], id : Integer)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, users: List[model.UserFactory#User], id: Integer)(implicit assetsFinder: AssetsFinder)
+@import java.math.BigInteger; var i = 0;
 
-@navbar("HighScore",money) {
+@navbar("HighScore", money) {
     <div class="d-flex justify-content-center m-4 p-4">
-        <div class="scorebox col-md-6">
-            <h1 class="highscoreHeader">High Scores</h1>
-            <div class="d-flex justify-content-center pt-3">
-                <img src="@assetsFinder.path("images/podium.png")" alt="podium" width="200"/>
-            </div>
-            <div class="d-flex justify-content-center flex-row pb-3">
-                <div class="p-2 highscorePodium">@users.get(1).getUsername()</div>
-                <div class="p-2 highscorePodium">@users.get(0).getUsername()</div>
-                <div class="p-2 highscorePodium">@users.get(2).getUsername()</div>
-            </div>
-            <div class="list">
-                @* hier generieren wir mit Scala HighscoreListe*@
-                @for(user <- users) {
-                    @if(user.getId() == id) {
-                        <div class="listrow">
-                            <span class="nameSpan" style="color:white">✨@user.getUsername()✨</span>
-                            <span class="pointSpan" style="color:white">@user.getPoints()</span>
+        <div class="score-box col-md-6">
+            <h1 class="score-header pt-5">High Scores</h1>
+            <div class="d-flex justify-content-center pb-5">
+                <div id="podium-box" class="row mt-4">
+                    <div class="col-md-4 step-container m-0 p-0">
+                        <div>
+                            <img class="image-podium" src="@users.get(1).getProfilePic" alt="Profile Picture">
+                            <div class="p-2 score-podium">@users.get(1).getUsername</div>
                         </div>
-                        } else {
-                         <div class="listrow">
-                             <span class="nameSpan">@user.getUsername()</span>
-                             <span class="pointSpan">@user.getPoints()</span>
-                         </div>
-                        }
+                        <div id="second-step" class="bg-light-brown step podium-number">
+                            2
+                        </div>
+                    </div>
+                    <div class="col-md-4 step-container m-0 p-0">
+                        <div>
+                            <img class="image-podium" src="@users.get(0).getProfilePic" alt="Profile Picture">
+                            <div class="p-2 score-podium">@users.get(0).getUsername</div>
+                        </div>
+                        <div id="first-step" class="bg-dark-brown step podium-number">
+                            1
+                        </div>
+                    </div>
+                    <div class="col-md-4 step-container m-0 p-0">
+                        <div>
+                            <img class="image-podium" src="@users.get(2).getProfilePic" alt="Profile Picture">
+                            <div class="p-2 score-podium">@users.get(2).getUsername</div>
+                        </div>
+                        <div id="third-step" class="bg-darker-brown step podium-number">
+                            3
+                        </div>
+                    </div>
+                </div>
 
-
-                }
             </div>
-            @* data-key=@"übergebenes Objekt" s div einfuegen*@
+            <div class="list px-5 pb-5">
+                <div class="list-row py-3 border-0">
+                    <span class="name-span mx-4">User</span>
+                    <span class="point-span mx-4">Points</span>
+                </div>
+                @* Generate list with high-score with Scala from high-score list users*@
+                @for(user <- users) {
+                    @{
+                        i = i + 1
+                    }
+                    @if(user.getId == id) {
+                        <div class="list-row py-3">
+                            <span class="name-span mx-4 text-white">@i. @user.getUsername</span>
+                            <span class="point-span mx-4 text-white">@user.getPoints</span>
+                        </div>
+                    } else {
+                        <div class="list-row py-3">
+                            <span class="name-span mx-4">@i. @user.getUsername</span>
+                            <span class="point-span mx-4">@user.getPoints</span>
+                        </div>
+                    }
+                }
+                <div class="list-row"></div>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="@assetsFinder.path("javascripts/highscore.js")"></script>
