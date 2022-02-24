@@ -12,7 +12,7 @@ public class Coffee {
         private int id;
         private String title;
         private String description;
-        private int ingredientID;
+//        private int ingredientID;
         private float price;
         private String coffeeImgPath;
         private String[] ingredientList;
@@ -21,7 +21,7 @@ public class Coffee {
             this.id = rs.getInt("idCoffees");
             this.title = rs.getString("title");
             this.description = rs.getString("description");
-            this.ingredientID = rs.getInt("ingredients");
+//            this.ingredientID = rs.getInt("ingredients");
             this.price = rs.getFloat("price");
             this.coffeeImgPath = rs.getString("coffeeImgPath");
             String ingredientList1 = rs.getString("ingredientList");
@@ -35,7 +35,7 @@ public class Coffee {
             this.id = id;
             this.title = title;
             this.description = description;
-            this.ingredientID = ingredientID;
+//            this.ingredientID = ingredientID;
             this.price = price;
             this.coffeeImgPath = coffeeImgPath;
         }
@@ -51,9 +51,9 @@ public class Coffee {
             this.description = description;
         }
 
-        public void setIngredients(int ingredientID) {
-            this.ingredientID = ingredientID;
-        }
+//        public void setIngredients(int ingredientID) {
+//            this.ingredientID = ingredientID;
+//        }
 
         public void setPrice(float price) {
             this.price = price;
@@ -75,9 +75,9 @@ public class Coffee {
             return description;
         }
 
-        public int getIngredientID() {
-            return ingredientID;
-        }
+//        public int getIngredientID() {
+//            return ingredientID;
+//        }
 
         public float getPrice() {
             return price;
