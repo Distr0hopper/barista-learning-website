@@ -44,7 +44,7 @@ body{
 
 .mainbackround{
     /*background-image: url("https://www.vecteezy.com/free-vector/cafe");*/
-    background-image: url("../images/bg.svg")!important;
+    background-image: url("../images/background.svg")!important;
     height: 92vh;
     background-position: right;
     background-repeat: no-repeat;

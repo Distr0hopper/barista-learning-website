@@ -2,14 +2,15 @@
 
 @navbar("Home", money) {
     <div class="mainbackround">
-        <object type="image/svg+xml" data="@assetsFinder.path("../../public/images/bg.svg")" class="img-bg"></object>
+        @* <object type="image/svg+xml" data="@assetsFinder.path("../../public/images/bg.svg")" class="img-bg"></object>*@
     </div>
+
         <!--Modal-->
     <div class="modal fade" id="ModalLearnCoffees" tabindex="-1" aria-labelledby="ModalLearnCoffees" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title text-center" id="ModalLearnCoffeesLabel">
+                    <h1 class="modal-title" id="ModalLearnCoffeesLabel">
                         Welcome to barista!
                         <p class="subtitleLearn fs-6 text-center">
                             Your learning Game for becoming a professional Barista.</p>
@@ -23,8 +24,11 @@
                     <p class="learnText">Curious? Have a look and start your journey by learning all about Coffees.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
-                        I already know everything</button>
+@*                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal">*@
+@*                        I already know everything</button>*@
+                    <button  type="button" class="btn closebutton-bottom" data-dismiss="modal" onclick="location.href = '@routes.GameController.defaultGame'">
+                        I want to start playing!</button>
+
                     <button type="button" class="btnDict p-1" onclick="location.href = '@routes.HomeController.dictionary'">
                         Learn About Coffees</button>
                 </div>
