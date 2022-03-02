@@ -23,7 +23,7 @@ body{
 .navbar-custom {
     /*background-color: rgba(76,34,18,255);*/
     background-color: var(--dark-brown-navbar);
-    height: 70px;
+    height: 8vh;
 ;
 }
 /* change the brand and text color */
@@ -44,13 +44,22 @@ body{
 
 .mainbackround{
     /*background-image: url("https://www.vecteezy.com/free-vector/cafe");*/
-    background-image: url("../images/Industrial-01.jpg")!important;
-    height: 90vh;
-    background-position: center;
+    background-image: url("../images/background.svg")!important;
+    height: 92vh;
+    background-position: right;
     background-repeat: no-repeat;
     background-size: cover;
-    /*z-index: -1;*/
+    z-index: -1!important;
 }
+
+.img-bg {
+    display: block;
+    width: 100vw;
+    height: 92vh;
+    object-fit: cover;
+    float: right!important;
+}
+
 /*login*/
 .row-login{
     /*background-color: rgba(255, 255, 255, 0.3);*/
