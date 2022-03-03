@@ -7,51 +7,131 @@ var customersLevel3 = JSON.parse(sessionStorage.getItem("sixCustomers"));
 let randomCoffeeNumberOf5 = null ;
 let nextCostumerWhoHasToPay = null;
 let randomCostumerAmount = null;
+let total = null;
+let totalInput = null;
+let numberOfWrongInputPrices = null;
 
 async  function submitTotalPrice() {
 
-    var submitModal = $('#costumerAnswerAfterSubmit')
-    let total = null;
-    let submitTotalButtonText = document.getElementById('submitPriceInput');
+    var submitModal = $('#costumerAnswerAfterSubmit');
 
-    for ( let i = 0; i <= randomCoffeeNumberOf5  ; i++){
-        total += coffeestored[i].price
+
+    let submitTotalInputText = document.getElementById('submitPriceInput');
+    totalInput = numFormttCommaRep(submitTotalInputText.value);
+
+
+
+
+    if ( numberOfWrongInputPrices <= 0) {
+        for (let i = 0; i <= randomCoffeeNumberOf5; i++) {
+            total += coffeestored[i].price
+        }
+        total.toFixed(2);
+        total = numberFormatter(total)
+
     }
-    total.toFixed(2);
-    if (submitTotalButtonText.value.length === 0){
+
+    if (submitTotalInputText.value.length === 0){
         $('#message-error').text(' You have to add a price');
 
     }else{
-        $('#message-error').text("Total input "+ submitTotalButtonText.value +  "  Total price :"+ total);
+        $('#message-error').text("Total input "+ totalInput +  "  Total price :"+ total);
         submitModal.modal('show');
     }
 
 
-    if(submitTotalButtonText.value.toString() === total.toString()){
-        $('#message-error').text(' You added the correct price ');
+    if(totalInput.toString() === total.toString()){
+        if (numberOfWrongInputPrices <= 3) {
+            let tip = tipReceiver().toString();
+        $('#message-error').text(' You added the correct price! Your costumer wants to give you a  '+ tip+ "% tip.");
 
-        document.getElementById('TileHeaderAfterSubmit').innerHTML = "Yeahy you calulated correct!!"
-        document.getElementById('AfterSubmitCardBody').innerHTML= " I would love to give you a Tip"
-        //document.getElementById('tipText').innerText= " Tipp: "
-        document.getElementById('tipNumber').innerText = "Random nuber which has to still be gererated"
+        document.getElementById('TileHeaderAfterSubmit').innerHTML = "Yeahy you calculated correctly!!";
+        document.getElementById('AfterSubmitCardBody').innerHTML= " I would love to give you a Tip: " + tip + "%";
 
         document.getElementById('tipInput').style.display= "block";
         document.getElementById('submitTip').style.display = "block";
+        }
     }else {
+        numberOfWrongInputPrices ++;
+        if (numberOfWrongInputPrices >= 3) {
+            document.getElementById('TileHeaderAfterSubmit').innerHTML = "That's wrong!!!! I would like to talk to your manager!!"
+            document.getElementById('AfterSubmitCardBody').innerHTML= "The correct amount would be: "+ total.toString()+ " you will not receive a tip ";
+            document.getElementById('submitPriceInput').value = "";
+
+        }
         document.getElementById('TileHeaderAfterSubmit').innerHTML = "Uhh that does not seem wright !"
         document.getElementById('AfterSubmitCardBody').innerHTML= "try again"
-        document.getElementById('tipText').remove();
-        document.getElementById('tipNumber').remove();
+        document.getElementById('submitPriceInput').value = "";
+
     }
 
 
 
 }
 
+function tipReceiver(){
+    let tipPercentage = null;
+    switch (numberOfWrongInputPrices){
+        case null: tipPercentage = 20.00 ; break;
+        case 1:  tipPercentage = 15.00; break;
+        case 2:  tipPercentage =10.00; break;
+        case 3:  tipPercentage =7.00; break;
+    }
+    return tipPercentage;
 
+
+}
+function  numberFormatter(input){
+  // input = numFormttCommaRep(input);
+
+   return  Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(input );
+}
+
+function numFormttCommaRep(value){
+    value  = parseFloat(value.replace(/,/g,'.'));
+    return  Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(value);
+}
+function submitTip(){
+
+    var submitModal = $('#costumerAnswerAfterSubmit')
+    let tipInput = document.getElementById('tipInput');
+    let tip = tipReceiver().toString();
+    let totalWithTip = total;
+    let numberOfWrongTipInputs = null;
+
+    tip = Math.round((total * tip))/100;
+    tip.toFixed(2);
+    totalWithTip += tip;
+
+
+    $ ('#message-error').text(" tip Input  amount : " + tipInput.value.toString() + "tip amount: " + tip + "total amount with tip " + totalWithTip);
+
+    if( tipInput.value.toString() === totalWithTip.toString()){
+        $('#message-error').text("Total wit tip: " + tip);
+        document.getElementById('TileHeaderAfterSubmit').innerHTML = "Yeahy you calculated the Tip correctly!!";
+        document.getElementById('AfterSubmitCardBody').innerHTML= "Thank you very much :) ";
+        document. getElementById('btnsubmit').innerText = "Next costumer ";
+        document.getElementById('submitPriceInput').value = "";
+
+    } else if( numberOfWrongTipInputs <= 3){
+        numberOfWrongTipInputs ++;
+        document.getElementById('TileHeaderAfterSubmit').innerHTML= "Hmm not quite";
+        document.getElementById('AfterSubmitCardBody').innerHTML= "try again you have " +(3- numberOfWrongTipInputs) + " tries left";
+
+
+    }else {
+        document.getElementById('TileHeaderAfterSubmit').innerHTML= "That's not wright";
+        document.getElementById('AfterSubmitCardBody').innerHTML= " It is "+ totalWithTip.toString() +" next time you'll do better";
+    }
+    submitModal.modal('show');
+    document.getElementById('tipInput').value = "";
+
+
+
+}
 
 /**
- * adds Coffes in to the table underneth and adds its price with in by taking the coffees from the session
+ * adds Coffees in to the table underneath and adds its price within by taking the coffees from the session
  * storage.
  * @returns {Promise<void>}
  */

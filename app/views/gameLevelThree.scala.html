@@ -72,7 +72,7 @@
                                                 <tr>
                                                     <th>Product</th>
                                                     <th>Price</th>
-                                                    <th>Total</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -100,7 +100,7 @@
                                         Submit</button>
                                 </div>
                                 <div class="col-6">
-                                    <button class="login_btn my-3 p-3" type="button" id="submitTip" data-toggle = "modal" data-target= "#costumerWishModal2" onclick="submitTipp">
+                                    <button class="login_btn my-3 p-3" type="button" id="submitTip" onclick="submitTip()">
                                         Submit Tip </button>
                                 </div>
                             </div>
@@ -208,14 +208,13 @@
                 <div class="modal-body">
                     <div class=" col-4" id="AfterSubmitCardBody">
                         I would like to pay me and for my friend
-
                     </div>
-                    <span id="tipText"> Tipp: </span> <span id="tipNumber">*</span>
+
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
+                    <button type="button"  id= "btnsubmit" class="btn closebutton-bottom" data-dismiss="modal">
                         Ok!</button>
                 </div>
             </div>
