@@ -165,26 +165,20 @@ function checkForMatch() {
         }
 
         if (correctMatches === 6) {
-            // const moneyObjekt = {
-            //     "moneyKey": money,
-            // }
-            // fetch("/getMoney", {
-            //     method: 'POST',
-            //     body: JSON.stringify(moneyObjekt),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            // })
-            console.log(bonusMoney)
+            const moneyObjekt = {
+                "moneyKey": money,
+            }
+            fetch("/getMoney", {
+                method: 'POST',
+                body: JSON.stringify(moneyObjekt),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
             bonusMoney += 60;
-            console.log(bonusMoney)
             $('#money').text(money);
             $('#money-counter').text(bonusMoney);
         }
-
-        //if no cards left display you won
-
-
         cardsWon.push(cardsChosen)
     } //checks if card was clicked twice
     else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
