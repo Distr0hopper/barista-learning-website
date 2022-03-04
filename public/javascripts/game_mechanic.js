@@ -106,10 +106,10 @@ function submitGame() {
         try {
             $('#order').text("Please make a " + getTitle(activeDrink) + "!");
         } catch (e) {
-                $('#remainingAttempts').text("")
-                const moneyObjekt = {
-                    "moneyKey": navbarMoney,
-                }
+            $('#remainingAttempts').text("")
+            const moneyObjekt = {
+                "moneyKey": navbarMoney,
+            }
             fetch("/games/getMoney", {
                 method: 'POST',
                 body: JSON.stringify(moneyObjekt),
@@ -131,7 +131,7 @@ function submitGame() {
             }
 
         }
-    levelUpBonus = 0;
+        levelUpBonus = 0;
     } else {
 
         for (let i = 0; i < arrayDraggedImages.length; i++) {
@@ -164,6 +164,11 @@ function submitGame() {
             navbarMoney += earnedMoney;
             $('#money').text(navbarMoney);
 
+            var currentUserString = sessionStorage.getItem("currentUser");
+            let currentUser = JSON.parse(currentUserString);
+            currentUser.points += navbarMoney;
+            sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+            console.log(currentUser.points)
 
             correctDrinksCounter++;
             wrongDrinksCounter = 0;
@@ -406,8 +411,6 @@ var tipModal = $('#exampleModalCenter')
 tipModal.on('shown.bs.modal', function () {
     $('.card-group').innerText = createDictionary()
 })
-
-
 
 
 
