@@ -1,5 +1,9 @@
 let canEdit = false;
-
+/**editUsername checks wheather the variable canEdit is false
+ * if so the profileName id from the inputField in the HTML is changed from readOnly to being able to be edited
+ * And the button of the editButton is changed to "Save"
+ * can Edit is now true
+ * If canEdit is already true when editUsername() is called it calls saveUsername()*/
 function editUsername() {
     if (canEdit === false) {
         document.querySelector('#profilename').readOnly = false;

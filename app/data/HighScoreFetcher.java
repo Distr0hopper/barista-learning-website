@@ -22,7 +22,11 @@ public class HighScoreFetcher {
 
     /**
      * Gibt ein Array aus 20 Integern zwischen 1 und 1000
-     *
+     * kreieren erst 20 randomisierte Nummern in einem IntStream, diese können wir aber nur in natürlicher order sortieren
+     * daraufhin wandeln wir unseren IntStream in einen Stream von Integers (Stream<Integer>) um
+     * dann sortieren wir in absteigender Reihenfolge
+     * daraufhin drehen wir Stream<Integer> wieder zu einem intStream
+     * to machen diesen zu einem Array
      */
     public static int[] getSortedPoints(){
         Random random = new Random();
@@ -33,6 +37,8 @@ public class HighScoreFetcher {
                 .mapToInt(Integer::intValue)//jetzt drehen wir Stream<Integer> wieder zu intStream
                 .toArray();//der wird zu Array gemacht
     }
+    /**Für jeden score in unserer ScoreListe kreieren wir einen neuen scoreEntry
+     * diesen Liste können wir uns mithilfe der Methode holen*/
     public static List<ScoreEntry> getScoreEntryArray(){
         int [] scorePoints = getSortedPoints();
         for (int scoreEntry = 0; scoreEntry < scorePoints.length; scoreEntry++) {

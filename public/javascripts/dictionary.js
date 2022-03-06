@@ -1,3 +1,11 @@
+
+/**
+ * this awfully long function creates the entire dictionary
+ * it first fetches the coffees from the database and mapes the images from each coffee
+ * then it creates HTML Elements on the fly for each coffee
+ * these elements are bootstrap cards, containing the image of the coffee and in the body the description of the coffee
+ * the footer is displayed via a bootstrap button collapse and contains the ingredients
+ * then all the singular cards are appended into a big list and displayed*/
 async function createDictionary(){
     // console.time("coffees")
     let response = await fetch("http://localhost:9000/coffees/getCoffees");

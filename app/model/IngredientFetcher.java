@@ -32,7 +32,7 @@ public class IngredientFetcher {
 //            return ingredients;
 //        });
 //    }
-
+/**Gets the ingredient by ID from the database*/
     public Ingredient getIngredientById(int id) {
         return db.withConnection(conn -> {
             Ingredient ingredient = null;
@@ -50,7 +50,7 @@ public class IngredientFetcher {
         return getIngredientById(Integer.parseInt(id));
     }
 
-
+/**Gets all Ingredients from the database*/
     public List<Ingredient> getAllIngredients() {
         return db.withConnection(conn -> {
             List<Ingredient> ingredients = new ArrayList<>();

@@ -23,7 +23,9 @@ getCoffees().then(function (result) {
     getActiveDrink(allCoffees);
 });
 
-
+/**
+ * returns all Coffees
+ * important for Level 2+3 also, because these will be stored in the sessionStorage (->see getCoffees().then())*/
 async function getCoffees() {
     const fetchedCoffees = new CoffeesForGame();
     await fetchedCoffees.getRandomSixCoffees();
@@ -33,6 +35,9 @@ async function getCoffees() {
 }
 
 //important here for level 2
+/**
+ * returns six Customers
+ * important for Level 2 and so on, because these will be stored in the sessionStorage (->see getRandomSixCustomers().then())*/
 async function getRandomSixCustomers() {
     const customerForGame = new Customers();
     await customerForGame.getRandomSixCustomers();
@@ -163,7 +168,7 @@ function submitGame() {
             // Add the amount of beans you received to the money
             navbarMoney += earnedMoney;
             $('#money').text(navbarMoney);
-
+            //update session storage user so the modals only show up with 0 points
             var currentUserString = sessionStorage.getItem("currentUser");
             let currentUser = JSON.parse(currentUserString);
             currentUser.points += navbarMoney;

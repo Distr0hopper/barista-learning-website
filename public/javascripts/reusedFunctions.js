@@ -50,7 +50,11 @@ function redirectToMemoryLvl3(){
 
 
 
-
+/**
+ * Load Modal loads the modal containing the Coffees and Customers for the Game
+ * It has a timer of 5 Seconds and will disappear afterwards
+ * it then saves the coffees and customers in the sessionstorage, also in a combined version to use for other levels
+ * */
 async function loadModal() {
     var gameModal = $('#gameModal')
     gameModal.modal('show');

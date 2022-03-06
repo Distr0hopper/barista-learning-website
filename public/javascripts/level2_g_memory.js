@@ -7,7 +7,9 @@ var cardsChosenID = []
 var cardsWon = []
 var correctMatches = 0;
 let money = Number($('#money').text());
-
+/**
+ * prevents modal from being able to clicked away if you click somewhere else in the screen
+ * you have to watch the content of the modal for the 5 sec and only afterwards are shown the memory*/
 $(window).on('load', function () {
     $('#gameModal2').modal({
         backdrop: 'static',
@@ -16,13 +18,16 @@ $(window).on('load', function () {
 
     })
 })
+/**important so popover shows up
+ * has to be done in js bc of very nested HTML code, doesnt work without it for some reason*/
 $(function () {
     $('.example-popover').popover({
         container: 'body'
     })
 })
 
-
+/**
+ * asynchronous function that fetches the coffees and customers from the sessionStorage and displays them in a modal with a countdown*/
 async function loadModalMemory() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');
@@ -57,7 +62,7 @@ async function loadModalMemory() {
 }
 
 /**
- * loadModal() loads important Arrays and sessionStorage Values and calls showBoard()
+ * loadModal() gets Info about customers and coffees for the memory game from sessionStorage calls showBoard()
  */
 async function loadMemory() {
 
@@ -234,6 +239,9 @@ function showBoard() {
     }, 9000)
 
 }
+/**The Eventlistener loads on windowload the following three functions asynchronously so it actually waits for each function to execute their code before he calls the next
+ * important so the same content is actually loaded from level2 in level2memory
+ * and important so the modal is loaded after the content has laoded*/
 window.addEventListener('load', async ()=>{
     await loadModalMemory();
     await loadMemory();
