@@ -1,9 +1,11 @@
 @(title: String)(implicit assetsFinder: AssetsFinder)
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Create account</title>
         <link rel="stylesheet" href="@assetsFinder.path("stylesheets/bootstrap.min.css")" type="text/css">
         <script src="@assetsFinder.path("javascripts/bootstrap.bundle.min.js")"></script>
@@ -29,7 +31,10 @@
                         </div>
                         <div class="form-group">
                             <label for="username">Choose a Username: </label>
-                            <input type="text" placeholder="Username" id="username" class="form-control mb-3 p-3"/>
+                            <input type="text" placeholder="Username" id="username" class="form-control p-3"/>
+                            <div class="form-text text-white mb-3">
+                                A username between 3 and 25 characters
+                            </div>
                             <div class="text-brown mb-3" id="name-error"></div>
                         </div>
                         <div class="form-group">
