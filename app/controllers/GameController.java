@@ -4,6 +4,7 @@ import akka.http.impl.engine.server.ServerTerminationDeadlineReached;
 import akka.http.javadsl.model.Query;
 import com.fasterxml.jackson.databind.JsonNode;
 import model.CustomerFetcher;
+import model.IngredientFetcher;
 import model.UserFactory;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -12,6 +13,7 @@ import play.mvc.Result;
 import views.html.*;
 
 import javax.inject.Inject;
+import java.util.List;
 
 
 public class GameController extends Controller {
@@ -19,23 +21,27 @@ public class GameController extends Controller {
     private final UserController userController;
     private final UserFactory userFactory;
     private final CustomerFetcher customerFetcher;
+    private final IngredientFetcher ingredientFetcher;
+
 
     @Inject
-    public GameController(AssetsFinder assetsFinder, UserController userController, UserFactory userFactory, CustomerFetcher customerFetcher) {
+    public GameController(AssetsFinder assetsFinder, UserController userController, UserFactory userFactory, CustomerFetcher customerFetcher, IngredientFetcher ingredientFetcher) {
         this.assetsFinder = assetsFinder;
         this.userController = userController;
         this.userFactory = userFactory;
         this.customerFetcher = customerFetcher;
+        this.ingredientFetcher = ingredientFetcher;
     }
 
 
     public Result defaultGame(Http.Request request) {
         if(userController.isLoggedIn(request)) {
+            List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             return ok(
-                    defaultGame.render("gameOne", String.valueOf(money), assetsFinder)
+                    defaultGame.render("gameOne", String.valueOf(money), ingredients, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());

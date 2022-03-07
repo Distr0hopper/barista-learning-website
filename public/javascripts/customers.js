@@ -1,7 +1,9 @@
 /**
- * Customers is a class with the Instructor sixCustomer Array and this.getRandomSixCustomers()
- * it first generates a random Number
- * then it creates randomSixCustomers and Images*/
+ * Customers is a class which contains in its Constructor the sixCustomer Array
+ * it first contains the method to generate a random Number
+ * then it fetches all Customers from the database and maps their imagepaths
+ * afterwards six Customers are picked at the index of a randomly generated numbers and saved into sixCustomers
+ * these sixCustomers are also then saved into the sessionStorage */
 class Customers {
     constructor() {
         this.sixCustomers = []
@@ -12,7 +14,7 @@ class Customers {
         const randomNumber = Math.floor(Math.random() * lengthArray);
         return randomNumber
     }
-    /**gets Customers (later) and puts them into array*/
+
     async getRandomSixCustomers() {
         // const CustomerArray = []
         // const sixCustomers = []
@@ -43,10 +45,9 @@ class Customers {
         this.sixCustomers = sixCustomers;
         window.sessionStorage.setItem("customers", JSON.stringify(this.sixCustomers))
     }
-    /**Saves the Customer Images into map*/
-    getCustomerImages() {
-        return this.sixCustomers.map(customer => {
-            return customer.customerImgPath;
-        });
-    }
+    // getCustomerImages() {
+    //     return this.sixCustomers.map(customer => {
+    //         return customer.customerImgPath;
+    //     });
+    // }
 }

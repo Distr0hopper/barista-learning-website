@@ -888,3 +888,11 @@ li{
 .btn-close:focus {
     box-shadow: none!important;
 }
+
+#redoGame {
+    width: 180px;
+}
+
+#playNextGame{
+    width: 180px;
+}

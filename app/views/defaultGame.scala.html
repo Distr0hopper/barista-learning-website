@@ -1,8 +1,10 @@
-@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, ingredients: List[data.Ingredient])(implicit assetsFinder: AssetsFinder)
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>HighScore</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -59,70 +61,12 @@
                                     <div class="ingredient-div text-center">
                                         <div id="ingredients" class="align-items-center justify-content-center p-2 h-75">
                                             <div class="row justify-content-center align-items-center ingredient-box h-100 w-100">
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/coffee.svg")"
-                                                    alt="Coffee" class="drag-drop" id="Coffee">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/espresso.svg")"
-                                                    alt="Espresso" class="drag-drop" id="Espresso">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/foam.svg")"
-                                                    alt="Foam" class="drag-drop" id="Foam">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/milk.svg")"
-                                                    alt="Milk" class="drag-drop" id="Milk">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/steamed-milk.svg")"
-                                                    alt="Steamed Milk" class="drag-drop" id="Steamed Milk">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/foamed-milk.svg")"
-                                                    alt="Foamed Milk" class="drag-drop" id="Foamed Milk">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/cream.svg")"
-                                                    alt="Cream" class="drag-drop" id="Cream">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/sugar.svg")"
-                                                    alt="Sugar" class="drag-drop" id="Sugar">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/sweet.svg")"
-                                                    alt="Sweet" class="drag-drop" id="Sweet">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/panela.svg")"
-                                                    alt="Panela" class="drag-drop" id="Panela">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/whiskey.svg")"
-                                                    alt="Whiskey" class="drag-drop" id="Whiskey">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/chocolate.svg")"
-                                                    alt="Chocolate" class="drag-drop" id="Chocolate">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/coffee-big.svg")"
-                                                    alt="Coffee Big" class="drag-drop" id="Big Coffee">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/espresso-big.svg")"
-                                                    alt="Espresso Big" class="drag-drop" id="Double Espresso">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/hot-water.svg")"
-                                                    alt="Hot Water" class="drag-drop" id="Hot Water">
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
-                                                    <img src="@assetsFinder.path("images/Ingredients/ice-cream.svg")"
-                                                    alt="Ice Cream" class="drag-drop" id="Ice Cream">
-                                                </div>
+                                                @for(ingredient <- ingredients) {
+                                                    <div class="col-12 col-sm-3 col-lg-3 text-center py-4">
+                                                        <img src="/assets/images/Ingredients/@ingredient.getImgPath"
+                                                        alt="@ingredient.getName" class="drag-drop" id="@ingredient.getName">
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -135,6 +79,9 @@
                                             <img src="@assetsFinder.path("images/tipsIcon.svg")" alt="help">
                                         </a>
                                     </span>
+                                    <div>
+                                        <span style="margin-right:  120px" id="remainingAttempts"> You have 3 attempts left </span>
+                                    </div>
                                 </div>
                                 <div class="justify-content-center">
 
@@ -169,11 +116,14 @@
                                 src="@assetsFinder.path("images/Ingredients/cup.svg")"
                                 class="img-fluid p-5" alt="coffe-mug" id="coffee-mug"></div>
                                 <div class="">
-                                    <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()"  >
+                                    <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()" >
                                         submit
                                     </button>
-                                    <button type="button" class="login_btn mt-3 mb-5 p-4" id="nextGame" onclick="redirectLvlTwo()" style="display: none" >
-                                        Go to the next lvl
+                                    <button type="button" class="login_btn mt-3 mb-5 p-4" id="redoGame" onclick="redoGameOne()" style="display: none">
+                                        Play again
+                                    </button>
+                                    <button type="button" class="login_btn mt-3 mb-5 p-4" id="playNextGame" onclick="redirectToLvl2()"  style="display: none">
+                                        Play next level
                                     </button>
                                 </div>
                             </div>

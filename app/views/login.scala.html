@@ -1,9 +1,11 @@
 @(assetsFinder: AssetsFinder)
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Login</title>
         <link rel="stylesheet" href="@assetsFinder.path("stylesheets/bootstrap.min.css")" type="text/css">
         <script src="@assetsFinder.path("javascripts/bootstrap.bundle.min.js")"></script>
@@ -35,8 +37,7 @@
                             Login
                         </button>
                     </div>
-                    <p id="fehler" class="mb-2 bg-danger text-white"></p>
-                    <a href='@routes.UserController.forgotPassword'>Forgot Password</a>
+@*                    <a href='@routes.UserController.forgotPassword'>Forgot Password</a>*@
                     <p class="pb-5">Don't have an account yet? <a href=@routes.UserController.createAccount>
                         Register here</a></p>
                 </div>

@@ -26,8 +26,8 @@ public class ExampleFilter extends EssentialFilter {
     @Override
     public EssentialAction apply(EssentialAction next) {
         return EssentialAction.of(request ->
-            next.apply(request).map(result ->
-                 result.withHeader("X-ExampleFilter", "foo"), exec)
+                next.apply(request).map(result ->
+                        result.withHeader("X-ExampleFilter", "foo"), exec)
         );
     }
 }

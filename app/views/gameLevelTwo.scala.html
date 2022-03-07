@@ -116,6 +116,9 @@
                                     <img src="@assetsFinder.path("images/tipsIcon.svg")" alt="help">
                                 </a>
                             </span>
+                            <div>
+                                <span style="margin-right:  120px" id="remainingAttempts"> You have 3 attempts left </span>
+                            </div>
                         </div>
                         <div class="justify-content-center">
 
@@ -152,8 +155,11 @@
                             <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()">
                                 submit
                             </button>
-                            <button type="button" class="login_btn mt-3 mb-5 p-4" id="nextGame" onclick="redirectToMemoryLvl2()" style="display: none" >
-                                Go to the next lvl
+                            <button type="button" class="login_btn mt-3 mb-5 p-4" id="redoGame" onclick="redoGameOne()" style="display: none">
+                                Play again
+                            </button>
+                            <button type="button" class="login_btn mt-3 mb-5 p-4" id="playNextGame" onclick="redirectToLvl2()"  style="display: none">
+                                Play next level
                             </button>
                         </div>
                     </div>

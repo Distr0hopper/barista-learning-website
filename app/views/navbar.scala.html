@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>@page </title>
         <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/bootstrap.min.css")">
         <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
@@ -40,8 +42,6 @@
                             <nobr>Game-Level-3-Memory</nobr></a></li>
                         <li><a  class="nav-link @("active".when(page == "GameThree"))" href="@routes.GameController.gameLevelThree">
                             <nobr>Game-Level-3</nobr></a></li>
-                        <li><a class="nav-link  @("active".when(page == "Store"))" href="@routes.HomeController.store">
-                            Store</a></li>
                         <li><a class="nav-link  @("active".when(page == "Dictionary"))" href="@routes.HomeController.dictionary">
                             Dictionary</a></li>
                         <li><a class="nav-link  @("active".when(page == "Socials"))" href="@routes.HomeController.socials">

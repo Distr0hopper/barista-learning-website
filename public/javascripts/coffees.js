@@ -1,7 +1,10 @@
 /**
- * CoffeesForGame is a class, that has sixCoffees in the Constructor
- * it first generates a random Number
- * then it creates randomSixCoffees and Titles*/
+ * CoffeesForGame is a class which contains in its Constructor the sixCoffees Array
+ * it first contains the method to generate a random Number
+ * then it fetches all Coffees from the database and maps their imagepaths
+ * afterwards six Coffees are picked at the index of a randomly generated numbers and saved into sixCustomers
+ * these sixCustomers are also then saved into the sessionStorage
+ * the class also contains a method to receive just the titles of the sixCoffees*/
 
 class CoffeesForGame {
     constructor() {
