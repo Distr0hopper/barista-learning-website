@@ -15,6 +15,7 @@ let activeDrink = "Test";
 let levelUpBonus = 0;
 let navbarMoney = Number($('#money').text());
 let drinksMixedSoFar = 0;
+let earnedMoneyAddedUp = 0;
 
 let allCoffees
 getCoffees().then(function (result) {
@@ -112,27 +113,26 @@ function submitGame() {
             $('#order').text("Please make a " + getTitle(activeDrink) + "!");
         } catch (e) {
             $('#remainingAttempts').text("")
-            const moneyObjekt = {
-                "moneyKey": navbarMoney,
-            }
-            fetch("/games/getMoney", {
-                method: 'POST',
-                body: JSON.stringify(moneyObjekt),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
+                const moneyObjekt = {
+                    "moneyKey": navbarMoney,
+                }
+                fetch("/games/getMoney", {
+                    method: 'POST',
+                    body: JSON.stringify(moneyObjekt),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
 
-            $('#submitGame').hide();
-            $('#redoGame').show();
-            if (navbarMoney >= 60) {
-                $('#playNextGame').show();
-                $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
-            } else if (navbarMoney < 60) {
-                $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
-                $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
-            }
-
+                $('#submitGame').hide();
+                $('#redoGame').show();
+                if (navbarMoney >= 60) {
+                    $('#playNextGame').show();
+                    $('#order').text("Well done, you made all coffees! You can play the next game if you want! Your points will be added after choosing an option below.");
+                } else if (navbarMoney < 60) {
+                    $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
+                    $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level! Your points will be added after choosing an option below.");
+                }
         }
         levelUpBonus = 0;
     } else {
@@ -159,12 +159,14 @@ function submitGame() {
             levelUpBonus += checkMoneyForRanking(navbarMoney + earnedMoney);
             earnedMoney += levelUpBonus;
             // Update the counter object in HTML (with or without the bonus)
-            updateMoneyCounter(earnedMoney);
-            // Update the Message
-            updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter);
+            // updateMoneyCounter(earnedMoney);
             // Add the amount of beans you received to the money
             navbarMoney += earnedMoney;
-            $('#money').text(navbarMoney);
+            // $('#money').text(navbarMoney);
+            // Update the Message
+            // updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter);
+            earnedMoneyAddedUp += earnedMoney;
+            updateMessage(earnedMoneyAddedUp, correctDrinksCounter, wrongDrinksCounter);
             //update session storage user so the modals only show up with 0 points
             var currentUserString = sessionStorage.getItem("currentUser");
             let currentUser = JSON.parse(currentUserString);
