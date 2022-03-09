@@ -79,9 +79,9 @@
                                             <img src="@assetsFinder.path("images/tipsIcon.svg")" alt="help">
                                         </a>
                                     </span>
-                                    <div>
-                                        <span style="margin-right:  120px" id="remainingAttempts"> You have 3 attempts left </span>
-                                    </div>
+                                </div>
+                                <div class="justify-content-center">
+                                    <span id="remainingCoffeesTillFinished">6 coffees left to mix until points are saved</span>
                                 </div>
                                 <div class="justify-content-center">
 
@@ -115,8 +115,8 @@
                                 <div class="dropzone" id="cup"><img
                                 src="@assetsFinder.path("images/Ingredients/cup.svg")"
                                 class="img-fluid p-5" alt="coffe-mug" id="coffee-mug"></div>
-                                <div class="">
-                                    <button type="button" class="login_btn mt-3 mb-5 p-4" id="submitGame" onclick="submitGame()" >
+                                <div>
+                                    <button type="button" class="login_btn mt-3 m-2 p-4" id="submitGame" onclick="submitGame()" >
                                         submit
                                     </button>
                                     <button type="button" class="login_btn mt-3 mb-5 p-4" id="redoGame" onclick="redoGameOne()" style="display: none">
@@ -126,6 +126,8 @@
                                         Play next level
                                     </button>
                                 </div>
+                                <p class="justify-content-center mb-4 small" id="remainingAttempts"> You have 3 attempts left </p>
+
                             </div>
 
                         </div>

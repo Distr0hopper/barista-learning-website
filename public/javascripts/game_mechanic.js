@@ -14,6 +14,7 @@ let correctIngredients = [];
 let activeDrink = "Test";
 let levelUpBonus = 0;
 let navbarMoney = Number($('#money').text());
+let drinksMixedSoFar = 0;
 
 let allCoffees
 getCoffees().then(function (result) {
@@ -103,7 +104,6 @@ function submitGame() {
     var submitButtonText = $('#submitGame').text();
 
 
-
     if (submitButtonText === 'next') {
         $('#submitGame').html('submit')
         $('#remainingAttempts').text("You have " + 3 + " attempts left")
@@ -125,12 +125,10 @@ function submitGame() {
 
             $('#submitGame').hide();
             $('#redoGame').show();
-            if (navbarMoney >= 60){
+            if (navbarMoney >= 60) {
                 $('#playNextGame').show();
                 $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
-            }
-
-            else if (navbarMoney < 60 ){
+            } else if (navbarMoney < 60) {
                 $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
                 $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
             }
@@ -150,7 +148,6 @@ function submitGame() {
 
         correctIngredients = getIngredientList(activeDrink);
         console.log(correctIngredients);
-
 
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
             $('#submitGame').html('next')
@@ -175,7 +172,11 @@ function submitGame() {
             sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
             console.log(currentUser.points)
 
+
             correctDrinksCounter++;
+            drinksMixedSoFar++;
+            //countdown for drinks to still need to do until points are saved to db
+            $('#remainingCoffeesTillFinished').text((6 - drinksMixedSoFar) + " coffees left to mix until points are saved")
             wrongDrinksCounter = 0;
 
         } else {
@@ -189,6 +190,9 @@ function submitGame() {
                 $('#submitGame').html('next');
                 $('#remainingAttempts').text("You have " + 0 + " attempts left")
                 wrongDrinksCounter = 0;
+                drinksMixedSoFar++;
+                //countdown for drinks to still need to do until points are saved to db, reset points to 0 incase
+                $('#remainingCoffeesTillFinished').text((6 - drinksMixedSoFar) + " coffees left to mix until points are saved")
             }
 
             correctDrinksCounter = 0;
@@ -198,6 +202,8 @@ function submitGame() {
         arrayImagesID = [];
         arrayDraggedImages = [];
     }
+
+
 
 }
 
@@ -408,7 +414,7 @@ async function loadModalExplain() {
     }
 }
 
-window.addEventListener('load', async ()=>{
+window.addEventListener('load', async () => {
     await loadModalExplain();
 })
 
