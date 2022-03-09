@@ -100,7 +100,7 @@ function submitGame() {
     // console.log(allCoffees.shift());
     // console.log(allCoffees);
     // getActiveDrink(allCoffees);
-    $('#plusForMoneyCounter').show();
+    // $('#plusForMoneyCounter').show();
     $('#money-counter').show();
     var submitButtonText = $('#submitGame').text();
 
