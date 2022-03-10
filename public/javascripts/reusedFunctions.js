@@ -47,8 +47,14 @@ function redirectToMemoryLvl3(){
     window.location = '/games/gameLevelThreeMemory'
 }
 
-
-
+/**
+ * Updates the HTML Object in the View
+ * @param earnedMoney checks how much coffee beans you receive by making the coffee
+ */
+function updateMoneyCounter(earnedMoney) {
+    $('#plusForMoneyCounter').show();
+    $('#money-counter').text(earnedMoney);
+}
 
 /**
  * Load Modal loads the modal containing the Coffees and Customers for the Game

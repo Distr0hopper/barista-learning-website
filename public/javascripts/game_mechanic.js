@@ -17,6 +17,7 @@ let navbarMoney = Number($('#money').text());
 let drinksMixedSoFar = 0;
 let earnedMoneyAddedUp = 0;
 
+
 let allCoffees
 getCoffees().then(function (result) {
     allCoffees = result;
@@ -101,7 +102,7 @@ function submitGame() {
     // console.log(allCoffees);
     // getActiveDrink(allCoffees);
 
-    // $('#plusForMoneyCounter').show();
+
     $('#money-counter').show();
     var submitButtonText = $('#submitGame').text();
 
@@ -124,15 +125,16 @@ function submitGame() {
                         'Content-Type': 'application/json'
                     },
                 })
-
+                $('#money').text(navbarMoney);
+                updateMoneyCounter(earnedMoneyAddedUp)
                 $('#submitGame').hide();
                 $('#redoGame').show();
                 if (navbarMoney >= 60) {
                     $('#playNextGame').show();
-                    $('#order').text("Well done, you made all coffees! You can play the next game if you want! Your points will be added after choosing an option below.");
+                    $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
                 } else if (navbarMoney < 60) {
                     $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
-                    $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level! Your points will be added after choosing an option below.");
+                    $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
                 }
         }
         levelUpBonus = 0;
@@ -153,20 +155,18 @@ function submitGame() {
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
             $('#submitGame').html('next')
             // Check how much coffee beans you receive by making the drink right
-            let earnedMoney = checkWrongDrinks(wrongDrinksCounter);
+            earnedMoneyAddedUp = checkWrongDrinks(wrongDrinksCounter);
             // Check if you received any help
-            earnedMoney -= countHelpsAndReturnDeduction();
+            earnedMoneyAddedUp -= countHelpsAndReturnDeduction();
             // Check if you receive a lvl-up bonus
-            levelUpBonus += checkMoneyForRanking(navbarMoney + earnedMoney);
-            earnedMoney += levelUpBonus;
+            levelUpBonus += checkMoneyForRanking(navbarMoney + earnedMoneyAddedUp);
+            earnedMoneyAddedUp += levelUpBonus;
             // Update the counter object in HTML (with or without the bonus)
             // updateMoneyCounter(earnedMoney);
             // Add the amount of beans you received to the money
-            navbarMoney += earnedMoney;
-            // $('#money').text(navbarMoney);
+            navbarMoney += earnedMoneyAddedUp;
             // Update the Message
-            // updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter);
-            earnedMoneyAddedUp += earnedMoney;
+            //earnedMoneyAddedUp += earnedMoney;
             updateMessage(earnedMoneyAddedUp, correctDrinksCounter, wrongDrinksCounter);
             //update session storage user so the modals only show up with 0 points
             var currentUserString = sessionStorage.getItem("currentUser");
@@ -253,13 +253,7 @@ function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter) {
 }
 
 
-/**
- * Updates the HTML Object in the View
- * @param earnedMoney checks how much coffee beans you receive by making the coffee
- */
-function updateMoneyCounter(earnedMoney) {
-    $('#money-counter').text(earnedMoney);
-}
+
 
 /**
  * Checks how many coffees are made correctly in a row.
