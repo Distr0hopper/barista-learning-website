@@ -24,7 +24,6 @@ body{
     /*background-color: rgba(76,34,18,255);*/
     background-color: var(--dark-brown-navbar);
     height: 8vh;
-;
 }
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
@@ -36,10 +35,17 @@ body{
 .navbar-custom .navbar-nav .nav-link {
     color: rgba(255,255,255,.5);
 }
+
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,
 .navbar-custom .nav-item:hover .nav-link {
     color: #ffffff;
+}
+
+/* change the color of active or hovered links in dropdown */
+.dropdown-item.active, .dropdown-item:active {
+    color: #ffffff;
+    background-color: var(--backround-color);
 }
 
 .mainbackround{
