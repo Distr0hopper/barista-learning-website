@@ -25,7 +25,10 @@ function checkMoneyForRanking(money) {
         return 300;
     }
     if (money >= 1000 && money <= 1030) {
-        window.alert("WOW! You are now the General of Baristas! +500 Beans\n" + playNextGame)
+        window.alert("WOW! You are now the General of Baristas! +500 Beans\n"
+            + "\nYou have finished the final level and are ready for the real world! 🎓" +
+            "\nIf you want to you can practise some more or go off and start your journey at you favourite local coffee shop!");
+        $('#ModalReadyForTheRealWorld').show();
         return 500;
     }
     return 0;
