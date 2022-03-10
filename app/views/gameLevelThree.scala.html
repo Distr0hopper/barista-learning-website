@@ -37,9 +37,9 @@
 
                                 <div class="col-12" id="firstCoffee">
                                     <p id="message-error"></p>
-                                    <div class="coffePickerdiv">
+                                    <div class="coffeePickerdiv">
                                         <select class="form-control input-border-rounded mt-3 p-3" id="inputGroupSelect01">
-                                            <option selected>Choose the correct Coffee...</option>
+                                            <option selected value = "None">Choose the correct Coffee...</option>
                                             <option class="options" value="1">One</option>
                                             <option class="options" value="2">Two</option>
                                             <option class="options" value="3">Two</option>
@@ -71,9 +71,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Product</th>
-                                                    <th>Quantity</th>
                                                     <th>Price</th>
-                                                    <th>Total</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -89,19 +88,19 @@
                                 </div>
 
                                 <div class="col-6">
-                                    <input type="text" class="form-control input-border-rounded mt-3 p-3" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
+                                    <input type="text" id="submitPriceInput" class="form-control input-border-rounded mt-3 p-3" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" class="form-control input-border-rounded mt-3 p-3" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
+                                    <input type="text" id ="tipInput" class="form-control input-border-rounded mt-3 p-3 tipInput" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
                                 </div>
 
 
                                 <div class="col-6">
-                                    <button class="login_btn my-3 p-3" type="button" id="submitTotalPrice" onclick="submitTotalPrice">
+                                    <button class="login_btn my-3 p-3" type="button" id="submitTotalPrice"  onclick="submitTotalPrice()">
                                         Submit</button>
                                 </div>
                                 <div class="col-6">
-                                    <button class="login_btn my-3 p-3" type="button" id="submitTotalPrice" data-toggle = "modal" data-target= "#costumerWishModal2" onclick="submitTotalPrice">
+                                    <button class="login_btn my-3 p-3" type="button" id="submitTip" onclick="submitTip()">
                                         Submit Tip </button>
                                 </div>
                             </div>
@@ -133,13 +132,13 @@
 
                     <div class="row px-2 my-2" id="addingMoreCostumers"></div> <!--id gets duplicated multiple times here and it's not a good practice-->
 
-                    <div class="row px-2 my-2">
+                    @*<div class="row px-2 my-2">
                         <div class="col-4 addingCostumer" id="moreCostumers">
                             <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">
                                 <img class="p-3 card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
 
                 </div>
@@ -151,7 +150,7 @@
         </div>
     </div>
 
-        <!-- Do we need this modal? -->
+        <!-- user enterd tip  -->
     <div class="modal fade" id="costumerWishModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -190,45 +189,39 @@
         </div>
     </div>
 
-        <!-- Do we need this modal? -->
+        <!-- user enterd submit  -->
     <div class="modal fade" id="costumerAnswerAfterSubmit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">
-                        Hey! I would like to pay</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <div class=" col-md-4 ml-auto">
+                        <div id = "imageCostumer1">
+                            <img height="100" class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
+                        </div>
+                    </div>
+                    <h5 class="modal-title" id="TileHeaderAfterSubmit">
+                        Hey ! this is modal after Submit <span id="label">*</span>
+                    </h5>
 
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div id = "addingPayingCostumer2">
-                            <div class=" col-md-4 ml-auto">
-                                <img class="card-img-Person-paying-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class=" col-4" id="card-text-body-modal">
-                            I would like to pay me and for my friend
-                        </div>
-                        <p id="label2">*</p>
-                        <div id="moreCostumers2">
-                            <div class=" col-md-4 ml-auto">
-                                <div class="addingInvitedCostumer2">
-                                    <img id = "imageCostumer2" class="card-img-Person-getting-invited-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
-                                </div>
-                            </div>
-                        </div>
-                        <div id="addingMoreCostumers2"></div>
+                    <div class=" col-4" id="AfterSubmitCardBody">
+                        I would like to pay me and for my friend
                     </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  id= "btnsubmit" class="btn closebutton-bottom" data-dismiss="modal">
+                        Ok!</button>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
-                Ok!</button>
-        </div>
-
     </div>
+
+
 
     <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -242,7 +235,7 @@
                     <p>Description</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal" data-toggle="modal" data-target="#costumerWishModal" id="payingCostumer" onclick="randomNumber()">
+                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal" data-toggle="modal" data-target="#costumerWishModal" id="payingCostumer">
                         Ok let's go!</button>
                 </div>
             </div>
