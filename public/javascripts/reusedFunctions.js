@@ -57,6 +57,7 @@ function redirectToMemoryLvl3(){
  * @param earnedMoney checks how much coffee beans you receive by making the coffee
  */
 function updateMoneyCounter(earnedMoney) {
+    $('#money-counter').show();
     $('#plusForMoneyCounter').show();
     $('#money-counter').text(earnedMoney);
 }

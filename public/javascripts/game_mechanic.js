@@ -1,13 +1,5 @@
-/**
- * @param arrayDraggedImages: Contains the images of the ingredient
- * @param arrayImagesID: Contains the ID's of the images
- * @param drinks: Stores drinks and their ingredients
- * @param correctDrinksCounter: Counts how many drinks are made in a row
- * @param money: Get the money from the Menuebar and display it as text
- */
 let arrayDraggedImages = [];
 let arrayImagesID = [];
-// const drinks = new Array();
 let correctDrinksCounter = 0;
 let wrongDrinksCounter = 0;
 let correctIngredients = [];
@@ -19,11 +11,15 @@ let earnedMoneyAddedUp = 0;
 
 
 let allCoffees
+/**
+ * Set all coffees which has to be done in the entire game.
+ * Store them in the session, so they are the same in the next levels.
+ * Get the current coffee which hast to be done.
+ */
 getCoffees().then(function (result) {
     allCoffees = result;
-    console.log(allCoffees);
     sessionStorage.setItem("allCoffees", JSON.stringify(allCoffees))
-    getActiveDrink(allCoffees);
+    getNextDrink(allCoffees);
 });
 
 /**
@@ -48,27 +44,32 @@ async function getRandomSixCustomers() {
     return sixCustomers
 }
 
+/**
+ * Set all customers.
+ * Store them into the session, so they are the same in the next levels.
+ */
 let sixCustomers
 getRandomSixCustomers().then(function (result) {
     sixCustomers = result;
     sessionStorage.setItem("sixCustomers", JSON.stringify(sixCustomers))
 })
 
+/**
+ * Get next coffee which has to be done.
+ * @param allCoffees Array which includes all six coffees for the entire game.
+ * @return {Coffee} Coffee object.
+ */
 function getNextDrink(allCoffees) {
     activeDrink = allCoffees.shift();
     return activeDrink;
 }
 
-function getActiveDrink(allCoffees) {
-    activeDrink = allCoffees.shift();
-    // console.log(activeDrink);
-    // console.log(getTitle(activeDrink))
-    console.log(getIngredientList(activeDrink));
-    return activeDrink;
-}
-
-
-function getIngredientList(activeCoffee) {
+/**
+ * Get the ingredients as array from the current coffee.
+ * @param activeCoffee Current coffee which has to be done.
+ * @return {[]} Ingredients in an array.
+ */
+function getIngredientArray(activeCoffee) {
     let ingredientArray = []
     for (let i = 0; i < activeCoffee.ingredientList.length; i++) {
         ingredientArray.push(activeCoffee.ingredientList[i]);
@@ -76,8 +77,12 @@ function getIngredientList(activeCoffee) {
     return ingredientArray;
 }
 
+/**
+ * Get the title from the active coffee.
+ * @param activeDrink Current coffee which has to be done.
+ * @return {String} Title from the coffee.
+ */
 function getTitle(activeDrink) {
-    //console.log(activeDrink.title);
     return activeDrink.title;
 }
 
@@ -88,54 +93,26 @@ function getTitle(activeDrink) {
  * If the button is submit, check if the dropped ingredients are the same as the correct ingredients and snap them to it's original position.
  * When they are correct, look how many attempts the user needed to make the coffee right.
  * Depending on the number of attempts, the user gets a different number of beans.
- * Fetch the rewards to the server to store them in a session.
- * When they are wrong, count an attempt + 1.
+ * Also checking if the user looked in the dictionary to make the coffee.
+ * Depending on how often he looked up there, the user gets less beans.
+ * When the coffee is wrong, count an attempt + 1.
  * If the user cannot make the coffee in 3 attempts, display the correct answer.
- * Empty arrays at the end.
- *
- * @param submitButtonText:  get the current text of the submit button. Can be "Next" or "Submit".
- * @param moneyObject: JSON object containing the key moneyKey and the Value
+ * Fetch the rewards to the server to store them in a session if the last coffee is made.
+
  */
-
 function submitGame() {
-    // console.log(allCoffees.shift());
-    // console.log(allCoffees);
-    // getActiveDrink(allCoffees);
 
-
-    $('#money-counter').show();
-    var submitButtonText = $('#submitGame').text();
-
+    const submitButtonText = $('#submitGame').text();
 
     if (submitButtonText === 'next') {
         $('#submitGame').html('submit')
         $('#remainingAttempts').text("You have " + 3 + " attempts left")
         activeDrink = getNextDrink(allCoffees);
+
         try {
             $('#order').text("Please make a " + getTitle(activeDrink) + "!");
         } catch (e) {
-            $('#remainingAttempts').text("")
-                const moneyObjekt = {
-                    "moneyKey": navbarMoney,
-                }
-                fetch("/games/getMoney", {
-                    method: 'POST',
-                    body: JSON.stringify(moneyObjekt),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                })
-                $('#money').text(navbarMoney);
-                updateMoneyCounter(earnedMoneyAddedUp)
-                $('#submitGame').hide();
-                $('#redoGame').show();
-                if (navbarMoney >= 60) {
-                    $('#playNextGame').show();
-                    $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
-                } else if (navbarMoney < 60) {
-                    $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
-                    $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
-                }
+            finishGame();
         }
         levelUpBonus = 0;
     } else {
@@ -149,8 +126,7 @@ function submitGame() {
             currentImage.setAttribute('data-y', 0)
         }
 
-        correctIngredients = getIngredientList(activeDrink);
-        console.log(correctIngredients);
+        correctIngredients = getIngredientArray(activeDrink);
 
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
             $('#submitGame').html('next')
@@ -161,20 +137,15 @@ function submitGame() {
             // Check if you receive a lvl-up bonus
             levelUpBonus += checkMoneyForRanking(navbarMoney + earnedMoneyAddedUp);
             earnedMoneyAddedUp += levelUpBonus;
-            // Update the counter object in HTML (with or without the bonus)
-            // updateMoneyCounter(earnedMoney);
             // Add the amount of beans you received to the money
             navbarMoney += earnedMoneyAddedUp;
             // Update the Message
-            //earnedMoneyAddedUp += earnedMoney;
             updateMessage(earnedMoneyAddedUp, correctDrinksCounter, wrongDrinksCounter);
-            //update session storage user so the modals only show up with 0 points
+            // Update session storage user so the modals only show up with 0 points
             var currentUserString = sessionStorage.getItem("currentUser");
             let currentUser = JSON.parse(currentUserString);
             currentUser.points += navbarMoney;
             sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-            console.log(currentUser.points)
-
 
             correctDrinksCounter++;
             drinksMixedSoFar++;
@@ -187,17 +158,14 @@ function submitGame() {
             if (wrongDrinksCounter < 3) {
                 $('#order').text("Wrong! Please make a " + getTitle(activeDrink) + " again!");
                 $('#remainingAttempts').text("You have " + (3 - wrongDrinksCounter) + " attempts left")
-                //window.alert("You have " + (3 - wrongDrinksCounter) + " tries left");
             } else {
                 $('#order').text("Wrong! " + getTitle(activeDrink) + " = " + correctIngredients.join(" + "));
                 $('#submitGame').html('next');
                 $('#remainingAttempts').text("You have " + 0 + " attempts left")
                 wrongDrinksCounter = 0;
                 drinksMixedSoFar++;
-                //countdown for drinks to still need to do until points are saved to db, reset points to 0 incase
                 $('#remainingCoffeesTillFinished').text((6 - drinksMixedSoFar) + " coffees left to mix until points are saved")
             }
-
             correctDrinksCounter = 0;
             $('#money-counter').text("0")
 
@@ -205,9 +173,31 @@ function submitGame() {
         arrayImagesID = [];
         arrayDraggedImages = [];
     }
+}
 
-
-
+function finishGame() {
+    $('#remainingAttempts').text("")
+    const moneyObjekt = {
+        "moneyKey": navbarMoney,
+    }
+    fetch("/games/getMoney", {
+        method: 'POST',
+        body: JSON.stringify(moneyObjekt),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    $('#money').text(navbarMoney);
+    updateMoneyCounter(earnedMoneyAddedUp)
+    $('#submitGame').hide();
+    $('#redoGame').show();
+    if (navbarMoney >= 60) {
+        $('#playNextGame').show();
+        $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
+    } else if (navbarMoney < 60) {
+        $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
+        $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
+    }
 }
 
 /**
@@ -251,8 +241,6 @@ function updateMessage(earnedMoney, correctDrinksCounter, wrongDrinksCounter) {
         $('#order').text("You made it right on the " + (wrongDrinksCounter + 1) + " try! +" + earnedMoney + " beans!");
     }
 }
-
-
 
 
 /**
@@ -350,7 +338,6 @@ function checkIngredientArray(event) {
 
 interact('.dropzone').dropzone({
     overlap: 1,
-
     ondropactivate: function (event) {
         event.target.classList.add('drop-active')
     },

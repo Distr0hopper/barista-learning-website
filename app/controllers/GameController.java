@@ -33,7 +33,13 @@ public class GameController extends Controller {
         this.ingredientFetcher = ingredientFetcher;
     }
 
-
+    /**
+     * An action that renders the HTML defaultGame page.
+     * Checks if there is a user in the session and get his points from the database.
+     * Get all ingredients from the database (?).
+     * @param request Request the sessionstorage.
+     * @return Ok
+     */
     public Result defaultGame(Http.Request request) {
         if(userController.isLoggedIn(request)) {
             List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
@@ -62,6 +68,7 @@ public class GameController extends Controller {
          }
          return 1;
     }
+
     public Result requestMoney(Http.Request request){
         JsonNode json = request.body().asJson();
         int money = json.get("moneyKey").intValue();
@@ -132,9 +139,11 @@ public class GameController extends Controller {
 
     public Result gameLevelThree(Http.Request request) {
         if (userController.isLoggedIn(request)) {
-            String money = request.session().get("money").get();
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int money = user.getPoints();
             return ok(
-                    gameLevelThree.render("GameThree",money, assetsFinder)
+                    gameLevelThree.render("GameThree",String.valueOf(money), assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
