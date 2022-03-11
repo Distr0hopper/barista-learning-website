@@ -1,6 +1,6 @@
-@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer)(implicit assetsFinder: AssetsFinder)
 
-@navbar("GameThreeMemory", money) {
+@navbar("GameThreeMemory", money, level, ranking) {
     @* modal*@
     <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">

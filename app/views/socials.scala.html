@@ -1,11 +1,11 @@
 @import java.util
-@(page: String, money: String, user: model.UserFactory#User, friends: util.List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, user: model.UserFactory#User, friends: util.List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
 @import model.UserFactory
 
 <!DOCTYPE html>
 <html lang="en">
     <body style="overflow-y: scroll;" onload="createFriends(@user.getId), getMessages()">
-    @navbar("Socials", money) {
+    @navbar("Socials", money, level, ranking) {
         <div class="row no-gutters">
             <div class="col-lg-4">
                 <div class="ui-widget">

@@ -1,6 +1,6 @@
-@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer)(implicit assetsFinder: AssetsFinder)
 
-@navbar("Home", money) {
+@navbar("Home", money, level, ranking) {
     <div class="mainbackround">
         @* <object type="image/svg+xml" data="@assetsFinder.path("../../public/images/bg.svg")" class="img-bg"></object>*@
     </div>

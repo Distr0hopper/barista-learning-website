@@ -1,7 +1,7 @@
-@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer)(implicit assetsFinder: AssetsFinder)
 <!DOCTYPE html>
 
-@navbar("GameThree", money) {
+@navbar("GameThree", money, level, ranking) {
     <div class = "container">
         <section class="my-3 mx-4">
             <div class="mh-100 row row-game col-lg-10 col-xs-5 mx-auto">

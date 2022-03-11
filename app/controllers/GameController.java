@@ -40,28 +40,29 @@ public class GameController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
+            int level = user.getLevel();
+            int ranking = user.getRanking();
             return ok(
-                    defaultGame.render("gameOne", String.valueOf(money), ingredients, assetsFinder)
+                    defaultGame.render("gameOne", String.valueOf(money), level, ranking, ingredients, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
         }
-
     }
-
 
     public int updateRanking(int money){
          if (money >= 60 && money < 200){
-            return 2;
+            return 2; // game level 2
          } else if (money >= 200 && money < 460){
-            return 3;
+            return 3; // game level 2.1 (memory)
          } else if (money >= 460 && money < 600){
-           return 4;
+           return 4; // game level 3.1
          } else if (money >= 600){
-           return 5;
+           return 5; // game level 3 (memory)
          }
-         return 1;
+         return 1; // default game
     }
+
     public Result requestMoney(Http.Request request){
         JsonNode json = request.body().asJson();
         int money = json.get("moneyKey").intValue();
@@ -79,9 +80,15 @@ public class GameController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
-            return ok(
-                    gameLevelTwo.render("gameTwo",String.valueOf(money), assetsFinder)
-            );
+            int level = user.getLevel();
+            int ranking = user.getRanking();
+            if(level > 1){ // you can access the game level 2 when the level is at least 2
+                return ok(
+                        gameLevelTwo.render("gameTwo", String.valueOf(money), level, ranking, assetsFinder)
+                );
+            } else {
+                return redirect(routes.HomeController.main().url());
+            }
         } else {
             return redirect(routes.UserController.login().url());
         }
@@ -92,9 +99,15 @@ public class GameController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
-            return ok(
-                    gameLevelThreeGame1.render("GameThreeGame1",String.valueOf(money), assetsFinder)
-            );
+            int level = user.getLevel();
+            int ranking = user.getRanking();
+            if (level > 2) { // you can access the game level 3.1 when the level is at least 3
+                return ok(
+                        gameLevelThreeGame1.render("GameThreeGame1", String.valueOf(money), level, ranking, assetsFinder)
+                );
+            } else {
+                return redirect(routes.HomeController.main().url());
+            }
         } else {
             return redirect(routes.UserController.login().url());
         }
@@ -106,9 +119,15 @@ public class GameController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
-            return ok(
-                    gameLevelTwoMemory.render("GameTwoMemory", String.valueOf(money), assetsFinder)
-            );
+            int level = user.getLevel();
+            int ranking = user.getRanking();
+            if (level > 1 && ranking > 1){ // you can access the game level 2 memory when the level is at least 2 and ranking at least 2
+                return ok(
+                        gameLevelTwoMemory.render("GameTwoMemory", String.valueOf(money), level, ranking, assetsFinder)
+                );
+            } else {
+                return redirect(routes.HomeController.main().url());
+            }
         } else {
             return redirect(routes.UserController.login().url());
         }
@@ -120,22 +139,35 @@ public class GameController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
-            return ok(
-                    gameLevelThreeMemory.render("GameThreeMemory", String.valueOf(money), assetsFinder)
-            );
+            int level = user.getLevel();
+            int ranking = user.getRanking();
+            if(level > 2 && ranking > 2){ // you can access the game level 3 memory when the level is 3 and ranking at least 3
+                return ok(
+                        gameLevelThreeMemory.render("GameThreeMemory", String.valueOf(money), level, ranking, assetsFinder)
+                );
+            } else {
+                return redirect(routes.HomeController.main().url());
+            }
         } else {
             return redirect(routes.UserController.login().url());
         }
 
     }
 
-
     public Result gameLevelThree(Http.Request request) {
         if (userController.isLoggedIn(request)) {
             String money = request.session().get("money").get();
-            return ok(
-                    gameLevelThree.render("GameThree",money, assetsFinder)
-            );
+            int id = Integer.parseInt(request.session().get("userID").get());
+            UserFactory.User user = userFactory.getUserById(id);
+            int level = user.getLevel();
+            int ranking = user.getRanking();
+            if(level > 2 && ranking > 3){ // you can access the game level 3 when the level is 3 and ranking at least 4
+                return ok(
+                        gameLevelThree.render("GameThree", money, level, ranking, assetsFinder)
+                );
+            } else {
+                return redirect(routes.HomeController.main().url());
+            }
         } else {
             return redirect(routes.UserController.login().url());
         }
