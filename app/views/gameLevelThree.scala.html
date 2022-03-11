@@ -22,7 +22,18 @@
                                     </div>
                                 </div>
                             }
+
                         </div>
+                        <h3 class="result mb-4 px-4 text-center">
+                            Score :
+                                <span id="result"></span>
+                        </h3>
+                        <div class="col-6 mb-3">
+                        <button type="button" class=" login_btn  mt-3 mb-5 p-4" id="redoGame" onclick="redoGameThree()" style="display: none">
+                            Play again
+                        </button>
+                        </div>
+
                     </div>
 
                         <!-- Bill with coffe options and total input -->
@@ -76,7 +87,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr id = tableInput>
 @*                                                    <td id="Latte">Latte</td>*@
 @*                                                    <td id="LatteQuantity">3</td>*@
 @*                                                    <td id="LattePrice">2.4</td>*@
@@ -129,8 +140,9 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    <div class=" col-4" id="nextCostumerBody2"></div>
                     <div class="row px-2 my-2" id="addingMoreCostumers"></div> <!--id gets duplicated multiple times here and it's not a good practice-->
+                    <div class="row px-2 my-2" id="addingMoreCostumersNext"></div> <!--id gets duplicated multiple times here and it's not a good practice-->
 
                     @*<div class="row px-2 my-2">
                         <div class="col-4 addingCostumer" id="moreCostumers">
@@ -150,44 +162,42 @@
         </div>
     </div>
 
-        <!-- user enterd tip  -->
+    <!-- for next Costumer-->
     <div class="modal fade" id="costumerWishModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">
-                        Hey! I would like to pay</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <div class=" col-md-4 ml-auto">
+                        <div id = "imageCostumer1">
+                            <img height="100" class="card-img-Person-paying-next" src="@assetsFinder.path("/images/waiter.png")">
+                        </div>
+                       @* <div id = "imageCostumer2">
+                            <img height="100" class="card-img-Person-next-paying" src="@assetsFinder.path("/images/waiter.png")">
+                        </div>*@
+                    </div>
+                    <h5 class="modal-title" id="card-text-body-modal2">
+                        Hey! I would like to pay for me and my friend <span id="label">*</span>
+                    </h5>
 
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div id = "addingPayingCostumer2">
-                            <div class=" col-md-4 ml-auto">
-                                <img class="card-img-Person-paying-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class=" col-4" id="card-text-body-modal">
-                            I would like to pay me and for my friend
-                        </div>
-                        <p id="label2">*</p>
-                        <div id="moreCostumers2">
-                            <div class=" col-md-4 ml-auto">
-                                <div class="addingInvitedCostumer2">
-                                    <img id = "imageCostumer2" class="card-img-Person-getting-invited-nr2" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
-                                </div>
-                            </div>
-                        </div>
-                        <div id="addingMoreCostumers2"></div>
-                    </div>
+
+
+                    <div class="row px-2 my-2" id="addingMoreCostumers2"></div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn closebutton-bottom" onclick="nextCostumer()">
+                        Ok!</button>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
-                Ok!</button>
-        </div>
     </div>
+
+
 
         <!-- user enterd submit  -->
     <div class="modal fade" id="costumerAnswerAfterSubmit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -196,11 +206,11 @@
                 <div class="modal-header">
                     <div class=" col-md-4 ml-auto">
                         <div id = "imageCostumer1">
-                            <img height="100" class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
+                            <img height="100" class="card-img-Person-paying-modal2" src="@assetsFinder.path("/images/waiter.png")">
                         </div>
                     </div>
-                    <h5 class="modal-title" id="TileHeaderAfterSubmit">
-                        Hey ! this is modal after Submit <span id="label">*</span>
+                    <h5 class="modal-title" id="tileHeaderAfterSubmit">
+                        Hey ! this is modal after Submit
                     </h5>
 
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
@@ -214,8 +224,10 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button"  id= "btnsubmit" class="btn closebutton-bottom" data-dismiss="modal">
+                    <button type="button"  id= "btnsubmit" class="btn closebutton-bottom" data-dismiss="modal" >
                         Ok!</button>
+                    <button type="button"  id= "btnNextCostumer" class="btn closebutton-bottom" onclick="openNextModal()">
+                        Next Costumer</button>
                 </div>
             </div>
         </div>
@@ -250,6 +262,6 @@
         <!--    <script type="javascript" src="test.js"></script>-->
 
     <script type="text/javascript" src="@assetsFinder.path("javascripts/level3.js")"></script>
-
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
 }
 

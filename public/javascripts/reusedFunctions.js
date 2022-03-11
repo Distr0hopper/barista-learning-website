@@ -25,12 +25,17 @@ function checkMoneyForRanking(money) {
         return 300;
     }
     if (money >= 1000 && money <= 1030) {
-        window.alert("WOW! You are now the General of Baristas! +500 Beans\n" + playNextGame)
+        window.alert("WOW! You are now the General of Baristas! +500 Beans\n"
+            + "\nYou have finished the final level and are ready for the real world! 🎓" +
+            "\nIf you want to you can practise some more or go off and start your journey at you favourite local coffee shop!");
+        $('#ModalReadyForTheRealWorld').show();
         return 500;
     }
     return 0;
 }
-
+function redoGameThree(){
+    window.location = '/games/gameLevelThreeGame1'
+}
 function redoGameOne() {
     window.location = '/games/defaultGame'
 }
@@ -47,8 +52,15 @@ function redirectToMemoryLvl3(){
     window.location = '/games/gameLevelThreeMemory'
 }
 
-
-
+/**
+ * Updates the HTML Object in the View
+ * @param earnedMoney checks how much coffee beans you receive by making the coffee
+ */
+function updateMoneyCounter(earnedMoney) {
+    $('#money-counter').show();
+    $('#plusForMoneyCounter').show();
+    $('#money-counter').text(earnedMoney);
+}
 
 /**
  * Load Modal loads the modal containing the Coffees and Customers for the Game

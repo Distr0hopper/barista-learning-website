@@ -159,15 +159,6 @@ public class UserController extends Controller {
     }
 
     public Result updateName(Http.Request request){
-        /*JsonNode json = request.body().asJson();
-        String name = json.get("name").textValue();
-        int id = Integer.parseInt(request.session().get("userID").get());
-        UserFactory.User user = userFactory.getUserById(id);
-        user.updateName(name);
-        return ok();*/
-
-
-
         JsonNode json = request.body().asJson();
         String name = json.get("name").textValue();
         int id = Integer.parseInt(request.session().get("userID").get());

@@ -611,7 +611,10 @@ hr .new1 {
     background-color: var(--dropshadow-color);
     color: white;
     float: left;
-    /*width: 80%;*/
+}
+
+#search-user{
+    width: 80%;
 }
 
 .form-control:focus{
@@ -827,10 +830,11 @@ li{
 }
 
 .btn-unfriend{
-    background-color: var(--light-brown-color);
+    background-color: var(--dropshadow-color);
     color: white;
-    margin: 20px;
-    font-size: 20px;
+    float: right;
+    margin-top: -20px;
+    margin-right: 10px;
 }
 
 .btn-unfriend:hover{

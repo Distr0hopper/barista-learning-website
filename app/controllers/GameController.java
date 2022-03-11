@@ -33,7 +33,13 @@ public class GameController extends Controller {
         this.ingredientFetcher = ingredientFetcher;
     }
 
-
+    /**
+     * An action that renders the HTML defaultGame page.
+     * Checks if there is a user in the session and get his points from the database.
+     * Get all ingredients from the database (?).
+     * @param request Request the sessionstorage.
+     * @return Ok
+     */
     public Result defaultGame(Http.Request request) {
         if(userController.isLoggedIn(request)) {
             List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
@@ -48,7 +54,9 @@ public class GameController extends Controller {
         } else {
             return redirect(routes.UserController.login().url());
         }
+
     }
+
 
     public int updateRanking(int money){
          if (money >= 60 && money < 200){
@@ -153,6 +161,7 @@ public class GameController extends Controller {
         }
 
     }
+
 
     public Result gameLevelThree(Http.Request request) {
         if (userController.isLoggedIn(request)) {
