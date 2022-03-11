@@ -18,7 +18,7 @@ let total = null;
 let totalInput = null;
 let numberOfWrongInputPrices = null;
 let payer = 0;
-let money = Number($('#money').text());
+let navbarMoney = Number($('#money').text());
 
 let resultDisplayLevel3 = document.querySelector('#result');
 let pointsAdded = 0;
@@ -55,6 +55,7 @@ async  function submitTotalPrice() {
         for (let i = 0; i <= nextRandomNumber; i++) {
             total += coffeestored[i].price
         }
+        console.log(total)
         total.toFixed(2);
         costumerNumber += nextRandomNumber;
 
@@ -89,8 +90,8 @@ async  function submitTotalPrice() {
 
 
         pointsAdded += parseInt(tip);
-
-        console.log(pointsAdded);
+        console.log("NavbarMoney mit init points " + (navbarMoney+=parseInt(tip)));
+        console.log("Test: " + pointsAdded);
         resultDisplayLevel3.textContent = pointsAdded.toString();
         }
     }else {
@@ -172,6 +173,15 @@ function submitTip(){
 
     $ ('#message-error').text(" tip Input  amount : " + tipInputFormattet + " tip amount: " + tip + "  total amount with tip " + totalWithTip);
 
+    let bonusPoints = 0;
+    if(numberOfWrongTipInputs === 0){
+        bonusPoints += 10;
+        pointsAdded += bonusPoints;
+        resultDisplayLevel3.textContent = pointsAdded.toString();
+        navbarMoney += bonusPoints;
+        console.log("Navbar money + bonuspoints: " + navbarMoney)
+    }
+
     if( tipInputFormattet.toString() === totalWithTip.toString()){
 
       splitCoffeesAndCostumers();
@@ -189,7 +199,17 @@ function submitTip(){
             document.getElementById('tileHeaderAfterSubmit').innerHTML = "Yeahy you calculated correctly!!";
             document.getElementById('AfterSubmitCardBody').innerHTML= "Thank you very much for you service see you next Time:) ";
             document.getElementById('redoGame').style.display = "block"
-
+            const moneyObjekt = {
+                "moneyKey": navbarMoney,
+            }
+            fetch("/games/getMoney", {
+                method: 'POST',
+                body: JSON.stringify(moneyObjekt),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            $('#money').text(navbarMoney);
         }
         document.getElementById('submitPriceInput').value = "";
         document.getElementById('submitPriceInput').readOnly = false;
@@ -203,19 +223,15 @@ function submitTip(){
         document.getElementById('tileHeaderAfterSubmit').innerHTML= "That's not wright";
         document.getElementById('AfterSubmitCardBody').innerHTML= " It is "+ totalWithTip.toString() +" next time you'll do better";
     }
-    let bonusPoints = 0;
-    if(numberOfWrongTipInputs === 0){
-        bonusPoints += 10;
-        pointsAdded += bonusPoints;
-        resultDisplayLevel3.textContent = pointsAdded.toString();
 
-    }
+
+
     submitModal.modal('show');
     document.getElementById('tipInput').value = "";
 
-
-
 }
+
+
 function splitCoffeesAndCostumers(){
 
     if(coffeesForLevel3.length > 1) {
