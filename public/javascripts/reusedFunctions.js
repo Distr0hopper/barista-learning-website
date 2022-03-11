@@ -33,7 +33,9 @@ function checkMoneyForRanking(money) {
     }
     return 0;
 }
-
+function redoGameThree(){
+    window.location = '/games/gameLevelThreeGame1'
+}
 function redoGameOne() {
     window.location = '/games/defaultGame'
 }
