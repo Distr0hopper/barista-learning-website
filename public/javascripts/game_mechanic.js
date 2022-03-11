@@ -272,7 +272,7 @@ function checkCorrectDrinks(correctDrinksCounter) {
 /**
  * Checks on which try the coffee is made correct.
  * If you made it on the first try, call checkCorrectDrinks to look if you are on a streak.
- * Give 15 Points on first try, 12 on second try and 9 on third try.
+ * Give 15 Points on first try, 12 on second plaand 9 on third try.
  * @param wrongDrinksCounter on which attempt you made it right
  * @returns {number} The number of earned beans you receive for this round.
  */
