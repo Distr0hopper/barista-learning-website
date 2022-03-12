@@ -164,13 +164,13 @@ public class UserController extends Controller {
         int id = Integer.parseInt(request.session().get("userID").get());
         UserFactory.User user = userFactory.getUserById(id);
         userNamesList = userFactory.getAllUsernames();
-        if(!userNamesList.contains(name) && !name.isEmpty()){
+        if(!userNamesList.contains(name) && name.length() > 3 && name.length() < 25){
             user.updateName(name);
             return redirect(routes.UserController.profile().url());
         }
         else{
             ObjectNode response = Json.newObject();
-            response.put("message","Username already taken!");
+            response.put("message","Cannot change the username! Try another one!");
             return unauthorized(response);
         }
     }

@@ -6,6 +6,7 @@ let canEdit = false;
  * If canEdit is already true when editUsername() is called it calls saveUsername()*/
 function editUsername() {
     if (canEdit === false) {
+        $("#profilename").toggleClass('d-none d-block');
         document.querySelector('#profilename').readOnly = false;
         document.querySelector('#edit_button').textContent = "Save";
         // document.querySelector('#edit_button').style.borderColor = 'visible';
@@ -33,6 +34,7 @@ window.onload(changeRanking());
 /**
  * saves the new username to the database and reloads the profile page to display the new username
  */
+
 function saveUsername() {
     if (canEdit === true) {
         let nameInput = document.getElementById('profilename')
@@ -49,12 +51,11 @@ function saveUsername() {
             },
         }).then(response => {
             if(response.ok) {
-
                 return window.location = response.url;
             } else {
                 return response.json()
             }}).then(data => {
-            alert(data.message);
+            document.getElementById("name-error").innerHTML = data.message;
             nameInput.value = '';
             nameInput.focus();
         });
