@@ -88,6 +88,20 @@ body{
     border: transparent;
     color: white;
 }
+.memoryRedoGame_btn{
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: var(--dropshadow-color);
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+}
+.memoryRedoGame_btn:hover{
+    background-color: var(--light-brown-color);
+    border: transparent;
+    color: white;
+}
 a{
     color: var(--backround-color);
 }

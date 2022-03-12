@@ -42,6 +42,9 @@ function redoGameOne() {
 function redoGameTwo(){
     window.location = '/games/gameLevelTwo'
 }
+function redoGameTwoMemory(){
+    window.location = '/games/gameLevelTwoMemory'
+}
 
 function redirectToLvl2(){
     window.location = '/games/gameLevelTwo'

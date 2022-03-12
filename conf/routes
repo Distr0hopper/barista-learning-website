@@ -38,6 +38,8 @@ GET /user/forgotPassword            controllers.UserController.forgotPassword
 
 GET /user/createAccount             controllers.UserController.createAccount
 
+GET /user/getAllUsers               controllers.UserController.getAllUsers
+
 POST /user/checkCreateAccount       controllers.UserController.checkCreateAccount(request : Request)
 
 POST /user/updatePic                controllers.UserController.updateProfilePic(request : Request)

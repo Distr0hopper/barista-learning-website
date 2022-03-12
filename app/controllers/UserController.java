@@ -33,6 +33,10 @@ public class UserController extends Controller {
         this.assetsFinder = assetsFinder;
         this.friendshipFactory = friendshipFactory;
     }
+    public Result getAllUsers() {
+        return ok(
+                Json.toJson(userFactory.getAllUsers()));
+    }
 
     public Result createAccount(){
         return ok(
@@ -61,7 +65,6 @@ public class UserController extends Controller {
 //        userFactory.deleteFriend(userID, userID);
 //        return redirect(routes.UserController.profile().url());
 //    }
-
 
     public boolean isLoggedIn(Http.Request request) {
         return request.session().get("connected").isPresent();

@@ -5,8 +5,11 @@ const resultDisplay = document.querySelector('#result')
 var cardsChosen = []
 var cardsChosenID = []
 var cardsWon = []
+var cardIdsWon = []
+var cardsWonThisLevel = []
 var correctMatches = 0;
 let money = Number($('#money').text());
+
 /**
  * prevents modal from being able to clicked away if you click somewhere else in the screen
  * you have to watch the content of the modal for the 5 sec and only afterwards are shown the memory*/
@@ -153,10 +156,12 @@ function createBoard() {
  * 4. else cards don't match and alert
  * Puts won cards into score after each round and checks if still cards left or game is over*/
 let bonusMoney = 0;
-function checkForMatch() {
+
+async function checkForMatch() {
     const cards = document.querySelectorAll('#memory-img')
     const optionOneId = cardsChosenID[0]
     const optionTwoId = cardsChosenID[1]
+    const optionThreeId = cardsChosenID[2]
     if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
         correctMatches++;
         money += 10;
@@ -185,12 +190,20 @@ function checkForMatch() {
             $('#money-counter').text(bonusMoney);
         }
         cardsWon.push(cardsChosen)
+        cardIdsWon.push(cardsChosenID[0], cardsChosenID[1])
     } //checks if card was clicked twice
     else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
         cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
         cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
         alert('You need to pick two different cards!')
-    } else {
+    }
+        // else if (!(cardsChosenID[3] === 0) || cardsChosenID[3] === 'undefinded'){
+        //     cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
+        //     cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
+        //     cards[optionThreeId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
+        //     alert('Not so fast, pick two cards and wait for the game two check if they match!')
+    // }
+    else {
         cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
         cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
 
@@ -199,9 +212,25 @@ function checkForMatch() {
     cardsChosenID = []
     //puts amount of cards won into score
     resultDisplay.textContent = cardsWon.length * 10;
+    cardsWonThisLevel += cardsWon.length * 10
 
     if (cardsWon.length === cardArray.length / 2) {
-        resultDisplay.textContent = 'Congratulations you won! You can now play the last lvl!'
+        var currentUserString = sessionStorage.getItem("currentUser");
+        let currentUser = JSON.parse(currentUserString);
+        currentUser.points = money;
+        console.log(currentUser.points)
+        $('#redoGame').show();
+        if ((cardsWonThisLevel >= 60 && currentUser.points >= 300)) {
+            resultDisplay.textContent = 'Congratulations you did it! You can now play the last level or play again!'
+            $('#playNextGame').show();
+            $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
+        } else if ((cardsWonThisLevel < 60 && currentUser.points < 300) || (currentUser.points < 300 && cardsWonThisLevel >= 60)) {
+            resultDisplay.textContent = 'Congratulations you did it! In order to level up, play again!'
+            $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
+            $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
+            cardsWonThisLevel = 0;
+        }
+        sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     }
 }
 
@@ -209,14 +238,24 @@ function checkForMatch() {
  * flipcard() flips card
  * gets id of clicked card and puts id and name into cardsChosen
  * sets img to new src and calls checkformatch as soon as to cards were flipped*/
-function flipcard() {
+async function flipcard() {
     //gets id of clicked card and puts id and name into cardsChosen/cardsChosenID, sets img to new src and calls checkformatch
     var cardID = this.getAttribute('data-id')
     cardsChosen.push(cardArray[cardID].name)
     cardsChosenID.push(cardID)
     this.setAttribute('src', cardArray[cardID].img)
+    let clickedOnPage = 0;
+    // window.addEventListener('click', e => {
+    //     clickedOnPage += 1;
+    //     if (clickedOnPage === 2) {
+    //         e.preventDefault()
+    //         setTimeout(checkForMatch, 800)
+    //         clickedOnPage = 0;
+    //     }
+    // });
     if (cardsChosen.length === 2) {
-        setTimeout(checkForMatch, 800)
+        setTimeout(checkForMatch, 500)
+
     }
 }
 
@@ -239,14 +278,16 @@ function showBoard() {
     }, 9000)
 
 }
+
 /**The Eventlistener loads on windowload the following three functions asynchronously so it actually waits for each function to execute their code before he calls the next
  * important so the same content is actually loaded from level2 in level2memory
  * and important so the modal is loaded after the content has laoded*/
-window.addEventListener('load', async ()=>{
+window.addEventListener('load', async () => {
     await loadModalMemory();
     await loadMemory();
-    await loadModal()
+    await loadModal();
 })
-//
-// window.addEventListener('load', loadModalMemory)
-// window.addEventListener('load', loadMemory)
+window.addEventListener('click', ev => {
+
+})
+
