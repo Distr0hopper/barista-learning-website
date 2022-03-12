@@ -83,11 +83,13 @@ public class GameController extends Controller {
 
     public Result gameLevelTwo(Http.Request request) {
         if (userController.isLoggedIn(request)) {
+            List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             return ok(
-                    gameLevelTwo.render("gameTwo",String.valueOf(money), assetsFinder)
+//                    gameLevelTwo.render("gameTwo",String.valueOf(money), assetsFinder)
+                    gameLevelTwo.render("gameTwo",String.valueOf(money), ingredients, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -96,11 +98,12 @@ public class GameController extends Controller {
     }
     public Result gameLevelThreeGame1(Http.Request request) {
         if (userController.isLoggedIn(request)) {
+            List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             return ok(
-                    gameLevelThreeGame1.render("GameThreeGame1",String.valueOf(money), assetsFinder)
+                    gameLevelThreeGame1.render("GameThreeGame1",String.valueOf(money), ingredients, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
