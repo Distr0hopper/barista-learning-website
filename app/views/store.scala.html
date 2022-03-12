@@ -1,6 +1,6 @@
-@(page: String, money : String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money : String, level: Integer, ranking: Integer)(implicit assetsFinder: AssetsFinder)
 
-@navbar("Store", money) {
+@navbar("Store", money, level, ranking) {
     <div class="container">
         <h4>Coffee Machines</h4>
         <div class="row justify-content-md-center">

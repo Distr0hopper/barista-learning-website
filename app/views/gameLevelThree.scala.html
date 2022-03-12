@@ -1,13 +1,14 @@
-@(page: String, money: String)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer)(implicit assetsFinder: AssetsFinder)
 <!DOCTYPE html>
 
-@navbar("GameThree", money) {
+@navbar("GameThree", money, level, ranking) {
     <div class = "container">
-        <section class="my-3 mx-4">
-            <div class="mh-100 row row-game col-lg-10 col-xs-5 mx-auto">
-                <h1 class="font-weight-bold py-3 font-game text-center" id="order" >
-                    Level Three: Your costumer wants to pay!</h1>
-                <hr>
+        <section class="my-5">
+            <div class="mh-100 row row-game col-lg-12 col-xs-5 mx-auto pb-3">
+                <div class="col-12">
+                    <h1 class="font-game text-center pt-4" id="order">Level Three: Your costumer wants to pay!</h1>
+                </div>
+                <hr class="py-2 col-12">
                 <div class="row">
                     <div class="col-6">
                         <div class="row">
@@ -17,7 +18,7 @@
                                     <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">
                                         <img class="card-img-top px-4 pt-4" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
                                         <div class="card-body">
-                                            <p class="text-center card-text">Capuccino</p>
+                                            <p class="text-center card-text py-3">Capuccino</p>
                                         </div>
                                     </div>
                                 </div>
@@ -29,7 +30,7 @@
                                 <span id="result"></span>
                         </h3>
                         <div class="col-6 mb-3">
-                        <button type="button" class=" login_btn  mt-3 mb-5 p-4" id="redoGame" onclick="redoGameThree()" style="display: none">
+                        <button type="button" class="btn btn-primary rounded-pill px-3" id="redoGame" onclick="redoGameThree()" style="display: none">
                             Play again
                         </button>
                         </div>
@@ -49,7 +50,7 @@
                                 <div class="col-12" id="firstCoffee">
                                     <p id="message-error"></p>
                                     <div class="coffeePickerdiv">
-                                        <select class="form-control input-border-rounded mt-3 p-3" id="inputGroupSelect01">
+                                        <select class="form-control rounded-lg mt-3 p-3" id="inputGroupSelect01">
                                             <option selected value = "None">Choose the correct Coffee...</option>
                                             <option class="options" value="1">One</option>
                                             <option class="options" value="2">Two</option>
@@ -65,12 +66,12 @@
                                 <div class="col-12" id="moreCoffee"></div>
                                     <!-- Add more coffee-->
 
-                                <div class="col-6 mb-3">
-                                    <button class="login_btn my-3 p-3" type="button" id="btnAdd" onclick="addCoffeeToPay();">
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="btnAdd" onclick="addCoffeeToPay();">
                                         Add Coffee</button>
                                 </div>
-                                <div class="col-6 mb-3">
-                                    <button class="login_btn my-3 p-3" type="button" id="btnRemove" onclick="removeCoffeeForPay();">
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="btnRemove" onclick="removeCoffeeForPay();">
                                         Remove Coffee</button>
                                 </div>
 
@@ -98,20 +99,20 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6">
-                                    <input type="text" id="submitPriceInput" class="form-control input-border-rounded mt-3 p-3" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
+                                <div class="col-6 mt-3">
+                                    <input type="text" id="submitPriceInput" class="form-control rounded-lg p-3" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
                                 </div>
-                                <div class="col-6">
-                                    <input type="text" id ="tipInput" class="form-control input-border-rounded mt-3 p-3 tipInput" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
+                                <div class="col-6 mt-3">
+                                    <input type="text" id ="tipInput" class="form-control rounded-lg p-3 tipInput" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
                                 </div>
 
 
-                                <div class="col-6">
-                                    <button class="login_btn my-3 p-3" type="button" id="submitTotalPrice"  onclick="submitTotalPrice()">
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="submitTotalPrice"  onclick="submitTotalPrice()">
                                         Submit</button>
                                 </div>
-                                <div class="col-6">
-                                    <button class="login_btn my-3 p-3" type="button" id="submitTip" onclick="submitTip()">
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="submitTip" onclick="submitTip()">
                                         Submit Tip </button>
                                 </div>
                             </div>
@@ -136,8 +137,9 @@
                     <h5 class="modal-title" id="card-text-body-modal1">
                         Hey! I would like to pay for me and my friend <span id="label">*</span>
                     </h5>
-
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class=" col-4" id="nextCostumerBody2"></div>
@@ -155,7 +157,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal">
+                    <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal">
                         Ok!</button>
                 </div>
             </div>
@@ -190,7 +192,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn closebutton-bottom" onclick="nextCostumer()">
+                    <button type="button" class="btn btn-primary rounded-pill px-3" onclick="nextCostumer()">
                         Ok!</button>
                 </div>
             </div>
@@ -224,9 +226,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button"  id= "btnsubmit" class="btn closebutton-bottom" data-dismiss="modal" >
+                    <button type="button"  id="btnsubmit" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" >
                         Ok!</button>
-                    <button type="button"  id= "btnNextCostumer" class="btn closebutton-bottom" onclick="openNextModal()">
+                    <button type="button"  id="btnNextCostumer" class="btn btn-secondary rounded-pill px-3" onclick="openNextModal()">
                         Next Costumer</button>
                 </div>
             </div>
@@ -247,7 +249,7 @@
                     <p>Description</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal" data-toggle="modal" data-target="#costumerWishModal" id="payingCostumer">
+                    <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" data-toggle="modal" data-target="#costumerWishModal" id="payingCostumer">
                         Ok let's go!</button>
                 </div>
             </div>
@@ -265,3 +267,4 @@
     <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
 }
 
+    <!-- TODO: after finishing with the game all the points were reseted and the play again button redirect to another game-->

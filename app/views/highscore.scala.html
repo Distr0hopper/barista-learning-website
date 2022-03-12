@@ -1,8 +1,8 @@
-@(page: String, money: String, users: List[model.UserFactory#User], id: Integer)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, users: List[model.UserFactory#User], id: Integer)(implicit assetsFinder: AssetsFinder)
 @import java.math.BigInteger; var i = 0;
 
-@navbar("HighScore", money) {
-    <div class="d-flex justify-content-center m-4 p-4">
+@navbar("HighScore", money, level, ranking) {
+    <div class="d-flex justify-content-center my-5">
         <div class="score-box col-md-6">
             <h1 class="score-header pt-5">High Scores</h1>
             <div class="d-flex justify-content-center pb-5">

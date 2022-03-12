@@ -45,8 +45,10 @@ public class UserController extends Controller {
             UserFactory.User user = userFactory.getUserById(id);
             List<UserFactory.User> friends = userFactory.getFriendsById(id);
             int money = user.getPoints();
+            int level = user.getLevel();
+            int ranking = user.getRanking();
             return ok(
-                    profile.render("profile", String.valueOf(money), user, friends, assetsFinder)
+                    profile.render("profile", String.valueOf(money), level, ranking, user, friends, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -89,6 +91,7 @@ public class UserController extends Controller {
         UserFactory.User userID = userFactory.getUserByUsername(username);
         int money = user.getPoints();
         int id = userID.getId(); // add user id on the session
+        int level = userID.getLevel(); // add level id on the session
         if (user != null){
             System.out.println(user);
             return status(200, Json.toJson(user))
@@ -97,7 +100,8 @@ public class UserController extends Controller {
                     .withHeader("Location", routes.HomeController.main().url())
                     .addingToSession(request, "connected", username)
                     .addingToSession(request, "userID", String.valueOf(id))
-                    .addingToSession(request,"money", String.valueOf(money));
+                    .addingToSession(request,"money", String.valueOf(money))
+                    .addingToSession(request,"level", String.valueOf(level));
         } else {
             ObjectNode response = Json.newObject();
             response.put("message", "Incorrect username or password. \nPlease try again.");
@@ -200,13 +204,13 @@ public class UserController extends Controller {
         int id = Integer.parseInt(request.session().get("userID").get());
         UserFactory.User user = userFactory.getUserById(id);
         userNamesList = userFactory.getAllUsernames();
-        if(!userNamesList.contains(name) && !name.isEmpty()){
+        if(!userNamesList.contains(name) && name.length() > 3 && name.length() < 25){
             user.updateName(name);
             return redirect(routes.UserController.profile().url());
         }
         else{
             ObjectNode response = Json.newObject();
-            response.put("message","Username already taken!");
+            response.put("message","Cannot change the username! Try another one!");
             return unauthorized(response);
         }
     }

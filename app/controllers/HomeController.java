@@ -37,8 +37,10 @@ public class HomeController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
+            int level = user.getLevel();
+            int ranking = user.getRanking();
             return ok(
-                    main.render("main",String.valueOf(money) ,assetsFinder)
+                    main.render("main", String.valueOf(money), level, ranking, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -57,8 +59,10 @@ public class HomeController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
+            int level = user.getLevel();
+            int ranking = user.getRanking();
             return ok(
-                    dictionary.render("Dictionary", String.valueOf(money), assetsFinder)
+                    dictionary.render("Dictionary", String.valueOf(money), level, ranking, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -77,9 +81,11 @@ public class HomeController extends Controller {
         int id = Integer.parseInt(request.session().get("userID").get());
         UserFactory.User user = userFactory.getUserById(id);
         int money = user.getPoints();
+        int level = user.getLevel();
+        int ranking = user.getRanking();
         List<UserFactory.User> friends = userFactory.getFriendsById(id);
         return ok(
-                socials.render("socials", String.valueOf(money), user, friends, assetsFinder)
+                socials.render("socials", String.valueOf(money), level, ranking, user, friends, assetsFinder)
         );
     }
 

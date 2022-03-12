@@ -1,97 +1,89 @@
-@(page: String, money: String, user: model.UserFactory#User, friends: List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, user: model.UserFactory#User, friends: List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
 
-@navbar("Profile", money) {
-    <div class="container mt-4 mb-4 p-5 d-flex justify-content-center">
-        <div class="card-profile p-1">
-            <div class="image d-flex flex-column justify-content-center align-items-center m-4">
+@navbar("Profile", money, level, ranking) {
+    <div class="container my-5 d-flex justify-content-center">
+        <div class="card-profile">
+            <div class="image d-flex flex-column justify-content-center align-items-center mt-5">
                     <!--trigger modal with button behind image-->
                 <button type="button" class="btn btn-backround" data-toggle="modal"
-                data-target="#myModal" id="modal-btn" onclick="openModal()"><img
-                src="@user.getProfilePic"
-                alt="avatar" height="130" width="130" id="profileimage"/></button>
-                <span class="name mt-3" id="name">@user.getUsername()</span>
-
-                    <!--<div type="button" onclick="editUsername()">-->
-                <input class="profilename text-center" type="text" value="@user.getUsername()" id="profilename" readonly>
-
+                data-target="#myModal" id="modal-btn" onclick="openModal()">
+                    <img src="@user.getProfilePic" alt="avatar" height="130" width="130" id="profileimage"/>
+                </button>
+                <span class="name my-3" id="name">@user.getUsername()</span>
                 <div class="d-flex flex-row justify-content-center align-items-center gap-2 mb-3">
                     <div id="level" class="level" style="font-size: 2rem">@user.getReward</div>
                     <span><i class="fa fa-copy"></i></span></div>
-                <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                <div class="d-flex flex-row justify-content-center align-items-center">
                     <div id="points" class="points">@user.getPoints()</div>
                 </div>
                 <div class="d-flex flex-row justify-content-center align-items-center mb-4">
                     <div id="highscore" class="highscore">Highscore</div>
                 </div>
-                <div class=" d-flex mt-2 mb-3">
-                    <button class="edit_button" id="edit_button" onclick="editUsername()">Edit Username</button>
+                <div class="d-flex mt-2 mb-3">
+                    <input class="profilename rounded-lg p-3 text-center mr-2 d-none" type="text" value="@user.getUsername()" id="profilename" readonly>
+                    <button class="btn btn-primary rounded-pill py-3 px-5" id="edit_button" onclick="editUsername()">
+                        Edit Username</button><br>
                 </div>
+                <div class="text-brown" id="name-error"></div> <!-- UNDEFINED appears when username is changed with success -->
                 <div class="text m-3">
                     <span>
                         @user.getUsername() started the practice on
                     </span>
                 </div>
                     <!--            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter">hi</i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>-->
-                <div class=" px-2 rounded date"><span class="join">@user.getTimestamp()</span></div>
+                <div class="mb-5 px-2 py-1 rounded date">
+                    <span class="join">@user.getTimestamp()</span>
+                </div>
             </div>
         </div>
-@*        <div class="card p-1">*@
-@*            <div class="d-flex flex-column justify-content-center align-items-center m-4">*@
-@*                <span class="friends">Friends</span>*@
-@*                @for(friend <- friends) {*@
-@*                    <span>@friend.getUsername()</span>*@
-@*                    <input type="submit" value="Delete" name="delete" onclick="removeFriend(@friend.getId(), @user.getId());">*@
 
-@*                }*@
-@*            </div>*@
-        </div>
-            <!--    modal-->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Choose your Avatar</h5>
-                        <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close"
-                        onclick="closeModal()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    </div>
+        <!--    modal-->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Choose your Avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row modal-body justify-content-center align-items-center">
+                    <div class="col-12 col-sm-3 col-lg-3 text-center form-check form-check-inline">
+                        <label class="form-check-label" for="inlineRadio1">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                            value="option1">
+                            <img src="@assetsFinder.path("images/avatar.png")"
+                            alt="avatar" height="102.4" width="102.4" class="avatar-images" id="avatar1">
+                        </label>
                     </div>
-                    <div class="row modal-body justify-content-center align-items-center">
-                        <div class="col-12 col-sm-3 col-lg-3 text-center form-check form-check-inline">
-                            <label class="form-check-label" for="inlineRadio1">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                value="option1">
-                                <img src="@assetsFinder.path("images/avatar.png")"
-                                alt="avatar" height="102.4" width="102.4" class="avatar-images" id="avatar1">
-                            </label>
-                        </div>
-                        <div class="col-12 col-sm-3 col-lg-3 text-center form-check form-check-inline">
-                            <label class="form-check-label" for="inlineRadio2">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                value="option2">
-                                <img src="@assetsFinder.path("images/waitress.png")" alt="waitress"
-                                height="102.4" width="102.4" class="avatar-images" id="avatar2">
-                            </label>
-                        </div>
-                        <div class="col-12 col-sm-3 col-lg-3 text-center form-check form-check-inline">
-                            <label class="form-check-label" for="inlineRadio3">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                                value="option3">
-                                <img src="@assetsFinder.path("images/waiter.png")" alt="avatar"
-                                height="102.4" width="102.4" class="avatar-images" id="avatar3">
-                            </label>
-                        </div>
+                    <div class="col-12 col-sm-3 col-lg-3 text-center form-check form-check-inline">
+                        <label class="form-check-label" for="inlineRadio2">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                            value="option2">
+                            <img src="@assetsFinder.path("images/waitress.png")" alt="waitress"
+                            height="102.4" width="102.4" class="avatar-images" id="avatar2">
+                        </label>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn closebutton-bottom" data-dismiss="modal" onclick="closeModal()">
-                            Close
-                        </button>
-                        <button type="button" class="btn savebutton" onclick="chooseAvatar()" id="avatarchooser">Save
-                            changes
-                        </button>
-                        <p id="error-message"></p>
+                    <div class="col-12 col-sm-3 col-lg-3 text-center form-check form-check-inline">
+                        <label class="form-check-label" for="inlineRadio3">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                            value="option3">
+                            <img src="@assetsFinder.path("images/waiter.png")" alt="avatar"
+                            height="102.4" width="102.4" class="avatar-images" id="avatar3">
+                        </label>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal" onclick="closeModal()">
+                        Close
+                    </button>
+                    <button type="button" class="btn savebutton" onclick="chooseAvatar()" id="avatarchooser">Save
+                        changes
+                    </button>
+                    <p id="error-message"></p>
                 </div>
             </div>
         </div>
