@@ -20,7 +20,7 @@ async function createDictionary(){
     
     coffeelist.forEach((coffee, i) => {
         let cardCoffee = document.createElement("div");
-        cardCoffee.classList.add("cardCoffee", "px-2");
+        cardCoffee.classList.add("col-12", "col-md-4", "cardCoffee", "px-4", "pb-5");
         let imgCoffee = document.createElement("img");
         imgCoffee.src = coffee.coffeeImgPath;
         imgCoffee.classList.add("imgCoffee", "px-5", "pt-5");
@@ -34,8 +34,8 @@ async function createDictionary(){
         divFooter.classList.add("card-footer", "rounded-lg");
         //Ingredients
         let ingredientText = document.createElement("medium");
-        ingredientText.innerText = "Ingredients: " + coffee.ingredientList;
-        ingredientText.classList.add("ingredient-text");
+        ingredientText.innerText = "Ingredients: " + coffee.ingredientList.join(", ");
+        ingredientText.classList.add("ingredient-text", "text-white");
 
         //Collapse
         let divCollapseBody = document.createElement("div");
@@ -44,7 +44,7 @@ async function createDictionary(){
 
         //CollapseButton
         let toggleButton = document.createElement("button");
-        toggleButton.classList.add("btn-toggle", "rounded-lg", "p-2")
+        toggleButton.classList.add("btn-toggle", "btn-secondary", "rounded-pill", "py-2", "w-100")
         toggleButton.type = "button";
         toggleButton.dataset.target = "#collapseBody"+i;
         toggleButton.dataset.toggle = "collapse";

@@ -649,7 +649,7 @@ hr .new1 {
 }
 /*sehr tacky aber müsste sonst Daten server seitig preloaden, weil das ein Bug in Bootstrap ist*/
 .cardCoffee{
-    max-width: 33%;
+    /*max-width: 33%;*/
 }
 /*main page*/
 
