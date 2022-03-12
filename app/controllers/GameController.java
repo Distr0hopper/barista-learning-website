@@ -89,8 +89,8 @@ public class GameController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
-            int level = user.getLevel();
-            int ranking = user.getRanking();
+            Integer level = user.getLevel();
+            Integer ranking = user.getRanking();
             if(level > 1){ // you can access the game level 2 when the level is at least 2
                 return ok(
                         gameLevelTwo.render("gameTwo", String.valueOf(money), level, ranking, ingredients, assetsFinder)
@@ -149,8 +149,8 @@ public class GameController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
-            int level = user.getLevel();
-            int ranking = user.getRanking();
+            Integer level = user.getLevel();
+            Integer ranking = user.getRanking();
             if(level > 2 && ranking > 2){ // you can access the game level 3 memory when the level is 3 and ranking at least 3
                 return ok(
                         gameLevelThreeMemory.render("GameThreeMemory", String.valueOf(money), level, ranking, assetsFinder)
@@ -167,11 +167,12 @@ public class GameController extends Controller {
 
     public Result gameLevelThree(Http.Request request) {
         if (userController.isLoggedIn(request)) {
+            List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
             String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
-            int level = user.getLevel();
-            int ranking = user.getRanking();
+            Integer level = user.getLevel();
+            Integer ranking = user.getRanking();
             if(level > 2 && ranking > 3){ // you can access the game level 3 when the level is 3 and ranking at least 4
                 return ok(
                         gameLevelThree.render("GameThree", money, level, ranking, assetsFinder)
