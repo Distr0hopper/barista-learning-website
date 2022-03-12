@@ -46,8 +46,10 @@ public class UserController extends Controller {
             UserFactory.User user = userFactory.getUserById(id);
             List<UserFactory.User> friends = userFactory.getFriendsById(id);
             int money = user.getPoints();
+            int level = user.getLevel();
+            int ranking = user.getRanking();
             return ok(
-                    profile.render("profile", String.valueOf(money), user, friends, assetsFinder)
+                    profile.render("profile", String.valueOf(money), level, ranking, user, friends, assetsFinder)
             );
         } else {
             return redirect(routes.UserController.login().url());
@@ -83,6 +85,7 @@ public class UserController extends Controller {
         UserFactory.User user = userFactory.authenticate(username,password);
         UserFactory.User userID = userFactory.getUserByUsername(username);
         int id = userID.getId(); // add user id on the session
+        int level = userID.getLevel(); // add level id on the session
         if (user != null){
             System.out.println(user);
             return status(200, Json.toJson(user))
@@ -91,7 +94,8 @@ public class UserController extends Controller {
                     .withHeader("Location", routes.HomeController.main().url())
                     .addingToSession(request, "connected", username)
                     .addingToSession(request, "userID", String.valueOf(id))
-                    .addingToSession(request,"money", String.valueOf(money));
+                    .addingToSession(request,"money", String.valueOf(money))
+                    .addingToSession(request,"level", String.valueOf(level));
         } else {
             ObjectNode response = Json.newObject();
             response.put("message", "Incorrect username or password. \nPlease try again.");

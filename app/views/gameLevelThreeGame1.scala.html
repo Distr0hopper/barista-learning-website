@@ -1,12 +1,12 @@
-@(page: String, money: String, ingredients: List[data.Ingredient])(implicit assetsFinder: AssetsFinder)
-@navbar("GameThreeGame1", money) {
+@(page: String, money: String, level: Integer, ranking: Integer, ingredients: List[data.Ingredient])(implicit assetsFinder: AssetsFinder)
+@navbar("GameThreeGame1", money, level, ranking) {
     @* modal*@
     <div class="modal fade" id="gameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">Level 3: Remember who ordered which coffee!</h5>
+                    <h5 class="modal-title" id="modal-title">Level 2: Remember who ordered which coffee!</h5>
                 </div>
                 <div class="modal-body modal-fade align-items-center justify-content-center">
                     <div class="container-fluid ms-2">
@@ -31,7 +31,6 @@
     <div class="flex align-items-center">
         <section class="my-3 mx-4 ">
             <div class="container justify-content-center">
-
                 <div class="mh-100 row row-game  col-lg-10 col-xs-5 mx-auto">
                     <span><h1 class="font-weight-bold py-3 font-game text-center"
                     id="order" >Receiving Order!</h1></span>
@@ -102,9 +101,6 @@
                             <button type="button" class="login_btn mt-3 mb-5 p-4" id="redoGame" onclick="redoGameThree()" style="display: none">
                                 Play again
                             </button>
-@*                            <button type="button" class="login_btn mt-3 mb-5 p-4" id="playNextGame" onclick="redirectToMemoryLvl3()"  style="display: none">*@
-@*                                Play next level*@
-@*                            </button>*@
                         </div>
                         <p class="justify-content-center mb-4 small" id="remainingAttempts"> You have 3 attempts left </p>
 
