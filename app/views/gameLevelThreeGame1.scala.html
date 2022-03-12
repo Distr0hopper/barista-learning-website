@@ -6,7 +6,7 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal-title">Level 2: Remember who ordered which coffee!</h5>
+                        <h5 class="modal-title" id="modal-title">Level 3.1: Remember who ordered which coffee!</h5>
                     </div>
                     <div class="modal-body modal-fade align-items-center justify-content-center">
                         <div class="container-fluid ms-2">
@@ -54,8 +54,10 @@
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-2 px-3 text-center">
                             <div class="text-right">
+                                <span class="text-left" id="remainingCoffeesTillFinished">
+                                    6 coffees left to mix until points are saved</span>
                                 <span class="tooltipCoffee" data-toggle="tooltip" data-placement="left" data-html="true" title="<b><em>!ATTENTION!</em> YOU WON'T RECEIVE AS MANY POINTS IF YOU USE A TIP!</b>">
-                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" onclick="">
+                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" onclick="countHelps(false)">
                                         <img src="@assetsFinder.path("images/tipsIcon.svg")" alt="help">
                                     </a>
                                 </span>
