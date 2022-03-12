@@ -1,4 +1,4 @@
-@(page: String, money: String, ingredients: List[data.Ingredient])(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, ingredients: List[data.Ingredient])(implicit assetsFinder: AssetsFinder)
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,7 +19,7 @@
     </head>
     <body>
             <!-- Navbar -->
-        @navbar("GameOne", money) {
+        @navbar("GameOne", money, level, ranking) {
             @* modal*@
             <div class="modal fade" id="ModalLearnCoffees" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
             aria-hidden="true">

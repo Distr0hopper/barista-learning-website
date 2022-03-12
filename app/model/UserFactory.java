@@ -46,17 +46,18 @@ public class UserFactory {
     public User create(String username, String email, String password) {
         return db.withConnection(conn -> {
             User user = null;
-            String sql = "INSERT INTO User (username, mail, password, points) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO User (username, mail, password, points, gamelevel) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, username);
             stmt.setString(2, email);
             stmt.setString(3, password);
             stmt.setInt(4, 0);
+            stmt.setInt(5, 1);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
-                user = new User(id, username, email, 0, 1);
+                user = new User(id, username, email, 0, 1, 1);
             }
             stmt.close();
             return user;
@@ -190,15 +191,17 @@ public class UserFactory {
         private Date timestamp;
         private String reward;
         private int rewardId;
+        private int level;
         private String profilePic;
 
-        private User(int id, String username, String mail, int points, int rewardId) {
+        private User(int id, String username, String mail, int points, int rewardId, int level) {
             this.id = id;
             this.username = username;
             this.mail = mail;
             this.points = points;
             this.timestamp = timestamp;
             this.rewardId = rewardId;
+            this.level = level;
         }
 
         private User(ResultSet rs) throws SQLException {
@@ -209,6 +212,7 @@ public class UserFactory {
             this.timestamp = rs.getDate("timestamp");
             this.reward = rs.getString("rewardString");
             this.rewardId = rs.getInt("Rewards_idRewards");
+            this.level = rs.getInt("gamelevel");
             this.profilePic = rs.getString("profile_pic");
         }
 
@@ -327,9 +331,25 @@ public class UserFactory {
             this.points = points;
         }
 
+        public int getRanking() {
+            return rewardId;
+        }
+
+//        public void setRanking(int rewardId) {
+//            this.rewardId = rewardId;
+//        }
+
         public void addPoints(int points) {
             this.points += points;
             this.save();
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
         }
 
         public Date getTimestamp() {

@@ -50,8 +50,10 @@ public class SocialPageController extends Controller {
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
+            int level = user.getLevel();
+            int ranking = user.getRanking();
             return ok(
-                    highscore.render("highscore", String.valueOf(money), users, id, assetsFinder));
+                    highscore.render("highscore", String.valueOf(money), level, ranking, users, id, assetsFinder));
         } else {
             return redirect(routes.UserController.login().url());
         }

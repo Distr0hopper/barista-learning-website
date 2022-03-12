@@ -1,6 +1,6 @@
-@(page: String, money: String, user: model.UserFactory#User, friends: List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, user: model.UserFactory#User, friends: List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
 
-@navbar("Profile", money) {
+@navbar("Profile", money, level, ranking) {
     <div class="container mt-4 mb-4 p-5 d-flex justify-content-center">
         <div class="card-profile p-1">
             <div class="image d-flex flex-column justify-content-center align-items-center m-4">
