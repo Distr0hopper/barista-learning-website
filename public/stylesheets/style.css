@@ -23,7 +23,7 @@ body{
 .navbar-custom {
     /*background-color: rgba(76,34,18,255);*/
     background-color: var(--dark-brown-navbar);
-    height: 8vh;
+    /*height: 8vh;*/
 }
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
@@ -67,6 +67,72 @@ body{
 }
 
 /*login*/
+/*button*/
+.btn-primary {
+    color: #fff;
+    outline: 0;
+    background-color: var(--backround-color)!important;
+    border-color: var(--backround-color)!important;
+    box-shadow: none!important;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: var(--dropshadow-color)!important;
+    border-color: var(--dropshadow-color)!important;
+}
+
+.btn-secondary {
+    color: #fff;
+    outline: 0;
+    background-color: var(--dropshadow-color)!important;
+    border-color: var(--dropshadow-color)!important;
+    box-shadow: none!important;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: var(--backround-color)!important;
+    border-color: var(--backround-color)!important;
+}
+
+.btn.focus,
+.btn:focus,
+.form-control[readonly]:focus
+.form-control[readonly]:hover{
+    outline: 0;
+    box-shadow: none!important;
+    border-color: var(--light-brown-color);
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: var(--light-brown-color);
+    opacity: 0.5;
+    box-shadow: none!important;
+    border-color: var(--light-brown-color);
+}
+
+.rounded-lg,
+.alert {
+    border-radius: 0.5rem!important;
+}
+.card-footer {
+    border-top: 0!important;
+}
+.card-body {
+    padding: 0!important;
+}
+
+hr {
+    box-sizing: inherit;
+}
+/*label {*/
+/*    margin: 0;*/
+/*}*/
+
+/*----------------------------------------*/
+
 .row-login{
     /*background-color: rgba(255, 255, 255, 0.3);*/
     background-color: var(--light-brown-color);
@@ -109,18 +175,18 @@ a:hover{
     color: var(--light-brown-color);
     filter: brightness(120%);
 }
-#password{
-    border-radius: 15px;
-}
-#username{
-    border-radius: 15px;
-}
-#email{
-    border-radius: 15px;
-}
-#password2{
-    border-radius: 15px;
-}
+/*#password{*/
+/*    border-radius: 15px;*/
+/*}*/
+/*#username{*/
+/*    border-radius: 15px;*/
+/*}*/
+/*#email{*/
+/*    border-radius: 15px;*/
+/*}*/
+/*#password2{*/
+/*    border-radius: 15px;*/
+/*}*/
 /*to replace ids that have the same properties with a class*/
 .input-border-rounded {
     border-radius: 15px;
@@ -192,13 +258,18 @@ a:hover{
 }
 
 .profilename {
-    font-size: 20px;
-    font-weight: 600;
+    /*font-size: 20px;*/
+    /*font-weight: 600;*/
+    outline: 0;
     color: white;
     border: none;
     /*background-color: transparent;*/
     background-color: rgba(147,101,68,0.1);
     border-radius: 20px;
+}
+
+.close {
+    text-shadow: none!important;
 }
 
 .level {
@@ -271,7 +342,7 @@ hr .new1 {
     /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23936544FF' stroke-width='8' stroke-dasharray='8%2c 21' stroke-dashoffset='28' stroke-linecap='square'/%3e%3c/svg%3e");*/
     border-radius: 10px;
-    cursor: pointer;
+    cursor: initial;
     transition: all 0.5s
 }
 
@@ -592,7 +663,7 @@ hr .new1 {
 }
 /*sehr tacky aber müsste sonst Daten server seitig preloaden, weil das ein Bug in Bootstrap ist*/
 .cardCoffee{
-    max-width: 33%;
+    /*max-width: 33%;*/
 }
 /*main page*/
 
@@ -619,8 +690,9 @@ hr .new1 {
 
 /* Socials Page */
 .form-control {
-    margin-top: 5px;
+    /*margin-top: 5px;*/
     /*margin-left: 5px;*/
+    height: auto;
     border-color: var(--dropshadow-color);
     background-color: var(--dropshadow-color);
     color: white;
@@ -884,7 +956,7 @@ li{
 
 #alert-message, .text-brown {
     color: var(--backround-color);
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 /* display cursor as normal on cards*/
