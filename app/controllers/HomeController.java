@@ -25,17 +25,15 @@ public class HomeController extends Controller {
     }
 
     /**
-     * An action that renders an HTML page with a welcome message.
+     * An action that renders the HTML main page with the money displayed in the navbar.
      * The configuration in the <code>routes</code> file means that
      * this method will be called when the application receives a
-     * <code>GET</code> request with a path of <code>/</code>.
-     *
-     * Has functions refarding the Sites - returning ok
+     * <code>GET</code> request with a path of <code>/main</code>.
+     * @param request Request the session storage.
+     * @return OK if there is a user in the session. Else redirect to the login page.
      */
-
     public Result main(Http.Request request) {
         if (userController.isLoggedIn(request)) {
-            //String money = request.session().get("money").get();
             int id = Integer.parseInt(request.session().get("userID").get());
             UserFactory.User user = userFactory.getUserById(id);
             int money = user.getPoints();
@@ -48,21 +46,12 @@ public class HomeController extends Controller {
       }
   }
 
-        public Result store(Http.Request request) {
-        if(userController.isLoggedIn(request)){
-            int id = Integer.parseInt(request.session().get("userID").get());
-            UserFactory.User user = userFactory.getUserById(id);
-            int money = user.getPoints();
-
-            return ok(
-                    store.render("Store", String.valueOf(money), assetsFinder)
-            );
-        } else {
-            return redirect(routes.UserController.login().url());
-        }
-
-    }
-
+    /**
+     * An action that renders the dictionary HTML page with the money displayed in the navbar.
+     * Called when the /dictionary route receive a GET request.
+     * @param request Request the session storage.
+     * @return OK if there is a user in the session. Else redirect to the login page.
+     */
     public Result dictionary(Http.Request request) {
         if(userController.isLoggedIn(request)){
             int id = Integer.parseInt(request.session().get("userID").get());
@@ -77,6 +66,13 @@ public class HomeController extends Controller {
 
     }
 
+    /**
+     * An action that renders the social HTML page with the money displayed in the navbar,
+     * the user profile and the friends displayed there.
+     * Called when the /socials route receive a GET request.
+     * @param request Request the session storage.
+     * @return OK if there is a user in the session. Else redirect to the login page.
+     */
     public Result socials(Http.Request request){
         int id = Integer.parseInt(request.session().get("userID").get());
         UserFactory.User user = userFactory.getUserById(id);
