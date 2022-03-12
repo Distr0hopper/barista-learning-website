@@ -151,9 +151,9 @@ function createBoard() {
 /**
  * checkForMatch() checks for matches
  * 1. gets the clicked cards and compares their names to see if they are even
- * 2. checks if cards match and if cards clicked are not the same card, alerts if match and pushes cards to cardsWon
- * 3. if no match, checks if if cards clicked were the same card, and alerts if true
- * 4. else cards don't match and alert
+ * 2. checks if cards match and if cards clicked are not the same card, alerts if match and pushes cards to cardsWon and adds class matched
+ * 3. if no match, checks if cards clicked were the same card, and alerts if true
+ * 4. else cards don't match and no alert
  * Puts won cards into score after each round and checks if still cards left or game is over*/
 let bonusMoney = 0;
 
@@ -161,7 +161,6 @@ async function checkForMatch() {
     const cards = document.querySelectorAll('#memory-img')
     const optionOneId = cardsChosenID[0]
     const optionTwoId = cardsChosenID[1]
-    const optionThreeId = cardsChosenID[2]
     if (cardsChosen[0] === cardsChosen[1] && optionOneId !== optionTwoId) {
         correctMatches++;
         money += 10;
@@ -191,18 +190,14 @@ async function checkForMatch() {
         }
         cardsWon.push(cardsChosen)
         cardIdsWon.push(cardsChosenID[0], cardsChosenID[1])
+        cards[optionOneId].classList.add('matched');
+        cards[optionTwoId].classList.add('matched');
     } //checks if card was clicked twice
-    else if (cardsChosen[0] === cardsChosen[0] && optionOneId === optionTwoId) {
+    else if (optionOneId === optionTwoId) {
         cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
         cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
         alert('You need to pick two different cards!')
     }
-        // else if (!(cardsChosenID[3] === 0) || cardsChosenID[3] === 'undefinded'){
-        //     cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-        //     cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-        //     cards[optionThreeId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
-        //     alert('Not so fast, pick two cards and wait for the game two check if they match!')
-    // }
     else {
         cards[optionOneId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
         cards[optionTwoId].setAttribute('src', '../assets/images/Memory-Backdrop.png')
@@ -236,26 +231,21 @@ async function checkForMatch() {
 
 /**
  * flipcard() flips card
- * gets id of clicked card and puts id and name into cardsChosen
- * sets img to new src and calls checkformatch as soon as to cards were flipped*/
+ * checks if there are already two cards flipped around or if the selected card already has been matched correctly
+ * if not gets id of clicked card and puts id and name into cardsChosen
+ * sets img to new src and calls checkformatch as soon as two cards were flipped
+ * */
 async function flipcard() {
     //gets id of clicked card and puts id and name into cardsChosen/cardsChosenID, sets img to new src and calls checkformatch
+    if (cardsChosen.length >= 2 && this.classList.contains('matched')){
+        return
+    }
     var cardID = this.getAttribute('data-id')
     cardsChosen.push(cardArray[cardID].name)
     cardsChosenID.push(cardID)
     this.setAttribute('src', cardArray[cardID].img)
-    let clickedOnPage = 0;
-    // window.addEventListener('click', e => {
-    //     clickedOnPage += 1;
-    //     if (clickedOnPage === 2) {
-    //         e.preventDefault()
-    //         setTimeout(checkForMatch, 800)
-    //         clickedOnPage = 0;
-    //     }
-    // });
     if (cardsChosen.length === 2) {
-        setTimeout(checkForMatch, 500)
-
+        setTimeout(checkForMatch, 800)
     }
 }
 
