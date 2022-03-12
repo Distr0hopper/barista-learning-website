@@ -60,15 +60,15 @@ public class GameController extends Controller {
 
     public int updateRanking(int money){
          if (money >= 60 && money < 200){
-            return 2; // game level 2
+            return 2;
          } else if (money >= 200 && money < 460){
-            return 3; // game level 2.1 (memory)
+            return 3;
          } else if (money >= 460 && money < 600){
-           return 4; // game level 3.1
+           return 4;
          } else if (money >= 600){
-           return 5; // game level 3 (memory)
+           return 5;
          }
-         return 1; // default game
+         return 1;
     }
 
     public Result requestMoney(Http.Request request){
@@ -131,7 +131,7 @@ public class GameController extends Controller {
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
-            if (level > 1 && ranking > 1){ // you can access the game level 2 memory when the level is at least 2 and ranking at least 2
+            if (level > 1){ // you can access the game level 2 memory when the level is at least 2
                 return ok(
                         gameLevelTwoMemory.render("GameTwoMemory", String.valueOf(money), level, ranking, assetsFinder)
                 );
@@ -151,7 +151,7 @@ public class GameController extends Controller {
             int money = user.getPoints();
             Integer level = user.getLevel();
             Integer ranking = user.getRanking();
-            if(level > 2 && ranking > 2){ // you can access the game level 3 memory when the level is 3 and ranking at least 3
+            if(level > 2){ // you can access the game level 3 memory when the level is 3
                 return ok(
                         gameLevelThreeMemory.render("GameThreeMemory", String.valueOf(money), level, ranking, assetsFinder)
                 );
@@ -173,7 +173,7 @@ public class GameController extends Controller {
             UserFactory.User user = userFactory.getUserById(id);
             Integer level = user.getLevel();
             Integer ranking = user.getRanking();
-            if(level > 2 && ranking > 3){ // you can access the game level 3 when the level is 3 and ranking at least 4
+            if(level > 2){ // you can access the game level 3 when the level is 3
                 return ok(
                         gameLevelThree.render("GameThree", money, level, ranking, assetsFinder)
                 );
