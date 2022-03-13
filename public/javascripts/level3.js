@@ -56,7 +56,6 @@ async  function submitTotalPrice() {
         for (let i = 0; i <= nextRandomNumber; i++) {
             total += coffeestored[i].price
         }
-        console.log(total)
         total.toFixed(2);
         costumerNumber += nextRandomNumber;
 
@@ -67,8 +66,9 @@ async  function submitTotalPrice() {
         $('#message-error').text(' You have to add a price');
 
     }else{
-        $('#message-error').text("Total input "+ totalInput +  "  Total price :"+ numberFormatter(total));
+       // $('#message-error').text("Total input "+ totalInput +  "  Total price :"+ numberFormatter(total));
         submitModal.modal('show');
+        console.log(numberFormatter(total)+ "total");
     }
 
 
@@ -106,8 +106,8 @@ async  function submitTotalPrice() {
             document.getElementById('submitPriceInput').value = "";
 
         }
-        document.getElementById('tileHeaderAfterSubmit').innerHTML = "Uhh that does not seem wright !"
-        document.getElementById('AfterSubmitCardBody').innerHTML= "try again"
+        document.getElementById('tileHeaderAfterSubmit').innerHTML = "Uhh that does not seem wright !";
+        document.getElementById('AfterSubmitCardBody').innerHTML= "try again";
         document.getElementById('submitPriceInput').value = "";
 
     }
@@ -128,6 +128,7 @@ function tipReceiver(){
         case 1:  tipPercentage = 15.00; break;
         case 2:  tipPercentage =10.00; break;
         case 3:  tipPercentage =7.00; break;
+        default :  tipPercentage =0;break;
     }
     return tipPercentage;
 
@@ -154,6 +155,24 @@ function numFormatInput(input){
     return  Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(input);
 }
 
+function addingBonusPoints ( numberOfWrongTipInputs){
+    let bonusPoints = 0;
+    if(numberOfWrongTipInputs === 0){
+        bonusPoints += 10;
+        pointsAdded += bonusPoints;
+        resultDisplayLevel3.textContent = pointsAdded.toString();
+        navbarMoney += bonusPoints;
+        console.log("Navbar money + bonuspoints: " + navbarMoney)
+    }
+    else if (numberOfWrongTipInputs === 1){
+        bonusPoints += 5;
+        pointsAdded += bonusPoints;
+        resultDisplayLevel3.textContent = pointsAdded.toString();
+        navbarMoney += bonusPoints;
+        console.log("Navbar money + bonuspoints: " + navbarMoney)
+
+    }
+}
 /***
  * Function submitTip() is called when btn on Modal is pressed after the Total with tip is inserted.
  * It calls the tipReceiver() function to get the Tip. The Tip is added with the total price and checked with the input.
@@ -175,16 +194,9 @@ function submitTip(){
     totalWithTip += tip;
     totalWithTip = numberFormatter(totalWithTip);
 
-    $ ('#message-error').text(" tip Input  amount : " + tipInputFormattet + " tip amount: " + tip + "  total amount with tip " + totalWithTip);
+   // $ ('#message-error').text(" tip Input  amount : " + tipInputFormattet + " tip amount: " + tip + "  total amount with tip " + totalWithTip);
+    console.log("total with tip : "+totalWithTip)
 
-    let bonusPoints = 0;
-    if(numberOfWrongTipInputs === 0){
-        bonusPoints += 10;
-        pointsAdded += bonusPoints;
-        resultDisplayLevel3.textContent = pointsAdded.toString();
-        navbarMoney += bonusPoints;
-        console.log("Navbar money + bonuspoints: " + navbarMoney)
-    }
 
     if( tipInputFormattet.toString() === totalWithTip.toString()){
 
@@ -198,6 +210,7 @@ function submitTip(){
         document.getElementById('AfterSubmitCardBody').innerHTML= "Thank you very much :) ";
 
             document.getElementById('btnNextCostumer').style.display = "block"
+            addingBonusPoints(numberOfWrongTipInputs);
 
 
 
@@ -206,6 +219,7 @@ function submitTip(){
             document.getElementById('tileHeaderAfterSubmit').innerHTML = "Yeahy you calculated correctly!!";
             document.getElementById('AfterSubmitCardBody').innerHTML= "Thank you very much for you service see you next Time:) ";
             document.getElementById('redoGame').style.display = "block"
+            addingBonusPoints(numberOfWrongTipInputs);
             const moneyObjekt = {
                 "moneyKey": navbarMoney,
             }
@@ -242,14 +256,14 @@ function submitTip(){
 function splitCoffeesAndCostumers(){
 
     console.log(payer +"payer")
-   if(payer <= 3  ) {
+   if(coffeesForLevel3.length >=2 ) {
         coffeesForLevel3.splice(0, costumerNumber+1);
         customersLevel3.splice(0, costumerNumber+1);
         customersLevel3Img.splice(0, costumerNumber+1);
-     }else {
-        coffeesForLevel3.splice(0,costumerNumber);
-        customersLevel3.splice(0, costumerNumber);
-        customersLevel3Img.splice(0, costumerNumber);
+     }else if(coffeesForLevel3.length <= 1) {
+        coffeesForLevel3.length = 0;
+        customersLevel3.length = 0;
+        customersLevel3Img.length = 0;
     }
     const customerImg = customersLevel3.map(customer =>{
         return customer.customerImgPath;
@@ -262,6 +276,11 @@ function splitCoffeesAndCostumers(){
     console.log(customersLevel3Img);
 }
 
+/***
+ * When Submit Tip Button was preset and it was correct open Next Modal function ist called.
+ * The next coffees are generated and and added to the modal.
+ * Total prices and and inputs are set to default.
+ */
 function openNextModal(){
     document. getElementById('btnNextCostumer').style.display="none"
 
@@ -280,7 +299,7 @@ function openNextModal(){
         if (costumerNumber < 5) {
             let leftCostumers = 5 - (costumerNumberAlreadyPayed);
             nextRandomNumber = Math.floor(Math.random() * leftCostumers);
-            $ ('#message-error').text("current Costumer Number: "+ costumerNumber+ " total costumer Nr.: "+ costumerNumberAlreadyPayed + "left costumers " +leftCostumers);
+           // $ ('#message-error').text("current Costumer Number: "+ costumerNumber+ " total costumer Nr.: "+ costumerNumberAlreadyPayed + "left costumers " +leftCostumers);
 
             if (nextRandomNumber <= 0) {
 
@@ -291,13 +310,13 @@ function openNextModal(){
             }
             for (let i = 0; i <= nextRandomNumber-1; i++) {
                 if (nextRandomNumber >= 1) {
-                    addingMoreCostNext.append('<div class="col-4 addingCostumer" id=" '+ i +'moreCostumers!" >\n' +
+                    addingMoreCostNext.append('<div class="col-4 addingCostumer" id=" ' + i + 'moreCostumers!" >\n' +
                         '                            <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">\n' +
                         '                                <img class="p-3 card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">\n' +
                         '                            </div>')
                 }
             }
-            document.getElementById("nextCostumerBody2").innerText = "invited now: " + nextRandomNumber + "\n random from modal before" + costumerNumber.toString();
+           // document.getElementById("nextCostumerBody2").innerText = "invited now: " + nextRandomNumber + "\n random from modal before" + costumerNumber.toString();
 
         }
         costumerNumber = 0;
@@ -373,18 +392,8 @@ function openNextModal(){
  * removes the coffee just added
  */
 function removeCoffeeForPay() {
-    let selectedCoffee = $('.coffePickerdiv :selected').text();
-    let price = parseFloat($('#' + selectedCoffee + 'Price').text());
-
     $("#invoice-table").find("tr:gt(0)").remove();
 
-    // solve the error
-  /*  if ($('#' + selectedCoffee).length >= 1 ) {
-            $('#' + selectedCoffee).closest("tr").remove();
-        } else {
-        $('#' + selectedCoffee).closest("tr").remove();
-        $('#message-error').text('You cannot delete this element!');
-    }*/
 }
 
 async function loadModal() {
@@ -456,35 +465,13 @@ async function loadModal() {
                 '                                <img class="p-3 card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">\n' +
                 '                            </div>')
 
-        //    $('.addingCostumer').clone().appendTo('#addingMoreCostumers');
-          //  i++;
         }
 
 
     }
-   /* /!**
-     * for next Modal
-     *!/
-    if (costumerNumber < 5) {
-        let leftCostumers = 5 - costumerNumber;
-        nextRandomNumber = Math.floor(Math.random() * leftCostumers);
-
-        for (let j = 0; j <= nextRandomNumber-1; j++) {
-            if (numberOfPayedCoffeeByOneCostumer >= 1) {
-                $('#addingMoreCostumers2').append('<div class="col-4 addingCostumer" id=" '+ j +'moreCostumers">\n' +
-                    '                            <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">\n' +
-                    '                                <img class="p-3 card-img-Person-getting-payed-next" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">\n' +
-                    '                            </div>')
-            }
-        }
-       // document.getElementById("nextCostumerBody").innerText = "invited: " + nextRandomNumber + "\n random " + numberOfPayedCoffeeByOneCostumer.toString();
-
-    }*/
-
 
     /*** put Coffeetitles in modal*/
 
-   // var coffeesForLevel3 = JSON.parse(sessionStorage.getItem("allCoffees"))
     console.log(coffeesForLevel3)
     const coffeeOrderCardsLevel3 = $('.card-text');
     const coffeeTitles = coffeesForLevel3.map(coffee => {
@@ -539,16 +526,12 @@ async function loadModal() {
      * @type {*|jQuery|HTMLElement}
      */
     const customerBeingPayed = $('.card-img-Person-getting-payed');
-   // const customerBeingPayedNext = $('.card-img-Person-getting-payed-next')
     for (let i = 1; i <= customerBeingPayed.length ; i++) {
 
             customerBeingPayed[i - 1].src = customersLevel3Img[i];
 
     }
-    /*for (let i = 1; i <= customerBeingPayedNext.length; i++){
-        customerBeingPayedNext[i].scr = customersLevel3Img[i]
-    }
-*/
+
 
 
 
