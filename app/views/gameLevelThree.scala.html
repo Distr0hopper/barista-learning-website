@@ -33,8 +33,8 @@
         @*Game*@
         <div class="flex align-items-center">
             <section class="my-5">
-                <div class="container justify-content-center">
-                    <div class="mh-100 row row-game col-lg-12 col-xs-5 mx-auto pb-3">
+                <div class="container justify-content-around justify-content-center">
+                    <div class="mh-100 row row-game justify-content-around col-lg-12 col-xs-5 mx-auto pb-3">
                         <div class="col-12">
                             <h1 class="font-game text-center pt-4" id="order">Receiving Order!</h1>
                         </div>
@@ -97,7 +97,7 @@
                             <div class="dropzone" id="cup"><img
                             src="@assetsFinder.path("images/Ingredients/cup.svg")"
                             class="img-fluid p-5" alt="coffe-mug" id="coffee-mug"></div>
-                            <div class="">
+                            <div class="d-flex justify-content-around mt-4">
                                 <button type="button" class="btn btn-primary rounded-pill p-3 mb-4 w-100" id="submitGame" onclick="submitGame()">
                                     submit
                                 </button>

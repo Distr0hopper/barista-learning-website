@@ -1,6 +1,7 @@
 package model;
 
 import data.Coffee;
+import data.User;
 import play.db.Database;
 
 import javax.inject.Inject;
@@ -44,6 +45,13 @@ public class UserFactory {
         });
     }
 
+    /**
+     * creates a new User in the database with the given username, email and password
+     * @param username
+     * @param email
+     * @param password
+     * @return
+     */
     public User create(String username, String email, String password) {
         return db.withConnection(conn -> {
             User user = null;
@@ -86,7 +94,11 @@ public class UserFactory {
         });
     }
 
-
+    /**
+     * gets the User via its username
+     * @param username
+     * @return
+     */
     public User getUserByUsername(String username) {
         return db.withConnection(conn -> {
             User user = null;
@@ -103,7 +115,6 @@ public class UserFactory {
 
     /**
      * Polymorphism method for getUserById(int)
-     *
      * @param id String of id
      * @return User if found, else null
      */
@@ -111,6 +122,10 @@ public class UserFactory {
         return getUserById(Integer.parseInt(id));
     }
 
+    /**
+     * gets all the users from the database
+     * @return List of Users
+     */
     public List<User> getAllUsers() {
         return db.withConnection(conn -> {
             List<User> users = new ArrayList<>();
@@ -125,6 +140,10 @@ public class UserFactory {
         });
     }
 
+    /**
+     * fetches all the usernames for all the users from the database
+     * @return List of username Strings
+     */
     public List<String> getAllUsernames() {
         return db.withConnection(conn -> {
             List<String> userNames = new ArrayList<>();
@@ -132,14 +151,17 @@ public class UserFactory {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 User user = new User(rs);
-                userNames.add(user.username);
+                userNames.add(user.getUsername());
             }
             stmt.close();
             return userNames;
         });
     }
 
-
+    /**
+     * gets all the Users by the descending order of their points
+     * @return a List of Users sorted by their points descending
+     */
     public List<User> getAllUsersDesc() {
         return db.withConnection(conn -> {
             List<User> users = new ArrayList<>();
@@ -154,12 +176,16 @@ public class UserFactory {
         });
     }
 
+    /**
+     * gets the Friends for the user given as a parameter into the method from the database
+     * @param idUser1
+     * @return List of Friends for user with id idUser1
+     */
     public List<User> getFriendsById(int idUser1) {
         return db.withConnection(conn -> {
             List<User> friendList = new ArrayList<>();
-            //String sql = "SELECT * FROM Friendship, User WHERE (idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?) ";
-            String sql2 = "SELECT Friendship.*, User.*, Rewards.reward AS rewardString FROM Friendship, User, Rewards WHERE (User.Rewards_idRewards = Rewards.idRewards) AND ((idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?))";
-            PreparedStatement stmt = conn.prepareStatement(sql2);
+            String sql = "SELECT Friendship.*, User.*, Rewards.reward AS rewardString FROM Friendship, User, Rewards WHERE (User.Rewards_idRewards = Rewards.idRewards) AND ((idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?))";
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, idUser1);
             stmt.setInt(2, idUser1);
             ResultSet rs = stmt.executeQuery();
@@ -170,217 +196,6 @@ public class UserFactory {
             stmt.close();
             return friendList;
         });
-    }
-
-//    public void deleteFriend(int userID1, int userID2) {
-//        db.withConnection(conn -> {
-//            String sql = "DELETE FROM Friendship WHERE idUser1 = ? AND idUser2 = ?;";
-//            PreparedStatement stmt = conn.prepareStatement(sql);
-//            stmt.setInt(1, userID1);
-//            stmt.setInt(2, userID2);
-//            stmt.executeUpdate();
-//            stmt.close();
-//        });
-//    }
-
-
-    public class User {
-        private int id;
-        private String username;
-        private String mail;
-        //private String password;
-        private int points;
-        private Date timestamp;
-        private String reward;
-        private int rewardId;
-        private int level;
-        private String profilePic;
-
-        private User(int id, String username, String mail, int points, int rewardId, int level) {
-            this.id = id;
-            this.username = username;
-            this.mail = mail;
-            this.points = points;
-            this.timestamp = timestamp;
-            this.rewardId = rewardId;
-            this.level = level;
-        }
-
-        private User(ResultSet rs) throws SQLException {
-            this.id = rs.getInt("IdUsers");
-            this.username = rs.getString("username");
-            this.mail = rs.getString("mail");
-            this.points = rs.getInt("points");
-            this.timestamp = rs.getDate("timestamp");
-            this.reward = rs.getString("rewardString");
-            this.rewardId = rs.getInt("Rewards_idRewards");
-            this.level = rs.getInt("gamelevel");
-            this.profilePic = rs.getString("profile_pic");
-        }
-
-
-
-        /**
-         * Updates the user if it already exists and creates it otherwise. Assumes an
-         * autoincrement id column.
-         */
-        public void save() {
-            db.withConnection(conn -> {
-                String sql = "UPDATE User SET username = ?, mail = ?, points = ?, Rewards_idRewards = ?, gamelevel = ? WHERE idUsers = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, this.username);
-                stmt.setString(2, this.mail);
-                stmt.setInt(3, this.points);
-                stmt.setInt(4,this.rewardId);
-                stmt.setInt(5, this.level);
-                stmt.setInt(6, this.id);
-                stmt.executeUpdate();
-                stmt.close();
-            });
-        }
-
-        /**
-         * Delete the user from the database
-         */
-        public void delete() {
-            db.withConnection(conn -> {
-                String sql = "DELETE FROM User WHERE idUsers = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, this.id);
-                stmt.executeUpdate();
-                stmt.close();
-            });
-        }
-
-        /**
-         * updates the profile pic source in the database
-         * @param source - the new source of the profile pic
-         */
-        public void updateProfilePic(String source){
-            db.withConnection(conn -> {
-                String sql = "UPDATE User SET profile_pic = ? WHERE idUsers = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, source);
-                stmt.setInt(2, this.id);
-                stmt.executeUpdate();
-                stmt.close();
-                setProfilePic(source);
-            });
-        }
-
-        /**
-         * updates the username in the database
-         * @param name - the new username that shall be stored in the database
-         */
-        public void updateName(String name){
-            db.withConnection((conn -> {
-                String sql = "UPDATE User SET username = ? WHERE idUsers = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, name);
-                stmt.setInt(2, this.id);
-                stmt.executeUpdate();
-                stmt.close();
-                setUsername(name);
-            }));
-        }
-
-
-
-//        public List<User> getFriends() {
-//            return db.withConnection(conn -> {
-//                List<User> result = new ArrayList<>();
-//                String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
-//                PreparedStatement stmt = conn.prepareStatement(sql);
-//                stmt.setInt(1, this.id);
-//                ResultSet rs = stmt.executeQuery();
-//                while (rs.next()) {
-//                    User user = new User(rs);
-//                    result.add(user);
-//                }
-//                stmt.close();
-//                return result;
-//            });
-//        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-            this.save();
-        }
-
-
-        public String getMail() {
-            return mail;
-        }
-
-        public void setMail(String mail) {
-            this.mail = mail;
-        }
-
-        public int getPoints() {
-            return points;
-        }
-
-        public void setPoints(int points) {
-            this.points = points;
-        }
-
-        public int getRanking() {
-            return rewardId;
-        }
-
-//        public void setRanking(int rewardId) {
-//            this.rewardId = rewardId;
-//        }
-
-        public void addPoints(int points) {
-            this.points += points;
-            this.save();
-        }
-
-        public int getLevel() {
-            return level;
-        }
-
-        public void setLevel(int level) {
-            this.level = level;
-        }
-
-        public Date getTimestamp() {
-            return timestamp;
-        }
-
-        public String getReward(){
-            return reward;
-        }
-
-        public void setReward(int idReward){
-            this.rewardId = idReward;
-        }
-
-        public int getRewardId(){
-            return rewardId;
-        }
-        public String getProfilePic(){
-            return this.profilePic;
-        }
-
-        public void setProfilePic(String source) {this.profilePic = source;}
-
-
-
-
     }
 
 }

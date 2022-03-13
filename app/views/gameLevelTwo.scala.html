@@ -34,7 +34,7 @@
     <div class="flex align-items-center">
         <section class="my-5">
             <div class="container justify-content-center">
-                <div class="mh-100 row row-game col-lg-12 col-xs-5 mx-auto pb-3">
+                <div class="mh-100 row row-game justify-content-around col-lg-12 col-xs-5 mx-auto pb-3">
                     <div class="col-12">
                         <h1 class="font-game text-center pt-4" id="order">Receiving Order!</h1>
                     </div>
@@ -93,16 +93,17 @@
                         <div class="dropzone" id="cup"><img
                         src="@assetsFinder.path("images/Ingredients/cup.svg")"
                         class="img-fluid p-5" alt="coffe-mug" id="coffee-mug"></div>
-                        <div class="">
+                        <div class="d-flex justify-content-around mt-4">
                             <button type="button" class="btn btn-primary rounded-pill p-3 mb-4 w-100" id="submitGame" onclick="submitGame()">
                                 submit
                             </button>
-                            <button type="button" class="btn btn-primary rounded-pill p-3 mb-4 w-100" id="playNextGame" onclick="loadLevelThree()"  style="display: none">
-                                Play Level 3
-                            </button>
-                            <button type="button" class="btn btn-secondary rounded-pill p-3 mb-4 w-100" id="redoGame" onclick="loadLevelTwo()" style="display: none">
+                            <button type="button" class="btn btn-secondary rounded-pill p-3 px-5 mb-4" id="redoGame" onclick="loadLevelTwo()" style="display: none">
                                 Play again
                             </button>
+                            <button type="button" class="btn btn-primary rounded-pill p-3 px-5 mb-4" id="playNextGame" onclick="loadLevelThree()"  style="display: none">
+                                Play Level 3
+                            </button>
+
                         </div>
                         <p class="justify-content-center mb-4 small" id="remainingAttempts"> You have 3 attempts left </p>
 

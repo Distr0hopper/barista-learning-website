@@ -1,11 +1,13 @@
 package controllers;
 
+import data.User;
 import model.UserFactory;
 import play.mvc.*;
 import views.html.*;
 
 
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,7 +37,7 @@ public class HomeController extends Controller {
     public Result main(Http.Request request) {
         if (userController.isLoggedIn(request)) {
             int id = Integer.parseInt(request.session().get("userID").get());
-            UserFactory.User user = userFactory.getUserById(id);
+            User user = userFactory.getUserById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -57,7 +59,7 @@ public class HomeController extends Controller {
     public Result dictionary(Http.Request request) {
         if(userController.isLoggedIn(request)){
             int id = Integer.parseInt(request.session().get("userID").get());
-            UserFactory.User user = userFactory.getUserById(id);
+            User user = userFactory.getUserById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -79,11 +81,11 @@ public class HomeController extends Controller {
      */
     public Result socials(Http.Request request){
         int id = Integer.parseInt(request.session().get("userID").get());
-        UserFactory.User user = userFactory.getUserById(id);
+        User user = userFactory.getUserById(id);
         int money = user.getPoints();
         int level = user.getLevel();
         int ranking = user.getRanking();
-        List<UserFactory.User> friends = userFactory.getFriendsById(id);
+        List<User> friends = userFactory.getFriendsById(id);
         return ok(
                 socials.render("socials", String.valueOf(money), level, ranking, user, friends, assetsFinder)
         );

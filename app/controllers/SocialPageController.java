@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import data.User;
 import model.ChatFactory;
 import model.FriendshipFactory;
 import model.UserFactory;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //    here also methods regarding rewards and chat
@@ -26,7 +28,7 @@ public class SocialPageController extends Controller {
     private final ChatFactory chatFactory;
     private final AssetsFinder assetsFinder;
     private List<String> userNamesList = new ArrayList<>();
-    private List<UserFactory.User> friends = new ArrayList<>();
+    private List<User> friends = new ArrayList<>();
 
     @Inject
     public SocialPageController(UserFactory userFactory, UserController userController, FriendshipFactory friendshipFactory, ChatFactory chatFactory, AssetsFinder assetsFinder) {
@@ -56,9 +58,9 @@ public class SocialPageController extends Controller {
      */
     public Result highscore(Http.Request request) {
         if(userController.isLoggedIn(request)) {
-            List<UserFactory.User> users = userFactory.getAllUsersDesc();
+            List<User> users = userFactory.getAllUsersDesc();
             int id = Integer.parseInt(request.session().get("userID").get());
-            UserFactory.User user = userFactory.getUserById(id);
+            User user = userFactory.getUserById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -117,7 +119,7 @@ public class SocialPageController extends Controller {
         int userID = Integer.parseInt(userIDString);
         friends = userFactory.getFriendsById(userID);
         userNamesList = userFactory.getAllUsernames();
-        for (UserFactory.User friend : friends){
+        for (User friend : friends){
             if (userNamesList.contains(friend.getUsername())){
                 userNamesList.remove(friend.getUsername());
             }
