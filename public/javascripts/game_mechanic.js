@@ -98,7 +98,6 @@ function getTitle(activeDrink) {
  * When the coffee is wrong, count an attempt + 1.
  * If the user cannot make the coffee in 3 attempts, display the correct answer.
  * Fetch the rewards to the server to store them in a session if the last coffee is made.
-
  */
 function submitGame() {
 

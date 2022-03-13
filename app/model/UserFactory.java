@@ -1,5 +1,6 @@
 package model;
 
+import data.Coffee;
 import play.db.Database;
 
 import javax.inject.Inject;
@@ -181,6 +182,7 @@ public class UserFactory {
 //            stmt.close();
 //        });
 //    }
+
 
     public class User {
         private int id;
@@ -372,6 +374,8 @@ public class UserFactory {
         }
 
         public void setProfilePic(String source) {this.profilePic = source;}
+
+
 
 
     }

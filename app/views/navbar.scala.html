@@ -9,88 +9,84 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" type="image/png" href="@assetsFinder.path("images/coffee-favicon.png")">
         <title>@page </title>
-        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/bootstrap.min.css")">
-        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
-        @* <script type="text/javascript" src="@assetsFinder.path("javascripts/jquery.min.js")"></script>*@
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/bootstrap-4.6.1/bootstrap.min.css")" type="text/css">
+        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/style.css")" type="text/css">
+        <script src="@assetsFinder.path("javascripts/jquery-3.5.1/jquery.slim.min.js")"></script>
+        <script src="@assetsFinder.path("javascripts/bootstrap-4.6.1/bootstrap.bundle.min.js")"></script>
         <script type="text/javascript" src="@assetsFinder.path("javascripts/navbar.js")"></script>
             <!-- Interact js for drag and drop -->
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-            <div class="container-fluid">
-                <a class="navbar-brand text-uppercase" href="@routes.HomeController.main"><img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu"></a>
-                <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                    <ul class="navbar-nav me-auto">
-                        <li><a class="nav-link @("active".when(page == "Home"))" href="@routes.HomeController.main">
-                            Home</a></li>
-                        <li><a class="nav-link @("active".when(page == "HighScore"))" href="@routes.SocialPageController.highscore">
-                            Highscore</a></li>
-                        <li><a class="nav-link @("active".when(page == "Profile"))" href="@routes.UserController.profile">
-                            Profile</a></li>
-                        <li><a class="nav-link @("active".when(page == "GameOne"))" href="@routes.GameController.defaultGame">
-                            Game</a></li>
-                        <li class="nav-item dropdown @("active".when(page == "GameTwo" || page == "GameTwoMemory"))">
-                            <a class="nav-link dropdown-toggle @("disabled".when(level == 1))" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                                Level 2
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item @("active".when(page == "GameTwo")) @("disabled".when(level == 1))" href="@routes.GameController.gameLevelTwo">
-                                    <nobr>Game-Level-2</nobr></a>
-                                <a class="dropdown-item @("active".when(page == "GameTwoMemory")) @("disabled".when(level == 1 || ranking < 1))" href="@routes.GameController.gameLevelTwoMemory">
-                                    <nobr>Game-Level-2-Memory</nobr></a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown @("active".when(page == "GameThreeGame1" || page == "GameThreeMemory" || page == "GameThree"))">
-                            <a class="nav-link dropdown-toggle @("disabled".when(level == 1 || level == 2))" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                                Level 3
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item @("active".when(page == "GameThreeGame1")) @("disabled".when(level == 1 || level == 2))" href="@routes.GameController.gameLevelThreeGame1">
-                                    <nobr> Game-Level-3.1 </nobr></a>
-                                <a class="dropdown-item @("active".when(page == "GameThreeMemory")) @("disabled".when(level == 1 || level == 2 || ranking < 2))" href="@routes.GameController.gameLevelThreeMemory">
-                                    <nobr>Game-Level-3-Memory</nobr></a>
-                                <a class="dropdown-item @("active".when(page == "GameThree")) @("disabled".when(level == 1 || level == 2 || ranking < 3))" href="@routes.GameController.gameLevelThree">
-                                    <nobr>Game-Level-3</nobr></a>
-                            </div>
-                        </li>
-
-                        <li><a class="nav-link  @("active".when(page == "Dictionary"))" href="@routes.HomeController.dictionary">
-                            Dictionary</a></li>
-                        <li><a class="nav-link  @("active".when(page == "Socials"))" href="@routes.HomeController.socials">
-                            Socials</a></li>
-
-
-                    </ul>
-                </div>
-                <div class="navbar-collapse collapse w-100 order-3">
-                    <ul class="navbar-nav ms-auto align-items-center">
-                        <li class="nav-item">
-                            <img src="@assetsFinder.path("/images/coffee-bean-icon.png")" alt="coffee beans funds" width="20" height="20" id="coffee-bean-money-icon">
-                        </li>
-                        <li>
-                            <p style="color: white" id="money" class="pointsNavbar">@scalaMoney</p>
-                        </li>
-                        <li>
-                            <p style="color: white;
-                                display: none;
-                                padding-left: 2px" id="plusForMoneyCounter">
-                                + <span id="money-counter" style="display: none;"> 0 </span> </p>
-                        </li>
-                        <li>
-                            <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="\logout" onclick="clearSessionStorage()">Logout </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="@routes.HomeController.main">
+                    <img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu d-none d-sm-block">
+                </a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item @("active".when(page == "Home"))">
+                        <a class="nav-link" href="@routes.HomeController.main">Home</a>
+                    </li>
+                    <li class="nav-item @("active".when(page == "HighScore"))">
+                        <a class="nav-link" href="@routes.SocialPageController.highscore">Highscore</a>
+                    </li>
+                    <li class="nav-item @("active".when(page == "Profile"))">
+                        <a class="nav-link" href="@routes.UserController.profile">Profile</a>
+                    </li>
+                    <li class="nav-item @("active".when(page == "GameOne"))">
+                        <a class="nav-link" href="@routes.GameController.defaultGame">Level 1</a>
+                    </li>
+                    <li class="nav-item dropdown @("active".when(page == "GameTwo" || page == "GameTwoMemory"))">
+                        <a class="nav-link dropdown-toggle @("disabled".when(level == 1))" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Level 2
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item @("active".when(page == "GameTwo")) @("disabled".when(level == 1))" href="@routes.GameController.gameLevelTwo">
+                                <nobr>Game-Level-2</nobr></a>
+                            <a class="dropdown-item @("active".when(page == "GameTwoMemory")) @("disabled".when(level == 1))" href="@routes.GameController.gameLevelTwoMemory">
+                                <nobr>Game-Level-2-Memory</nobr></a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown @("active".when(page == "GameThreeGame1" || page == "GameThreeMemory" || page == "GameThree"))">
+                        <a class="nav-link dropdown-toggle @("disabled".when(level == 1 || level == 2))" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Level 3
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item @("active".when(page == "GameThree")) @("disabled".when(level == 1 || level == 2))" href="@routes.GameController.gameLevelThree">
+                                <nobr> Game-Level-3.1 </nobr></a>
+                            <a class="dropdown-item @("active".when(page == "GameThreeMemory")) @("disabled".when(level == 1 || level == 2))" href="@routes.GameController.gameLevelThreeMemory">
+                                <nobr>Game-Level-3-Memory</nobr></a>
+                            <a class="dropdown-item @("active".when(page == "GameThreeCalculating")) @("disabled".when(level == 1 || level == 2))" href="@routes.GameController.gameLevelThreeCalculating">
+                                <nobr>Game-Level-3</nobr></a>
+                        </div>
+                    </li>
+                    <li class="nav-item @("active".when(page == "Dictionary"))">
+                        <a class="nav-link" href="@routes.HomeController.dictionary">Dictionary</a>
+                    </li>
+                    <li class="nav-item @("active".when(page == "Socials"))">
+                        <a class="nav-link" href="@routes.HomeController.socials">Socials</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <img src="@assetsFinder.path("/images/coffee-bean-icon.png")" alt="coffee beans funds" width="20" height="20" id="coffee-bean-money-icon">
+                    </li>
+                    <li class="nav-item">
+                        <p style="color: white" id="money" class="pointsNavbar my-0">@scalaMoney</p>
+                    </li>
+                    <li class="nav-item">
+                        <p style="color: white;
+                            display: none;
+                            padding-left: 2px" id="plusForMoneyCounter">
+                            + <span id="money-counter" style="display: none;"> 0 </span> </p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\logout" onclick="clearSessionStorage()">Logout</a>
+                    </li>
+                </ul>
             </div>
         </nav>
         @content

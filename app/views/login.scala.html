@@ -6,40 +6,40 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" type="image/png" href="@assetsFinder.path("images/coffee-favicon.png")">
         <title>Login</title>
-        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/bootstrap.min.css")" type="text/css">
-        <script src="@assetsFinder.path("javascripts/bootstrap.bundle.min.js")"></script>
-        <script src="@assetsFinder.path("javascripts/jquery.min.js")"></script>
+        <link rel="icon" type="image/png" href="@assetsFinder.path("images/coffee-favicon.png")">
+        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/bootstrap-4.6.1/bootstrap.min.css")" type="text/css">
         <link rel="stylesheet" href="@assetsFinder.path("stylesheets/style.css")" type="text/css">
+        <script src="@assetsFinder.path("javascripts/jquery-3.5.1/jquery.slim.min.js")"></script>
+        <script src="@assetsFinder.path("javascripts/bootstrap-4.6.1/bootstrap.bundle.min.js")"></script>
     </head>
     <body>
-        <div class="container mt-5">
+        <div class="container my-5">
             <div class="row row-login no-gutters">
                 <div class="d-none d-lg-block col-5">
-                    <img src="@assetsFinder.path("images/heisser-kaffee.png")" class="img-fluid pt-5" alt="Coffe Cup">
+                    <img src="@assetsFinder.path("images/heisser-kaffee.png")" class="img-fluid py-5" alt="Coffe Cup">
                 </div>
-                <div class="col-12 col-lg-7 px-5 pt-5">
+                <div class="col-12 col-lg-7 px-5 py-5">
                     <h1 class="font-weight-bold py-3">Welcome!</h1>
                     <h4>Sign into your account</h4>
-                    <div class="form-inline pt-3 col-12 col-lg-7">
+                    <div class="form-group m-0 pt-3 pl-0 col-12 col-lg-7">
                         <div class="" role="alert" id="alert-login">
                             <span id="alert-message"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group m-0">
                             <label for="username">Username: </label>
-                            <input type="text" placeholder="Username" id="username" class="form-control my-3 p-4"/>
+                            <input type="text" placeholder="Username" id="username" class="form-control rounded-lg p-3"/>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password: </label>
-                            <input type="password" placeholder="Password" id="password" class="form-control my-3 p-4"/>
+                        <div class="form-group m-0">
+                            <label class="mt-4" for="password">Password: </label>
+                            <input type="password" placeholder="Password" id="password" class="form-control rounded-lg p-3"/>
                         </div>
-                        <button type="button" class="login_btn mt-3 mb-5 p-4" onclick="checkLogin()" id="myBtn">
+                        <button type="button" class="btn btn-primary rounded-pill p-3 my-4 w-100" onclick="checkLogin()" id="myBtn">
                             Login
                         </button>
                     </div>
 @*                    <a href='@routes.UserController.forgotPassword'>Forgot Password</a>*@
-                    <p class="pb-5">Don't have an account yet? <a href=@routes.UserController.createAccount>
+                    <p>Don't have an account yet? <a href=@routes.UserController.createAccount>
                         Register here</a></p>
                 </div>
             </div>
