@@ -368,6 +368,12 @@ interact('.dropzone').dropzone({
     ondropdeactivate: function (event) {
         event.target.classList.remove('drop-active')
         event.target.classList.remove('drop-target')
+    },
+    onstart: function (event) {
+        var target = event.target;
+
+        // Bring element in front of its siblings
+        target.parentNode.appendChild(target);
     }
 })
 //tip

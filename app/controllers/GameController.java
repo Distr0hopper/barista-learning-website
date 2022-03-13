@@ -231,7 +231,7 @@ public class GameController extends Controller {
                 Integer ranking = user.getRanking();
                 if (level > 2) { // you can access the game level 3 when the level is 3
                     return ok(
-                            gameLevelThree.render("GameThreeCalculating", money, level, ranking, assetsFinder)
+                            gameLevelThree.render("GameThreeCalculating", money, level, ranking, ingredients, assetsFinder)
                     );
                 } else {
                     return redirect(routes.HomeController.main().url());
