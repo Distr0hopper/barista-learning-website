@@ -259,7 +259,7 @@ function checkCorrectDrinks(correctDrinksCounter) {
 /**
  * Checks on which try the coffee is made correct.
  * If you made it on the first try, call checkCorrectDrinks to look if you are on a streak.
- * Give 15 Points on first try, 12 on second try and 9 on third try.
+ * Give 15 Points on first try, 12 on second plaand 9 on third try.
  * @param wrongDrinksCounter on which attempt you made it right
  * @returns {number} The number of earned beans you receive for this round.
  */
@@ -368,6 +368,12 @@ interact('.dropzone').dropzone({
     ondropdeactivate: function (event) {
         event.target.classList.remove('drop-active')
         event.target.classList.remove('drop-target')
+    },
+    onstart: function (event) {
+        var target = event.target;
+
+        // Bring element in front of its siblings
+        target.parentNode.appendChild(target);
     }
 })
 //tip
