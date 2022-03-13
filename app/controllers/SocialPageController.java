@@ -37,13 +37,23 @@ public class SocialPageController extends Controller {
         this.assetsFinder = assetsFinder;
     }
 
-
+    /**
+     * gets all the friends of the logged in user
+     * @param request Request the session storage
+     * @return
+     */
     public Result getFriends(Http.Request request){
         String userIDString = request.session().get("userID").get();
         int userID = Integer.parseInt(userIDString);
         return ok(Json.toJson(userFactory.getFriendsById(userID)));
     }
 
+    /**
+     * renders the highscore page
+     * @param request request the session storage
+     * @return ok if the user is logged in. otherwise redirect to the
+     * login page
+     */
     public Result highscore(Http.Request request) {
         if(userController.isLoggedIn(request)) {
             List<UserFactory.User> users = userFactory.getAllUsersDesc();
@@ -59,6 +69,14 @@ public class SocialPageController extends Controller {
         }
     }
 
+    /**
+     * creates a friendship between the logged in user and another user
+     * the other user is fetched via a Json Object
+     * calls the createFriendship Method of the FriendshipFactory
+     * and reloads the socials page
+     * @param request Request the session storage
+     * @return
+     */
     public Result createFriendship(Http.Request request) {
         JsonNode json = request.body().asJson();
         String friend = json.get("username").textValue();
@@ -69,6 +87,14 @@ public class SocialPageController extends Controller {
         return redirect(routes.HomeController.socials().url());
 }
 
+    /**
+     * deletes the friendship between the logged in user and another user
+     * the other user is fetched via a Json Object
+     * calls the deleteMessages and the deleteFriendship methods
+     * of the FriendshipFactory
+     * @param request
+     * @return
+     */
     public Result deleteFriendship(Http.Request request) {
         JsonNode json = request.body().asJson();
         String friend = json.get("friendName").textValue();
@@ -81,6 +107,11 @@ public class SocialPageController extends Controller {
     }
 
 
+    /**
+     * gets all of the users the logged in users is not friends with
+     * @param request Request the session storage
+     * @return a Json that contains the list of users
+     */
     public Result getNotFriends(Http.Request request){
         String userIDString = request.session().get("userID").get();
         int userID = Integer.parseInt(userIDString);
@@ -94,12 +125,22 @@ public class SocialPageController extends Controller {
         return ok(Json.toJson(userNamesList));
     }
 
+    /**
+     * gets all of the messages a user has either sent or received
+     * @param request Request the session storage
+     * @return a Json containing all of the messages
+     */
     public Result getMessages(Http.Request request){
         String userIDString = request.session().get("userID").get();
         int userID = Integer.parseInt(userIDString);
         return ok(Json.toJson(chatFactory.getAllMessages(userID)));
     }
 
+    /**
+     * adds a sent message to the database
+     * @param request request the session storage
+     * @return
+     */
     public Result sendMessage(Http.Request request){
         String userIDString = request.session().get("userID").get();
         int userID = Integer.parseInt(userIDString);
