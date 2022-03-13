@@ -168,8 +168,8 @@ async function checkForMatch() {
         bonusMoney += checkMoneyForRanking(money);
         if (bonusMoney !== 0) {
             money += bonusMoney;
-            $('#plusForMoneyCounter').show();
-            $('#money-counter').show();
+            $('#plusForMoneyCounter').removeClass("d-none");
+            $('#money-counter').removeClass("d-none");
             $('#money-counter').text(bonusMoney);
         }
 
