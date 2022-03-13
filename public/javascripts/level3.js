@@ -1,10 +1,18 @@
 // coffees  and customer stored in session
+/***
+ * coffees and costumers stored in sessions and in the given arrays
+ * @type {any}
+ */
 var coffeesForLevel3 = JSON.parse(sessionStorage.getItem("allCoffees"));
 var coffeestored = [];
 var customersLevel3 = JSON.parse(sessionStorage.getItem("sixCustomers"));
 var customersLevel3Img = [];
 
 // coffee to be payed class variables
+/**
+ * random coffee numbers and costumer numbers to know who has to pay or get invited
+ * @type {null}
+ */
 let randomCoffeeNumberOf5 = null ;
 let nextCostumerWhoHasToPay = null;
 let randomCostumerAmount = null;
@@ -15,12 +23,20 @@ let costumerNumberAlreadyPayed = 0;
 let numberOfWrongTipInputs = 0;
 
 //total prices
+/**
+ * calculations variables
+ * @type {null}
+ */
 let total = null;
 let totalInput = null;
 let numberOfWrongInputPrices = null;
 let payer = 0;
 let navbarMoney = Number($('#money').text());
 
+/**
+ * points variables
+ * @type {Element}
+ */
 let resultDisplayLevel3 = document.querySelector('#result');
 let pointsAdded = 0;
 let  numberOfWrongInputPricesTotal = 0;
