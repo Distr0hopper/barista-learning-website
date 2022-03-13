@@ -6,7 +6,7 @@
         <section class="my-5">
             <div class="mh-100 row row-game col-lg-12 col-xs-5 mx-auto pb-3">
                 <div class="col-12">
-                    <h1 class="font-game text-center pt-4" id="order">Level Three: Your costumer wants to pay!</h1>
+                    <h1 class="font-game text-center pt-4" id="order">Your costumer wants to pay!</h1>
                 </div>
                 <hr class="py-2 col-12">
                 <div class="row">
@@ -15,7 +15,7 @@
                                 <!--Adding Customer and each individual coffee-->
                             @for(index <- 0 until 6) {
                                 <div class="col-md-4 mb-4 ml-auto">
-                                    <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">
+                                    <div class="card w-100 h-auto cursor-normal mx-2">
                                         <img class="card-img-top px-4 pt-4" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
                                         <div class="card-body">
                                             <p class="text-center card-text py-3">Capuccino</p>
@@ -50,7 +50,8 @@
                                 <div class="col-12" id="firstCoffee">
                                     <p id="message-error"></p>
                                     <div class="coffeePickerdiv">
-                                        <select class="form-control rounded-lg mt-3 p-3" id="inputGroupSelect01">
+                                        <label for="inputGroupSelect01">Select coffee:</label>
+                                        <select class="form-control rounded-lg p-3" id="inputGroupSelect01">
                                             <option selected value = "None">Choose the correct Coffee...</option>
                                             <option class="options" value="1">One</option>
                                             <option class="options" value="2">Two</option>
@@ -129,9 +130,9 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class=" col-md-4 ml-auto">
-                        <div id = "imageCostumer1">
-                            <img height="100" class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
+                    <div class="col-md-4 ml-auto">
+                        <div id="imageCostumer1">
+                            <img height="100" class="card-img-Person-paying" alt="cutomer" src="@assetsFinder.path("/images/waiter.png")">
                         </div>
                     </div>
                     <h5 class="modal-title" id="card-text-body-modal1">
@@ -171,7 +172,7 @@
                 <div class="modal-header">
                     <div class=" col-md-4 ml-auto">
                         <div id = "imageCostumer1">
-                            <img height="100" class="card-img-Person-paying-next" src="@assetsFinder.path("/images/waiter.png")">
+                            <img height="100" class="card-img-Person-paying-next" alt="person" src="@assetsFinder.path("/images/waiter.png")">
                         </div>
                        @* <div id = "imageCostumer2">
                             <img height="100" class="card-img-Person-next-paying" src="@assetsFinder.path("/images/waiter.png")">
@@ -205,7 +206,7 @@
                 <div class="modal-header">
                     <div class=" col-md-4 ml-auto">
                         <div id = "imageCostumer1">
-                            <img height="100" class="card-img-Person-paying-modal2" src="@assetsFinder.path("/images/waiter.png")">
+                            <img height="100" class="card-img-Person-paying-modal2" alt="customer" src="@assetsFinder.path("/images/waiter.png")">
                         </div>
                     </div>
                     <h5 class="modal-title" id="tileHeaderAfterSubmit">
@@ -240,14 +241,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-uppercase" id="modal-title">
-                        Level 3: Remember who wants to pay what!</h5>
+                        Level 3 Calculating: Remember who wants to pay what!</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p>Your costumers want to pay. Remember who wants to invite who. Select those coffees, and calculate in your head how much it is in total.
-                        If you did well you'll recive a Tip. Calculate it as well. Have fun.</p>
+                        If you did well you'll receive a Tip. Calculate it as well. Have fun.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" data-toggle="modal" data-target="#costumerWishModal" id="payingCostumer">
