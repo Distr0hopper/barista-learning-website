@@ -34,7 +34,7 @@ function checkMoneyForRanking(money) {
     return 0;
 }
 function redoGameThree(){
-    window.location = '/games/gameLevelThreeGame1'
+    window.location = '/games/gameLevelThree'
 }
 function redoGameOne() {
     window.location = '/games/defaultGame'
@@ -50,7 +50,7 @@ function redirectToLvl2(){
     window.location = '/games/gameLevelTwo'
 }
 function redirectToLvl3(){
-    window.location = '/games/gameLevelThreeGame1'
+    window.location = '/games/gameLevelThree'
 }
 
 function redirectToMemoryLvl2() {
