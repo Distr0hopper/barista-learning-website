@@ -237,16 +237,16 @@ async function checkForMatch() {
  * */
 async function flipcard() {
     //gets id of clicked card and puts id and name into cardsChosen/cardsChosenID, sets img to new src and calls checkformatch
-    if (cardsChosen.length >= 2 && this.classList.contains('matched')){
-        return
+    if (cardsChosen.length < 2 && !this.classList.contains('matched')){
+        var cardID = this.getAttribute('data-id')
+        cardsChosen.push(cardArray[cardID].name)
+        cardsChosenID.push(cardID)
+        this.setAttribute('src', cardArray[cardID].img)
+        if (cardsChosen.length === 2) {
+            setTimeout(checkForMatch, 800)
+        }
     }
-    var cardID = this.getAttribute('data-id')
-    cardsChosen.push(cardArray[cardID].name)
-    cardsChosenID.push(cardID)
-    this.setAttribute('src', cardArray[cardID].img)
-    if (cardsChosen.length === 2) {
-        setTimeout(checkForMatch, 800)
-    }
+
 }
 
 /**
