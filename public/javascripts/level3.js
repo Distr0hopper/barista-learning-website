@@ -12,6 +12,7 @@ let nextRandomNumber = null;
 let costumerNumber = 0;
 
 let costumerNumberAlreadyPayed = 0;
+let numberOfWrongTipInputs = 0;
 
 //total prices
 let total = null;
@@ -187,7 +188,7 @@ function submitTip(){
     let tipInputFormattet  = numFormatInput(tipInput.value);
     let tip = tipReceiver().toString();
     let totalWithTip = total;
-    let numberOfWrongTipInputs = 0;
+
 
     tip = Math.round((total * tip))/100;
     tip.toFixed(2);
