@@ -7,14 +7,14 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">Level 3: Remember who ordered which coffee!</h5>
+                    <h5 class="modal-title" id="modal-title">Level 3 Memory: Remember who ordered which coffee!</h5>
                 </div>
                 <div class="modal-body modal-fade align-items-center justify-content-center">
                     <div class="container-fluid ms-2">
                         <div class="row w-100 m-0">
                         @for(index <- 0 until 6){
                             <div class="col-md-4 mb-4 ml-auto">
-                                <div class="card w-100 h-auto cursor-normal" style="width: 18rem;">
+                                <div class="card w-100 h-auto cursor-normal">
                                     <img class="card-img-top px-4 pt-4" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
                                     <div class="card-body">
                                         <h3 class="text-center card-title">Capuccino</h3>
@@ -50,7 +50,7 @@
                 <div class="grid image-fluid align-items-center justify-content-center text-center parent"></div>
             </div>
             <div class="justify-content-center text-center align-items-center">
-                <button type="button" class="memoryRedoGame_btn mt-3 mb-5 p-4" id="redoGame" onclick="redoGameTwoMemory()" style="display: none; border-color: #936544">
+                <button type="button" class="memoryRedoGame_btn mt-3 mb-5 p-4" id="redoGame" onclick="redoGameTwoMemory()" style="display: none;">
                     Play again
                 </button>
             </div>
