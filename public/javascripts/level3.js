@@ -253,6 +253,7 @@ function submitTip(){
 }
 
 
+
 function splitCoffeesAndCostumers(){
 
     console.log(payer +"payer")
@@ -276,11 +277,6 @@ function splitCoffeesAndCostumers(){
     console.log(customersLevel3Img);
 }
 
-/***
- * When Submit Tip Button was preset and it was correct open Next Modal function ist called.
- * The next coffees are generated and and added to the modal.
- * Total prices and and inputs are set to default.
- */
 function openNextModal(){
     document. getElementById('btnNextCostumer').style.display="none"
 
