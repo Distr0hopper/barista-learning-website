@@ -142,7 +142,7 @@ public class GameController extends Controller {
 
     }
 
-//        public Result gameLevelThree (Http.Request request){
+//        public Result gameLevelThreeCalculating (Http.Request request){
 //            if (userController.isLoggedIn(request)) {
 //                List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
 //                int id = Integer.parseInt(request.session().get("userID").get());
@@ -152,7 +152,7 @@ public class GameController extends Controller {
 //                int ranking = user.getRanking();
 //                if (level > 2) { // you can access the game level 3.1 when the level is at least 3
 //                    return ok(
-//                            gameLevelThreeGame1.render("GameThree", String.valueOf(money), level, ranking, ingredients, assetsFinder)
+//                            gameLevelThree.render("GameThree", String.valueOf(money), level, ranking, ingredients, assetsFinder)
 //                    );
 //                } else {
 //                    return redirect(routes.HomeController.main().url());
@@ -165,7 +165,7 @@ public class GameController extends Controller {
 
         /**
          * An action that renders the first game of level three HTML page with the money displayed in the navbar.
-         * Called when the /games/gameLevelThreeGame1 route receive a GET request.
+         * Called when the /games/gameLevelThree route receive a GET request.
          * @param request Request the session storage.
          * @return OK if there is a user in the session, else redirect to the login page.
          */
@@ -176,9 +176,9 @@ public class GameController extends Controller {
                 int money = user.getPoints();
                 int level = user.getLevel();
                 int ranking = user.getRanking();
-                if (level > 1) { // you can access the game level 2 memory when the level is at least 2
+                if (level > 2) { // you can access the game level 3 memory when the level is at least 3
                     return ok(
-                            gameLevelTwoMemory.render("GameTwoMemory", String.valueOf(money), level, ranking, assetsFinder)
+                            gameLevelThree$.render("GameLevelThree", String.valueOf(money), level, ranking, assetsFinder)
                     );
                 } else {
                     return redirect(routes.HomeController.main().url());
@@ -217,7 +217,7 @@ public class GameController extends Controller {
 
         /**
          * An action that renders the level three HTML page with the money displayed in the navbar.
-         * Called when the /games/gameLevelThree route receive a GET request.
+         * Called when the /games/gameLevelThreeCalculating route receive a GET request.
          * @param request Request the session storage.
          * @return OK if there is a user in the session, else redirect to the login page.
          */
@@ -231,7 +231,7 @@ public class GameController extends Controller {
                 Integer ranking = user.getRanking();
                 if (level > 2) { // you can access the game level 3 when the level is 3
                     return ok(
-                            gameLevelThree.render("GameThreeCalculating", money, level, ranking, assetsFinder)
+                            gameLevelThreeCalculating.render("GameThreeCalculating", money, level, ranking, assetsFinder)
                     );
                 } else {
                     return redirect(routes.HomeController.main().url());

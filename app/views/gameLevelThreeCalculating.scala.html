@@ -1,0 +1,270 @@
+@(page: String, money: String, level: Integer, ranking: Integer)(implicit assetsFinder: AssetsFinder)
+<!DOCTYPE html>
+
+@navbar("GameThreeCalculating", money, level, ranking) {
+    <div class = "container">
+        <section class="my-5">
+            <div class="mh-100 row row-game col-lg-12 col-xs-5 mx-auto pb-3">
+                <div class="col-12">
+                    <h1 class="font-game text-center pt-4" id="order">Level Three: Your costumer wants to pay!</h1>
+                </div>
+                <hr class="py-2 col-12">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                                <!--Adding Customer and each individual coffee-->
+                            @for(index <- 0 until 6) {
+                                <div class="col-md-4 mb-4 ml-auto">
+                                    <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">
+                                        <img class="card-img-top px-4 pt-4" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
+                                        <div class="card-body">
+                                            <p class="text-center card-text py-3">Capuccino</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <h3 class="result mb-4 px-4 text-center">
+                            Score :
+                                <span id="result"></span>
+                        </h3>
+                        <div class="col-6 mb-3">
+                        <button type="button" class="btn btn-primary rounded-pill px-3" id="redoGame" onclick="redoGameThree()" style="display: none">
+                            Play again
+                        </button>
+                        </div>
+
+                    </div>
+
+                        <!-- Bill with coffe options and total input -->
+                    <div class="col-6">
+                        <div class="backround-thridLevel" style="align-items: center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="font-weight-bold py-3 font-game text-center">
+                                        <h2>Bill Calculator</h2>
+                                    </div>
+                                </div>
+
+                                <div class="col-12" id="firstCoffee">
+                                    <p id="message-error"></p>
+                                    <div class="coffeePickerdiv">
+                                        <select class="form-control rounded-lg mt-3 p-3" id="inputGroupSelect01">
+                                            <option selected value = "None">Choose the correct Coffee...</option>
+                                            <option class="options" value="1">One</option>
+                                            <option class="options" value="2">Two</option>
+                                            <option class="options" value="3">Two</option>
+                                            <option class="options" value="4">Two</option>
+                                            <option class="options" value="5">Two</option>
+                                            <option class="options" value="6">Two</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                    <!-- Add more coffee-->
+                                <div class="col-12" id="moreCoffee"></div>
+                                    <!-- Add more coffee-->
+
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="btnAdd" onclick="addCoffeeToPay();">
+                                        Add Coffee</button>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="btnRemove" onclick="removeCoffeeForPay();">
+                                        Remove Coffee</button>
+                                </div>
+
+                                <hr>
+
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless text-white" id="invoice-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Price</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id = tableInput>
+@*                                                    <td id="Latte">Latte</td>*@
+@*                                                    <td id="LatteQuantity">3</td>*@
+@*                                                    <td id="LattePrice">2.4</td>*@
+@*                                                    <td>7.2</td>*@
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 mt-3">
+                                    <input type="text" id="submitPriceInput" class="form-control rounded-lg p-3" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <input type="text" id ="tipInput" class="form-control rounded-lg p-3 tipInput" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
+                                </div>
+
+
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="submitTotalPrice"  onclick="submitTotalPrice()">
+                                        Submit</button>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <button class="btn btn-primary rounded-pill p-3 mb-4 w-100" type="button" id="submitTip" onclick="submitTip()">
+                                        Submit Tip </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+        <!-- costumer who wants to pay modal-->
+
+        <!-- Modal -->
+    <div class="modal fade" id="costumerWishModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class=" col-md-4 ml-auto">
+                        <div id = "imageCostumer1">
+                            <img height="100" class="card-img-Person-paying" src="@assetsFinder.path("/images/waiter.png")">
+                        </div>
+                    </div>
+                    <h5 class="modal-title" id="card-text-body-modal1">
+                        Hey! I would like to pay for me and my friend <span id="label">*</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class=" col-4" id="nextCostumerBody2"></div>
+                    <div class="row px-2 my-2" id="addingMoreCostumers"></div> <!--id gets duplicated multiple times here and it's not a good practice-->
+                    <div class="row px-2 my-2" id="addingMoreCostumersNext"></div> <!--id gets duplicated multiple times here and it's not a good practice-->
+
+                    @*<div class="row px-2 my-2">
+                        <div class="col-4 addingCostumer" id="moreCostumers">
+                            <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">
+                                <img class="p-3 card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">
+                            </div>
+                        </div>
+                    </div>*@
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal">
+                        Ok!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- for next Costumer-->
+    <div class="modal fade" id="costumerWishModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class=" col-md-4 ml-auto">
+                        <div id = "imageCostumer1">
+                            <img height="100" class="card-img-Person-paying-next" src="@assetsFinder.path("/images/waiter.png")">
+                        </div>
+                       @* <div id = "imageCostumer2">
+                            <img height="100" class="card-img-Person-next-paying" src="@assetsFinder.path("/images/waiter.png")">
+                        </div>*@
+                    </div>
+                    <h5 class="modal-title" id="card-text-body-modal2">
+                        Hey! I would like to pay for me and my friend <span id="label">*</span>
+                    </h5>
+
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="row px-2 my-2" id="addingMoreCostumers2"></div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary rounded-pill px-3" onclick="nextCostumer()">
+                        Ok!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        <!-- user enterd submit  -->
+    <div class="modal fade" id="costumerAnswerAfterSubmit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class=" col-md-4 ml-auto">
+                        <div id = "imageCostumer1">
+                            <img height="100" class="card-img-Person-paying-modal2" src="@assetsFinder.path("/images/waiter.png")">
+                        </div>
+                    </div>
+                    <h5 class="modal-title" id="tileHeaderAfterSubmit">
+                        Hey ! this is modal after Submit
+                    </h5>
+
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" col-4" id="AfterSubmitCardBody">
+                        I would like to pay me and for my friend
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  id="btnsubmit" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" >
+                        Ok!</button>
+                    <button type="button"  id="btnNextCostumer" class="btn btn-secondary rounded-pill px-3" onclick="openNextModal()">
+                        Next Costumer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="gameModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="modal-title">
+                        Level 3: Remember who wants to pay what!</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Description</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" data-toggle="modal" data-target="#costumerWishModal" id="payingCostumer">
+                        Ok let's go!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!--modal-->
+
+        <!--    script tags-->
+        <!--    <script type="javascript" src="coffeeAPI.js"></script>-->
+        <!--    <script type="javascript" src="test.js"></script>-->
+
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/level3.js")"></script>
+    <script type="text/javascript" src="@assetsFinder.path("javascripts/reusedFunctions.js")"></script>
+}
+
+    <!-- TODO: after finishing with the game all the points were reseted and the play again button redirect to another game-->
