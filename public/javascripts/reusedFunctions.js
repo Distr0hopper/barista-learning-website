@@ -9,6 +9,12 @@ function countHelps(reset) {
 
 }
 
+/**
+ * Check how much money you have and depending on that you level up.
+ * If you level up you receive additional points.
+ * @param money Money you receive while playing a game
+ * @return {number} Bonus points
+ */
 function checkMoneyForRanking(money) {
     let playNextGame = "You can now play the next game!";
     console.log(money);
@@ -33,31 +39,24 @@ function checkMoneyForRanking(money) {
     }
     return 0;
 }
-function redoGameThree(){
-    window.location = '/games/gameLevelThree'
-}
-function redoGameOne() {
+
+function loadGameOne() {
     window.location = '/games/defaultGame'
 }
-function redoGameTwo(){
+
+function loadLevelTwo(){
     window.location = '/games/gameLevelTwo'
 }
-function redoGameTwoMemory(){
+
+function loadLevelTwoMemory(){
     window.location = '/games/gameLevelTwoMemory'
 }
 
-function redirectToLvl2(){
-    window.location = '/games/gameLevelTwo'
-}
-function redirectToLvl3(){
+function loadLevelThree(){
     window.location = '/games/gameLevelThree'
 }
 
-function redirectToMemoryLvl2() {
-    window.location = '/games/gameLevelTwoMemory '
-}
-
-function redirectToMemoryLvl3(){
+function loadLevelThreeMemory(){
     window.location = '/games/gameLevelThreeMemory'
 }
 
