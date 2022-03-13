@@ -216,7 +216,7 @@ public class UserController extends Controller {
         }
         else{
             ObjectNode response = Json.newObject();
-            response.put("message","The username is already given or invalid!");
+            response.put("message","Cannot change the username! Try another one!");
             return unauthorized(response);
         }
     }
