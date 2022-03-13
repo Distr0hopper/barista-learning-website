@@ -45,6 +45,13 @@ public class UserFactory {
         });
     }
 
+    /**
+     * creates a new User in the database with the given username, email and password
+     * @param username
+     * @param email
+     * @param password
+     * @return
+     */
     public User create(String username, String email, String password) {
         return db.withConnection(conn -> {
             User user = null;
@@ -87,7 +94,11 @@ public class UserFactory {
         });
     }
 
-
+    /**
+     * gets the User via its username
+     * @param username
+     * @return
+     */
     public User getUserByUsername(String username) {
         return db.withConnection(conn -> {
             User user = null;
@@ -104,7 +115,6 @@ public class UserFactory {
 
     /**
      * Polymorphism method for getUserById(int)
-     *
      * @param id String of id
      * @return User if found, else null
      */
@@ -112,6 +122,10 @@ public class UserFactory {
         return getUserById(Integer.parseInt(id));
     }
 
+    /**
+     * gets all the users from the database
+     * @return List of Users
+     */
     public List<User> getAllUsers() {
         return db.withConnection(conn -> {
             List<User> users = new ArrayList<>();
@@ -126,6 +140,10 @@ public class UserFactory {
         });
     }
 
+    /**
+     * fetches all the usernames for all the users from the database
+     * @return List of username Strings
+     */
     public List<String> getAllUsernames() {
         return db.withConnection(conn -> {
             List<String> userNames = new ArrayList<>();
@@ -140,7 +158,10 @@ public class UserFactory {
         });
     }
 
-
+    /**
+     * gets all the Users by the descending order of their points
+     * @return a List of Users sorted by their points descending
+     */
     public List<User> getAllUsersDesc() {
         return db.withConnection(conn -> {
             List<User> users = new ArrayList<>();
@@ -155,12 +176,16 @@ public class UserFactory {
         });
     }
 
+    /**
+     * gets the Friends for the user given as a parameter into the method from the database
+     * @param idUser1
+     * @return List of Friends for user with id idUser1
+     */
     public List<User> getFriendsById(int idUser1) {
         return db.withConnection(conn -> {
             List<User> friendList = new ArrayList<>();
-            //String sql = "SELECT * FROM Friendship, User WHERE (idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?) ";
-            String sql2 = "SELECT Friendship.*, User.*, Rewards.reward AS rewardString FROM Friendship, User, Rewards WHERE (User.Rewards_idRewards = Rewards.idRewards) AND ((idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?))";
-            PreparedStatement stmt = conn.prepareStatement(sql2);
+            String sql = "SELECT Friendship.*, User.*, Rewards.reward AS rewardString FROM Friendship, User, Rewards WHERE (User.Rewards_idRewards = Rewards.idRewards) AND ((idUser1 = ? AND Friendship.idUser2 = User.idUsers) OR (idUser1 = User.idUsers AND Friendship.idUser2 = ?))";
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, idUser1);
             stmt.setInt(2, idUser1);
             ResultSet rs = stmt.executeQuery();
@@ -172,19 +197,5 @@ public class UserFactory {
             return friendList;
         });
     }
-
-//    public void deleteFriend(int userID1, int userID2) {
-//        db.withConnection(conn -> {
-//            String sql = "DELETE FROM Friendship WHERE idUser1 = ? AND idUser2 = ?;";
-//            PreparedStatement stmt = conn.prepareStatement(sql);
-//            stmt.setInt(1, userID1);
-//            stmt.setInt(2, userID2);
-//            stmt.executeUpdate();
-//            stmt.close();
-//        });
-//    }
-
-
-
 
 }

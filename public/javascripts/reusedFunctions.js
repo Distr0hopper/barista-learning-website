@@ -1,5 +1,11 @@
 var helpCounter = 0;
 
+/**
+ * counts the helps
+ * if reset is false, the counter counts, else it is set to 0
+ * @param reset
+ * @returns {number}
+ */
 function countHelps(reset) {
     if (reset == false) {
         return helpCounter++
@@ -40,6 +46,9 @@ function checkMoneyForRanking(money) {
     return 0;
 }
 
+/**
+ * loads a certain page of the game on call
+ */
 function loadGameOne() {
     window.location = '/games/defaultGame'
 }

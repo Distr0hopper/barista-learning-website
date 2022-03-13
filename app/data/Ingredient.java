@@ -3,6 +3,9 @@ package data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Ingredient Class that is used to create, retrieve or save changes to the database
+ */
 public class Ingredient {
     private int id;
     private String name;

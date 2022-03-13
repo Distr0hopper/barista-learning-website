@@ -34,6 +34,12 @@ public class UserController extends Controller {
         this.userFactory = userFactory;
         this.assetsFinder = assetsFinder;
     }
+
+    /**
+     * Gets all the users from the Database
+     * Called when the '/' route receives a GET.
+     * @return
+     */
     public Result getAllUsers() {
         return ok(
                 Json.toJson(userFactory.getAllUsers()));

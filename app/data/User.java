@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *  User Class that is used to create, retrieve or save changes to the database
+ */
 public class User {
     private static Database db;
 
@@ -18,7 +21,6 @@ public class User {
     private int id;
     private String username;
     private String mail;
-    //private String password;
     private int points;
     private Date timestamp;
     private String reward;
@@ -154,9 +156,6 @@ public class User {
         return rewardId;
     }
 
-//        public void setRanking(int rewardId) {
-//            this.rewardId = rewardId;
-//        }
 
     public void addPoints(int points) {
         this.points += points;
