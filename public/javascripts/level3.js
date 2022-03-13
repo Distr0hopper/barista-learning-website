@@ -306,7 +306,7 @@ function openNextModal(){
             }
             for (let i = 0; i <= nextRandomNumber-1; i++) {
                 if (nextRandomNumber >= 1) {
-                    addingMoreCostNext.append('<div class="col-4 addingCostumer" id=" ' + i + 'moreCostumers!" >\n' +
+                    addingMoreCostNext.append('<div class="col-4 addingCostumer mb-4" id=" ' + i + 'moreCostumers!" >\n' +
                         '                            <div class="card w-100 h-auto cursor-normal mx-2" style="width: 18rem;">\n' +
                         '                                <img class="p-3 card-img-Person-getting-payed" src="@assetsFinder.path("/images/waiter.png")" alt="Card image cap">\n' +
                         '                            </div>')
