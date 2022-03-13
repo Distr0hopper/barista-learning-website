@@ -1,4 +1,4 @@
-@(page: String, money: String, level: Integer, ranking: Integer, user: model.UserFactory#User, friends: List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, user: data.User, friends: List[data.User])(implicit assetsFinder: AssetsFinder)
 
 @navbar("Profile", money, level, ranking) {
     <div class="container my-5 d-flex justify-content-center">

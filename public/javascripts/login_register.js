@@ -1,5 +1,4 @@
 function checkLogin() {
-    // e.preventDefault();
     let nameInput = document.getElementById("username");
     let passwordInput = document.getElementById("password");
 
@@ -29,12 +28,6 @@ function checkLogin() {
             return response.json();
         }
     })
-    //     .then(userData => {
-    //     window.alert(userData.message);
-    //     nameInput.value = "";
-    //     passwordInput.value = "";
-    //     nameInput.focus();
-    // })
 }
 
 // https://stackoverflow.com/questions/15017052/understanding-email-validation-using-javascript
@@ -91,25 +84,7 @@ function checkPasswords(password, repeatedPassword) {
     return false;
 }
 
-// function testForm() {
-//     let email = document.getElementById("email").value;
-//     let username = document.getElementById("username").value;
-//     let password = document.getElementById("password").value;
-//     let password2 = document.getElementById("password2").value;
-//
-//     if (checkEmail(email) && checkUsername(username) && checkPasswords(password, password2)){
-//         console.log('everything is fine');
-//     } else {
-//         checkEmail(email);
-//         checkUsername(username);
-//         checkPasswords(password, password2);
-//         console.log('sth is incorrect');
-//     }
-// }
-
-
 function checkCreateAccount() {
-    // e.preventDefault();
     let emailInput = document.getElementById("email");
     let nameInput = document.getElementById("username");
     let passwordInput = document.getElementById("password");

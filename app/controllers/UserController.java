@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import data.User;
 import model.FriendshipFactory;
 import model.UserFactory;
 import play.libs.Json;
@@ -16,6 +17,7 @@ import views.html.profile;
 import javax.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserController extends Controller {
@@ -32,6 +34,12 @@ public class UserController extends Controller {
         this.userFactory = userFactory;
         this.assetsFinder = assetsFinder;
     }
+
+    /**
+     * Gets all the users from the Database
+     * Called when the '/' route receives a GET.
+     * @return
+     */
     public Result getAllUsers() {
         return ok(
                 Json.toJson(userFactory.getAllUsers()));
@@ -48,8 +56,8 @@ public class UserController extends Controller {
     public Result profile(Http.Request request) {
         if(isLoggedIn(request)) {
             int id = Integer.parseInt(request.session().get("userID").get());
-            UserFactory.User user = userFactory.getUserById(id);
-            List<UserFactory.User> friends = userFactory.getFriendsById(id);
+            User user = userFactory.getUserById(id);
+            List<User> friends = userFactory.getFriendsById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -93,8 +101,8 @@ public class UserController extends Controller {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
         String password = json.get("password").textValue();
-        UserFactory.User user = userFactory.authenticate(username,password);
-        UserFactory.User userID = userFactory.getUserByUsername(username);
+        User user = userFactory.authenticate(username,password);
+        User userID = userFactory.getUserByUsername(username);
         int money = user.getPoints();
         int id = userID.getId(); // add user id on the session
         int level = userID.getLevel(); // add level id on the session
@@ -191,7 +199,7 @@ public class UserController extends Controller {
         JsonNode json = request.body().asJson();
         String img = json.get("source").textValue();
         int id = Integer.parseInt(request.session().get("userID").get());
-        UserFactory.User user = userFactory.getUserById(id);
+        User user = userFactory.getUserById(id);
         user.updateProfilePic(img);
         return ok();
     }
@@ -208,7 +216,7 @@ public class UserController extends Controller {
         JsonNode json = request.body().asJson();
         String name = json.get("name").textValue();
         int id = Integer.parseInt(request.session().get("userID").get());
-        UserFactory.User user = userFactory.getUserById(id);
+        User user = userFactory.getUserById(id);
         userNamesList = userFactory.getAllUsernames();
         if(!userNamesList.contains(name) && name.length() > 3 && name.length() < 25){
             user.updateName(name);

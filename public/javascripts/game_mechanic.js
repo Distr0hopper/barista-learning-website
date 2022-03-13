@@ -3,7 +3,7 @@ let arrayImagesID = [];
 let correctDrinksCounter = 0;
 let wrongDrinksCounter = 0;
 let correctIngredients = [];
-let activeDrink = "Test";
+let activeDrink = "";
 let levelUpBonus = 0;
 let navbarMoney = Number($('#money').text());
 let drinksMixedSoFar = 0;
@@ -119,7 +119,6 @@ function submitGame() {
         for (let i = 0; i < arrayDraggedImages.length; i++) {
             let currentImage = arrayDraggedImages[i];
             arrayImagesID.push(currentImage.id);
-
             currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
             currentImage.setAttribute('data-x', 0)
             currentImage.setAttribute('data-y', 0)
@@ -141,15 +140,12 @@ function submitGame() {
             // Update the Message
             updateMessage(earnedMoneyAddedUp, correctDrinksCounter, wrongDrinksCounter);
             // Update session storage user so the modals only show up with 0 points
-            var currentUserString = sessionStorage.getItem("currentUser");
-            let currentUser = JSON.parse(currentUserString);
-            currentUser.points += navbarMoney;
-            sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+            updateSessionStorage();
 
             correctDrinksCounter++;
             drinksMixedSoFar++;
             //countdown for drinks to still need to do until points are saved to db
-            $('#remainingCoffeesTillFinished').text((6 - drinksMixedSoFar) + " coffees left to mix until points are saved")
+            $('#remainingCoffeesTillFinished').text((allCoffees.length - drinksMixedSoFar) + " coffees left to mix until points are saved")
             wrongDrinksCounter = 0;
 
         } else {
@@ -163,7 +159,7 @@ function submitGame() {
                 $('#remainingAttempts').text("You have " + 0 + " attempts left")
                 wrongDrinksCounter = 0;
                 drinksMixedSoFar++;
-                $('#remainingCoffeesTillFinished').text((6 - drinksMixedSoFar) + " coffees left to mix until points are saved")
+                $('#remainingCoffeesTillFinished').text((allCoffees.length  - drinksMixedSoFar) + " coffees left to mix until points are saved")
             }
             correctDrinksCounter = 0;
             $('#money-counter').text("0")
@@ -174,6 +170,21 @@ function submitGame() {
     }
 }
 
+/**
+ * Update the points from the user in the session, so the introduction dont show up again.
+ */
+function updateSessionStorage(){
+    var currentUserString = sessionStorage.getItem("currentUser");
+    let currentUser = JSON.parse(currentUserString);
+    currentUser.points += navbarMoney;
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+}
+
+/**
+ * Called when the array is empty.
+ * So no coffee has to be done and the points are fetched to the server, where they are saved in the database.
+ * Display redo-, and next-Button.
+ */
 function finishGame() {
     $('#remainingAttempts').text("")
     const moneyObjekt = {

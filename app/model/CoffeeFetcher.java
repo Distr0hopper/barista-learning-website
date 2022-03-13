@@ -21,6 +21,11 @@ public class CoffeeFetcher {
         this.db = db;
     }
 
+    /**
+     * gets the coffee with the corresponding id in the parameter from the database and returns it
+     * @param id
+     * @return Coffee
+     */
     public Coffee getCoffeeById(int id) {
         return db.withConnection(conn -> {
             Coffee coffee = null;
@@ -32,7 +37,6 @@ public class CoffeeFetcher {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-//                List<Ingredient> ingredientList = getIngredientsByID(rs.getString("title"));
                 coffee = new Coffee(rs);
             }
             stmt.close();
@@ -49,13 +53,10 @@ public class CoffeeFetcher {
      * Coffee has two parameters now therefore, one being the ResultSet and one being ingredientlist
      * Ingredientlist is added like this into the Coffee Class and the entire new Coffee is built and returned
      */
-    String sql = "SELECT * FROM Friendship, User WHERE idUser1 = ? AND Friendship.idUser2 = User.idUsers";
-    String sql2 = "SELECT * FROM Coffees, Coffees_has_Ingredients, Ingredients WHERE idCoffees = ? AND Coffees_idCoffees = Coffees.idCoffees AND Ingredients_idIngredients = Ingredients.idIngredients";
 
     public List<Coffee> getAllCoffees() {
         return db.withConnection(conn -> {
             List<Coffee> coffees = new ArrayList<>();
-//            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Coffees");
             PreparedStatement stmt = conn.prepareStatement("SELECT Coffees.*, group_concat(Ingredients.name) AS ingredientList " +
                     "FROM Coffees, Ingredients, Coffees_has_Ingredients " +
                     "WHERE Coffees.idCoffees = Coffees_has_Ingredients.Coffees_idCoffees " +
@@ -71,6 +72,3 @@ public class CoffeeFetcher {
         });
     }
 }
-    /**
-     * getIngredients() returns a list of Ingredients by fetching the matching ingredients to title (coffeeID) by JOINing the tables
-     */

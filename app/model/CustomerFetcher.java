@@ -22,6 +22,11 @@ public class CustomerFetcher {
         this.db = db;
     }
 
+    /**
+     * gets the Customer with the id as parameter from the database
+     * @param id
+     * @return customer(int id)
+     */
     public Customer getCustomerById(int id) {
         return db.withConnection(conn -> {
             Customer customer = null;
@@ -39,7 +44,10 @@ public class CustomerFetcher {
         return getCustomerById(Integer.parseInt(id));
     }
 
-
+    /**
+     * gets all teh customers from the database
+     * @return List of all customers
+     */
     public List<Customer> getAllCustomers() {
         return db.withConnection(conn -> {
             List<Customer> customers = new ArrayList<>();

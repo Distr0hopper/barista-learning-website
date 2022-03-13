@@ -17,7 +17,12 @@ public class CoffeeController extends Controller {
         this.coffeeFetcher = coffeeFetcher;
     }
 
-
+    /**
+     * is the corresponding render method to getAllCoffees
+     * gets all Coffees from the database
+     * Called when the '/' route receives a GET.
+     * @return JSON Result of all Coffees
+     */
     public Result getCoffees() {
         return ok(Json.toJson(coffeeFetcher.getAllCoffees()));
     }
