@@ -7,6 +7,7 @@ let canEdit = false;
 function editUsername() {
     if (canEdit === false) {
         $("#profilename").toggleClass('d-none d-block');
+        $("#cancel").toggleClass('d-none d-block');
         document.querySelector('#profilename').readOnly = false;
         document.querySelector('#edit_button').textContent = "Save";
         // document.querySelector('#edit_button').style.borderColor = 'visible';
@@ -14,6 +15,14 @@ function editUsername() {
     } else {
         saveUsername()
     }
+}
+
+function cancelEdit(){
+    $("#profilename").toggleClass('d-none d-block');
+    $("#cancel").toggleClass('d-none d-block');
+    document.querySelector('#profilename').readOnly = true;
+    document.querySelector('#edit_button').textContent = "Edit Username";
+    canEdit = false;
 }
 
 function changeRanking(){

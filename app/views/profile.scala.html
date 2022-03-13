@@ -2,40 +2,39 @@
 
 @navbar("Profile", money, level, ranking) {
     <div class="container my-5 d-flex justify-content-center">
-        <div class="card-profile">
+        <div class="card-profile h-100">
             <div class="image d-flex flex-column justify-content-center align-items-center mt-5">
                     <!--trigger modal with button behind image-->
-                <button type="button" class="btn btn-backround" data-toggle="modal"
-                data-target="#myModal" id="modal-btn" onclick="openModal()">
+                <button type="button" class="btn btn-backround" data-toggle="modal"  data-target="#myModal" id="modal-btn" onclick="openModal()">
                     <img src="@user.getProfilePic" alt="avatar" height="130" width="130" id="profileimage"/>
                 </button>
                 <span class="name my-3" id="name">@user.getUsername()</span>
-                <div class="d-flex flex-row justify-content-center align-items-center gap-2 mb-3">
-                    <div id="level" class="level" style="font-size: 2rem">@user.getReward</div>
-                    <span><i class="fa fa-copy"></i></span></div>
-                <div class="d-flex flex-row justify-content-center align-items-center">
-                    <div id="points" class="points">@user.getPoints()</div>
+                <div class="level font-weight-bold" id="level">
+                    <p class="h2 mb-3">@user.getReward </p>
                 </div>
-                <div class="d-flex flex-row justify-content-center align-items-center mb-4">
-                    <div id="highscore" class="highscore">Highscore</div>
-                </div>
-                <div class="d-flex mt-2 mb-3">
-                    <input class="profilename rounded-lg p-3 text-center mr-2 d-none" type="text" value="@user.getUsername()" id="profilename" readonly>
-                    <button class="btn btn-primary rounded-pill py-3 px-5" id="edit_button" onclick="editUsername()">
-                        Edit Username</button><br>
-                </div>
-                <div class="text-brown" id="name-error" style="color: red"></div> <!-- UNDEFINED appears when username is changed with success -->
-                <div class="text m-3">
-                    <span>
-                        @user.getUsername() started the practice on
-                    </span>
-                </div>
-                    <!--            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter">hi</i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>-->
-                <div class="mb-5 px-2 py-1 rounded date">
-                    <span class="join">@user.getTimestamp()</span>
-                </div>
+                <div class="highscore">Level: @level</div>
+                <div id="points" class="points mt-3">@user.getPoints()</div>
+                <div id="highscore" class="highscore mb-3">Highscore</div>
+
+            <div class="d-flex mt-3 mb-3">
+                <input class="form-control profilename rounded text-center mr-2 d-none" type="text" value="@user.getUsername()" id="profilename" readonly>
+                <button class="btn btn-secondary rounded-pill px-3" id="edit_button" onclick="editUsername()">
+                    Edit Username</button><br>
+                <button class="btn btn-primary rounded-pill px-3 ml-2 d-none" id="cancel" onclick="cancelEdit()">
+                    Cancel</button>
+            </div>
+            <div class="text-white" id="name-error"></div> <!-- UNDEFINED appears when username is changed with success -->
+            <div class="text m-3">
+                <span>
+                    @user.getUsername() started the practice on
+                </span>
+            </div>
+                <!--            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter">hi</i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>-->
+            <div class="mb-5 px-2 py-1 rounded date">
+                <span class="join">@user.getTimestamp()</span>
             </div>
         </div>
+    </div>
 
     </div>
         <!--    modal-->
@@ -77,10 +76,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn closebutton-bottom" data-dismiss="modal" onclick="closeModal()">
+                    <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" onclick="closeModal()">
                         Close
                     </button>
-                    <button type="button" class="btn savebutton" onclick="chooseAvatar()" id="avatarchooser">Save
+                    <button type="button" class="btn btn-secondary rounded-pill px-3" onclick="chooseAvatar()" id="avatarchooser">Save
                         changes
                     </button>
                     <p id="error-message"></p>
