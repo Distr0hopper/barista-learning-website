@@ -145,7 +145,7 @@ function submitGame() {
             correctDrinksCounter++;
             drinksMixedSoFar++;
             //countdown for drinks to still need to do until points are saved to db
-            $('#remainingCoffeesTillFinished').text((allCoffees.length - drinksMixedSoFar) + " coffees left to mix until points are saved")
+            $('#remainingCoffeesTillFinished').text((allCoffees.length) + " coffees left to mix until points are saved")
             wrongDrinksCounter = 0;
 
         } else {
@@ -159,7 +159,7 @@ function submitGame() {
                 $('#remainingAttempts').text("You have " + 0 + " attempts left")
                 wrongDrinksCounter = 0;
                 drinksMixedSoFar++;
-                $('#remainingCoffeesTillFinished').text((allCoffees.length  - drinksMixedSoFar) + " coffees left to mix until points are saved")
+                $('#remainingCoffeesTillFinished').text((allCoffees.length) + " coffees left to mix until points are saved")
             }
             correctDrinksCounter = 0;
             $('#money-counter').text("0")
