@@ -61,16 +61,26 @@ public class GameController extends Controller {
      * @return int ranking from the user.
      */
     public int updateRanking(int money) {
-        if (money >= 60 && money < 200) {
+        if (money >= 60 && money < 280) {
             return 2;
-        } else if (money >= 200 && money < 460) {
+        } else if (money >= 280 && money < 600) {
             return 3;
-        } else if (money >= 460 && money < 600) {
+        } else if (money >= 600 && money < 1000) {
             return 4;
-        } else if (money >= 600) {
+        } else if (money >= 1000) {
             return 5;
         }
         return 1;
+    }
+
+    public int setGameLevel(int money){
+        if (money <= 60){
+            return 1;
+        } else if (money <= 300) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
 
     /**
@@ -86,6 +96,7 @@ public class GameController extends Controller {
         UserFactory.User user = userFactory.getUserById(id);
         user.setPoints(money);
         user.setReward(updateRanking(money));
+        user.setLevel(setGameLevel(money));
         user.save();
         return redirect(routes.GameController.defaultGame().url()).addingToSession(request, "money", String.valueOf(money));
     }

@@ -226,13 +226,14 @@ public class UserFactory {
          */
         public void save() {
             db.withConnection(conn -> {
-                String sql = "UPDATE User SET username = ?, mail = ?, points = ?, Rewards_idRewards = ? WHERE idUsers = ?";
+                String sql = "UPDATE User SET username = ?, mail = ?, points = ?, Rewards_idRewards = ?, gamelevel = ? WHERE idUsers = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.username);
                 stmt.setString(2, this.mail);
                 stmt.setInt(3, this.points);
                 stmt.setInt(4,this.rewardId);
-                stmt.setInt(5, this.id);
+                stmt.setInt(5, this.level);
+                stmt.setInt(6, this.id);
                 stmt.executeUpdate();
                 stmt.close();
             });
@@ -282,6 +283,8 @@ public class UserFactory {
                 setUsername(name);
             }));
         }
+
+
 
 //        public List<User> getFriends() {
 //            return db.withConnection(conn -> {

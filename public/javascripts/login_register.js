@@ -131,6 +131,7 @@ function checkCreateAccount() {
             },
         }).then(response => {
             if (response.ok) {
+                window.alert("User created successfully")
                 return window.location = response.url;
             } else {
                 return response.json()
