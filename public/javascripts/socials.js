@@ -29,16 +29,25 @@ async function createFriends(myId){
         let rankingSpan = document.createElement("span");
         rankingSpan.className = "friendsRanking";
         rankingSpan.innerHTML = friend.reward;
+        let removeFriend = document.createElement("span");
+        removeFriend.className = "text-white float-right square p-0"
+        removeFriend.innerHTML = "&times;";
+        removeFriend.setAttribute('id', friend.username);
+        removeFriend.setAttribute("onclick","openUnfriendModal(this.id)");
+
+        // removeFriend.onclick = openModal();
 
         button.appendChild(spanAvatar);
+        button.appendChild(removeFriend);
         button.appendChild(nameSpan);
         button.appendChild(document.createElement("br"));
         button.appendChild(rankingSpan);
         button.onclick = function openChatNew(){
             document.getElementById("header-name").innerHTML = friend.username;
-            document.getElementById("friends-name").value = friend.username;
+            document.getElementById("friends-name").innerHTML = friend.username;
             document.getElementById("header-username").innerHTML = friend.reward;
             document.getElementById("header-avatar").src = friend.profilePic;
+            document.getElementById("level").innerHTML = "Level " + friend.level;
             document.getElementById("points").innerHTML = friend.points;
             document.getElementById("friends-avatar").src = friend.profilePic;
             document.getElementById("friends-ranking").innerHTML = friend.reward;
@@ -89,7 +98,8 @@ function createFriendship() {
         } else {
             return response.json()
         }}).then(friend => {
-            alert("You added a new friend!");
+            // alert("You added a new friend!");
+        document.getElementById("search-friends").innerHTML = "You added a new friend!";
     })
 }
 
@@ -118,7 +128,7 @@ async function search(){
     if (userExists){
         let userbutton = document.createElement("button");
         userbutton.type = "button";
-        userbutton.className = "btn btn-search";
+        userbutton.className = "btn btn-secondary rounded-pill px-3 ml-2 btn-sm py-0 px-2 ml-2";
         userbutton.id = "add-friend"
         userbutton.textContent = "Add as friend";
         userbutton.onclick = createFriendship;
@@ -132,13 +142,12 @@ async function search(){
         div.appendChild(userFound);
         div.appendChild(userbutton);
         document.getElementById("search-friends").appendChild(div);
+        document.getElementById("search-friends").appendChild(div).className = "input-group";
         document.getElementById("search-friends").style.display = "block";
     }
     // otherwise an error message is displayed
     else{
         document.getElementById("search-friends").innerHTML = "This user does not exist";
-        document.getElementById("search-friends").style.color = "white";
-        document.getElementById("search-friends").style.display = "block";
     }
 }
 
@@ -235,22 +244,28 @@ function createMessage(klasse, message){
     let ul = document.getElementById("chat-list");
     let li = document.createElement("li");
     let div = document.createElement("div");
-    li.className = "clearfix";
+    li.className = "clearfix my-2";
     div.className = klasse;
     div.appendChild((document.createTextNode(message)));
     li.appendChild(div);
     ul.appendChild(li);
+    var elem = document.getElementById('chat');
+    elem.scrollTop = elem.scrollHeight; // scroll down when there are more messages
 }
 
 /**
  * opens the warning modal "Are you sure you want to unfriend this user?"
  */
-function openUnfriendModal(){
+function openUnfriendModal(id){
+    document.getElementById("delete-friend").innerHTML = id;
     $('#ModalUnfriendUser').modal('show');
 }
 
+/**
+ * deletes the friendship between the logged in user and the chosen friend
+ */
 function deleteFriendship(){
-    let friend = document.getElementById("header-name").innerHTML;
+    let friend = document.getElementById("delete-friend").innerHTML;
     const data = {
         friendName: friend
     }

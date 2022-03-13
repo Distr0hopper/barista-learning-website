@@ -7,13 +7,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal-title">Level 2: Remember who ordered which coffee!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body modal-fade align-items-center justify-content-center">
                     <div class="container-fluid ms-2">
                         <div class="row w-100 m-0">
                         @for(index <- 0 until 6) {
                             <div class="col-md-4 mb-4 ml-auto">
-                                <div class="card w-100 h-auto cursor-normal" style="width: 18rem;">
+                                <div class="card w-100 h-auto cursor-normal">
                                     <img class="card-img-top px-4 pt-4" src="@assetsFinder.path("images/waiter.png")" alt="Card image cap">
                                     <div class="card-body">
                                         <h3 class="text-center card-title mt-3">Capuccino</h3>
@@ -66,13 +69,13 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle">Hier ist dein Tipp</h5>
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Here is your hint!</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="d-flex justify-content-center my-5">
+                                            <div class="d-flex justify-content-center">
                                                 <div class="score-box px-5">
                                                     <div class="row card-group mx-0 d-flex justify-content-center">
                                                     </div>
@@ -94,11 +97,11 @@
                             <button type="button" class="btn btn-primary rounded-pill p-3 mb-4 w-100" id="submitGame" onclick="submitGame()">
                                 submit
                             </button>
-                            <button type="button" class="btn btn-primary rounded-pill p-3 mb-4 w-100" id="redoGame" onclick="loadLevelTwo()" style="display: none">
-                                Play again
-                            </button>
                             <button type="button" class="btn btn-primary rounded-pill p-3 mb-4 w-100" id="playNextGame" onclick="loadLevelThree()"  style="display: none">
-                                Play next level
+                                Play Level 3
+                            </button>
+                            <button type="button" class="btn btn-secondary rounded-pill p-3 mb-4 w-100" id="redoGame" onclick="loadLevelTwo()" style="display: none">
+                                Play again
                             </button>
                         </div>
                         <p class="justify-content-center mb-4 small" id="remainingAttempts"> You have 3 attempts left </p>

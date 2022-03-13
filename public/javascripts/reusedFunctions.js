@@ -65,8 +65,8 @@ function loadLevelThreeMemory(){
  * @param earnedMoney checks how much coffee beans you receive by making the coffee
  */
 function updateMoneyCounter(earnedMoney) {
-    $('#money-counter').show();
-    $('#plusForMoneyCounter').show();
+    $('#money-counter').removeClass("d-none");
+    $('#plusForMoneyCounter').removeClass("d-none");
     $('#money-counter').text(earnedMoney);
 }
 

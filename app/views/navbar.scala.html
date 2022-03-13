@@ -4,18 +4,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-            <!-- Required meta tags -->
+        <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" type="image/png" href="@assetsFinder.path("images/coffee-favicon.png")">
         <title>@page </title>
-        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/bootstrap-4.6.1/bootstrap.min.css")" type="text/css">
-        <link rel="stylesheet" href="@assetsFinder.path("stylesheets/style.css")" type="text/css">
-        <script src="@assetsFinder.path("javascripts/jquery-3.5.1/jquery.slim.min.js")"></script>
-        <script src="@assetsFinder.path("javascripts/bootstrap-4.6.1/bootstrap.bundle.min.js")"></script>
+        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/bootstrap-4.6.1/bootstrap.min.css")">
+        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("stylesheets/style.css")">
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/jquery-3.5.1/jquery.slim.min.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/bootstrap-4.6.1/bootstrap.bundle.min.js")"></script>
         <script type="text/javascript" src="@assetsFinder.path("javascripts/navbar.js")"></script>
-            <!-- Interact js for drag and drop -->
-        <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+        <!-- Interact js for drag and drop -->
+        <script type="text/javascript" src="@assetsFinder.path("javascripts/interact.min.js")"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
@@ -45,9 +45,9 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item @("active".when(page == "GameTwo")) @("disabled".when(level == 1))" href="@routes.GameController.gameLevelTwo">
-                                <nobr>Game-Level-2</nobr></a>
+                                <nobr>Level 2</nobr></a>
                             <a class="dropdown-item @("active".when(page == "GameTwoMemory")) @("disabled".when(level == 1))" href="@routes.GameController.gameLevelTwoMemory">
-                                <nobr>Game-Level-2-Memory</nobr></a>
+                                <nobr>Level 2 Memory</nobr></a>
                         </div>
                     </li>
                     <li class="nav-item dropdown @("active".when(page == "GameThreeGame1" || page == "GameThreeMemory" || page == "GameThree"))">
@@ -56,11 +56,11 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item @("active".when(page == "GameThree")) @("disabled".when(level == 1 || level == 2))" href="@routes.GameController.gameLevelThree">
-                                <nobr> Game-Level-3.1 </nobr></a>
+                                <nobr>Level 3 </nobr></a>
                             <a class="dropdown-item @("active".when(page == "GameThreeMemory")) @("disabled".when(level == 1 || level == 2))" href="@routes.GameController.gameLevelThreeMemory">
-                                <nobr>Game-Level-3-Memory</nobr></a>
+                                <nobr>Level 3 Memory</nobr></a>
                             <a class="dropdown-item @("active".when(page == "GameThreeCalculating")) @("disabled".when(level == 1 || level == 2))" href="@routes.GameController.gameLevelThreeCalculating">
-                                <nobr>Game-Level-3</nobr></a>
+                                <nobr>Level 3 Calculating</nobr></a>
                         </div>
                     </li>
                     <li class="nav-item @("active".when(page == "Dictionary"))">
@@ -75,13 +75,12 @@
                         <img src="@assetsFinder.path("/images/coffee-bean-icon.png")" alt="coffee beans funds" width="20" height="20" id="coffee-bean-money-icon">
                     </li>
                     <li class="nav-item">
-                        <p style="color: white" id="money" class="pointsNavbar my-0">@scalaMoney</p>
+                        <p id="money" class="text-white pointsNavbar my-0">@scalaMoney</p>
                     </li>
                     <li class="nav-item">
-                        <p style="color: white;
-                            display: none;
-                            padding-left: 2px" id="plusForMoneyCounter">
-                            + <span id="money-counter" style="display: none;"> 0 </span> </p>
+                        <p class="text-white pl-1 d-none" id="plusForMoneyCounter">
+                            + <span id="money-counter d-none"> 0 </span>
+                        </p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="\logout" onclick="clearSessionStorage()">Logout</a>

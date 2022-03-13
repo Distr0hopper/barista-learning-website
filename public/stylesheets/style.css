@@ -79,7 +79,7 @@ body{
 .btn-primary:hover {
     color: #fff;
     background-color: var(--dropshadow-color)!important;
-    border-color: var(--dropshadow-color)!important;
+    border-color: var(--backround-color)!important;
 }
 
 .btn-secondary {
@@ -93,7 +93,7 @@ body{
 .btn-secondary:hover {
     color: #fff;
     background-color: var(--backround-color)!important;
-    border-color: var(--backround-color)!important;
+    border-color: var(--dropshadow-color)!important;
 }
 
 .btn.focus,
@@ -700,7 +700,7 @@ hr .new1 {
 }
 
 #search-user{
-    width: 80%;
+    width: 70%;
 }
 
 .form-control:focus{
@@ -777,13 +777,20 @@ hr .new1 {
     alignment:left;
 }
 
+.text-dark {
+    color: var(--dark-brown-navbar)!important;
+}
 
 .chat-content{
     height: 100%;
     width: 100%;
     position: relative;
     background-color: rgba(255, 255, 255, 0.8);
+
+    /*background-color: rgba(96,47,32,0.5);*/
+    /*opacity: 0.5;*/
 }
+
 
 .select-friend{
     text-align: center;
@@ -798,7 +805,7 @@ hr .new1 {
 }
 
 .chat-header{
-    background-color: var(--card-color);
+    background-color: var(--backround-color);
     width: 100%;
     height: 80px;
     alignment: top;
@@ -819,14 +826,27 @@ hr .new1 {
 }
 
 .chat-input{
-    background-color: var(--card-color);
+    background-color: var(--backround-color);
     width: 100%;
-    height: 80px;
+    /*height: 10%;*/
     margin-bottom: 0;
-    position: relative;
+    position: absolute;
     bottom: 0;
     left: 0;
     display:block;
+}
+
+.square {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.square:hover {
+    opacity: 0.5;
 }
 
 .btn-message{
@@ -859,7 +879,7 @@ li{
 
 #friend-list{
     overflow-y: scroll;
-    height: 85vh;
+    height: 76vh;
 }
 
 .my-message{
@@ -872,40 +892,44 @@ li{
     height: fit-content;
     display: inline-block;
     float: right;
-    margin-right: 20px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    /*margin-right: 20px;*/
+    /*margin-top: 10px;*/
+    /*margin-bottom: 5px;*/
 }
 
 .their-message{
     color:white;
     background-color: var(--card-color);
     position:relative;
-    left: 5px;
+    left: 0;
     padding: 10px 15px;
     border-radius: 15px;
     max-width: 45%;
     height: fit-content;
     display: inline-block;
     float: left;
-    margin-left: -10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    /*margin-left: 20px;*/
+    /*margin-top: 5px;*/
+    /*margin-bottom: 5px;*/
 }
 
 #add-friend{
     color: white;
     background-color: var(--dropshadow-color);
-    margin-top: 5%;
+    /*margin-top: 5%;*/
 }
 
 #user-found{
     background-color: var(--dark-brown-navbar);
     border-color: var(--dark-brown-navbar);
     color: white;
-    width: 60%;
-    margin-left: 5%;
-    margin-top: 5%;
+    width: 50%;
+    /*margin-left: 5%;*/
+    /*margin-top: 5%;*/
+}
+
+#user-found.form-control:disabled  {
+    opacity: 1!important;
 }
 
 .btn-cancel{
@@ -986,9 +1010,9 @@ li{
 }
 
 #redoGame {
-    width: 180px;
+    /*width: 180px;*/
 }
 
 #playNextGame{
-    width: 180px;
+    /*width: 180px;*/
 }

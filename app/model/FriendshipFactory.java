@@ -13,17 +13,27 @@ public class FriendshipFactory {
         this.db = db;
     }
 
-    public void createFriendship(int id1, int id2){
+    /**
+     * creates a new friendship between two users in the database
+     * @param userId id of one of the users
+     * @param friendId id of the other user
+     */
+    public void createFriendship(int userId, int friendId){
         db.withConnection(conn -> {
             String sql = "INSERT INTO Friendship (idUser1, idUser2) VALUES (?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id1);
-            stmt.setInt(2, id2);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, friendId);
             stmt.executeUpdate();
             stmt.close();
         });
     }
 
+    /**
+     * deletes all of the messages shared by two users from the database
+     * @param userId id of one of the users
+     * @param friendId id of the other user
+     */
     public void deleteMessages(int userId, int friendId){
         db.withConnection(conn -> {
             String sql = "DELETE FROM Message WHERE ((Friendship_idUser1 = ? AND Friendship_idUser2 = ?) OR (Friendship_idUser1 = ? AND Friendship_idUser2 = ?))";
@@ -37,6 +47,11 @@ public class FriendshipFactory {
         });
     }
 
+    /**
+     * deletes a friendship between two users from the database
+     * @param userId id of one of the users
+     * @param friendId if of the other user
+     */
     public void deleteFriendship(int userId, int friendId){
         db.withConnection(conn -> {
             String sql = "DELETE FROM Friendship WHERE ((idUser1 = ? AND idUser2 = ?) OR (idUser1 = ? AND idUser2 = ?))";
