@@ -1,5 +1,5 @@
 @import java.util
-@(page: String, money: String, level: Integer, ranking: Integer, user: model.UserFactory#User, friends: util.List[model.UserFactory#User])(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, user: data.User, friends: util.List[data.User])(implicit assetsFinder: AssetsFinder)
 @import model.UserFactory
 
     <body style="overflow-y: scroll;" onload="createFriends(@user.getId), getMessages()">

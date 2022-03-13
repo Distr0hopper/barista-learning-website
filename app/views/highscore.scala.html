@@ -1,4 +1,4 @@
-@(page: String, money: String, level: Integer, ranking: Integer, users: List[model.UserFactory#User], id: Integer)(implicit assetsFinder: AssetsFinder)
+@(page: String, money: String, level: Integer, ranking: Integer, users: List[data.User], id: Integer)(implicit assetsFinder: AssetsFinder)
 @import java.math.BigInteger; var i = 0;
 
 @navbar("HighScore", money, level, ranking) {
