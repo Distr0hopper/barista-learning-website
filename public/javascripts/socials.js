@@ -261,6 +261,9 @@ function openUnfriendModal(id){
     $('#ModalUnfriendUser').modal('show');
 }
 
+/**
+ * deletes the friendship between the logged in user and the chosen friend
+ */
 function deleteFriendship(){
     let friend = document.getElementById("delete-friend").innerHTML;
     const data = {
