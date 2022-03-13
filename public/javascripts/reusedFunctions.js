@@ -46,6 +46,10 @@ function redoGameTwoMemory(){
     window.location = '/games/gameLevelTwoMemory'
 }
 
+function redoGameThreeMemory(){
+    window.location = '/games/gameLevelThreeMemory'
+}
+
 function redirectToLvl2(){
     window.location = '/games/gameLevelTwo'
 }
@@ -59,6 +63,10 @@ function redirectToMemoryLvl2() {
 
 function redirectToMemoryLvl3(){
     window.location = '/games/gameLevelThreeMemory'
+}
+
+function redirectToCalculatingLvl3(){
+    window.location = '/games/gameLevelThreeCalculating'
 }
 
 /**
