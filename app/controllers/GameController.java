@@ -171,6 +171,7 @@ public class GameController extends Controller {
          */
         public Result gameLevelThree (Http.Request request){
             if (userController.isLoggedIn(request)) {
+                List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
                 int id = Integer.parseInt(request.session().get("userID").get());
                 UserFactory.User user = userFactory.getUserById(id);
                 int money = user.getPoints();
@@ -178,7 +179,7 @@ public class GameController extends Controller {
                 int ranking = user.getRanking();
                 if (level > 2) { // you can access the game level 3 memory when the level is at least 3
                     return ok(
-                            gameLevelThree$.render("GameLevelThree", String.valueOf(money), level, ranking, assetsFinder)
+                            gameLevelThree.render("GameLevelThree", String.valueOf(money), level, ranking, ingredients, assetsFinder)
                     );
                 } else {
                     return redirect(routes.HomeController.main().url());
@@ -223,7 +224,6 @@ public class GameController extends Controller {
          */
         public Result gameLevelThreeCalculating (Http.Request request){
             if (userController.isLoggedIn(request)) {
-                List<data.Ingredient> ingredients = ingredientFetcher.getAllIngredients();
                 String money = request.session().get("money").get();
                 int id = Integer.parseInt(request.session().get("userID").get());
                 UserFactory.User user = userFactory.getUserById(id);
