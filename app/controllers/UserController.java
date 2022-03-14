@@ -82,7 +82,7 @@ public class UserController extends Controller {
     /**
      * Login HTML page that shows up when the application is started.
      * Called when the '/' route receives a GET.
-     * @return
+     * @return OK if there is NOT a user in the session, else redirect to the mail page.
      */
     public Result login(Http.Request request) {
         if(!isLoggedIn(request)){
@@ -100,7 +100,9 @@ public class UserController extends Controller {
      * Get the points and the id of the user.
      * Called when the 'user/auth' route received a POST request.
      * @param request Username and password from the JS as JSON Data.
-     * @return Status 200 if the user exist, safe user with key "connected", the id and his points in the session. Else username or password are incorrect.
+     * @return Status 200 if the user exist, safe user with key "connected",
+     * the id and his points in the session.
+     * Else username or password are incorrect.
      */
     public Result checkLogin(Http.Request request) {
         JsonNode json = request.body().asJson();
@@ -131,7 +133,7 @@ public class UserController extends Controller {
     /**
      * An action that renders the createAccount HTML page.
      * Called when the /user/createAccount route receives a GET request.
-     * @return OK
+     * @return OK if there is NOT a user in the session, else redirect to the mail page.
      */
     public Result createAccount(Http.Request request){
         if(!isLoggedIn(request)){
@@ -142,8 +144,6 @@ public class UserController extends Controller {
             return redirect(routes.HomeController.main().url());
         }
     }
-
-    // TODO: form validation on server to match the rules that are on frontend
 
     /**
      * Function is called when a new user registers.

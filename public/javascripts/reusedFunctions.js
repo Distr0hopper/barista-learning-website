@@ -72,6 +72,9 @@ function loadLevelThree(){
 function loadLevelThreeMemory(){
     window.location = '/games/gameLevelThreeMemory'
 }
+function loadLevelThreeCalculating(){
+    window.location = '/games/gameLevelThreeCalculating'
+}
 
 
 

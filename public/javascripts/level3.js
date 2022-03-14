@@ -258,20 +258,54 @@ function submitTip(){
         }
         document.getElementById('submitPriceInput').value = "";
         document.getElementById('submitPriceInput').readOnly = false;
-    } else if( numberOfWrongTipInputs <= 3){
-        numberOfWrongTipInputs ++;
-        document.getElementById('tileHeaderAfterSubmit').innerHTML= "Hmm not quite";
-        document.getElementById('AfterSubmitCardBody').innerHTML= "try again you have " +(3- numberOfWrongTipInputs) + " tries left";
 
+    } else if( numberOfWrongTipInputs <= 2){
+
+
+        document.getElementById('tileHeaderAfterSubmit').innerHTML= "Hmm not quite";
+        document.getElementById('AfterSubmitCardBody').innerHTML= "try again you have " + (3- numberOfWrongTipInputs) + " tries left";
+        console.log(numberOfWrongTipInputs)
+        numberOfWrongTipInputs ++;
 
     }else {
-        document.getElementById('tileHeaderAfterSubmit').innerHTML= "That's not wright";
-        document.getElementById('AfterSubmitCardBody').innerHTML= " It is "+ totalWithTip.toString() +" next time you'll do better";
+        console.log(numberOfWrongTipInputs)
+        splitCoffeesAndCostumers();
+        if (customersLevel3.length >= 1) {
+
+
+            document.getElementById('btnsubmit').style.display = "none"
+            document.getElementById('tileHeaderAfterSubmit').innerHTML = "That's not right";
+            document.getElementById('AfterSubmitCardBody').innerHTML = " It is " + totalWithTip.toString() + " next time you'll do better";
+            document.getElementById('btnNextCostumer2').style.display = "block"
+
+
+
+        } else {
+            document.getElementById('tileHeaderAfterSubmit').innerHTML = "You calculated incorrectly!!";
+            document.getElementById('AfterSubmitCardBody').innerHTML = "Don‘t worry, Thank you very much for you service  see you next Time:) ";
+            document.getElementById('redoGame').style.display = "block"
+
+
+            const moneyObjekt = {
+                "moneyKey": navbarMoney,
+            }
+            fetch("/games/getMoney", {
+                method: 'POST',
+                body: JSON.stringify(moneyObjekt),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            $('#money').text(navbarMoney);
+
+        }
+        document.getElementById('submitPriceInput').value = "";
+        document.getElementById('submitPriceInput').readOnly = false;
+
     }
 
 
-
-    submitModal.modal('show');
+        submitModal.modal('show');
     document.getElementById('tipInput').value = "";
 
 }
@@ -366,6 +400,7 @@ function resetCalculationsForNextCostumer(){
     totalInput = null;
     numberOfWrongInputPricesTotal += numberOfWrongInputPrices;
     numberOfWrongInputPrices = null;
+    numberOfWrongTipInputs = 0;
 
 
 }
