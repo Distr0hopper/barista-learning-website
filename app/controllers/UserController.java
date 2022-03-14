@@ -84,9 +84,14 @@ public class UserController extends Controller {
      * Called when the '/' route receives a GET.
      * @return
      */
-    public Result login() {
-        return ok(
-                login.render(assetsFinder));
+    public Result login(Http.Request request) {
+        if(!isLoggedIn(request)){
+            return ok(
+                    login.render(assetsFinder));
+        } else {
+            return redirect(routes.HomeController.main().url());
+        }
+
     }
 
     /**
@@ -128,10 +133,14 @@ public class UserController extends Controller {
      * Called when the /user/createAccount route receives a GET request.
      * @return OK
      */
-    public Result createAccount(){
-        return ok(
-                createAccount.render("createAccount", assetsFinder)
-        );
+    public Result createAccount(Http.Request request){
+        if(!isLoggedIn(request)){
+            return ok(
+                    createAccount.render("createAccount", assetsFinder)
+            );
+        } else {
+            return redirect(routes.HomeController.main().url());
+        }
     }
 
     // TODO: form validation on server to match the rules that are on frontend

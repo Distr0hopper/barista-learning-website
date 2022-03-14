@@ -80,15 +80,19 @@ public class HomeController extends Controller {
      * @return OK if there is a user in the session. Else redirect to the login page.
      */
     public Result socials(Http.Request request){
-        int id = Integer.parseInt(request.session().get("userID").get());
-        User user = userFactory.getUserById(id);
-        int money = user.getPoints();
-        int level = user.getLevel();
-        int ranking = user.getRanking();
-        List<User> friends = userFactory.getFriendsById(id);
-        return ok(
-                socials.render("socials", String.valueOf(money), level, ranking, user, friends, assetsFinder)
-        );
+        if(userController.isLoggedIn(request)){
+            int id = Integer.parseInt(request.session().get("userID").get());
+            User user = userFactory.getUserById(id);
+            int money = user.getPoints();
+            int level = user.getLevel();
+            int ranking = user.getRanking();
+            List<User> friends = userFactory.getFriendsById(id);
+            return ok(
+                    socials.render("socials", String.valueOf(money), level, ranking, user, friends, assetsFinder)
+            );
+        } else {
+            return redirect(routes.UserController.login().url());
+        }
     }
 
 }
