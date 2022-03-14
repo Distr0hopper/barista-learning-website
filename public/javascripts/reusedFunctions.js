@@ -61,10 +61,6 @@ function loadLevelTwo(){
     window.location = '/games/gameLevelTwo'
 }
 
-function loadLevelTwoMemory(){
-    window.location = '/games/gameLevelTwoMemory'
-}
-
 function loadLevelThree(){
     window.location = '/games/gameLevelThree'
 }
