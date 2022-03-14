@@ -10,7 +10,6 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.createAccount;
-import views.html.forgotPassword;
 import views.html.login;
 import views.html.profile;
 
