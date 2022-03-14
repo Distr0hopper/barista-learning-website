@@ -258,17 +258,21 @@ function submitTip(){
         }
         document.getElementById('submitPriceInput').value = "";
         document.getElementById('submitPriceInput').readOnly = false;
+
     } else if( numberOfWrongTipInputs <= 3){
-        numberOfWrongTipInputs ++;
+
+
         document.getElementById('tileHeaderAfterSubmit').innerHTML= "Hmm not quite";
-        document.getElementById('AfterSubmitCardBody').innerHTML= "try again you have " +(3- numberOfWrongTipInputs) + " tries left";
+        document.getElementById('AfterSubmitCardBody').innerHTML= "try again you have " + (3- numberOfWrongTipInputs) + " tries left";
 
 
     }else {
-        document.getElementById('tileHeaderAfterSubmit').innerHTML= "That's not wright";
+        document.getElementById('btnsubmit').style.display = "none"
+        document.getElementById('tileHeaderAfterSubmit').innerHTML= "That's not right";
         document.getElementById('AfterSubmitCardBody').innerHTML= " It is "+ totalWithTip.toString() +" next time you'll do better";
+        document.getElementById('btnNextCostumer2').style.display = "block";
     }
-
+    numberOfWrongTipInputs ++;
 
 
     submitModal.modal('show');
