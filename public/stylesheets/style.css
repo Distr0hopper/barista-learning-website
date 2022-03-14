@@ -120,7 +120,6 @@ li {
     transition: all 0.5s
 }
 
-
 .name, .friends {
     font-size: 30px;
     font-weight: bold;
@@ -156,19 +155,10 @@ li {
     color: var(--dropshadow-color);
 }
 
-
 .text span {
     font-size: 18px;
     color: var(--backround-color);
     font-weight: 500
-}
-
-.icons i {
-    font-size: 19px
-}
-
-hr .new1 {
-    border: 1px solid
 }
 
 .join {
@@ -179,10 +169,6 @@ hr .new1 {
 
 .date {
     background-color: var(--backround-color);
-}
-
-.icons i:hover .hr .new1:hover .join:hover .date:hover .text span:hover {
-    cursor: text;
 }
 
 /*Choose Image*/
@@ -322,11 +308,6 @@ hr .new1 {
 /* ---------------------------------------- */
 
 /* ----------------- GAME ----------------- */
-#level1-game-body {
-    width: 100%;
-    height: 100vh;
-}
-
 .font-game {
     color: white;
     background-color: var(--card-color);
@@ -371,10 +352,6 @@ hr .new1 {
 #coffee-mug {
     width: 100%;
     height: 100%;
-}
-
-.coffeemachine:hover {
-    transform: scale(1.25)
 }
 
 /* Memory Game */
@@ -423,7 +400,7 @@ hr .new1 {
     height: 200px;
     width: 200px;
     padding: 15px;
-    transformStyle: preserve-3d;
+    transform-style: preserve-3d;
     margin: auto;
 }
 
@@ -476,7 +453,6 @@ hr .new1 {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-
 .select-friend {
     text-align: center;
 }
@@ -512,7 +488,6 @@ hr .new1 {
     opacity: 0.5;
 }
 
-
 .chat-messages {
     overflow-y: scroll;
     height: 75vh;
@@ -522,7 +497,6 @@ hr .new1 {
 .soci {
     overflow: hidden;
 }
-
 
 #friend-list {
     overflow-y: scroll;
@@ -626,7 +600,6 @@ hr .new1 {
 .modal-footer {
     border-bottom-color: var(--light-brown-color);
     border-top-color: var(--light-brown-color);
-
 }
 
 .modal-dialog {
@@ -641,7 +614,7 @@ hr .new1 {
 /* ---------------------------------------- */
 
 /* ---------------- CARDS ----------------- */
-.card {
+.card, .card-profile {
     width: 700px;
     height: 700px;
     background-color: var(--card-color);
@@ -650,21 +623,6 @@ hr .new1 {
     border: none;
     cursor: pointer;
     transition: all 0.5s
-}
-
-.card-profile {
-    width: 700px;
-    height: 700px;
-    background-color: var(--card-color);
-    filter: brightness(110%);
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.5s
-}
-
-.card-footer {
-    border-top: 0 !important;
 }
 
 .card-body {
@@ -689,6 +647,7 @@ hr .new1 {
     background-color: rgba(50, 30, 21, 0.3);
     margin: 10px 0 10px 0;
     border-radius: 10px;
+    border-top: 0 !important;
 }
 
 .cardCoffee:hover {
@@ -764,10 +723,6 @@ hr .new1 {
     display: block;
 }
 
-.input-border-rounded {
-    border-radius: 15px;
-}
-
 /* ---------------------------------------- */
 
 
@@ -809,38 +764,6 @@ hr .new1 {
     border-color: var(--light-brown-color);
 }
 
-.login_btn {
-    border: none;
-    outline: none;
-    width: 100%;
-    background-color: var(--backround-color);
-    color: white;
-    font-weight: bold;
-    border-radius: 20px;
-}
-
-.login_btn:hover {
-    background-color: var(--dropshadow-color);
-    border: transparent;
-    color: white;
-}
-
-.memoryRedoGame_btn {
-    border: none;
-    outline: none;
-    width: 100%;
-    background-color: var(--dropshadow-color);
-    color: white;
-    font-weight: bold;
-    border-radius: 20px;
-}
-
-.memoryRedoGame_btn:hover {
-    background-color: var(--light-brown-color);
-    border: transparent;
-    color: white;
-}
-
 .btn-backround {
     background-color: var(--dropshadow-color);
     height: 170px;
@@ -867,19 +790,6 @@ hr .new1 {
 .btn-toggle:hover {
     background-color: var(--light-brown-color);
     border: 0.5px solid var(--light-brown-color);
-
-}
-
-.btn-search {
-    margin-top: 5px;
-    background-color: var(--card-color);
-    color: white;
-    border-color: var(--dark-brown-navbar);
-}
-
-.btn-search:hover {
-    background-color: var(--dropshadow-color);
-    color: white;
 }
 
 .btn-friend {
@@ -908,104 +818,6 @@ hr .new1 {
 .btn-show-profile:hover {
     color: white;
     border-color: white;
-}
-
-.btn-message {
-    background-color: var(--backround-color);
-    color: white;
-}
-
-.btn-message:hover {
-    color: white;
-    border-color: white;
-}
-
-.btn-cancel {
-    background-color: var(--light-brown-color);
-    color: white;
-    float: left;
-    margin: 5px;
-}
-
-.btn-unfriend {
-    background-color: var(--dropshadow-color);
-    color: white;
-    float: right;
-    margin-top: -20px;
-    margin-right: 10px;
-}
-
-.btn-unfriend:hover {
-    color: white;
-    border-color: white;
-}
-
-.btn-close:focus {
-    box-shadow: none !important;
-}
-
-#submit_btn {
-    background-color: var(--dark-brown-navbar);
-    border: 0.5px solid var(--dark-brown-navbar);
-    width: 200px;
-    color: wheat;
-}
-
-.btnDict {
-    border-radius: 0.25rem;
-    border-color: transparent;
-    background-color: var(--dropshadow-color);
-    color: white;
-    font-size: 17px
-}
-
-.btnDict:hover {
-    background-color: var(--backround-color);
-    border-color: transparent;
-}
-
-.savebutton {
-    background-color: var(--light-brown-color);
-    filter: brightness(110%);
-    color: white;
-}
-
-.savebutton:hover {
-    background-color: var(--dark-brown-navbar);
-    color: white;
-    border-color: transparent;
-}
-
-.savebutton:focus {
-    background-color: var(--dark-brown-navbar);
-    color: white;
-    border-color: transparent;
-}
-
-.closebutton-bottom {
-    color: white;
-    background-color: var(--dark-brown-navbar);
-}
-
-.closebutton-bottom:hover {
-    background-color: saddlebrown;
-    color: white;
-    border-color: transparent;
-}
-
-.edit_button {
-    height: 45px;
-    width: 155px;
-    border-radius: 10px;
-    border-color: transparent;
-    background-color: var(--dropshadow-color);
-    color: white;
-    font-size: 17px
-}
-
-.edit_button:hover {
-    background-color: var(--backround-color);
-    border-color: transparent;
 }
 
 /* ---------------------------------------- */
