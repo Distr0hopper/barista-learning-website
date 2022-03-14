@@ -14,7 +14,10 @@ import views.html.*;
 import javax.inject.Inject;
 import java.util.List;
 
-
+/**
+ * This controller contains actions to handle HTTP requests
+ * for the game mechanics.
+ */
 public class GameController extends Controller {
     private final AssetsFinder assetsFinder;
     private final UserController userController;
@@ -74,6 +77,11 @@ public class GameController extends Controller {
         return 1;
     }
 
+    /**
+     * Function that updates the current level based on points.
+     * @param money Money the current user has.
+     * @return int level for the user.
+     */
     public int setGameLevel(int money){
         if (money <= 60){
             return 1;

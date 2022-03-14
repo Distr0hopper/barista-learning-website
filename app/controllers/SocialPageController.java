@@ -40,9 +40,9 @@ public class SocialPageController extends Controller {
     }
 
     /**
-     * gets all the friends of the logged in user
+     * gets all the friends for the logged-in user
      * @param request Request the session storage
-     * @return
+     * @return json with all friends of the user
      */
     public Result getFriends(Http.Request request){
         String userIDString = request.session().get("userID").get();
@@ -77,7 +77,7 @@ public class SocialPageController extends Controller {
      * calls the createFriendship Method of the FriendshipFactory
      * and reloads the socials page
      * @param request Request the session storage
-     * @return
+     * @return to social page to display the new friend
      */
     public Result createFriendship(Http.Request request) {
         JsonNode json = request.body().asJson();
@@ -90,12 +90,12 @@ public class SocialPageController extends Controller {
 }
 
     /**
-     * deletes the friendship between the logged in user and another user
+     * deletes the friendship between the logged-in user and another user
      * the other user is fetched via a Json Object
      * calls the deleteMessages and the deleteFriendship methods
      * of the FriendshipFactory
-     * @param request
-     * @return
+     * @param request Request the session storage.
+     * @return to social page to display the list of friends updated
      */
     public Result deleteFriendship(Http.Request request) {
         JsonNode json = request.body().asJson();
@@ -128,9 +128,9 @@ public class SocialPageController extends Controller {
     }
 
     /**
-     * gets all of the messages a user has either sent or received
+     * gets all the messages a user has either sent or received
      * @param request Request the session storage
-     * @return a Json containing all of the messages
+     * @return a Json containing all the messages
      */
     public Result getMessages(Http.Request request){
         String userIDString = request.session().get("userID").get();
@@ -141,7 +141,7 @@ public class SocialPageController extends Controller {
     /**
      * adds a sent message to the database
      * @param request request the session storage
-     * @return
+     * @return OK
      */
     public Result sendMessage(Http.Request request){
         String userIDString = request.session().get("userID").get();
