@@ -29,6 +29,14 @@ ul {
 li {
     list-style: none;
 }
+a{
+    color: var(--backround-color);
+}
+a:hover{
+    color: var(--light-brown-color);
+    filter: brightness(120%);
+}
+
 
 /* ---------------------------------------- */
 
