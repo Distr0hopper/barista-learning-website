@@ -12,12 +12,6 @@ import java.sql.SQLException;
  *  User Class that is used to create, retrieve or save changes to the database
  */
 public class User {
-    private static Database db;
-
-    @Inject
-    public User(Database db) {
-        this.db = db;
-    }
     private int id;
     private String username;
     private String mail;
@@ -51,73 +45,6 @@ public class User {
     }
 
 
-    /**
-     * Updates the user if it already exists and creates it otherwise. Assumes an
-     * autoincrement id column.
-     */
-    public void save() {
-        db.withConnection(conn -> {
-            String sql = "UPDATE User SET username = ?, mail = ?, points = ?, Rewards_idRewards = ?, gamelevel = ? WHERE idUsers = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, this.username);
-            stmt.setString(2, this.mail);
-            stmt.setInt(3, this.points);
-            stmt.setInt(4, this.rewardId);
-            stmt.setInt(5, this.level);
-            stmt.setInt(6, this.id);
-            stmt.executeUpdate();
-            stmt.close();
-        });
-    }
-
-    /**
-     * Delete the user from the database
-     */
-    public void delete() {
-        db.withConnection(conn -> {
-            String sql = "DELETE FROM User WHERE idUsers = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, this.id);
-            stmt.executeUpdate();
-            stmt.close();
-        });
-    }
-
-    /**
-     * updates the profile pic source in the database
-     *
-     * @param source - the new source of the profile pic
-     */
-    public void updateProfilePic(String source) {
-        db.withConnection(conn -> {
-            String sql = "UPDATE User SET profile_pic = ? WHERE idUsers = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, source);
-            stmt.setInt(2, this.id);
-            stmt.executeUpdate();
-            stmt.close();
-            setProfilePic(source);
-        });
-    }
-
-    /**
-     * updates the username in the database
-     *
-     * @param name - the new username that shall be stored in the database
-     */
-    public void updateName(String name) {
-        db.withConnection((conn -> {
-            String sql = "UPDATE User SET username = ? WHERE idUsers = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setInt(2, this.id);
-            stmt.executeUpdate();
-            stmt.close();
-            setUsername(name);
-        }));
-    }
-
-
     public int getId() {
         return id;
     }
@@ -132,8 +59,8 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-        this.save();
     }
+
 
 
     public String getMail() {
@@ -159,7 +86,6 @@ public class User {
 
     public void addPoints(int points) {
         this.points += points;
-        this.save();
     }
 
     public int getLevel() {

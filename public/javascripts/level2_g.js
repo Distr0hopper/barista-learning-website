@@ -1,4 +1,3 @@
-
 var tipModal = $('#exampleModalCenter')
 /**
  * prevents modal from being able to clicked away if you click somewhere else in the screen
@@ -8,7 +7,6 @@ $(window).on('load', function () {
         backdrop: 'static',
         keyboard: false,
         show: true,
-
     })
 })
 /**important so tooltip shows up

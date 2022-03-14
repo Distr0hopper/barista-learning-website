@@ -58,9 +58,9 @@ public class SocialPageController extends Controller {
      */
     public Result highscore(Http.Request request) {
         if(userController.isLoggedIn(request)) {
-            List<data.User> users = userFactory.getAllUsersDesc();
+            List<User> users = userFactory.getAllUsersDesc();
             int id = Integer.parseInt(request.session().get("userID").get());
-            data.User user = userFactory.getUserById(id);
+            User user = userFactory.getUserById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -119,7 +119,7 @@ public class SocialPageController extends Controller {
         int userID = Integer.parseInt(userIDString);
         friends = userFactory.getFriendsById(userID);
         userNamesList = userFactory.getAllUsernames();
-        for (data.User friend : friends){
+        for (User friend : friends){
             if (userNamesList.contains(friend.getUsername())){
                 userNamesList.remove(friend.getUsername());
             }

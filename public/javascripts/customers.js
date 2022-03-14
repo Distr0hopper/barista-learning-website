@@ -9,33 +9,19 @@ class Customers {
         this.sixCustomers = []
     }
 
-    getRandomNumber(lengthArray) {
-        const randomNumber = Math.floor(Math.random() * lengthArray);
-        return randomNumber
-    }
-
     async getRandomSixCustomers() {
-        console.time("response")
         let response = await fetch("http://localhost:9000/games/getAllCustomers");
-        console.timeEnd("response")
         let customerList = await response.json();
-        console.log(customerList)
-
         customerList = customerList.map(customer=>{
             customer.customerImgPath = "../assets/images/Customers/"+ customer.customerImgPath;
             return customer
         })
         const sixCustomers = []
         for (let i = 0; i < 6; i++) {
-            const randomNumber = this.getRandomNumber(customerList.length);
+            const randomNumber = getRandomNumber(customerList.length);
             sixCustomers.push(customerList.splice(randomNumber, 1)[0]);
         }
         this.sixCustomers = sixCustomers;
         window.sessionStorage.setItem("customers", JSON.stringify(this.sixCustomers))
     }
-    // getCustomerImages() {
-    //     return this.sixCustomers.map(customer => {
-    //         return customer.customerImgPath;
-    //     });
-    // }
 }

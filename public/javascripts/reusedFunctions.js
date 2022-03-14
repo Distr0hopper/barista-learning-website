@@ -1,5 +1,9 @@
 var helpCounter = 0;
 
+function getRandomNumber(lengthArray) {
+    return Math.floor(Math.random() * lengthArray)
+}
+
 /**
  * counts the helps
  * if reset is false, the counter counts, else it is set to 0
