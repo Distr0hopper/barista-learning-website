@@ -54,7 +54,7 @@ let  numberOfWrongInputPricesTotal = 0;
  * @returns {Promise<void>}
  */
 async  function submitTotalPrice() {
-
+    document.getElementById('btnNextCostumer2').style.display = "none"
     var submitModal = $('#costumerAnswerAfterSubmit');
 
     let submitTotalInputText = document.getElementById('submitPriceInput');
@@ -96,7 +96,7 @@ async  function submitTotalPrice() {
 
 
         $('#message-error').text(' You added the correct price! Your costumer wants to give you a  '+ tip.toString()+ "% tip.");
-
+            document.getElementById('btnsubmit').style.display = "block";
         document.getElementById('tileHeaderAfterSubmit').innerHTML = "Yeahy you calculated correctly!!";
         document.getElementById('AfterSubmitCardBody').innerHTML= " I would love to give you a Tip: " + tip.toString()+ "%";
 
@@ -108,8 +108,6 @@ async  function submitTotalPrice() {
             console.log(" total costumer Number: " + costumerNumberAlreadyPayed)
 
 
-
-
         pointsAdded += parseInt(tip);
         console.log("NavbarMoney mit init points " + (navbarMoney+=parseInt(tip)));
         console.log("Test: " + pointsAdded);
@@ -118,14 +116,22 @@ async  function submitTotalPrice() {
     }else {
         numberOfWrongInputPrices ++;
         if (numberOfWrongInputPrices >= 3) {
-            document.getElementById('tileHeaderAfterSubmit').innerHTML = "That's wrong!!!! I would like to talk to your manager!!"
+            splitCoffeesAndCostumers();
+            payer += 1;
+            document.getElementById('btnNextCostumer2').style.display = "block"
+            document.getElementById('btnsubmit').style.display = "none"
+
+            document.getElementById('tileHeaderAfterSubmit').innerHTML = "That's wrong!!!!"
             document.getElementById('AfterSubmitCardBody').innerHTML= "The correct amount would be: "+ numberFormatter(total).toString()+ " you will not receive a tip ";
             document.getElementById('submitPriceInput').value = "";
+            resetCalculationsForNextCostumer();
 
+
+        }else {
+            document.getElementById('tileHeaderAfterSubmit').innerHTML = "Uhh that does not seem wright !";
+            document.getElementById('AfterSubmitCardBody').innerHTML = "try again please";
+            document.getElementById('submitPriceInput').value = "";
         }
-        document.getElementById('tileHeaderAfterSubmit').innerHTML = "Uhh that does not seem wright !";
-        document.getElementById('AfterSubmitCardBody').innerHTML= "try again";
-        document.getElementById('submitPriceInput').value = "";
 
     }
 
@@ -310,7 +316,7 @@ function openNextModal(){
         addingMoreCostNext.empty();
 
         if (costumerNumber < 5) {
-            let leftCostumers = 5 - (costumerNumberAlreadyPayed);
+            let leftCostumers =  coffeesForLevel3.length;
             nextRandomNumber = Math.floor(Math.random() * leftCostumers);
            // $ ('#message-error').text("current Costumer Number: "+ costumerNumber+ " total costumer Nr.: "+ costumerNumberAlreadyPayed + "left costumers " +leftCostumers);
 
@@ -345,16 +351,21 @@ function openNextModal(){
 
 
     $("#invoice-table").find("tr:gt(0)").remove();
+    resetCalculationsForNextCostumer();
+    modalAfterSubmit.modal('hide');
+   nextModalCostumer.modal('show');
+
+    document.getElementById('btnsubmit').style.display="block"
+
+}
+
+function resetCalculationsForNextCostumer(){
 
     total = null;
     totalInput = null;
     numberOfWrongInputPricesTotal += numberOfWrongInputPrices;
     numberOfWrongInputPrices = null;
 
-    modalAfterSubmit.modal('hide');
-   nextModalCostumer.modal('show');
-
-    document.getElementById('btnsubmit').style.display="block"
 
 }
 
