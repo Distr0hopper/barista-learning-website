@@ -232,7 +232,7 @@ function submitTip(){
         document.getElementById('tileHeaderAfterSubmit').innerHTML = "Yeahy you calculated the Tip correctly!!";
         document.getElementById('AfterSubmitCardBody').innerHTML= "Thank you very much :) ";
 
-            document.getElementById('btnNextCostumer').style.display = "block"
+            document.getElementById('btnNextCostumer2').style.display = "block"
             addingBonusPoints(numberOfWrongTipInputs);
 
 
@@ -242,6 +242,7 @@ function submitTip(){
             document.getElementById('tileHeaderAfterSubmit').innerHTML = "Yeahy you calculated correctly!!";
             document.getElementById('AfterSubmitCardBody').innerHTML= "Thank you very much for you service see you next Time:) ";
             document.getElementById('redoGame').style.display = "block"
+
             addingBonusPoints(numberOfWrongTipInputs);
             const moneyObjekt = {
                 "moneyKey": navbarMoney,
@@ -413,7 +414,7 @@ function resetCalculationsForNextCostumer(){
 
 
 /**
- * removes the coffee just added
+ * removes the coffees in the table  just added
  */
 function removeCoffeeForPay() {
     $("#invoice-table").find("tr:gt(0)").remove();
