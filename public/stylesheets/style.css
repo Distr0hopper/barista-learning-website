@@ -127,17 +127,12 @@ body{
 hr {
     box-sizing: inherit;
 }
-/*label {*/
-/*    margin: 0;*/
-/*}*/
 
 /*----------------------------------------*/
 
 .row-login{
-    /*background-color: rgba(255, 255, 255, 0.3);*/
     background-color: var(--light-brown-color);
     border-radius: 30px;
-    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     color: white;
 }
 .login_btn{
@@ -175,18 +170,7 @@ a:hover{
     color: var(--light-brown-color);
     filter: brightness(120%);
 }
-/*#password{*/
-/*    border-radius: 15px;*/
-/*}*/
-/*#username{*/
-/*    border-radius: 15px;*/
-/*}*/
-/*#email{*/
-/*    border-radius: 15px;*/
-/*}*/
-/*#password2{*/
-/*    border-radius: 15px;*/
-/*}*/
+
 /*to replace ids that have the same properties with a class*/
 .input-border-rounded {
     border-radius: 15px;
@@ -195,12 +179,10 @@ a:hover{
 .card {
     width: 700px;
     height: 700px;
-    /*background-color: #efefef;*/
     background-color:var(--card-color);
     filter: brightness(110%);
     border-radius: 10px;
     border: none;
-    /*box-shadow: 6px 6px 11px var(--dropshadow-color);*/
     cursor: pointer;
     transition: all 0.5s
 }
@@ -208,12 +190,10 @@ a:hover{
 .card-profile{
     width: 700px;
     height: 700px;
-    /*background-color: #efefef;*/
     background-color:var(--card-color);
     filter: brightness(110%);
     border-radius: 10px;
     border: none;
-    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     cursor: pointer;
     transition: all 0.5s
 }
@@ -230,8 +210,6 @@ a:hover{
 }
 
 .image{
-    /*width: 680px;*/
-    /*height: 680px;*/
     max-width: 100%;
     max-height: 100%;
 }
@@ -244,13 +222,6 @@ a:hover{
     transform: scale(1.25)
 }
 
-
-.btn {
-    /*    height: 140px;
-        width: 140px;
-        border-radius: 50%*/
-}
-
 .name, .friends {
     font-size: 30px;
     font-weight: bold;
@@ -258,12 +229,9 @@ a:hover{
 }
 
 .profilename {
-    /*font-size: 20px;*/
-    /*font-weight: 600;*/
     outline: 0;
     color: white;
     border: none;
-    /*background-color: transparent;*/
     background-color: rgba(147,101,68,0.1);
     border-radius: 20px;
 }
@@ -337,10 +305,6 @@ hr .new1 {
     width: 1200px;
     background-color: var(--card-color);
     filter: brightness(110%);
-    /*border-radius: 10px;*/
-    /*border: 1px dashed var(--dropshadow-color);*/
-    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
-    /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23936544FF' stroke-width='8' stroke-dasharray='8%2c 21' stroke-dashoffset='28' stroke-linecap='square'/%3e%3c/svg%3e");*/
     border-radius: 10px;
     cursor: initial;
     transition: all 0.5s
@@ -350,14 +314,12 @@ hr .new1 {
     float: right;
     margin-right: 60px;
     color: var(--dropshadow-color);
-    /*color: rgba(71,34,16,255);*/
     font-weight: bold;
     filter: brightness(140%);
     font-size: larger;
 
 }
 .name-span{
-    /*float: left;*/
     margin-left: 60px;
     color: var(--dropshadow-color);
     filter: brightness(140%);
@@ -372,7 +334,6 @@ hr .new1 {
 .image-podium {
     width: 50px;
     border-radius: 50%;
-    /*background-color: var(--dropshadow-color);*/
     background-color: white;
     padding: 3%;
 }
@@ -385,7 +346,6 @@ hr .new1 {
 }
 
 .podium-number {
-    /*font-family: DaggerSquare;*/
     font-weight: bold;
     font-size: 3em;
     color: white;
@@ -511,8 +471,6 @@ hr .new1 {
     width: auto;
     min-width: 300px;
 }
-/*home layover*/
-
 /*Game*/
 
 #level1-game-body{
@@ -538,7 +496,6 @@ hr .new1 {
     background-color: var(--card-color);
     border-radius: 10px;
     border: none;
-    /*box-shadow: 0 0 20px px var(--dropshadow-color);*/
     color: white;
 }
 
@@ -592,7 +549,6 @@ hr .new1 {
 /* Money/Coffee-Beans in Menu Bar*/
 #coffee-bean-money-icon{
     margin-right: 10px;
-    /*margin-top: 15px;*/
 }
 
 #money{
@@ -629,7 +585,6 @@ hr .new1 {
     border-radius: 10px;
 }
 .cardCoffee:hover{
-    /*box-shadow: 0 0 20px var(--dropshadow-color);*/
     transition: all 0.3s ease;
 }
 
@@ -661,10 +616,6 @@ hr .new1 {
 .card-group{
     box-sizing: content-box;
 }
-/*sehr tacky aber müsste sonst Daten server seitig preloaden, weil das ein Bug in Bootstrap ist*/
-.cardCoffee{
-    /*max-width: 33%;*/
-}
 /*main page*/
 
 .btnDict{
@@ -690,8 +641,6 @@ hr .new1 {
 
 /* Socials Page */
 .form-control {
-    /*margin-top: 5px;*/
-    /*margin-left: 5px;*/
     height: auto;
     border-color: var(--dropshadow-color);
     background-color: var(--dropshadow-color);
@@ -786,9 +735,6 @@ hr .new1 {
     width: 100%;
     position: relative;
     background-color: rgba(255, 255, 255, 0.8);
-
-    /*background-color: rgba(96,47,32,0.5);*/
-    /*opacity: 0.5;*/
 }
 
 
@@ -828,7 +774,6 @@ hr .new1 {
 .chat-input{
     background-color: var(--backround-color);
     width: 100%;
-    /*height: 10%;*/
     margin-bottom: 0;
     position: absolute;
     bottom: 0;
@@ -892,9 +837,7 @@ li{
     height: fit-content;
     display: inline-block;
     float: right;
-    /*margin-right: 20px;*/
-    /*margin-top: 10px;*/
-    /*margin-bottom: 5px;*/
+
 }
 
 .their-message{
@@ -908,15 +851,11 @@ li{
     height: fit-content;
     display: inline-block;
     float: left;
-    /*margin-left: 20px;*/
-    /*margin-top: 5px;*/
-    /*margin-bottom: 5px;*/
 }
 
 #add-friend{
     color: white;
     background-color: var(--dropshadow-color);
-    /*margin-top: 5%;*/
 }
 
 #user-found{
@@ -924,8 +863,6 @@ li{
     border-color: var(--dark-brown-navbar);
     color: white;
     width: 50%;
-    /*margin-left: 5%;*/
-    /*margin-top: 5%;*/
 }
 
 #user-found.form-control:disabled  {
@@ -980,7 +917,6 @@ li{
 
 #alert-message, .text-brown {
     color: var(--backround-color);
-    /*font-weight: bold;*/
 }
 
 /* display cursor as normal on cards*/
@@ -1007,12 +943,4 @@ li{
 
 .btn-close:focus {
     box-shadow: none!important;
-}
-
-#redoGame {
-    /*width: 180px;*/
-}
-
-#playNextGame{
-    /*width: 180px;*/
 }

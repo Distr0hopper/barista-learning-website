@@ -3,8 +3,9 @@
  * Fetch the data to the server so it can be validated there.
  */
 function checkLogin() {
-    let nameInput = $('#username')
-    let passwordInput =  $('#password');
+    let nameInput = document.getElementById("username");
+    let passwordInput = document.getElementById("password");
+
 
     const userData = {        //JSON objekt mit Keys und values nach Stringify
         username: nameInput.value,   //werte auslesen in Objektnotion
@@ -116,11 +117,11 @@ function checkPasswords(password, repeatedPassword) {
  * Else return specific error message.
  */
 function checkCreateAccount() {
+    let emailInput = document.getElementById("email");
+    let nameInput = document.getElementById("username");
+    let passwordInput = document.getElementById("password");
+    let password2Input = document.getElementById("password2");
 
-    let emailInput = $('#email');
-    let nameInput = $('#username');
-    let passwordInput = $('#password');
-    let password2Input = $('#password2');
 
     const userData = {        //JSON objekt mit Keys und values nach Stringify
         email: emailInput.value,

@@ -1,5 +1,10 @@
 var helpCounter = 0;
 
+/**
+ * gets a random Number in the int given as the length of the array
+ * @param lengthArray
+ * @returns {number}
+ */
 function getRandomNumber(lengthArray) {
     return Math.floor(Math.random() * lengthArray)
 }
@@ -89,7 +94,7 @@ function updateMoneyCounter(earnedMoney) {
 }
 
 /**
- * Load Modal loads the modal containing the Coffees and Customers for the Game
+ * loadModal() loads the modal containing the Coffees and Customers for the Game
  * It has a timer of 5 Seconds and will disappear afterwards
  * it then saves the coffees and customers in the sessionstorage, also in a combined version to use for other levels
  * */
@@ -128,17 +133,11 @@ async function loadModal() {
 
     /**put CustomerImages in modal*/
     var customersForLevel2 = JSON.parse(sessionStorage.getItem("sixCustomers"))
-    console.log(customersForLevel2)
     const coffeeOrderCustomers = $('.card-img-top');
     var customersLevel2Img = []
     for (let i = 0; i < coffeeOrderCustomers.length; i++) {
         customersLevel2Img[i] = customersForLevel2[i].customerImgPath
     }
-    console.log(coffeeOrderCustomers)
-    // const customerImges = customersForLevel2.map(customer => {
-    //     return customer.customerImgPath
-    // })
-
     sessionStorage.setItem("sixCustomerImg", JSON.stringify(customersLevel2Img))
 
     for (let i = 0; i < coffeeOrderCustomers.length; i++) {
@@ -151,7 +150,6 @@ async function loadModal() {
             img: coffeeOrderCustomers[i]
         }
     })
-    console.log(modalInputMap)
     sessionStorage.setItem("modalInput", JSON.stringify(modalInputMap))
 }
 
