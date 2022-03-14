@@ -104,7 +104,7 @@
                                     <input type="text" id="submitPriceInput" class="form-control rounded-lg p-3" placeholder="Total in €" aria-label="Total in €" aria-describedby="basic-addon2">
                                 </div>
                                 <div class="col-6 mt-3">
-                                    <input type="text" id ="tipInput" class="form-control rounded-lg p-3 tipInput" placeholder="Tips " aria-label="TipInput" aria-describedby="basic-addon2">
+                                    <input type="text" id ="tipInput" class="form-control rounded-lg p-3 tipInput" placeholder="Total with Tip " aria-label="TipInput" aria-describedby="basic-addon2">
                                 </div>
 
 
@@ -161,6 +161,7 @@
                     <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal">
                         Ok!</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -192,6 +193,9 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary rounded-pill px-3" onclick="nextCostumer()">
                         Ok!</button>
+                    <button type="button"  id="btnNextCostumer" class="btn btn-secondary rounded-pill px-3" onclick="openNextModal()">
+                        Next Costumer</button>
+
                 </div>
             </div>
         </div>
@@ -226,7 +230,7 @@
                 <div class="modal-footer">
                     <button type="button"  id="btnsubmit" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" >
                         Ok!</button>
-                    <button type="button"  id="btnNextCostumer" class="btn btn-secondary rounded-pill px-3" onclick="openNextModal()">
+                    <button type="button"  id="btnNextCostumer2" class="btn btn-secondary rounded-pill px-3" onclick="openNextModal()">
                         Next Costumer</button>
                 </div>
             </div>
@@ -247,7 +251,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Your costumers want to pay. Remember who wants to invite who. Select those coffees, and calculate in your head how much it is in total.
+                    <p>Your costumers want to pay. Remember who wants to invite whom. Select those coffees, and calculate in your head how much it is in total.
                         If you did well you'll receive a Tip. Calculate it as well. Have fun.</p>
                 </div>
                 <div class="modal-footer">
