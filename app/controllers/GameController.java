@@ -98,7 +98,7 @@ public class GameController extends Controller {
         user.setPoints(money);
         user.setReward(updateRanking(money));
         user.setLevel(setGameLevel(money));
-        user.save();
+        userFactory.save(user);
         return redirect(routes.GameController.defaultGame().url()).addingToSession(request, "money", String.valueOf(money));
     }
 

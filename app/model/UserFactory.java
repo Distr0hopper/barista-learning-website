@@ -74,6 +74,67 @@ public class UserFactory {
     }
 
     /**
+     * updates the username in the database
+     * @param name - the new username that shall be stored in the database
+     */
+    public void updateName(String name, int id) {
+        db.withConnection((conn -> {
+            String sql = "UPDATE User SET username = ? WHERE idUsers = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+            stmt.close();
+        }));
+    }
+    /**
+     * updates the profile pic source in the database
+     *
+     * @param source - the new source of the profile pic
+     */
+    public void updateProfilePic(String source, int id) {
+        db.withConnection(conn -> {
+            String sql = "UPDATE User SET profile_pic = ? WHERE idUsers = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, source);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+            stmt.close();
+        });
+    }
+    /**
+     * Updates the user if it already exists and creates it otherwise. Assumes an
+     * autoincrement id column.
+     */
+    public void save(User user) {
+        db.withConnection(conn -> {
+            String sql = "UPDATE User SET username = ?, mail = ?, points = ?, Rewards_idRewards = ?, gamelevel = ? WHERE idUsers = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getMail());
+            stmt.setInt(3, user.getPoints());
+            stmt.setInt(4, user.getRewardId());
+            stmt.setInt(5, user.getLevel());
+            stmt.setInt(6, user.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        });
+    }
+    /**
+     * Delete the user from the database
+     */
+    public void delete(int id) {
+        db.withConnection(conn -> {
+            String sql = "DELETE FROM User WHERE idUsers = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            stmt.close();
+        });
+    }
+
+
+    /**
      * Retrieves a user from database with given ID
      *
      * @param id id of user to find

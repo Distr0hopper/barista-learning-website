@@ -11,11 +11,6 @@ class CoffeesForGame {
         this.sixCoffees = ['Hallo']
     }
 
-    getRandomNumber(lengthArray) {
-        const randomNumber = Math.floor(Math.random() * lengthArray);
-        return randomNumber
-    }
-
     /**
      * fetch random coffees from API
      * then it searches with help of our randomnumber earlier a coffee in the API output and pushes that coffee to sixCoffees Array (line 60) and shortens the API output array at that index with splice
@@ -24,16 +19,16 @@ class CoffeesForGame {
      * */
     async getRandomSixCoffees() {
         let response = await fetch("http://localhost:9000/coffees/getCoffees");
-        let coffeelist = await response.json();
+        let coffeeList = await response.json();
 
-        coffeelist = coffeelist.map(coffee=>{
+        coffeeList = coffeeList.map(coffee=>{
             coffee.coffeeImgPath = "../assets/images/coffee/"+ coffee.coffeeImgPath;
             return coffee
         })
         const sixCoffees = []
         for (let i = 0; i < 6; i++) {
-            const randomNumber = this.getRandomNumber(coffeelist.length)
-            sixCoffees.push(coffeelist.splice(randomNumber, 1)[0])
+            const randomNumber = getRandomNumber(coffeeList.length)
+            sixCoffees.push(coffeeList.splice(randomNumber, 1)[0])
         }
         this.sixCoffees = sixCoffees; //instanzvariable für sixcoffees
         window.sessionStorage.setItem("coffees", JSON.stringify(this.sixCoffees))

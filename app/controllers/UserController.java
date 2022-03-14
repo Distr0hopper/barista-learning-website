@@ -56,8 +56,8 @@ public class UserController extends Controller {
     public Result profile(Http.Request request) {
         if(isLoggedIn(request)) {
             int id = Integer.parseInt(request.session().get("userID").get());
-            data.User user = userFactory.getUserById(id);
-            List<data.User> friends = userFactory.getFriendsById(id);
+            User user = userFactory.getUserById(id);
+            List<User> friends = userFactory.getFriendsById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -106,8 +106,8 @@ public class UserController extends Controller {
         JsonNode json = request.body().asJson();
         String username = json.get("username").textValue();
         String password = json.get("password").textValue();
-        data.User user = userFactory.authenticate(username,password);
-        data.User userID = userFactory.getUserByUsername(username);
+        User user = userFactory.authenticate(username,password);
+        User userID = userFactory.getUserByUsername(username);
         int money = user.getPoints();
         int id = userID.getId(); // add user id on the session
         int level = userID.getLevel(); // add level id on the session
@@ -208,8 +208,7 @@ public class UserController extends Controller {
         JsonNode json = request.body().asJson();
         String img = json.get("source").textValue();
         int id = Integer.parseInt(request.session().get("userID").get());
-        data.User user = userFactory.getUserById(id);
-        user.updateProfilePic(img);
+        userFactory.updateProfilePic(img, id);
         return ok();
     }
 
@@ -225,10 +224,9 @@ public class UserController extends Controller {
         JsonNode json = request.body().asJson();
         String name = json.get("name").textValue();
         int id = Integer.parseInt(request.session().get("userID").get());
-        data.User user = userFactory.getUserById(id);
         userNamesList = userFactory.getAllUsernames();
         if(!userNamesList.contains(name) && name.length() > 3 && name.length() < 25){
-            user.updateName(name);
+            userFactory.updateName(name, id);
             return redirect(routes.UserController.profile().url());
         }
         else{

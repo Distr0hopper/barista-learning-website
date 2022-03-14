@@ -4,9 +4,9 @@
  * the footer is displayed via a bootstrap button collapse and contains the ingredients
  * then all the singular cards are appended into a big list and displayed
  * @param coffee
- * @param i
+ * @param index
  */
-function createDictEntry(coffee, i) {
+function createDictEntry(coffee, index) {
     let cardCoffee = document.createElement("div");
     cardCoffee.classList.add("col-12", "col-md-4", "cardCoffee", "px-4", "pb-5");
     let imgCoffee = document.createElement("img");
@@ -15,7 +15,6 @@ function createDictEntry(coffee, i) {
     let divCardBody = document.createElement("div");
     divCardBody.classList.add("card-body", "text-white");
     let cardText = document.createElement("div");
-    // cardText.classList.add("cardText");
     cardText.classList.add("p-3");
     cardText.innerText = coffee.description;
     let divFooter = document.createElement("div");
@@ -27,14 +26,14 @@ function createDictEntry(coffee, i) {
 
     //Collapse
     let divCollapseBody = document.createElement("div");
-    divCollapseBody.id = "collapseBody" + i;
+    divCollapseBody.id = "collapseBody" + index;
     divCollapseBody.classList.add("collapse");
 
     //CollapseButton
     let toggleButton = document.createElement("button");
     toggleButton.classList.add("btn-toggle", "btn-secondary", "rounded-pill", "py-2", "w-100")
     toggleButton.type = "button";
-    toggleButton.dataset.target = "#collapseBody" + i;
+    toggleButton.dataset.target = "#collapseBody" + index;
     toggleButton.dataset.toggle = "collapse";
     toggleButton.ariaExpanded = "false";
     toggleButton.ariaControls = "collapseBody";
@@ -43,7 +42,6 @@ function createDictEntry(coffee, i) {
 
     cardCoffee.appendChild(imgCoffee);
     cardCoffee.appendChild(divCardBody);
-    // divCardBody.appendChild(cardTitle);
     divCardBody.appendChild(toggleButton);
 
     divCardBody.appendChild(divCollapseBody);
@@ -56,22 +54,20 @@ function createDictEntry(coffee, i) {
 /**
  * this awfully long function creates the entire dictionary
  * it first fetches the coffees from the database and mapes the images from each coffee
+ * then it sorts the entries alphabetically
  * calls createDictEntry
 */
 async function createDictionary(){
-    // console.time("coffees")
     let response = await fetch("http://localhost:9000/coffees/getCoffees");
-    // console.timeEnd("coffees")
-    let coffeelist = await response.json();
-    coffeelist = coffeelist.map(coffee=>{
+    let coffeeList = await response.json();
+    coffeeList = coffeeList.map(coffee=>{
         coffee.coffeeImgPath = "../assets/images/coffee/"+ coffee.coffeeImgPath;
         return coffee
     })
-    coffeelist.sort((a, b)=>a.title.localeCompare(b.title))
+    coffeeList.sort((a, b)=>a.title.localeCompare(b.title))
 
-    
-    coffeelist.forEach((coffee, i) => {
-        createDictEntry(coffee, i);
+    coffeeList.forEach((coffee, index) => {
+        createDictEntry(coffee, index);
     })
 }
 

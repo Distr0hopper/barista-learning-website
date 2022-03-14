@@ -40,7 +40,6 @@ async function loadModalMemory() {
         if (timeleft > 0) {
             gameModal.find('.modal-title').text(currentHTMLText + " " + timeleft + ' seconds remaining');
         } else if (timeleft < 0) {
-            // gameModal.modal("hide");
             gameModal.modal('hide');
         } else {
             clearInterval(downloadTimer);
