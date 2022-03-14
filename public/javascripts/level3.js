@@ -558,12 +558,6 @@ async function loadModal() {
     }
 
 
-
-
-
-
-
-
 }
 
 
