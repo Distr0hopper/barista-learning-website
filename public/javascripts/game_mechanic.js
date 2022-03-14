@@ -115,38 +115,11 @@ function submitGame() {
         }
         levelUpBonus = 0;
     } else {
-
-        for (let i = 0; i < arrayDraggedImages.length; i++) {
-            let currentImage = arrayDraggedImages[i];
-            arrayImagesID.push(currentImage.id);
-            currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
-            currentImage.setAttribute('data-x', 0)
-            currentImage.setAttribute('data-y', 0)
-        }
-
+        snapIngredientsBack();
         correctIngredients = getIngredientArray(activeDrink);
-
         if (correctIngredients.sort().join() === arrayImagesID.sort().join()) {
             $('#submitGame').html('next')
-            // Check how much coffee beans you receive by making the drink right
-            earnedMoneyAddedUp = checkWrongDrinks(wrongDrinksCounter);
-            // Check if you received any help
-            earnedMoneyAddedUp -= countHelpsAndReturnDeduction();
-            // Check if you receive a lvl-up bonus
-            levelUpBonus += checkMoneyForRanking(navbarMoney + earnedMoneyAddedUp);
-            earnedMoneyAddedUp += levelUpBonus;
-            // Add the amount of beans you received to the money
-            navbarMoney += earnedMoneyAddedUp;
-            // Update the Message
-            updateMessage(earnedMoneyAddedUp, correctDrinksCounter, wrongDrinksCounter);
-            // Update session storage user so the modals only show up with 0 points
-            updateSessionStorage();
-
-            correctDrinksCounter++;
-            drinksMixedSoFar++;
-            //countdown for drinks to still need to do until points are saved to db
-            $('#remainingCoffeesTillFinished').text((allCoffees.length) + " coffees left to mix until points are saved")
-            wrongDrinksCounter = 0;
+            calculateMoney();
 
         } else {
             wrongDrinksCounter++;
@@ -157,17 +130,58 @@ function submitGame() {
                 $('#order').text("Wrong! " + getTitle(activeDrink) + " = " + correctIngredients.join(" + "));
                 $('#submitGame').html('next');
                 $('#remainingAttempts').text("You have " + 0 + " attempts left")
+                $('#remainingCoffeesTillFinished').text((allCoffees.length) + " coffees left to mix until points are saved")
                 wrongDrinksCounter = 0;
                 drinksMixedSoFar++;
-                $('#remainingCoffeesTillFinished').text((allCoffees.length) + " coffees left to mix until points are saved")
             }
             correctDrinksCounter = 0;
-            $('#money-counter').text("0")
-
         }
         arrayImagesID = [];
         arrayDraggedImages = [];
     }
+}
+
+/**
+ * Snap the ingredients back to its position.
+ * Called when the submit button is clicked.
+ */
+function snapIngredientsBack(){
+    for (let i = 0; i < arrayDraggedImages.length; i++) {
+        let currentImage = arrayDraggedImages[i];
+        arrayImagesID.push(currentImage.id);
+        currentImage.style.transform = 'translate(' + 0 + 'px, ' + 0 + 'px)'
+        currentImage.setAttribute('data-x', 0)
+        currentImage.setAttribute('data-y', 0)
+    }
+}
+
+/**
+ * Calculates how much money you receive by mixing a coffee.
+ * Checking on which attempt the coffee is made correct.
+ * Checking if you received helps, so you receive less.
+ * Checking if you level-up, so you receive a bonus.
+ * Update the message and the sessionstorage.
+ */
+function calculateMoney(){
+    // Check how much coffee beans you receive by making the drink right
+    earnedMoneyAddedUp = checkWrongDrinks(wrongDrinksCounter);
+    // Check if you received any help
+    earnedMoneyAddedUp -= countHelpsAndReturnDeduction();
+    // Check if you receive a lvl-up bonus
+    levelUpBonus += checkMoneyForRanking(navbarMoney + earnedMoneyAddedUp);
+    earnedMoneyAddedUp += levelUpBonus;
+    // Add the amount of beans you received to the money
+    navbarMoney += earnedMoneyAddedUp;
+    // Update the Message
+    updateMessage(earnedMoneyAddedUp, correctDrinksCounter, wrongDrinksCounter);
+    // Update session storage user so the modals only show up with 0 points
+    updateSessionStorage();
+
+    correctDrinksCounter++;
+    drinksMixedSoFar++;
+    //countdown for drinks to still need to do until points are saved to db
+    $('#remainingCoffeesTillFinished').text((allCoffees.length) + " coffees left to mix until points are saved")
+    wrongDrinksCounter = 0;
 }
 
 /**

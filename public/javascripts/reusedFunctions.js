@@ -7,8 +7,8 @@ function getRandomNumber(lengthArray) {
 /**
  * counts the helps
  * if reset is false, the counter counts, else it is set to 0
- * @param reset
- * @returns {number}
+ * @param reset boolean that checks if the counter should be resetted.
+ * @returns {number} How often the counter was called.
  */
 function countHelps(reset) {
     if (reset == false) {
