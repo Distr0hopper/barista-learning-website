@@ -26,9 +26,6 @@ public class UserController extends Controller {
     private final AssetsFinder assetsFinder;
     private List<String> userNamesList = new ArrayList<>();
 
-//    private List<UserFactory.User> allUsersList = new ArrayList<>();
-
-
     @Inject
     public UserController(UserFactory userFactory, AssetsFinder assetsFinder) {
         this.userFactory = userFactory;

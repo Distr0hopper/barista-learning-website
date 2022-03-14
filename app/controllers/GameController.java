@@ -59,38 +59,6 @@ public class GameController extends Controller {
 
     }
 
-    /**
-     * Function that updates the ranking depening on how many points you have.
-     * @param money Money the current user has.
-     * @return int ranking from the user.
-     */
-    public int updateRanking(int money) {
-        if (money >= 60 && money < 280) {
-            return 2;
-        } else if (money >= 280 && money < 600) {
-            return 3;
-        } else if (money >= 600 && money < 1000) {
-            return 4;
-        } else if (money >= 1000) {
-            return 5;
-        }
-        return 1;
-    }
-
-    /**
-     * Function that updates the current level based on points.
-     * @param money Money the current user has.
-     * @return int level for the user.
-     */
-    public int setGameLevel(int money){
-        if (money <= 60){
-            return 1;
-        } else if (money <= 300) {
-            return 2;
-        } else {
-            return 3;
-        }
-    }
 
     /**
      * Function that updates the money and the reward from the user after a game is played.
@@ -102,10 +70,10 @@ public class GameController extends Controller {
         JsonNode json = request.body().asJson();
         int money = json.get("moneyKey").intValue();
         int id = Integer.parseInt(request.session().get("userID").get());
-        data.User user = userFactory.getUserById(id);
+        User user = userFactory.getUserById(id);
         user.setPoints(money);
-        user.setReward(updateRanking(money));
-        user.setLevel(setGameLevel(money));
+        user.setReward(user.updateRanking(money));
+        user.setLevel(user.setGameLevel(money));
         userFactory.save(user);
         return redirect(routes.GameController.defaultGame().url()).addingToSession(request, "money", String.valueOf(money));
     }

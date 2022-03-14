@@ -7,8 +7,6 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 
-//here also methods regarding ingredients
-
 public class CoffeeController extends Controller {
     private final CoffeeFetcher coffeeFetcher;
 
