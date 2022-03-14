@@ -10,12 +10,16 @@ function editUsername() {
         $("#cancel").toggleClass('d-none d-block');
         document.querySelector('#profilename').readOnly = false;
         document.querySelector('#edit_button').textContent = "Save";
+        // document.querySelector('#edit_button').style.borderColor = 'visible';
         canEdit = true;
     } else {
         saveUsername()
     }
 }
 
+/**
+ * Cancel the current edit
+ */
 function cancelEdit(){
     $("#profilename").toggleClass('d-none d-block');
     $("#cancel").toggleClass('d-none d-block');
@@ -23,21 +27,6 @@ function cancelEdit(){
     document.querySelector('#edit_button').textContent = "Edit Username";
     canEdit = false;
 }
-
-function changeRanking(){
-    // let money = Number($('#money').text());
-    // if (money >= 60 && money < 200){
-    //     $('#level').text("Sergeant of the Milk Foam")
-    // } else if (money >= 200 && money < 460){
-    //     $('#level').text("Commander of the Coffeebeans");
-    // } else if (money >= 460 && money < 600){
-    //     $('#level').text("Barista-Colonel")
-    // } else if (money >= 600){
-    //     $('#level').text("General of Baristas")
-    // }
-
-}
-window.onload(changeRanking());
 
 /**
  * saves the new username to the database and reloads the profile page to display the new username
@@ -72,10 +61,16 @@ function saveUsername() {
     }
 }
 
+/**
+ * Open the selection for the profile images.
+ */
 function openModal() {
     $('#myModal').modal('show');
 }
 
+/**
+ * Close the selection for the profile images.
+ */
 function closeModal() {
     $('#myModal').modal('hide');
 }

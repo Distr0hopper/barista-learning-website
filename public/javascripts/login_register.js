@@ -1,6 +1,10 @@
+/**
+ * Check the input values from the login page.
+ * Fetch the data to the server so it can be validated there.
+ */
 function checkLogin() {
-    let nameInput = document.getElementById("username");
-    let passwordInput = document.getElementById("password");
+    let nameInput = $('#username')
+    let passwordInput =  $('#password');
 
     const userData = {        //JSON objekt mit Keys und values nach Stringify
         username: nameInput.value,   //werte auslesen in Objektnotion
@@ -32,6 +36,11 @@ function checkLogin() {
 
 // https://stackoverflow.com/questions/15017052/understanding-email-validation-using-javascript
 // regexper.com - to understand the regex expression
+/**
+ * Checks if the email meets the requirements
+ * @param email Email which the user typed in
+ * @return {boolean} true if valid, else false
+ */
 function checkEmail(email) {
     let validEmail = new RegExp('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')
     let emailError = document.getElementById("email-error");
@@ -45,6 +54,11 @@ function checkEmail(email) {
     return false;
 }
 
+/**
+ * Checks if the username meets the requirements.
+ * @param username Username which the user typed in
+ * @return {boolean} true if valid, else false
+ */
 function checkUsername(username) {
     let nameError = document.getElementById("name-error");
 
@@ -57,6 +71,11 @@ function checkUsername(username) {
     return false;
 }
 
+/**
+ * Checks if the password meets the requirements.
+ * @param password password which the user typed in
+ * @return {boolean} true if valid, else false
+ */
 // https://www.section.io/engineering-education/password-strength-checker-javascript/
 function checkPasswordStrength(password) {
     let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
@@ -72,6 +91,12 @@ function checkPasswordStrength(password) {
 
 }
 
+/**
+ * Checks if the two password fields have the same text.
+ * @param password password which the user typed in
+ * @param repeatedPassword repeated password thich the user typed in
+ * @return {boolean} true if valid, else false
+ */
 function checkPasswords(password, repeatedPassword) {
     let passwordError = document.getElementById("password-error");
 
@@ -84,11 +109,18 @@ function checkPasswords(password, repeatedPassword) {
     return false;
 }
 
+/**
+ * Read the input values.
+ * Check if they meets the requirements for valid inputs.
+ * If yes, fetch them to the server so a user can be created there.
+ * Else return specific error message.
+ */
 function checkCreateAccount() {
-    let emailInput = document.getElementById("email");
-    let nameInput = document.getElementById("username");
-    let passwordInput = document.getElementById("password");
-    let password2Input = document.getElementById("password2");
+
+    let emailInput = $('#email');
+    let nameInput = $('#username');
+    let passwordInput = $('#password');
+    let password2Input = $('#password2');
 
     const userData = {        //JSON objekt mit Keys und values nach Stringify
         email: emailInput.value,
@@ -130,6 +162,9 @@ function checkCreateAccount() {
     }
 }
 
+/**
+ * can press enter to trigger the login button
+ */
 $('html').keydown(function (e) {
     if (e.which === 13) {
         checkLogin();
