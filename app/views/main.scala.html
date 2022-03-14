@@ -1,10 +1,7 @@
 @(page: String, money: String, level: Integer, ranking: Integer)(implicit assetsFinder: AssetsFinder)
 
     @navbar("Home", money, level, ranking) {
-        <div class="mainbackround">
-            @* <object type="image/svg+xml" data="@assetsFinder.path("../../public/images/bg.svg")" class="img-bg"></object>*@
-        </div>
-
+        <div class="mainbackround"></div>
             <!--Modal-->
         <div class="modal fade" id="ModalLearnCoffees" tabindex="-1" aria-labelledby="ModalLearnCoffees" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -27,8 +24,6 @@
                             Curious? Have a look and start your journey by learning all about Coffees.</p>
                     </div>
                     <div class="modal-footer">
-                        @* <button type="button" class="btn closebutton-bottom" data-dismiss="modal">*@
-                        @* I already know everything</button>*@
                         <button type="button" class="btn btn-primary rounded-pill px-3" data-dismiss="modal" onclick="location.href = '@routes.GameController.defaultGame'">
                             I want to start playing!</button>
 
@@ -39,5 +34,4 @@
             </div>
         </div>
         <script type="text/javascript" src="@assetsFinder.path("javascripts/main.js")"></script>
-
     }

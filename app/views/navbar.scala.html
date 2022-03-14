@@ -23,9 +23,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                @*Icon*@
                 <a class="navbar-brand" href="@routes.HomeController.main">
                     <img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu d-none d-sm-block">
                 </a>
+                @*List Elements for Navigation*@
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item @("active".when(page == "Home"))">
                         <a class="nav-link" href="@routes.HomeController.main">Home</a>
@@ -70,6 +72,7 @@
                         <a class="nav-link" href="@routes.HomeController.socials">Socials</a>
                     </li>
                 </ul>
+                @*end of the navbar with coffee beans, money and logout*@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
                         <img src="@assetsFinder.path("/images/coffee-bean-icon.png")" alt="coffee beans funds" width="20" height="20" id="coffee-bean-money-icon">
