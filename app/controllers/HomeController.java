@@ -37,7 +37,7 @@ public class HomeController extends Controller {
     public Result main(Http.Request request) {
         if (userController.isLoggedIn(request)) {
             int id = Integer.parseInt(request.session().get("userID").get());
-            User user = userFactory.getUserById(id);
+            data.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -59,7 +59,7 @@ public class HomeController extends Controller {
     public Result dictionary(Http.Request request) {
         if(userController.isLoggedIn(request)){
             int id = Integer.parseInt(request.session().get("userID").get());
-            User user = userFactory.getUserById(id);
+            data.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
@@ -82,11 +82,11 @@ public class HomeController extends Controller {
     public Result socials(Http.Request request){
         if(userController.isLoggedIn(request)){
             int id = Integer.parseInt(request.session().get("userID").get());
-            User user = userFactory.getUserById(id);
+            data.User user = userFactory.getUserById(id);
             int money = user.getPoints();
             int level = user.getLevel();
             int ranking = user.getRanking();
-            List<User> friends = userFactory.getFriendsById(id);
+            List<data.User> friends = userFactory.getFriendsById(id);
             return ok(
                     socials.render("socials", String.valueOf(money), level, ranking, user, friends, assetsFinder)
             );
