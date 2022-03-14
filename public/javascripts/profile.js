@@ -1,5 +1,5 @@
 let canEdit = false;
-/**editUsername checks wheather the variable canEdit is false
+/**editUsername checks weather the variable canEdit is false
  * if so the profileName id from the inputField in the HTML is changed from readOnly to being able to be edited
  * And the button of the editButton is changed to "Save"
  * can Edit is now true
@@ -10,7 +10,6 @@ function editUsername() {
         $("#cancel").toggleClass('d-none d-block');
         document.querySelector('#profilename').readOnly = false;
         document.querySelector('#edit_button').textContent = "Save";
-        // document.querySelector('#edit_button').style.borderColor = 'visible';
         canEdit = true;
     } else {
         saveUsername()
