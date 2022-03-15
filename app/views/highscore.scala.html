@@ -42,11 +42,9 @@
                     <span class="name-span fw-bold mx-4">User</span>
                     <span class="point-span mx-4">Points</span>
                 </div>
-                @* Generate list of high-score with Scala from high-score list users*@
+                @* Generate HTML list of high-score with Scala from high-score list users *@
                 @for(user <- users) {
-                    @{
-                        i = i + 1
-                    }
+                    @{i = i + 1}
                     @if(user.getId == id) {
                         <div class="list-row py-3">
                             <span class="name-span mx-4 text-white">@i. @user.getUsername</span>

@@ -10,7 +10,6 @@ function editUsername() {
         $("#cancel").toggleClass('d-none d-block');
         document.querySelector('#profilename').readOnly = false;
         document.querySelector('#edit_button').textContent = "Save";
-        // document.querySelector('#edit_button').style.borderColor = 'visible';
         canEdit = true;
     } else {
         saveUsername()
