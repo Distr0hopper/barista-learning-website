@@ -28,6 +28,7 @@
                     <img src="@assetsFinder.path("images/barista-06.png")" alt="barista logo" width="92.7" height="38.2" class="icon-menu d-none d-sm-block">
                 </a>
                 @*List Elements for Navigation*@
+                @*The current page is marked as active and games are available based on current level of user from database*@
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item @("active".when(page == "Home"))">
                         <a class="nav-link" href="@routes.HomeController.main">Home</a>

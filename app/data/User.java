@@ -71,6 +71,9 @@ public class User {
         }
     }
 
+    /**
+     * Setter and getter methods for User class
+     */
     public int getId() {
         return id;
     }
@@ -86,8 +89,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
-
 
     public String getMail() {
         return mail;
@@ -108,7 +109,6 @@ public class User {
     public int getRanking() {
         return rewardId;
     }
-
 
     public void addPoints(int points) {
         this.points += points;
