@@ -409,8 +409,8 @@ async function addCoffeeToPay() {
             $('#invoice-table').append('<tr><td id="' + selectedCoffee + '">' + selectedCoffee + '</td><td id="' + selectedCoffee + 'Price">' + price + '</td>');
             $('#inputGroupSelect01').val('None')
         }
-    } else {
-        $('#message-error').text('You have to select a coffee!');
+    }else {
+        $('#message-error').text('Please select a coffee!');
     }
 }
 /**
