@@ -25,6 +25,7 @@ function cancelEdit(){
     document.querySelector('#profilename').readOnly = true;
     document.querySelector('#edit_button').textContent = "Edit Username";
     canEdit = false;
+    location.reload();
 }
 
 /**
