@@ -9,9 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.createAccount;
-import views.html.login;
-import views.html.profile;
+import views.html.*;
 
 import javax.inject.Inject;
 
