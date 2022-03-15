@@ -45,17 +45,10 @@
                 @* Generate HTML list of high-score with Scala from high-score list users *@
                 @for(user <- users) {
                     @{i = i + 1}
-                    @if(user.getId == id) {
-                        <div class="list-row py-3">
-                            <span class="name-span mx-4 text-white">@i. @user.getUsername</span>
-                            <span class="point-span mx-4 text-white">@user.getPoints</span>
-                        </div>
-                    } else {
-                        <div class="list-row py-3">
-                            <span class="name-span mx-4">@i. @user.getUsername</span>
-                            <span class="point-span mx-4">@user.getPoints</span>
-                        </div>
-                    }
+                    <div class="list-row py-3">
+                        <span class="name-span mx-4 @if(user.getId == id) {text-white}">@i. @user.getUsername</span>
+                        <span class="point-span mx-4 @if(user.getId == id) {text-white}">@user.getPoints</span>
+                    </div>
                 }
                 <div class="list-row"></div>
             </div>
