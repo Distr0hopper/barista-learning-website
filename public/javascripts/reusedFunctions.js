@@ -1,5 +1,10 @@
 var helpCounter = 0;
 
+/**
+ * Make a random number between the given array length
+ * @param lengthArray Length of the array given in
+ * @return {number} Random number
+ */
 function getRandomNumber(lengthArray) {
     return Math.floor(Math.random() * lengthArray)
 }
