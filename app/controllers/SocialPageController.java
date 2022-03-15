@@ -9,7 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.highscore;
+import views.html.*;
 
 import javax.inject.Inject;
 import java.sql.Timestamp;
