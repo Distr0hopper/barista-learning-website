@@ -10,7 +10,6 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import views.html.createAccount;
-import views.html.forgotPassword;
 import views.html.login;
 import views.html.profile;
 
@@ -25,9 +24,6 @@ public class UserController extends Controller {
     private final UserFactory userFactory;
     private final AssetsFinder assetsFinder;
     private List<String> userNamesList = new ArrayList<>();
-
-//    private List<UserFactory.User> allUsersList = new ArrayList<>();
-
 
     @Inject
     public UserController(UserFactory userFactory, AssetsFinder assetsFinder) {
@@ -231,7 +227,7 @@ public class UserController extends Controller {
         }
         else{
             ObjectNode response = Json.newObject();
-            response.put("message","Cannot change the username! Try another one!");
+            response.put("message","The username is already given or invalid!");
             return unauthorized(response);
         }
     }

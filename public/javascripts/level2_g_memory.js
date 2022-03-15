@@ -64,18 +64,19 @@ async function loadModalMemory() {
 }
 
 /**
- * loadModal() gets Info about customers and coffees for the memory game from sessionStorage calls showBoard()
- */
-async function loadMemory() {
+ * loadModal() gets Info about customers and coffees for the memory game from sessionStorage calls showBoardBeforeGameStart()
+ * it first fetches the sessionstorage with the sixCustomers and Coffees
+ * then converts fetched storage to arrays, creating Array only Containing CoffeeNames and Images
+ *  the loop then checks if Index is even, if so add a customer
+ *  if index is odd, add a drink
+ *  thenAdd a 1 to distinguish the names of the orders
+ *  at the end it randomizes orders and customers in the cardArray
+ *  */
 
-    /**
-     * fetch Sessionstorage*/
+async function loadMemoryData() {
     var storedCustomers = JSON.parse(sessionStorage.getItem("sixCustomerImg"));
     var storedCoffeeNames = JSON.parse(sessionStorage.getItem("allCoffees"));
     var coffeeNameArray = []
-    /**
-     * Goal here: convert fetched storage to arrays
-     * Firs we Create Array only Containing CoffeeNames and Images*/
     storedCoffeeNames.forEach((coffee, j) => {
         coffeeNameArray[j] =
             {
@@ -83,16 +84,7 @@ async function loadMemory() {
                 img: "../coffee/" + coffee.coffeeImgPath
             }
     })
-    /**
-     * Then an Array called createArray of Customers*/
-    /**
-     * Goal here: match CoffeeNames to images and create new array for matched images
-     * nameorder is there to match the coffeeCustomers with the same name as the Drinks they ordered*/
     var nameOrder = "coffeeOrder";
-    /**This loop
-     * First: checks if Index is even, if so add a customer
-     * Second: if index is odd, add a drink
-     * Third: Adda a 1 to distinguish the names of the orders (a little bit of a tacky solution) */
     for (let i = 0; i < coffeeNameArray.length * 2; i++) {
         //check if index is even, then add customer
         if (i % 2 === 0) {
@@ -126,9 +118,8 @@ async function loadMemory() {
             nameOrder += "1"
         }
     }
-    /**Randomize orders and customers in array*/
     cardArray.sort(() => 0.5 - Math.random())
-    showBoard()
+    showBoardBeforeGameStart()
 }
 
 /**
@@ -155,6 +146,26 @@ function createBoard() {
  * 4. else cards don't match and no alert
  * Puts won cards into score after each round and checks if still cards left or game is over*/
 let bonusMoney = 0;
+
+function checkIfAllCardsFlipped() {
+    if (cardsWon.length === cardArray.length / 2) {
+        var currentUserString = sessionStorage.getItem("currentUser");
+        let currentUser = JSON.parse(currentUserString);
+        currentUser.points = money;
+        $('#redoGame').show();
+        if ((cardsWonThisLevel >= 60 && currentUser.points >= 300)) {
+            resultDisplay.textContent = 'Congratulations you did it! You can now play the last level or play again!'
+            $('#playNextGame').show();
+            $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
+        } else if ((cardsWonThisLevel < 60 && currentUser.points < 300) || (currentUser.points < 300 && cardsWonThisLevel >= 60)) {
+            resultDisplay.textContent = 'Congratulations you did it! In order to level up, play again!'
+            $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
+            $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
+            cardsWonThisLevel = 0;
+        }
+        sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+    }
+}
 
 async function checkForMatch() {
     const cards = document.querySelectorAll('#memory-img')
@@ -208,24 +219,7 @@ async function checkForMatch() {
     resultDisplay.textContent = cardsWon.length * 10;
     cardsWonThisLevel += cardsWon.length * 10
 
-    if (cardsWon.length === cardArray.length / 2) {
-        var currentUserString = sessionStorage.getItem("currentUser");
-        let currentUser = JSON.parse(currentUserString);
-        currentUser.points = money;
-        console.log(currentUser.points)
-        $('#redoGame').show();
-        if ((cardsWonThisLevel >= 60 && currentUser.points >= 300)) {
-            resultDisplay.textContent = 'Congratulations you did it! You can now play the last level or play again!'
-            $('#playNextGame').show();
-            $('#order').text("Well done, you made all coffees! You can play the next game if you want!");
-        } else if ((cardsWonThisLevel < 60 && currentUser.points < 300) || (currentUser.points < 300 && cardsWonThisLevel >= 60)) {
-            resultDisplay.textContent = 'Congratulations you did it! In order to level up, play again!'
-            $('#playNextGame').show().prop("disabled", true).css("background-color", "grey");
-            $('#order').text("Well done, you made all coffees! You just need " + (60 - navbarMoney) + " more points to play the next level!");
-            cardsWonThisLevel = 0;
-        }
-        sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
-    }
+    checkIfAllCardsFlipped();
 }
 
 /**
@@ -251,7 +245,7 @@ async function flipcard() {
 /**
  * showBoard () sets the timer until the modal has disappeared with a countdown and shows the memory afterwards for a few seconds
  * it the calls createBoard which hides the modal again and calls upon the real game mechanic*/
-function showBoard() {
+function showBoardBeforeGameStart() {
     for (let i = 0; i < cardArray.length; i++) {
         var cardAllShown = document.createElement('img')
         cardAllShown.setAttribute('src', cardArray[i].img)
@@ -273,7 +267,7 @@ function showBoard() {
  * and important so the modal is loaded after the content has laoded*/
 window.addEventListener('load', async () => {
     await loadModalMemory();
-    await loadMemory();
+    await loadMemoryData();
     await loadModal();
 })
 window.addEventListener('click', ev => {

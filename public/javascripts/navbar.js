@@ -1,6 +1,5 @@
-
 /**
- * Clears the sessionstorage on logout
+ * Clears the session storage on logout
  * */
 function clearSessionStorage() {
     sessionStorage.clear()

@@ -1,6 +1,7 @@
 @(page: String, money: String, level: Integer, ranking: Integer, user: data.User, friends: List[data.User])(implicit assetsFinder: AssetsFinder)
 
 @navbar("Profile", money, level, ranking) {
+    @*The information about the logged user are displayed using the getter methods from User class*@
     <div class="container my-5 d-flex justify-content-center">
         <div class="card-profile h-100">
             <div class="image d-flex flex-column justify-content-center align-items-center mt-5">
@@ -23,13 +24,12 @@
                 <button class="btn btn-primary rounded-pill px-3 ml-2 d-none" id="cancel" onclick="cancelEdit()">
                     Cancel</button>
             </div>
-            <div class="text-white" id="name-error"></div> <!-- UNDEFINED appears when username is changed with success -->
+            <div class="text-white" id="name-error"></div>
             <div class="text m-3">
                 <span>
                     @user.getUsername started the practice on
                 </span>
             </div>
-                <!--            <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter">hi</i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div>-->
             <div class="mb-5 px-2 py-1 rounded date">
                 <span class="join">@user.getTimestamp</span>
             </div>

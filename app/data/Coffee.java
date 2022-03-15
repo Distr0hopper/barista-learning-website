@@ -68,7 +68,6 @@ public class Coffee {
             return description;
         }
 
-
         public float getPrice() {
             return price;
         }
