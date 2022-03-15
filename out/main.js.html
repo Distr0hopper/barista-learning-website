@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var gameModal = $('#ModalLearnCoffees')
+
+/**loadModalMain gets the currentUser from the sessionStorage and checks wheather his points are still 0
+ * if so the modal is displayed, else not*/
+async function loadModalMain() {
+    var currentUserString = sessionStorage.getItem("currentUser");
+    let currentUser = JSON.parse(currentUserString);
+
+    if (currentUser.points === 0){
+        gameModal.modal('show');
+    }
+}
+window.addEventListener('load', loadModalMain)
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CoffeesForGame.html">CoffeesForGame</a></li><li><a href="CoffeeToBePayed.html">CoffeeToBePayed</a></li><li><a href="Customers.html">Customers</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addCoffeeToPay">addCoffeeToPay</a></li><li><a href="global.html#addingBonusPoints">addingBonusPoints</a></li><li><a href="global.html#alreadyInside">alreadyInside</a></li><li><a href="global.html#bonusMoney">bonusMoney</a></li><li><a href="global.html#calculateMoney">calculateMoney</a></li><li><a href="global.html#cancelEdit">cancelEdit</a></li><li><a href="global.html#checkCorrectDrinks">checkCorrectDrinks</a></li><li><a href="global.html#checkCreateAccount">checkCreateAccount</a></li><li><a href="global.html#checkEmail">checkEmail</a></li><li><a href="global.html#checkIngredientArray">checkIngredientArray</a></li><li><a href="global.html#checkLogin">checkLogin</a></li><li><a href="global.html#checkMoneyForRanking">checkMoneyForRanking</a></li><li><a href="global.html#checkPasswords">checkPasswords</a></li><li><a href="global.html#checkPasswordStrength">checkPasswordStrength</a></li><li><a href="global.html#checkUsername">checkUsername</a></li><li><a href="global.html#checkWrongDrinks">checkWrongDrinks</a></li><li><a href="global.html#chooseAvatar">chooseAvatar</a></li><li><a href="global.html#clearSessionStorage">clearSessionStorage</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#countHelps">countHelps</a></li><li><a href="global.html#countHelpsAndReturnDeduction">countHelpsAndReturnDeduction</a></li><li><a href="global.html#createBoard">createBoard</a></li><li><a href="global.html#createDictEntry">createDictEntry</a></li><li><a href="global.html#createDictionary">createDictionary</a></li><li><a href="global.html#createFriends">createFriends</a></li><li><a href="global.html#createFriendship">createFriendship</a></li><li><a href="global.html#createMessage">createMessage</a></li><li><a href="global.html#deleteFriendship">deleteFriendship</a></li><li><a href="global.html#dragMoveListener">dragMoveListener</a></li><li><a href="global.html#editUsername">editUsername</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#flipcard">flipcard</a></li><li><a href="global.html#getCoffees">getCoffees</a></li><li><a href="global.html#getIngredientArray">getIngredientArray</a></li><li><a href="global.html#getMessages">getMessages</a></li><li><a href="global.html#getNextDrink">getNextDrink</a></li><li><a href="global.html#getRandomNumber">getRandomNumber</a></li><li><a href="global.html#getRandomSixCustomers">getRandomSixCustomers</a></li><li><a href="global.html#getTitle">getTitle</a></li><li><a href="global.html#loadGameOne">loadGameOne</a></li><li><a href="global.html#loadMemoryData">loadMemoryData</a></li><li><a href="global.html#loadModal">loadModal</a></li><li><a href="global.html#loadModalMain">loadModalMain</a></li><li><a href="global.html#loadModalMemory">loadModalMemory</a></li><li><a href="global.html#numberFormatter">numberFormatter</a></li><li><a href="global.html#numFormatInput">numFormatInput</a></li><li><a href="global.html#openMessages">openMessages</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openNextModal">openNextModal</a></li><li><a href="global.html#openUnfriendModal">openUnfriendModal</a></li><li><a href="global.html#randomCoffeeNumberOf5">randomCoffeeNumberOf5</a></li><li><a href="global.html#removeCoffeeForPay">removeCoffeeForPay</a></li><li><a href="global.html#resetCalculationsForNextCostumer">resetCalculationsForNextCostumer</a></li><li><a href="global.html#resultDisplayLevel3">resultDisplayLevel3</a></li><li><a href="global.html#saveUsername">saveUsername</a></li><li><a href="global.html#search">search</a></li><li><a href="global.html#sendMessage">sendMessage</a></li><li><a href="global.html#showBoardBeforeGameStart">showBoardBeforeGameStart</a></li><li><a href="global.html#sixCustomers">sixCustomers</a></li><li><a href="global.html#snapIngredientsBack">snapIngredientsBack</a></li><li><a href="global.html#splitCoffeesAndCostumers">splitCoffeesAndCostumers</a></li><li><a href="global.html#submitGame">submitGame</a></li><li><a href="global.html#submitTotalPrice">submitTotalPrice</a></li><li><a href="global.html#tipReceiver">tipReceiver</a></li><li><a href="global.html#total">total</a></li><li><a href="global.html#updateMessage">updateMessage</a></li><li><a href="global.html#updateMoneyCounter">updateMoneyCounter</a></li><li><a href="global.html#updateSessionStorage">updateSessionStorage</a></li><li><a href="global.html#validateForm">validateForm</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Mar 15 2022 17:20:55 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
