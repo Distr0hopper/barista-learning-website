@@ -14,3 +14,7 @@ sbt run
 ```
 4. The application is available on `localhost:9000`.
 5. Open a browser (preferable **Google Chrome**) and access `localhost:9000`.
+    1. For a new User with 0 points you can just use the register page to create one
+    2. In case you want a user that has access to all game levels is the evaluationUsers login data:
+        1. user: evaluationUser
+        2. password: TheBaristaGameIsGreat1603$
