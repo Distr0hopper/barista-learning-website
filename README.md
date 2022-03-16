@@ -1,51 +1,16 @@
-# play-java-starter-example
+# Play Server
 
-This is a starter application that shows how Play works.  Please see the documentation at https://www.playframework.com/documentation/latest/Home for more details.
+## Installation
 
-## Running
+Prerequisites: `Git`, `Amazon Coretto JDK 11`, `IntelliJ IDEA` with `Scala plug-in`, `sbt`
 
-Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from http://www.playframework.com/download then you'll find a prepackaged version of sbt in the project directory:
+The project can be open only through the **University VPN**. Make sure to connect before running the application.
 
+1. Clone the _play-server_ project from [GitLab](https://gitlab2.informatik.uni-wuerzburg.de/hci/teaching_/sopra/student-material/ws21/02-group/play-server) using SSH `git@gitlab2.informatik.uni-wuerzburg.de:hci/teaching/sopra/student-material/ws21/02-group/play-server.git`.
+2. Start IntelliJ IDEA and import the project. Make sure to import it as a sbt project and select SDK `corento-11` in Project Structure.
+3. Open the **sbt shell** and write `run` or the terminal and write `sbt run` for starting the project.
 ```
 sbt run
 ```
-
-And then go to http://localhost:9000 to see the running web application.
-
-## Controllers
-
-There are several demonstration files available in this template.
-
-- `HomeController.java`:
-
-  Shows how to handle simple HTTP requests.
-
-- `AsyncController.java`:
-
-  Shows how to do asynchronous programming when handling a request.
-
-- `CountController.java`:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
-
-## Components
-
-- `Module.java`:
-
-  Shows how to use Guice to bind all the components needed by your application.
-
-- `Counter.java`:
-
-  An example of a component that contains state, in this case a simple counter.
-
-- `ApplicationTimer.java`:
-
-  An example of a component that starts when the application starts and stops
-  when the application stops.
-
-## Filters
-
-- `ExampleFilter.java`:
-
-  A simple filter that adds a header to every response.
+4. The application is available on `localhost:9000`.
+5. Open a browser (preferable **Google Chrome**) and access `localhost:9000`.
