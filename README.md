@@ -18,3 +18,6 @@ sbt run
     2. In case you want a user that has access to all game levels is the evaluationUsers login data:
         1. user: evaluationUser
         2. password: TheBaristaGameIsGreat1603$
+6. Be sure to read the User Manual before you play
+    1. It is important to always play the levels in the correct order, so the coffees can be fetched matching eachother
+        (order: 1. Coffee Mixing, 2. Memory, 3. Calculation per Level)
