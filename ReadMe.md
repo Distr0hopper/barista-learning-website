@@ -1,7 +1,7 @@
 # Project
 - Development-Team: Lisa Rieder, Cristina Titrat, Julius Arzberger, Ronja Fricke, Katrin Stötter
 - Entstanden im Zuge des Moduls:  
-  Interaktive Computergraphik Übung [122123, 10-MCS-ICGT-152-m01] der Julius-Maximilians-Universität Würzburg. Bachelor Studiengang Mensch-Computer Systeme.
+  Softwarepraktikum Schnittstellenentwurf [122117, 10-MCS-SPSE-152-m01] der Julius-Maximilians-Universität Würzburg. Bachelor Studiengang Mensch-Computer Systeme.
 
 Video: https://youtu.be/ILSIfWrq8zk
 
