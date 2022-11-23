@@ -55,12 +55,16 @@ async function submitTotalPrice() {
 
     let submitTotalInputText = document.getElementById('submitPriceInput');
     totalInput = numFormatInput(submitTotalInputText.value);
+    //payers werden hochgezählt
     if (payer < 1) {
+        //wenn numberOfWrongInputs = 0 ist
         if (numberOfWrongInputPrices <= 0) {
+            //berechnet alle zu bezahlenden Coffees zusammen
             for (let i = 0; i <= randomCoffeeNumberOf5; i++) {
                 total += coffeestored[i].price
             }
             total.toFixed(2);
+            //customerNumber wird berechnet um zu wissen
             costumerNumber += randomCoffeeNumberOf5;
 
 
@@ -82,7 +86,8 @@ async function submitTotalPrice() {
         submitModal.modal('show');
     }
 
-
+//numberFormatter setzt alles in euro
+    //wenn preis korrect calculated und weniger oder gleich 3 tries
     if (totalInput.toString() === numberFormatter(total).toString()) {
 
         if (numberOfWrongInputPrices <= 3) {
@@ -92,9 +97,10 @@ async function submitTotalPrice() {
             document.getElementById('btnsubmit').style.display = "block";
             document.getElementById('tileHeaderAfterSubmit').innerHTML = "Yeahy you calculated correctly!!";
             document.getElementById('AfterSubmitCardBody').innerHTML = " I would love to give you a Tip: " + tip.toString() + "%";
-
+            // tip feld wird visible
             document.getElementById('tipInput').style.display = "block";
             document.getElementById('submitTip').style.display = "block";
+            //kann calculateInput nichtmehr verändern
             submitTotalInputText.readOnly = true;
             payer += 1;
             costumerNumberAlreadyPayed += costumerNumber + 1;
@@ -102,6 +108,7 @@ async function submitTotalPrice() {
             resultDisplayLevel3.textContent = pointsAdded.toString();
         }
     } else {
+        //werden benötigt für die tip calculation
         numberOfWrongInputPrices++;
         if (numberOfWrongInputPrices >= 3) {
             splitCoffeesAndCostumers();
@@ -211,10 +218,10 @@ function submitTip() {
     totalWithTip = numberFormatter(totalWithTip);
 
     if (tipInputFormattet.toString() === totalWithTip.toString()) {
-
+        //fetched von session die länge und spliced den aktuellen coffee und customer aus liste
         splitCoffeesAndCostumers();
 
-
+        //wenn array leer ist, dann is man nicht fertig?
         if (customersLevel3.length >= 1) {
             document.getElementById('btnsubmit').style.display = "none"
             $('#message-error').text("Total wit tip: " + tip);
@@ -226,6 +233,7 @@ function submitTip() {
 
 
         } else {
+            //wenn ganz fertig ist
             document.getElementById('tileHeaderAfterSubmit').innerHTML = "Yeahy you calculated correctly!!";
             document.getElementById('AfterSubmitCardBody').innerHTML = "Thank you very much for you service see you next Time:) ";
             document.getElementById('redoGame').style.display = "block"
@@ -252,6 +260,7 @@ function submitTip() {
         numberOfWrongTipInputs++;
 
     } else {
+        //wenn nich richtig hatte bei letzten try dann müssen punkte trotzdem gesetzt werden in navbar
         splitCoffeesAndCostumers();
         if (customersLevel3.length >= 1) {
             document.getElementById('btnsubmit').style.display = "none"
@@ -288,6 +297,7 @@ function submitTip() {
  */
 function splitCoffeesAndCostumers() {
     if (coffeesForLevel3.length >= 2) {
+        //+1 ist immer weil erste person der payer ist und die restlichen 5 unten random sein sollen
         coffeesForLevel3.splice(0, costumerNumber + 1);
         customersLevel3.splice(0, costumerNumber + 1);
         customersLevel3Img.splice(0, costumerNumber + 1);
@@ -367,6 +377,7 @@ function resetCalculationsForNextCostumer() {
 
     total = null;
     totalInput = null;
+    //wichtig für tip
     numberOfWrongInputPricesTotal += numberOfWrongInputPrices;
     numberOfWrongInputPrices = null;
     numberOfWrongTipInputs = 0;
@@ -379,6 +390,7 @@ function resetCalculationsForNextCostumer() {
  * storage.
  * @returns {Promise<void>}
  */
+//dropdown für wenn liste hinzugefügt wird
 async function addCoffeeToPay() {
 
     coffeesForLevel3.forEach((coffee, j) => {
@@ -414,12 +426,17 @@ async function addCoffeeToPay() {
     }
 }
 /**
- * removes the coffees in the table  just added on click.
+ * removes all the coffees in the table just added on click.
  */
 function removeCoffeeForPay() {
     $("#invoice-table").find("tr:gt(0)").remove();
 }
 
+/**
+ * shows modal
+ * hides tipInput, submitTip and btnNextCostumer
+ * @returns {Promise<void>}
+ */
 async function loadModal() {
     var gameModal = $('#gameModal2')
     gameModal.modal('show');

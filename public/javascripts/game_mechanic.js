@@ -226,6 +226,7 @@ function finishGame() {
 
 /**
  * Checks how often you clicked the help button. Depending on that you receive less coffee beans.
+ * since countHelps is false at beginning it counts the amount of clicks, when true stops
  * @returns {number} Returns the deduction you receive by getting help
  */
 function countHelpsAndReturnDeduction() {
