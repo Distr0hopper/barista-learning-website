@@ -2,26 +2,28 @@
 - Development-Team: Lisa Rieder, Cristina Titrat, Julius Arzberger, Ronja Fricke, Katrin Stötter
 - Created in the course of the module:  
   Softwarepraktikum Schnittstellenentwurf [122117, 10-MCS-SPSE-152-m01] of the Julius-Maximilians-Universität Würzburg. Bachelor degree programme Human-Computer Systems.
+- Website to learn how to make different types of coffee through gamification. Learn how to make coffee on 3 levels, including a drag-and-drop game of ingredients to mix a coffee, a memory game to mentally practise which customer ordered what, and a game to train mental arithmetic.
+- The logged-in players can be visited via an authering tool that visualises the SQL database in the background.
   
 **Unfortunately, the website cannot be tested live as the server has been taken offline by the University of Würzburg. A video demonstrating the main features can be found on** [Youtube](https://youtu.be/P_uBGOB-F3g).
 
 ## Some Screenshots of the website
-![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/b99b6426-2fd7-4955-ba0b-11ab30367be2)
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/2286b2df-5a02-4003-9665-78a6da61cded)
 
-![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/c60255b3-5ef0-48a2-9abf-96b6bac5d216)
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/d8224497-665f-492b-bfd4-3ba4498881d0)
 
-![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/1a3f3379-1332-4bba-9491-32f4951f305f)
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/1c04eebc-e11c-4102-9252-2d57877549af)
 
-![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/4f9f9316-f43e-4aa9-892c-9bff7460f425)
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/c23f4846-c9ce-4384-aa9c-7091ca226aea)
 
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/f9e00556-c731-46b1-9d6e-f5c8b59aa9c7)
 
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/09294cee-2219-4755-9ee0-0b11c2386a6c)
 
 
 # Play Server
 ## Installation - Deprecated 
 Prerequisites: Git, Amazon Coretto JDK 11, IntelliJ IDEA with Scala plug-in, sbt
-
-
 
 The project can be open only through the University VPN. Make sure to connect before running the application.
 
