@@ -1,14 +1,27 @@
 # Project
 - Development-Team: Lisa Rieder, Cristina Titrat, Julius Arzberger, Ronja Fricke, Katrin Stötter
-- Entstanden im Zuge des Moduls:  
-  Softwarepraktikum Schnittstellenentwurf [122117, 10-MCS-SPSE-152-m01] der Julius-Maximilians-Universität Würzburg. Bachelor Studiengang Mensch-Computer Systeme.
+- Created in the course of the module:  
+  Softwarepraktikum Schnittstellenentwurf [122117, 10-MCS-SPSE-152-m01] of the Julius-Maximilians-Universität Würzburg. Bachelor degree programme Human-Computer Systems.
+  
+**Unfortunately, the website cannot be tested live as the server has been taken offline by the University of Würzburg. A video demonstrating the main features can be found on** [Youtube](https://youtu.be/P_uBGOB-F3g).
 
-Video: https://youtu.be/ILSIfWrq8zk
+## Some Screenshots of the website
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/b99b6426-2fd7-4955-ba0b-11ab30367be2)
+
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/c60255b3-5ef0-48a2-9abf-96b6bac5d216)
+
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/1a3f3379-1332-4bba-9491-32f4951f305f)
+
+![image](https://github.com/Distr0hopper/barista-learning-website/assets/100717485/4f9f9316-f43e-4aa9-892c-9bff7460f425)
+
+
 
 
 # Play Server
-## Installation
+## Installation - Deprecated 
 Prerequisites: Git, Amazon Coretto JDK 11, IntelliJ IDEA with Scala plug-in, sbt
+
+
 
 The project can be open only through the University VPN. Make sure to connect before running the application.
 
